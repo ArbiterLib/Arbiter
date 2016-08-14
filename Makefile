@@ -14,6 +14,8 @@ LIBTOOL=libtool
 
 all: $(LIBRARY)
 
+.PHONY: check
+
 check: $(TEST_RUNNER)
 	$(TEST_RUNNER)
 

@@ -5,6 +5,7 @@
 #error "This file must be compiled as C++."
 #endif
 
+#include <cassert>
 #include <type_traits>
 
 namespace Arbiter {
@@ -85,11 +86,13 @@ struct Optional final
 
     T &value () noexcept
     {
+      assert(_hasValue);
       return *reinterpret_cast<T *>(&_storage);
     }
 
     const T &value () const noexcept
     {
+      assert(_hasValue);
       return *reinterpret_cast<const T *>(&_storage);
     }
 

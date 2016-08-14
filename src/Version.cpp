@@ -2,6 +2,7 @@
 
 #include <ostream>
 #include <sstream>
+#include <iostream>
 
 using namespace Arbiter;
 
@@ -33,6 +34,8 @@ Arbiter::Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (co
           return Arbiter::Optional<ArbiterSemanticVersion>();
         }
 
+        // TODO: Verify format of `prerelease`
+
         prereleaseVersion = Arbiter::Optional<std::string>(std::move(prerelease));
         if (!stream.eof()) {
           ch = '+';
@@ -46,8 +49,10 @@ Arbiter::Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (co
           return Arbiter::Optional<ArbiterSemanticVersion>();
         }
 
+        // TODO: Verify format of `metadata`
+
         buildMetadata = Arbiter::Optional<std::string>(std::move(metadata));
-      } else {
+      } else if (stream.good()) {
         // Unrecognized part of the string
         return Arbiter::Optional<ArbiterSemanticVersion>();
       }
