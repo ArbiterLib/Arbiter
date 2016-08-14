@@ -6,7 +6,7 @@
 
 using namespace Arbiter;
 
-Arbiter::Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::string &versionString)
+Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::string &versionString)
 {
   unsigned major = 0;
   unsigned minor = 0;
@@ -15,11 +15,11 @@ Arbiter::Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (co
 
   int argsRead = sscanf(versionString.c_str(), "%u.%u.%u%zn", &major, &minor, &patch, &skip);
   if (argsRead < 3) {
-    return Arbiter::Optional<ArbiterSemanticVersion>();
+    return Optional<ArbiterSemanticVersion>();
   }
 
-  Arbiter::Optional<std::string> prereleaseVersion;
-  Arbiter::Optional<std::string> buildMetadata;
+  Optional<std::string> prereleaseVersion;
+  Optional<std::string> buildMetadata;
 
   if (skip < versionString.length()) {
     std::istringstream stream(versionString.substr(skip));
@@ -31,12 +31,12 @@ Arbiter::Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (co
         std::string prerelease;
         std::getline(stream, prerelease, '+');
         if (stream.fail()) {
-          return Arbiter::Optional<ArbiterSemanticVersion>();
+          return Optional<ArbiterSemanticVersion>();
         }
 
         // TODO: Verify format of `prerelease`
 
-        prereleaseVersion = Arbiter::Optional<std::string>(std::move(prerelease));
+        prereleaseVersion = Optional<std::string>(std::move(prerelease));
         if (!stream.eof()) {
           ch = '+';
         }
@@ -46,15 +46,15 @@ Arbiter::Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (co
         std::string metadata;
         stream >> metadata;
         if (stream.fail()) {
-          return Arbiter::Optional<ArbiterSemanticVersion>();
+          return Optional<ArbiterSemanticVersion>();
         }
 
         // TODO: Verify format of `metadata`
 
-        buildMetadata = Arbiter::Optional<std::string>(std::move(metadata));
+        buildMetadata = Optional<std::string>(std::move(metadata));
       } else if (stream.good()) {
         // Unrecognized part of the string
-        return Arbiter::Optional<ArbiterSemanticVersion>();
+        return Optional<ArbiterSemanticVersion>();
       }
     }
   }
