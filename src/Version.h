@@ -7,6 +7,9 @@ extern "C" {
 
 typedef struct ArbiterSemanticVersion ArbiterSemanticVersion;
 
+ArbiterSemanticVersion *ArbiterCreateSemanticVersion (unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata);
+ArbiterSemanticVersion *ArbiterCreateSemanticVersionFromString (const char *string);
+void ArbiterFreeSemanticVersion (ArbiterSemanticVersion *version);
 unsigned ArbiterGetMajorVersion (const ArbiterSemanticVersion *version);
 unsigned ArbiterGetMinorVersion (const ArbiterSemanticVersion *version);
 unsigned ArbiterGetPatchVersion (const ArbiterSemanticVersion *version);

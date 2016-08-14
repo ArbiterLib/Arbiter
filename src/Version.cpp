@@ -110,6 +110,32 @@ std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &versio
   return os;
 }
 
+ArbiterSemanticVersion *ArbiterCreateSemanticVersion (unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata)
+{
+  return new ArbiterSemanticVersion(
+    major,
+    minor,
+    patch,
+    (prereleaseVersion ? Optional<std::string>(prereleaseVersion) : Optional<std::string>()),
+    (buildMetadata ? Optional<std::string>(buildMetadata) : Optional<std::string>())
+  );
+}
+
+ArbiterSemanticVersion *ArbiterCreateSemanticVersionFromString (const char *string)
+{
+  auto version = ArbiterSemanticVersion::fromString(string);
+  if (version) {
+    return new ArbiterSemanticVersion(std::move(version.value()));
+  } else {
+    return nullptr;
+  }
+}
+
+void ArbiterFreeSemanticVersion (ArbiterSemanticVersion *version)
+{
+  delete version;
+}
+
 unsigned ArbiterGetMajorVersion (const ArbiterSemanticVersion *version)
 {
   return version->_major;
