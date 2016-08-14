@@ -95,7 +95,8 @@ bool ArbiterSemanticVersion::operator< (const ArbiterSemanticVersion &other) con
   return false;
 }
 
-std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version) {
+std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version)
+{
   os << version._major << '.' << version._minor << '.' << version._patch;
 
   if (version._prereleaseVersion) {
@@ -109,19 +110,23 @@ std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &versio
   return os;
 }
 
-unsigned ArbiterGetMajorVersion (const ArbiterSemanticVersion *version) {
+unsigned ArbiterGetMajorVersion (const ArbiterSemanticVersion *version)
+{
   return version->_major;
 }
 
-unsigned ArbiterGetMinorVersion (const ArbiterSemanticVersion *version) {
+unsigned ArbiterGetMinorVersion (const ArbiterSemanticVersion *version)
+{
   return version->_minor;
 }
 
-unsigned ArbiterGetPatchVersion (const ArbiterSemanticVersion *version) {
+unsigned ArbiterGetPatchVersion (const ArbiterSemanticVersion *version)
+{
   return version->_patch;
 }
 
-const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version) {
+const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version)
+{
   if (version->_prereleaseVersion) {
     return version->_prereleaseVersion->c_str();
   } else {
@@ -129,10 +134,22 @@ const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version) 
   }
 }
 
-const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version) {
+const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version)
+{
   if (version->_buildMetadata) {
     return version->_buildMetadata->c_str();
   } else {
     return nullptr;
+  }
+}
+
+int ArbiterCompareVersions (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs)
+{
+  if (*lhs < *rhs) {
+    return -1;
+  } else if (*lhs > *rhs) {
+    return 1;
+  } else {
+    return 0;
   }
 }

@@ -42,9 +42,19 @@ struct ArbiterSemanticVersion
 
   bool operator< (const ArbiterSemanticVersion &other) const noexcept;
 
+  bool operator> (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return other < *this;
+  }
+
   bool operator>= (const ArbiterSemanticVersion &other) const noexcept
   {
     return !(*this < other);
+  }
+
+  bool operator<= (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return other >= *this;
   }
 };
 

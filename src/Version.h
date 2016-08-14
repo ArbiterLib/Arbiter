@@ -12,6 +12,7 @@ unsigned ArbiterGetMinorVersion (const ArbiterSemanticVersion *version);
 unsigned ArbiterGetPatchVersion (const ArbiterSemanticVersion *version);
 const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version);
 const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version);
+int ArbiterCompareVersions (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs);
 
 #ifdef __cplusplus
 }
