@@ -1,4 +1,4 @@
-#include "arbiter.h"
+#include "Arbiter.h"
 
 #include <iostream>
 
