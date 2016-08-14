@@ -2,9 +2,11 @@ SOURCES=src/Arbiter.cpp src/Version.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 LIBRARY=libArbiter.a
 
-TEST_SOURCES=test/Test.cpp
+GTEST_DIR=external/googletest/googletest
+
+TEST_SOURCES=test/VersionTest.cpp $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
 TEST_RUNNER=test/main
-TEST_INCLUDES=src/
+TEST_INCLUDES=-isystem $(GTEST_DIR)/include -Isrc/ -I$(GTEST_DIR)
 
 CXX=clang++
 CXXFLAGS=-std=c++14 -pedantic
@@ -23,7 +25,7 @@ $(LIBRARY): $(OBJECTS)
 	$(LIBTOOL) $(OBJECTS) -o $@
 
 $(TEST_RUNNER): $(TEST_SOURCES) $(LIBRARY)
-	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIBRARY) -I$(TEST_INCLUDES) -o $@
+	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIBRARY) -pthread $(TEST_INCLUDES) -o $@
 
 .cpp.o:
 	$(CXX) $(CXXFLAGS) -c $< -o $@
