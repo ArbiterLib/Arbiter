@@ -169,6 +169,11 @@ const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version)
   }
 }
 
+bool ArbiterEqualVersions (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs)
+{
+  return *lhs == *rhs;
+}
+
 int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs)
 {
   if (*lhs < *rhs) {

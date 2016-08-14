@@ -1,6 +1,8 @@
 #ifndef ARBITER_VERSION_H
 #define ARBITER_VERSION_H
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -62,6 +64,12 @@ const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version);
  * be `20160814`.
  */
 const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version);
+
+/**
+ * Checks whether two versions are equal in every component, including those
+ * which may not participate in ordering (e.g., build metadata).
+ */
+bool ArbiterEqualVersions (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs);
 
 /**
  * Orders two semantic versions relative to each other.
