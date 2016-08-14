@@ -1,4 +1,4 @@
-SOURCES=src/Arbiter.cpp src/Version.cpp
+SOURCES=src/Arbiter.cpp src/Requirement.cpp src/Version.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 LIBRARY=libArbiter.a
 
