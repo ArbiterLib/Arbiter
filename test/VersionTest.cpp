@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 
+#include <sstream>
 #include <utility>
 
 using namespace Arbiter;
@@ -56,11 +57,8 @@ TEST(VersionTest, ComparesForEquality) {
   EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.2"), Optional<std::string>("dailybuild")));
 }
 
-TEST(VersionTest, OrdersByPrecedence) {
-  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 2, 4));
-  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 3, 0));
-  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(2, 0, 0));
-  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")), ArbiterSemanticVersion(1, 2, 3));
-  EXPECT_GE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.2")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")));
-  EXPECT_GE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>(), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3));
+TEST(VersionTest, ConvertsToString) {
+  std::stringstream stream;
+  stream << ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild"));
+  EXPECT_EQ(stream.str(), "1.2.3-alpha.1+dailybuild");
 }
