@@ -1,72 +1,94 @@
-#include "Version.h"
-#include "internal/Optional.h"
+#include "Version-inl.h"
 
 #include <ostream>
-#include <string>
+#include <sstream>
 
 using namespace Arbiter;
 
-struct ArbiterSemanticVersion
+Arbiter::Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::string &versionString)
 {
-  unsigned _major;
-  unsigned _minor;
-  unsigned _patch;
+  unsigned major = 0;
+  unsigned minor = 0;
+  unsigned patch = 0;
+  size_t skip = 0;
 
-  Optional<std::string> _prereleaseVersion;
-  Optional<std::string> _buildMetadata;
-
-  ArbiterSemanticVersion (unsigned major, unsigned minor, unsigned patch, const std::string *prereleaseVersion = nullptr, const std::string *buildMetadata = nullptr)
-    : _major(major)
-    , _minor(minor)
-    , _patch(patch)
-  {
-    if (prereleaseVersion) {
-      _prereleaseVersion = Optional<std::string>(*prereleaseVersion);
-    }
-
-    if (buildMetadata) {
-      _buildMetadata = Optional<std::string>(*buildMetadata);
-    }
+  int argsRead = sscanf(versionString.c_str(), "%u.%u.%u%zn", &major, &minor, &patch, &skip);
+  if (argsRead < 3) {
+    return Arbiter::Optional<ArbiterSemanticVersion>();
   }
 
-  bool operator== (const ArbiterSemanticVersion &other) const noexcept
-  {
-    return _major == other._major && _minor == other._minor && _patch == other._patch && _prereleaseVersion == other._prereleaseVersion && _buildMetadata == other._buildMetadata;
-  }
+  Arbiter::Optional<std::string> prereleaseVersion;
+  Arbiter::Optional<std::string> buildMetadata;
 
-  bool operator< (const ArbiterSemanticVersion &other) const noexcept
-  {
-    if (_major < other._major) {
-      return true;
-    } else if (_major > other._major) {
-      return false;
-    }
+  if (skip < versionString.length()) {
+    std::istringstream stream(versionString.substr(skip));
 
-    if (_minor < other._minor) {
-      return true;
-    } else if (_minor > other._minor) {
-      return false;
-    }
+    char ch;
+    stream >> ch;
+    if (stream.good()) {
+      if (ch == '-') {
+        std::string prerelease;
+        std::getline(stream, prerelease, '+');
+        if (stream.fail()) {
+          return Arbiter::Optional<ArbiterSemanticVersion>();
+        }
 
-    if (_patch < other._patch) {
-      return true;
-    } else if (_patch > other._patch) {
-      return false;
-    }
-
-    if (_prereleaseVersion) {
-      if (!other._prereleaseVersion) {
-        return true;
+        prereleaseVersion = Arbiter::Optional<std::string>(std::move(prerelease));
+        if (!stream.eof()) {
+          ch = '+';
+        }
       }
 
-      // FIXME: This should compare numbers naturally, not lexically
-      return _prereleaseVersion.value() < other._prereleaseVersion.value();
-    }
+      if (ch == '+') {
+        std::string metadata;
+        stream >> metadata;
+        if (stream.fail()) {
+          return Arbiter::Optional<ArbiterSemanticVersion>();
+        }
 
-    // Build metadata does not participate in precedence.
+        buildMetadata = Arbiter::Optional<std::string>(std::move(metadata));
+      } else {
+        // Unrecognized part of the string
+        return Arbiter::Optional<ArbiterSemanticVersion>();
+      }
+    }
+  }
+
+  return ArbiterSemanticVersion(major, minor, patch, prereleaseVersion, buildMetadata);
+}
+
+bool ArbiterSemanticVersion::operator< (const ArbiterSemanticVersion &other) const noexcept
+{
+  if (_major < other._major) {
+    return true;
+  } else if (_major > other._major) {
     return false;
   }
-};
+
+  if (_minor < other._minor) {
+    return true;
+  } else if (_minor > other._minor) {
+    return false;
+  }
+
+  if (_patch < other._patch) {
+    return true;
+  } else if (_patch > other._patch) {
+    return false;
+  }
+
+  if (_prereleaseVersion) {
+    if (!other._prereleaseVersion) {
+      return true;
+    }
+
+    // FIXME: This should compare numbers naturally, not lexically
+    return _prereleaseVersion.value() < other._prereleaseVersion.value();
+  }
+
+  // Build metadata does not participate in precedence.
+  return false;
+}
 
 std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version) {
   os << version._major << '.' << version._minor << '.' << version._patch;
