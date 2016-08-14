@@ -1,6 +1,8 @@
+#include "Version-inl.h"
+
 #include "gtest/gtest.h"
 
-#include "Version-inl.h"
+#include <utility>
 
 using namespace Arbiter;
 
@@ -40,4 +42,25 @@ TEST(VersionTest, FailsToParseMalformedVersions) {
   EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.0-alpha.01").pointer(), nullptr);
   EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.0-alpha$1").pointer(), nullptr);
   EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.0+build$1").pointer(), nullptr);
+}
+
+TEST(VersionTest, ComparesForEquality) {
+  EXPECT_EQ(ArbiterSemanticVersion(0, 0, 0), ArbiterSemanticVersion(0, 0, 0));
+  EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 2, 3));
+  EXPECT_NE(ArbiterSemanticVersion(2, 3, 4), ArbiterSemanticVersion(1, 2, 3));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>()));
+  EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")));
+  EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>(), Optional<std::string>("dailybuild")));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>()));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.2"), Optional<std::string>("dailybuild")));
+}
+
+TEST(VersionTest, OrdersByPrecedence) {
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 2, 4));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 3, 0));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(2, 0, 0));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")), ArbiterSemanticVersion(1, 2, 3));
+  EXPECT_GE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.2")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")));
+  EXPECT_GE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>(), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3));
 }

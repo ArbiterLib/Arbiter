@@ -35,7 +35,17 @@ struct ArbiterSemanticVersion
     return _major == other._major && _minor == other._minor && _patch == other._patch && _prereleaseVersion == other._prereleaseVersion && _buildMetadata == other._buildMetadata;
   }
 
+  bool operator!= (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return !(*this == other);
+  }
+
   bool operator< (const ArbiterSemanticVersion &other) const noexcept;
+
+  bool operator>= (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return !(*this < other);
+  }
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version);
