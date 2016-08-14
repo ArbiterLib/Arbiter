@@ -1,4 +1,4 @@
-SOURCES=src/Arbiter.cpp
+SOURCES=src/Arbiter.cpp src/Version.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 LIBRARY=libArbiter.a
 
@@ -6,6 +6,8 @@ TEST_SOURCES=test/Test.cpp
 TEST_RUNNER=test/main
 TEST_INCLUDES=src/
 
+CXX=clang++
+CXXFLAGS=-std=c++14 -pedantic
 LIBTOOL=libtool
 
 all: $(LIBRARY)
