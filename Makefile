@@ -9,7 +9,7 @@ TEST_RUNNER=test/main
 TEST_INCLUDES=-isystem $(GTEST_DIR)/include -Isrc/ -I$(GTEST_DIR)
 
 CXX=clang++
-CXXFLAGS=-std=c++14 -pedantic
+CXXFLAGS=-std=c++14 -pedantic -Wall -Wextra
 LIBTOOL=libtool
 
 all: $(LIBRARY)
