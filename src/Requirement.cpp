@@ -1,5 +1,40 @@
 #include "Requirement-inl.h"
 
+ArbiterRequirement *ArbiterCreateRequirementAny (void)
+{
+  return new Arbiter::Requirement::Any;
+}
+
+ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersion *version)
+{
+  return new Arbiter::Requirement::AtLeast(*version);
+}
+
+ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanticVersion *version, ArbiterRequirementStrictness strictness)
+{
+  return new Arbiter::Requirement::CompatibleWith(*version, strictness);
+}
+
+ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersion *version)
+{
+  return new Arbiter::Requirement::Exactly(*version);
+}
+
+void ArbiterFreeRequirement (ArbiterRequirement *requirement)
+{
+  delete requirement;
+}
+
+bool ArbiterEqualRequirements (const ArbiterRequirement *lhs, const ArbiterRequirement *rhs)
+{
+  return *lhs == *rhs;
+}
+
+bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSemanticVersion *version)
+{
+  return requirement->satisfiedBy(*version);
+}
+
 namespace Arbiter {
 namespace Requirement {
 
@@ -28,14 +63,14 @@ bool CompatibleWith::satisfiedBy (const ArbiterSemanticVersion &version) const n
     // Patch versions also technically need to match exactly, but we permit
     // choosing looser behavior.
     switch (_strictness) {
-      case STRICT:
+      case ArbiterRequirementStrictnessStrict:
         if (version._patch != _baseVersion._patch) {
           return false;
         }
 
         break;
 
-      case ALLOW_VERSION_ZERO_PATCHES:
+      case ArbiterRequirementStrictnessAllowVersionZeroPatches:
         break;
     }
   }

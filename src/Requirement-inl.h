@@ -8,7 +8,7 @@
 #include "Requirement.h"
 #include "Version-inl.h"
 
-class ArbiterRequirement
+struct ArbiterRequirement
 {
   public:
     virtual ~ArbiterRequirement () = default;
@@ -61,28 +61,7 @@ class AtLeast : public ArbiterRequirement
 class CompatibleWith : public ArbiterRequirement
 {
   public:
-    /**
-     * How strict to be in matching compatible versions.
-     */
-    enum Strictness
-    {
-      /**
-       * Determine compatibility according to a strict interpretation of SemVer.
-       */
-      STRICT,
-
-      /**
-       * According to SemVer, technically all 0.y.z releases can break backwards
-       * compatibility, meaning that minor and patch versions have to match
-       * exactly in order to be "compatible."
-       *
-       * This looser variant permits newer patch versions, which is probably
-       * closer to what the user wants.
-       */
-      ALLOW_VERSION_ZERO_PATCHES
-    };
-  
-    explicit CompatibleWith (ArbiterSemanticVersion version, Strictness strictness)
+    explicit CompatibleWith (ArbiterSemanticVersion version, ArbiterRequirementStrictness strictness)
       : _baseVersion(version)
       , _strictness(strictness)
     {}
@@ -92,7 +71,7 @@ class CompatibleWith : public ArbiterRequirement
 
   private:
     ArbiterSemanticVersion _baseVersion;
-    Strictness _strictness;
+    ArbiterRequirementStrictness _strictness;
 };
 
 class Exactly : public ArbiterRequirement
