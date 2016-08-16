@@ -7,6 +7,8 @@
 extern "C" {
 #endif
 
+#include "Value.h"
+
 /**
  * Represents a semantic version, as defined by semver.org.
  */
