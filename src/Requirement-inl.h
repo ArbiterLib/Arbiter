@@ -8,6 +8,8 @@
 #include "Requirement.h"
 #include "Version-inl.h"
 
+#include <memory>
+
 struct ArbiterRequirement
 {
   public:
@@ -16,6 +18,8 @@ struct ArbiterRequirement
     virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
 
     virtual bool operator== (const ArbiterRequirement &other) const noexcept = 0;
+
+    virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
 
     bool operator!= (const ArbiterRequirement &other) const noexcept
     {
@@ -38,12 +42,17 @@ class Any : public ArbiterRequirement
     {
       return (bool)dynamic_cast<const Any *>(&other);
     }
+
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<Any>(*this);
+    }
 };
 
 class AtLeast : public ArbiterRequirement
 {
   public:
-    explicit AtLeast (ArbiterSemanticVersion version)
+    explicit AtLeast (ArbiterSemanticVersion version) noexcept
       : _minimumVersion(version)
     {}
 
@@ -54,6 +63,11 @@ class AtLeast : public ArbiterRequirement
 
     bool operator== (const ArbiterRequirement &other) const noexcept override;
 
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<AtLeast>(*this);
+    }
+
   private:
     ArbiterSemanticVersion _minimumVersion;
 };
@@ -61,13 +75,18 @@ class AtLeast : public ArbiterRequirement
 class CompatibleWith : public ArbiterRequirement
 {
   public:
-    explicit CompatibleWith (ArbiterSemanticVersion version, ArbiterRequirementStrictness strictness)
+    explicit CompatibleWith (ArbiterSemanticVersion version, ArbiterRequirementStrictness strictness) noexcept
       : _baseVersion(version)
       , _strictness(strictness)
     {}
 
     bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override;
     bool operator== (const ArbiterRequirement &other) const noexcept override;
+
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<CompatibleWith>(*this);
+    }
 
   private:
     ArbiterSemanticVersion _baseVersion;
@@ -77,7 +96,7 @@ class CompatibleWith : public ArbiterRequirement
 class Exactly : public ArbiterRequirement
 {
   public:
-    explicit Exactly (ArbiterSemanticVersion version)
+    explicit Exactly (ArbiterSemanticVersion version) noexcept
       : _version(version)
     {}
 
@@ -87,6 +106,11 @@ class Exactly : public ArbiterRequirement
     }
 
     bool operator== (const ArbiterRequirement &other) const noexcept override;
+
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<Exactly>(*this);
+    }
 
   private:
     ArbiterSemanticVersion _version;
