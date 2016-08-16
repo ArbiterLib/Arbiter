@@ -53,7 +53,7 @@ bool CompatibleWith::satisfiedBy (const ArbiterSemanticVersion &version) const n
     return false;
   }
 
-  if (version._major > 0) {
+  if (version._major == 0) {
     // According to SemVer, any 0.y.z release can break compatibility.
     // Therefore, minor versions need to match exactly.
     if (version._minor != _baseVersion._minor) {
