@@ -110,6 +110,11 @@ std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &versio
   return os;
 }
 
+std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &version)
+{
+  return os << version._semanticVersion << " (" << version._metadata << ")";
+}
+
 ArbiterSemanticVersion *ArbiterCreateSemanticVersion (unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata)
 {
   return new ArbiterSemanticVersion(
@@ -183,4 +188,29 @@ int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const Arbi
   } else {
     return 0;
   }
+}
+
+ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata)
+{
+  return new ArbiterSelectedVersion(*semanticVersion, SharedUserValue(metadata));
+}
+
+const ArbiterSemanticVersion *ArbiterSelectedVersionSemanticVersion (const ArbiterSelectedVersion *version)
+{
+  return &version->_semanticVersion;
+}
+
+const void *ArbiterSelectedVersionMetadata (const ArbiterSelectedVersion *version)
+{
+  return version->_metadata.data();
+}
+
+bool ArbiterEqualSelectedVersions (const ArbiterSelectedVersion *lhs, const ArbiterSelectedVersion *rhs)
+{
+  return *lhs == *rhs;
+}
+
+void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version)
+{
+  delete version;
 }

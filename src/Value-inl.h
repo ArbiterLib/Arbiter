@@ -7,6 +7,7 @@
 
 #include "Value.h"
 
+#include <cassert>
 #include <ostream>
 
 namespace Arbiter {

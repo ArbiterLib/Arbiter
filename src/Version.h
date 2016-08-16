@@ -80,6 +80,14 @@ bool ArbiterEqualVersions (const ArbiterSemanticVersion *lhs, const ArbiterSeman
  */
 int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs);
 
+typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
+
+ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata);
+const ArbiterSemanticVersion *ArbiterSelectedVersionSemanticVersion (const ArbiterSelectedVersion *version);
+const void *ArbiterSelectedVersionMetadata (const ArbiterSelectedVersion *version);
+bool ArbiterEqualSelectedVersions (const ArbiterSelectedVersion *lhs, const ArbiterSelectedVersion *rhs);
+void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version);
+
 #ifdef __cplusplus
 }
 #endif

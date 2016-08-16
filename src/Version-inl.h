@@ -5,6 +5,7 @@
 #error "This file must be compiled as C++."
 #endif
 
+#include "Value-inl.h"
 #include "Version.h"
 #include "internal/Optional.h"
 
@@ -59,5 +60,24 @@ struct ArbiterSemanticVersion
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version);
+
+struct ArbiterSelectedVersion
+{
+  public:
+    ArbiterSemanticVersion _semanticVersion;
+    Arbiter::SharedUserValue _metadata;
+
+    ArbiterSelectedVersion (ArbiterSemanticVersion semanticVersion, Arbiter::SharedUserValue metadata)
+      : _semanticVersion(std::move(semanticVersion))
+      , _metadata(std::move(metadata))
+    {}
+
+    bool operator== (const ArbiterSelectedVersion &other) const
+    {
+      return _semanticVersion == other._semanticVersion && _metadata == other._metadata;
+    }
+};
+
+std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &version);
 
 #endif
