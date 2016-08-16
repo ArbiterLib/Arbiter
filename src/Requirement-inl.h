@@ -9,6 +9,7 @@
 #include "Version-inl.h"
 
 #include <memory>
+#include <ostream>
 
 struct ArbiterRequirement
 {
@@ -21,11 +22,18 @@ struct ArbiterRequirement
 
     virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
 
+    virtual std::ostream &describe (std::ostream &os) const = 0;
+
     bool operator!= (const ArbiterRequirement &other) const noexcept
     {
       return !(*this == other);
     }
 };
+
+std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requirement)
+{
+  return requirement.describe(os);
+}
 
 namespace Arbiter {
 namespace Requirement {
@@ -47,6 +55,8 @@ class Any : public ArbiterRequirement
     {
       return std::make_unique<Any>(*this);
     }
+
+    std::ostream &describe (std::ostream &os) const override;
 };
 
 class AtLeast : public ArbiterRequirement
@@ -68,6 +78,8 @@ class AtLeast : public ArbiterRequirement
       return std::make_unique<AtLeast>(*this);
     }
 
+    std::ostream &describe (std::ostream &os) const override;
+
   private:
     ArbiterSemanticVersion _minimumVersion;
 };
@@ -87,6 +99,8 @@ class CompatibleWith : public ArbiterRequirement
     {
       return std::make_unique<CompatibleWith>(*this);
     }
+
+    std::ostream &describe (std::ostream &os) const override;
 
   private:
     ArbiterSemanticVersion _baseVersion;
@@ -111,6 +125,8 @@ class Exactly : public ArbiterRequirement
     {
       return std::make_unique<Exactly>(*this);
     }
+
+    std::ostream &describe (std::ostream &os) const override;
 
   private:
     ArbiterSemanticVersion _version;

@@ -38,6 +38,11 @@ bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const
 namespace Arbiter {
 namespace Requirement {
 
+std::ostream &Any::describe (std::ostream &os) const
+{
+  return os << "(any version)";
+}
+
 bool AtLeast::operator== (const ArbiterRequirement &other) const noexcept
 {
   if (auto *ptr = dynamic_cast<const AtLeast *>(&other)) {
@@ -45,6 +50,11 @@ bool AtLeast::operator== (const ArbiterRequirement &other) const noexcept
   } else {
     return false;
   }
+}
+
+std::ostream &AtLeast::describe (std::ostream &os) const
+{
+  return os << ">=" << _minimumVersion;
 }
 
 bool CompatibleWith::satisfiedBy (const ArbiterSemanticVersion &version) const noexcept
@@ -89,6 +99,11 @@ bool CompatibleWith::operator== (const ArbiterRequirement &other) const noexcept
   }
 }
 
+std::ostream &CompatibleWith::describe (std::ostream &os) const
+{
+  return os << "~>" << _baseVersion;
+}
+
 bool Exactly::operator== (const ArbiterRequirement &other) const noexcept
 {
   if (auto *ptr = dynamic_cast<const Exactly *>(&other)) {
@@ -96,6 +111,11 @@ bool Exactly::operator== (const ArbiterRequirement &other) const noexcept
   } else {
     return false;
   }
+}
+
+std::ostream &Exactly::describe (std::ostream &os) const
+{
+  return os << "==" << _version;
 }
 
 }
