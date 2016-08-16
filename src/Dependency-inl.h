@@ -18,7 +18,7 @@ struct ArbiterProjectIdentifier
     Arbiter::SharedUserValue _value;
 
     explicit ArbiterProjectIdentifier (Arbiter::SharedUserValue value)
-      : _value(value)
+      : _value(std::move(value))
     {}
 
     bool operator== (const ArbiterProjectIdentifier &other) const
