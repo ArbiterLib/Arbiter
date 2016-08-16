@@ -23,15 +23,15 @@ TEST(VersionTest, ParsesSimpleVersions) {
 }
 
 TEST(VersionTest, ParsesPrereleaseVersion) {
-  EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2-alpha.1").value(), ArbiterSemanticVersion(1, 0, 2, Optional<std::string>("alpha.1")));
+  EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2-alpha.1").value(), ArbiterSemanticVersion(1, 0, 2, makeOptional("alpha.1")));
 }
 
 TEST(VersionTest, ParsesBuildMetadata) {
-  EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2+dailybuild").value(), ArbiterSemanticVersion(1, 0, 2, Optional<std::string>(), Optional<std::string>("dailybuild")));
+  EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2+dailybuild").value(), ArbiterSemanticVersion(1, 0, 2, None(), makeOptional("dailybuild")));
 }
 
 TEST(VersionTest, ParsesPrereleaseVersionAndBuildMetadata) {
-  EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2-alpha.1+dailybuild").value(), ArbiterSemanticVersion(1, 0, 2, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")));
+  EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2-alpha.1+dailybuild").value(), ArbiterSemanticVersion(1, 0, 2, makeOptional("alpha.1"), makeOptional("dailybuild")));
 }
 
 TEST(VersionTest, FailsToParseMalformedVersions) {
@@ -49,16 +49,16 @@ TEST(VersionTest, ComparesForEquality) {
   EXPECT_EQ(ArbiterSemanticVersion(0, 0, 0), ArbiterSemanticVersion(0, 0, 0));
   EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 2, 3));
   EXPECT_NE(ArbiterSemanticVersion(2, 3, 4), ArbiterSemanticVersion(1, 2, 3));
-  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>()));
-  EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1")));
-  EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")));
-  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>(), Optional<std::string>("dailybuild")));
-  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>()));
-  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild")), ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.2"), Optional<std::string>("dailybuild")));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")), ArbiterSemanticVersion(1, 2, 3, None()));
+  EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")));
+  EXPECT_EQ(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")), ArbiterSemanticVersion(1, 2, 3, None(), makeOptional("dailybuild")));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), None()));
+  EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.2"), makeOptional("dailybuild")));
 }
 
 TEST(VersionTest, ConvertsToString) {
   std::stringstream stream;
-  stream << ArbiterSemanticVersion(1, 2, 3, Optional<std::string>("alpha.1"), Optional<std::string>("dailybuild"));
+  stream << ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild"));
   EXPECT_EQ(stream.str(), "1.2.3-alpha.1+dailybuild");
 }

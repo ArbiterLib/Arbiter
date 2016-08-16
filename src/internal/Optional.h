@@ -10,6 +10,9 @@
 
 namespace Arbiter {
 
+struct None final
+{};
+
 template<typename T>
 struct Optional final
 {
@@ -17,6 +20,10 @@ struct Optional final
     using value_type = T;
 
     constexpr Optional () noexcept
+      : _hasValue(false)
+    {}
+
+    Optional (const None &) noexcept
       : _hasValue(false)
     {}
 
