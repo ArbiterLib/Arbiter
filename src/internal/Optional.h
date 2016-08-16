@@ -176,6 +176,12 @@ bool operator== (const Optional<T> &lhs, const Optional<T> &rhs)
   }
 }
 
+template<typename T>
+auto makeOptional (T &&value)
+{
+  return Optional<typename std::decay<T>::type>(std::forward<T>(value));
+}
+
 }
 
 #endif
