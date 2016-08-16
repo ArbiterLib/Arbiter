@@ -40,6 +40,15 @@ struct Optional final
       }
     }
 
+    template<typename U>
+    Optional (const Optional<U> &other) noexcept(std::is_nothrow_constructible<T, const U &>::value)
+      : _hasValue(static_cast<bool>(other))
+    {
+      if (_hasValue) {
+        construct(other.value());
+      }
+    }
+
     Optional &operator= (const Optional &other) noexcept(std::is_nothrow_destructible<T>::value && std::is_nothrow_copy_constructible<T>::value)
     {
       if (&other == this) {
@@ -57,6 +66,15 @@ struct Optional final
 
     Optional (Optional &&other) noexcept(std::is_nothrow_move_constructible<T>::value)
       : _hasValue(other._hasValue)
+    {
+      if (_hasValue) {
+        construct(std::move(other.value()));
+      }
+    }
+
+    template<typename U>
+    Optional (Optional<U> &&other) noexcept(std::is_nothrow_constructible<T, U &&>::value)
+      : _hasValue(static_cast<bool>(other))
     {
       if (_hasValue) {
         construct(std::move(other.value()));
