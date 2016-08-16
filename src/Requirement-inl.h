@@ -53,7 +53,7 @@ class AtLeast : public ArbiterRequirement
 {
   public:
     explicit AtLeast (ArbiterSemanticVersion version) noexcept
-      : _minimumVersion(version)
+      : _minimumVersion(std::move(version))
     {}
 
     bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
@@ -76,7 +76,7 @@ class CompatibleWith : public ArbiterRequirement
 {
   public:
     explicit CompatibleWith (ArbiterSemanticVersion version, ArbiterRequirementStrictness strictness) noexcept
-      : _baseVersion(version)
+      : _baseVersion(std::move(version))
       , _strictness(strictness)
     {}
 
@@ -97,7 +97,7 @@ class Exactly : public ArbiterRequirement
 {
   public:
     explicit Exactly (ArbiterSemanticVersion version) noexcept
-      : _version(version)
+      : _version(std::move(version))
     {}
 
     bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
