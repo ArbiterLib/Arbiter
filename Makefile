@@ -1,10 +1,10 @@
-SOURCES=src/Arbiter.cpp src/Requirement.cpp src/Version.cpp
+SOURCES=$(shell find src -name '*.cpp')
 OBJECTS=$(SOURCES:.cpp=.o)
 LIBRARY=libArbiter.a
 
 GTEST_DIR=external/googletest/googletest
 
-TEST_SOURCES=test/VersionTest.cpp $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
+TEST_SOURCES=$(shell find test -name '*.cpp') $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
 TEST_RUNNER=test/main
 TEST_INCLUDES=-isystem $(GTEST_DIR)/include -Isrc/ -I$(GTEST_DIR)
 
