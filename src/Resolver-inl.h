@@ -21,6 +21,8 @@ struct ArbiterResolver
       , _remainingDependencies(std::move(dependencyList))
       , _context(std::move(context))
     {}
+
+    void resolveNext (ArbiterResolverCallbacks callbacks);
 };
 
 #endif

@@ -4,7 +4,7 @@ using namespace Arbiter;
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
 {
-  return new ArbiterResolver(behaviors, *dependencyList, SharedUserValue(context));
+  return new ArbiterResolver(std::move(behaviors), *dependencyList, SharedUserValue(std::move(context)));
 }
 
 const void *ArbiterResolverContext (const ArbiterResolver *resolver)
@@ -14,16 +14,20 @@ const void *ArbiterResolverContext (const ArbiterResolver *resolver)
 
 bool ArbiterResolvedAllDependencies (const ArbiterResolver *resolver)
 {
-  assert(false);
-  return false;
+  return resolver->_remainingDependencies._dependencies.empty();
 }
 
 void ArbiterStartResolvingNextDependency (ArbiterResolver *resolver, ArbiterResolverCallbacks callbacks)
 {
-  assert(false);
+  resolver->resolveNext(std::move(callbacks));
 }
 
 void ArbiterFreeResolver (ArbiterResolver *resolver)
 {
   delete resolver;
+}
+
+void ArbiterResolver::resolveNext (ArbiterResolverCallbacks callbacks)
+{
+  assert(false);
 }
