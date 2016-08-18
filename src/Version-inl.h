@@ -7,8 +7,10 @@
 
 #include "Value-inl.h"
 #include "Version.h"
+#include "internal/Hash.h"
 #include "internal/Optional.h"
 
+#include <functional>
 #include <string>
 
 struct ArbiterSemanticVersion
@@ -79,5 +81,33 @@ struct ArbiterSelectedVersion
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &version);
+
+namespace std {
+
+template<>
+struct hash<ArbiterSemanticVersion>
+{
+  public:
+    size_t operator() (const ArbiterSemanticVersion &version) const
+    {
+      return Arbiter::hashOf(version._major)
+        ^ Arbiter::hashOf(version._minor)
+        ^ Arbiter::hashOf(version._patch)
+        ^ Arbiter::hashOf(version._prereleaseVersion)
+        ^ Arbiter::hashOf(version._buildMetadata);
+    }
+};
+
+template<>
+struct hash<ArbiterSelectedVersion>
+{
+  public:
+    size_t operator() (const ArbiterSelectedVersion &version) const
+    {
+      return Arbiter::hashOf(version._semanticVersion);
+    }
+};
+
+}
 
 #endif

@@ -7,6 +7,7 @@
 
 #include "Requirement.h"
 #include "Version-inl.h"
+#include "internal/Hash.h"
 
 #include <memory>
 #include <ostream>
@@ -19,6 +20,8 @@ struct ArbiterRequirement
     virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
 
     virtual bool operator== (const ArbiterRequirement &other) const noexcept = 0;
+
+    virtual size_t hash () const noexcept = 0;
 
     virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
 
@@ -51,6 +54,11 @@ class Any : public ArbiterRequirement
       return (bool)dynamic_cast<const Any *>(&other);
     }
 
+    size_t hash () const noexcept override
+    {
+      return 4;
+    }
+
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
       return std::make_unique<Any>(*this);
@@ -73,6 +81,11 @@ class AtLeast : public ArbiterRequirement
 
     bool operator== (const ArbiterRequirement &other) const noexcept override;
 
+    size_t hash () const noexcept override
+    {
+      return hashOf(_minimumVersion);
+    }
+
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
       return std::make_unique<AtLeast>(*this);
@@ -94,6 +107,11 @@ class CompatibleWith : public ArbiterRequirement
 
     bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override;
     bool operator== (const ArbiterRequirement &other) const noexcept override;
+
+    size_t hash () const noexcept override
+    {
+      return hashOf(_baseVersion);
+    }
 
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
@@ -121,6 +139,11 @@ class Exactly : public ArbiterRequirement
 
     bool operator== (const ArbiterRequirement &other) const noexcept override;
 
+    size_t hash () const noexcept override
+    {
+      return hashOf(_version);
+    }
+
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
       return std::make_unique<Exactly>(*this);
@@ -133,6 +156,20 @@ class Exactly : public ArbiterRequirement
 };
 
 }
+}
+
+namespace std {
+
+template<>
+struct hash<ArbiterRequirement>
+{
+  public:
+    size_t operator() (const ArbiterRequirement &requirement) const
+    {
+      return requirement.hash();
+    }
+};
+
 }
 
 #endif

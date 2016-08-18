@@ -5,7 +5,10 @@
 #error "This file must be compiled as C++."
 #endif
 
+#include "Hash.h"
+
 #include <cassert>
+#include <functional>
 #include <type_traits>
 
 namespace Arbiter {
@@ -188,6 +191,24 @@ auto makeOptional (T &&value)
 {
   return Optional<typename std::decay<T>::type>(std::forward<T>(value));
 }
+
+}
+
+namespace std {
+
+template<typename T>
+struct hash<Arbiter::Optional<T>>
+{
+  public:
+    size_t operator() (const Arbiter::Optional<T> &optional) const
+    {
+      if (optional) {
+        return Arbiter::hashOf(optional.value());
+      } else {
+        return 0;
+      }
+    }
+};
 
 }
 

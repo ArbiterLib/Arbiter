@@ -8,6 +8,7 @@
 #include "Requirement-inl.h"
 #include "Value-inl.h"
 
+#include <functional>
 #include <memory>
 #include <ostream>
 #include <vector>
@@ -72,5 +73,31 @@ struct ArbiterDependencyList
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &dependencyList);
+
+namespace std {
+
+template<>
+struct hash<ArbiterProjectIdentifier>
+{
+  public:
+    size_t operator() (const ArbiterProjectIdentifier &) const
+    {
+      // TODO: Need a real hash!
+      return 4;
+    }
+};
+
+template<>
+struct hash<ArbiterDependency>
+{
+  public:
+    size_t operator() (const ArbiterDependency &dependency) const
+    {
+      return Arbiter::hashOf(dependency._projectIdentifier)
+        ^ Arbiter::hashOf(dependency.requirement());
+    }
+};
+
+}
 
 #endif
