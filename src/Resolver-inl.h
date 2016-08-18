@@ -60,7 +60,7 @@ struct ArbiterResolver
     std::future<ArbiterDependencyList> fetchDependencyList (Arbiter::Resolver::ResolvedDependency fetch);
 
     bool resolvedAll () const noexcept;
-    void resolveNext (ArbiterResolverCallbacks callbacks);
+    std::future<Arbiter::Resolver::ResolvedDependency> resolveNext ();
 
   private:
     const ArbiterResolverBehaviors _behaviors;
