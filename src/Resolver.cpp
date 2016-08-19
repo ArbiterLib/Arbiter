@@ -59,33 +59,33 @@ bool ArbiterResolver::resolvedAll () const noexcept
   return _remainingDependencies._dependencies.empty();
 }
 
-std::future<ResolvedDependency> resolveNext ()
+Arbiter::Future<ResolvedDependency> resolveNext ()
 {
-  std::promise<ResolvedDependency> promise;
+  Arbiter::Promise<ResolvedDependency> promise;
 
   // TODO: Actually resolve
   
   return promise.get_future();
 }
 
-std::future<ArbiterDependencyList> ArbiterResolver::insertDependencyListFetch (ResolvedDependency dependency)
+Arbiter::Future<ArbiterDependencyList> ArbiterResolver::insertDependencyListFetch (ResolvedDependency dependency)
 {
   std::lock_guard<std::mutex> guard(_fetchesMutex);
 
   return _dependencyListFetches[std::move(dependency)].get_future();
 }
 
-std::promise<ArbiterDependencyList> ArbiterResolver::extractDependencyListFetch (const ResolvedDependency &dependency)
+Arbiter::Promise<ArbiterDependencyList> ArbiterResolver::extractDependencyListFetch (const ResolvedDependency &dependency)
 {
   std::lock_guard<std::mutex> guard(_fetchesMutex);
 
-  std::promise<ArbiterDependencyList> promise = std::move(_dependencyListFetches.at(dependency));
+  Arbiter::Promise<ArbiterDependencyList> promise = std::move(_dependencyListFetches.at(dependency));
   _dependencyListFetches.erase(dependency);
 
   return promise;
 }
 
-std::future<ArbiterDependencyList> ArbiterResolver::fetchDependencyList (ResolvedDependency dependency)
+Arbiter::Future<ArbiterDependencyList> ArbiterResolver::fetchDependencyList (ResolvedDependency dependency)
 {
   // Eventually freed in the C callback function.
   auto project = std::make_unique<ArbiterProjectIdentifier>(dependency.projectIdentifier);

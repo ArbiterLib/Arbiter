@@ -5,13 +5,13 @@
 #endif
 
 #include "Dependency.h"
+#include "Future.h"
 #include "Hash.h"
 #include "Value.h"
 #include "Version.h"
 
 #include <arbiter/Resolver.h>
 
-#include <future>
 #include <mutex>
 #include <unordered_map>
 
@@ -57,20 +57,20 @@ struct ArbiterResolver
       , _remainingDependencies(std::move(dependencyList))
     {}
 
-    std::future<ArbiterDependencyList> fetchDependencyList (Arbiter::Resolver::ResolvedDependency fetch);
+    Arbiter::Future<ArbiterDependencyList> fetchDependencyList (Arbiter::Resolver::ResolvedDependency fetch);
 
     bool resolvedAll () const noexcept;
-    std::future<Arbiter::Resolver::ResolvedDependency> resolveNext ();
+    Arbiter::Future<Arbiter::Resolver::ResolvedDependency> resolveNext ();
 
   private:
     const ArbiterResolverBehaviors _behaviors;
     ArbiterDependencyList _remainingDependencies;
 
     std::mutex _fetchesMutex;
-    std::unordered_map<Arbiter::Resolver::ResolvedDependency, std::promise<ArbiterDependencyList>> _dependencyListFetches;
+    std::unordered_map<Arbiter::Resolver::ResolvedDependency, Arbiter::Promise<ArbiterDependencyList>> _dependencyListFetches;
 
-    std::future<ArbiterDependencyList> insertDependencyListFetch (Arbiter::Resolver::ResolvedDependency fetch);
-    std::promise<ArbiterDependencyList> extractDependencyListFetch (const Arbiter::Resolver::ResolvedDependency &fetch);
+    Arbiter::Future<ArbiterDependencyList> insertDependencyListFetch (Arbiter::Resolver::ResolvedDependency fetch);
+    Arbiter::Promise<ArbiterDependencyList> extractDependencyListFetch (const Arbiter::Resolver::ResolvedDependency &fetch);
 
     // C exports
     static void dependencyListFetchOnSuccess (ArbiterDependencyListFetch cFetch, const ArbiterDependencyList *fetchedList);
