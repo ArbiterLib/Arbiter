@@ -1,5 +1,4 @@
-#ifndef ARBITER_OPTIONAL_H
-#define ARBITER_OPTIONAL_H
+#pragma once
 
 #ifndef __cplusplus
 #error "This file must be compiled as C++."
@@ -211,5 +210,3 @@ struct hash<Arbiter::Optional<T>>
 };
 
 }
-
-#endif

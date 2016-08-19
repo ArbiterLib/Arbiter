@@ -1,5 +1,4 @@
-#ifndef ARBITER_HASH_H
-#define ARBITER_HASH_H
+#pragma once
 
 #ifndef __cplusplus
 #error "This file must be compiled as C++."
@@ -17,5 +16,3 @@ size_t hashOf (const T &value)
 }
 
 }
-
-#endif

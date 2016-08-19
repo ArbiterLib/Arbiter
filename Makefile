@@ -6,10 +6,10 @@ GTEST_DIR=external/googletest/googletest
 
 TEST_SOURCES=$(shell find test -name '*.cpp') $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
 TEST_RUNNER=test/main
-TEST_INCLUDES=-isystem $(GTEST_DIR)/include -Isrc/ -I$(GTEST_DIR)
+TEST_INCLUDES=-isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -Isrc/
 
 CXX=clang++
-CXXFLAGS=-std=c++14 -pedantic -Wall -Wextra
+CXXFLAGS=-std=c++14 -pedantic -Wall -Wextra -Iinclude/
 LIBTOOL=libtool
 
 all: $(LIBRARY)

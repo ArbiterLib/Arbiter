@@ -1,4 +1,4 @@
-#include "Resolver-inl.h"
+#include "Resolver.h"
 
 #include <exception>
 #include <stdexcept>

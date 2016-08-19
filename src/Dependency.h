@@ -1,32 +1,100 @@
-#ifndef ARBITER_DEPENDENCY_H
-#define ARBITER_DEPENDENCY_H
+#pragma once
 
-#ifdef __cplusplus
-extern "C" {
+#ifndef __cplusplus
+#error "This file must be compiled as C++."
 #endif
 
 #include "Requirement.h"
+#include "Value.h"
 
-typedef struct ArbiterProjectIdentifier ArbiterProjectIdentifier;
+#include <functional>
+#include <memory>
+#include <ostream>
+#include <vector>
 
-ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value);
-const void *ArbiterProjectIdentifierValue (const ArbiterProjectIdentifier *projectIdentifier);
-void ArbiterFreeProjectIdentifier (ArbiterProjectIdentifier *projectIdentifier);
+struct ArbiterProjectIdentifier
+{
+  public:
+    Arbiter::SharedUserValue _value;
 
-typedef struct ArbiterDependency ArbiterDependency;
+    explicit ArbiterProjectIdentifier (Arbiter::SharedUserValue value)
+      : _value(std::move(value))
+    {}
 
-ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *projectIdentifier, const ArbiterRequirement *requirement);
-const ArbiterProjectIdentifier *ArbiterDependencyProject (const ArbiterDependency *dependency);
-const ArbiterRequirement *ArbiterDependencyRequirement (const ArbiterDependency *dependency);
-void ArbiterFreeDependency (ArbiterDependency *dependency);
+    bool operator== (const ArbiterProjectIdentifier &other) const
+    {
+      return _value == other._value;
+    }
+};
 
-typedef struct ArbiterDependencyList ArbiterDependencyList;
+std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier);
 
-ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency *dependencies, size_t count);
-void ArbiterFreeDependencyList (ArbiterDependencyList *dependencyList);
+struct ArbiterDependency
+{
+  public:
+    ArbiterProjectIdentifier _projectIdentifier;
 
-#ifdef __cplusplus
+    ArbiterDependency (ArbiterProjectIdentifier projectIdentifier, const ArbiterRequirement &requirement)
+      : _projectIdentifier(std::move(projectIdentifier))
+      , _requirement(requirement.clone())
+    {}
+
+    ArbiterDependency (const ArbiterDependency &other)
+      : ArbiterDependency(other._projectIdentifier, other.requirement())
+    {}
+
+    ArbiterDependency &operator= (const ArbiterDependency &other);
+
+    const ArbiterRequirement &requirement() const noexcept
+    {
+      return *_requirement;
+    }
+
+    bool operator== (const ArbiterDependency &other) const
+    {
+      return _projectIdentifier == other._projectIdentifier && *_requirement == *(other._requirement);
+    }
+
+  private:
+    std::unique_ptr<ArbiterRequirement> _requirement;
+};
+
+std::ostream &operator<< (std::ostream &os, const ArbiterDependency &dependency);
+
+struct ArbiterDependencyList
+{
+  public:
+    std::vector<ArbiterDependency> _dependencies;
+
+    explicit ArbiterDependencyList (std::vector<ArbiterDependency> dependencies)
+      : _dependencies(std::move(dependencies))
+    {}
+};
+
+std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &dependencyList);
+
+namespace std {
+
+template<>
+struct hash<ArbiterProjectIdentifier>
+{
+  public:
+    size_t operator() (const ArbiterProjectIdentifier &) const
+    {
+      // TODO: Need a real hash!
+      return 4;
+    }
+};
+
+template<>
+struct hash<ArbiterDependency>
+{
+  public:
+    size_t operator() (const ArbiterDependency &dependency) const
+    {
+      return Arbiter::hashOf(dependency._projectIdentifier)
+        ^ Arbiter::hashOf(dependency.requirement());
+    }
+};
+
 }
-#endif
-
-#endif

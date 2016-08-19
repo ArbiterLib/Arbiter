@@ -1,4 +1,4 @@
-#include "Value-inl.h"
+#include "Value.h"
 
 using namespace Arbiter;
 

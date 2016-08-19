@@ -1,4 +1,4 @@
-#include "Dependency-inl.h"
+#include "Dependency.h"
 
 using namespace Arbiter;
 

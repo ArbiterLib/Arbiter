@@ -1,69 +1,81 @@
-#ifndef ARBITER_RESOLVER_H
-#define ARBITER_RESOLVER_H
+#pragma once
 
-#ifdef __cplusplus
-extern "C" {
+#ifndef __cplusplus
+#error "This file must be compiled as C++."
 #endif
 
 #include "Dependency.h"
+#include "Hash.h"
 #include "Value.h"
 #include "Version.h"
 
-#include <stdbool.h>
+#include <arbiter/Resolver.h>
 
-typedef struct ArbiterResolver ArbiterResolver;
+#include <future>
+#include <mutex>
+#include <unordered_map>
 
-typedef struct
+namespace Arbiter {
+namespace Resolver {
+
+struct ResolvedDependency
 {
-  const ArbiterResolver *resolver;
-  const ArbiterProjectIdentifier *project;
-  const ArbiterSelectedVersion *selectedVersion;
-} ArbiterDependencyListFetch;
+  ArbiterProjectIdentifier projectIdentifier;
+  ArbiterSelectedVersion selectedVersion;
 
-typedef struct
-{
-  const ArbiterResolver *resolver;
-  const ArbiterProjectIdentifier *project;
-} ArbiterAvailableVersionsFetch;
+  static ResolvedDependency takeOwnership (ArbiterDependencyListFetch fetch) noexcept;
 
-typedef struct
-{
-  void (*fetchDependencyList)(
-    ArbiterDependencyListFetch fetch,
-    void (*onSuccess)(ArbiterDependencyListFetch fetch, const ArbiterDependencyList *fetchedList),
-    void (*onError)(ArbiterDependencyListFetch fetch)
-  );
+  bool operator== (const ResolvedDependency &other) const noexcept;
+};
 
-  void (*fetchAvailableVersions)(
-    ArbiterAvailableVersionsFetch fetch,
-    void (*onNext)(ArbiterAvailableVersionsFetch fetch, const ArbiterSelectedVersion *nextVersion),
-    void (*onCompleted)(ArbiterAvailableVersionsFetch fetch),
-    void (*onError)(ArbiterAvailableVersionsFetch fetch)
-  );
-} ArbiterResolverBehaviors;
-
-typedef struct
-{
-  void (*onSuccess)(
-    const ArbiterResolver *resolver,
-    const ArbiterProjectIdentifier *project,
-    const ArbiterSelectedVersion *selectedVersion
-  );
-
-  void (*onError)(
-    const ArbiterResolver *resolver,
-    const char *message
-  );
-} ArbiterResolverCallbacks;
-
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context);
-const void *ArbiterResolverContext (const ArbiterResolver *resolver);
-bool ArbiterResolvedAllDependencies (const ArbiterResolver *resolver);
-void ArbiterStartResolvingNextDependency (ArbiterResolver *resolver, ArbiterResolverCallbacks callbacks);
-void ArbiterFreeResolver (ArbiterResolver *resolver);
-
-#ifdef __cplusplus
 }
-#endif
+}
 
-#endif
+namespace std {
+
+template<>
+struct hash<Arbiter::Resolver::ResolvedDependency>
+{
+  public:
+    size_t operator() (const Arbiter::Resolver::ResolvedDependency &fetch) const
+    {
+      return Arbiter::hashOf(fetch.projectIdentifier)
+        ^ Arbiter::hashOf(fetch.selectedVersion);
+    }
+};
+
+}
+
+struct ArbiterResolver
+{
+  public:
+    Arbiter::SharedUserValue _context;
+
+    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, Arbiter::SharedUserValue context)
+      : _context(std::move(context))
+      , _behaviors(std::move(behaviors))
+      , _remainingDependencies(std::move(dependencyList))
+    {}
+
+    std::future<ArbiterDependencyList> fetchDependencyList (Arbiter::Resolver::ResolvedDependency fetch);
+
+    bool resolvedAll () const noexcept;
+    std::future<Arbiter::Resolver::ResolvedDependency> resolveNext ();
+
+  private:
+    const ArbiterResolverBehaviors _behaviors;
+    ArbiterDependencyList _remainingDependencies;
+
+    std::mutex _fetchesMutex;
+    std::unordered_map<Arbiter::Resolver::ResolvedDependency, std::promise<ArbiterDependencyList>> _dependencyListFetches;
+
+    std::future<ArbiterDependencyList> insertDependencyListFetch (Arbiter::Resolver::ResolvedDependency fetch);
+    std::promise<ArbiterDependencyList> extractDependencyListFetch (const Arbiter::Resolver::ResolvedDependency &fetch);
+
+    // C exports
+    static void dependencyListFetchOnSuccess (ArbiterDependencyListFetch cFetch, const ArbiterDependencyList *fetchedList);
+    static void dependencyListFetchOnError (ArbiterDependencyListFetch cFetch);
+    static void availableVersionsFetchOnNext (ArbiterAvailableVersionsFetch cFetch, const ArbiterSelectedVersion *nextVersion);
+    static void availableVersionsFetchOnCompleted (ArbiterAvailableVersionsFetch cFetch);
+    static void availableVersionsFetchOnError (ArbiterAvailableVersionsFetch cFetch);
+};

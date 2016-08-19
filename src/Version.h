@@ -1,97 +1,111 @@
-#ifndef ARBITER_VERSION_H
-#define ARBITER_VERSION_H
+#pragma once
 
-#include <stdbool.h>
-
-#ifdef __cplusplus
-extern "C" {
+#ifndef __cplusplus
+#error "This file must be compiled as C++."
 #endif
 
+#include "Hash.h"
+#include "Optional.h"
 #include "Value.h"
 
-/**
- * Represents a semantic version, as defined by semver.org.
- */
-typedef struct ArbiterSemanticVersion ArbiterSemanticVersion;
+#include <arbiter/Version.h>
 
-/**
- * Creates a semantic version with the given components.
- *
- * The returned version must be freed with ArbiterFreeSemanticVersion().
- */
-ArbiterSemanticVersion *ArbiterCreateSemanticVersion (unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata);
+#include <functional>
+#include <string>
 
-/**
- * Attempts to parse the given NUL-terminated string into a semantic version,
- * returning NULL if a parse failure occurs.
- *
- * The returned version must be freed with ArbiterFreeSemanticVersion().
- */
-ArbiterSemanticVersion *ArbiterCreateSemanticVersionFromString (const char *string);
+struct ArbiterSemanticVersion
+{
+  unsigned _major;
+  unsigned _minor;
+  unsigned _patch;
 
-/**
- * Releases the memory associated with a version object.
- */
-void ArbiterFreeSemanticVersion (ArbiterSemanticVersion *version);
+  Arbiter::Optional<std::string> _prereleaseVersion;
+  Arbiter::Optional<std::string> _buildMetadata;
 
-/**
- * Returns the major version number (X.y.z) from a semantic version.
- */
-unsigned ArbiterGetMajorVersion (const ArbiterSemanticVersion *version);
+  ArbiterSemanticVersion (unsigned major, unsigned minor, unsigned patch, Arbiter::Optional<std::string> prereleaseVersion = Arbiter::Optional<std::string>(), Arbiter::Optional<std::string> buildMetadata = Arbiter::Optional<std::string>())
+    : _major(major)
+    , _minor(minor)
+    , _patch(patch)
+    , _prereleaseVersion(prereleaseVersion)
+    , _buildMetadata(buildMetadata)
+  {}
 
-/**
- * Returns the minor version number (x.Y.z) from a semantic version.
- */
-unsigned ArbiterGetMinorVersion (const ArbiterSemanticVersion *version);
+  // TODO: Add error reporting
+  static Arbiter::Optional<ArbiterSemanticVersion> fromString (const std::string &versionString);
 
-/**
- * Returns the patch version number (x.y.Z) from a semantic version.
- */
-unsigned ArbiterGetPatchVersion (const ArbiterSemanticVersion *version);
+  bool operator== (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return _major == other._major && _minor == other._minor && _patch == other._patch && _prereleaseVersion == other._prereleaseVersion && _buildMetadata == other._buildMetadata;
+  }
 
-/**
- * Returns the prerelease version string from a semantic version, or NULL if
- * there is not one associated with the version.
- *
- * For example, in the version `1.0.0-alpha.1`, the prerelease version string
- * will be `alpha.1`.
- */
-const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version);
+  bool operator!= (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return !(*this == other);
+  }
 
-/**
- * Returns the build metadata string from a semantic version, or NULL if there
- * is not one associated with the version.
- *
- * For example, in the version `1.0.0+20160814`, the build metadata string will
- * be `20160814`.
- */
-const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version);
+  bool operator< (const ArbiterSemanticVersion &other) const noexcept;
 
-/**
- * Checks whether two versions are equal in every component, including those
- * which may not participate in ordering (e.g., build metadata).
- */
-bool ArbiterEqualVersions (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs);
+  bool operator> (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return other < *this;
+  }
 
-/**
- * Orders two semantic versions relative to each other.
- *
- * Returns -1 if `lhs` is less than `rhs`, 1 if `lhs` is greater than `rhs`, or
- * 0 if the two versions have the same precedence (which may be the case even if
- * their build metadata differs).
- */
-int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs);
+  bool operator>= (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return !(*this < other);
+  }
 
-typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
+  bool operator<= (const ArbiterSemanticVersion &other) const noexcept
+  {
+    return other >= *this;
+  }
+};
 
-ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata);
-const ArbiterSemanticVersion *ArbiterSelectedVersionSemanticVersion (const ArbiterSelectedVersion *version);
-const void *ArbiterSelectedVersionMetadata (const ArbiterSelectedVersion *version);
-bool ArbiterEqualSelectedVersions (const ArbiterSelectedVersion *lhs, const ArbiterSelectedVersion *rhs);
-void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version);
+std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version);
 
-#ifdef __cplusplus
+struct ArbiterSelectedVersion
+{
+  public:
+    ArbiterSemanticVersion _semanticVersion;
+    Arbiter::SharedUserValue _metadata;
+
+    ArbiterSelectedVersion (ArbiterSemanticVersion semanticVersion, Arbiter::SharedUserValue metadata)
+      : _semanticVersion(std::move(semanticVersion))
+      , _metadata(std::move(metadata))
+    {}
+
+    bool operator== (const ArbiterSelectedVersion &other) const
+    {
+      return _semanticVersion == other._semanticVersion && _metadata == other._metadata;
+    }
+};
+
+std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &version);
+
+namespace std {
+
+template<>
+struct hash<ArbiterSemanticVersion>
+{
+  public:
+    size_t operator() (const ArbiterSemanticVersion &version) const
+    {
+      return Arbiter::hashOf(version._major)
+        ^ Arbiter::hashOf(version._minor)
+        ^ Arbiter::hashOf(version._patch)
+        ^ Arbiter::hashOf(version._prereleaseVersion)
+        ^ Arbiter::hashOf(version._buildMetadata);
+    }
+};
+
+template<>
+struct hash<ArbiterSelectedVersion>
+{
+  public:
+    size_t operator() (const ArbiterSelectedVersion &version) const
+    {
+      return Arbiter::hashOf(version._semanticVersion);
+    }
+};
+
 }
-#endif
-
-#endif

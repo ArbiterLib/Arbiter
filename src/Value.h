@@ -1,24 +1,57 @@
-#ifndef ARBITER_VALUE_H
-#define ARBITER_VALUE_H
+#pragma once
 
-#ifdef __cplusplus
-extern "C" {
+#ifndef __cplusplus
+#error "This file must be compiled as C++."
 #endif
 
-#include <stdbool.h>
+#include <arbiter/Value.h>
 
-typedef struct
+#include <cassert>
+#include <ostream>
+
+namespace Arbiter {
+
+class SharedUserValue
 {
-  void *data;
-  bool (*equals)(const void *first, const void *second);
-  void (*destructor)(void *data);
+  public:
+    explicit SharedUserValue (ArbiterUserValue value)
+      : _data(std::shared_ptr<void>(value.data, value.destructor))
+      , _equals(value.equals)
+      , _createDescription(value.createDescription)
+    {
+      assert(_equals);
+    }
 
-  // optional
-  char *(*createDescription)(const void *data);
-} ArbiterUserValue;
+    bool operator== (const SharedUserValue &other) const
+    {
+      return _equals(data(), other.data());
+    }
 
-#ifdef __cplusplus
+    void *data () noexcept
+    {
+      return _data.get();
+    }
+
+    const void *data () const noexcept
+    {
+      return _data.get();
+    }
+
+    std::string description () const
+    {
+      if (_createDescription) {
+        return _createDescription(data());
+      } else {
+        return "Arbiter::SharedUserValue";
+      }
+    }
+
+  private:
+    std::shared_ptr<void> _data;
+    bool (*_equals)(const void *first, const void *second);
+    char *(*_createDescription)(const void *data);
+};
+
 }
-#endif
 
-#endif
+std::ostream &operator<< (std::ostream &os, const Arbiter::SharedUserValue &value);

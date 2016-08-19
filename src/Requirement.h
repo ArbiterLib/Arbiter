@@ -1,92 +1,170 @@
-#ifndef ARBITER_REQUIREMENT_H
-#define ARBITER_REQUIREMENT_H
+#pragma once
 
-#ifdef __cplusplus
-extern "C" {
+#ifndef __cplusplus
+#error "This file must be compiled as C++."
 #endif
 
+#include "Hash.h"
 #include "Version.h"
 
-#include <stdbool.h>
+#include <arbiter/Requirement.h>
 
-/**
- * How strict to be in matching compatible versions.
- */
-enum ArbiterRequirementStrictness
+#include <memory>
+#include <ostream>
+
+struct ArbiterRequirement
 {
-  /**
-   * Determine compatibility according to a strict interpretation of SemVer.
-   */
-  ArbiterRequirementStrictnessStrict,
+  public:
+    virtual ~ArbiterRequirement () = default;
 
-  /**
-   * According to SemVer, technically all 0.y.z releases can break backwards
-   * compatibility, meaning that minor and patch versions have to match
-   * exactly in order to be "compatible."
-   *
-   * This looser variant permits newer patch versions, which is probably
-   * closer to what the user wants.
-   */
-  ArbiterRequirementStrictnessAllowVersionZeroPatches,
+    virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
+
+    virtual bool operator== (const ArbiterRequirement &other) const noexcept = 0;
+
+    virtual size_t hash () const noexcept = 0;
+
+    virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
+
+    virtual std::ostream &describe (std::ostream &os) const = 0;
+
+    bool operator!= (const ArbiterRequirement &other) const noexcept
+    {
+      return !(*this == other);
+    }
 };
 
-/**
- * Represents a requirement for a specific version or set of versions.
- */
-typedef struct ArbiterRequirement ArbiterRequirement;
+std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requirement);
 
-/**
- * Creates a requirement which will match any version.
- *
- * The returned requirement must be freed with ArbiterFreeRequirement().
- */
-ArbiterRequirement *ArbiterCreateRequirementAny (void);
+namespace Arbiter {
+namespace Requirement {
 
-/**
- * Creates a requirement which will match versions not less than the specified
- * version.
- *
- * The returned requirement must be freed with ArbiterFreeRequirement().
- */
-ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersion *version);
+class Any : public ArbiterRequirement
+{
+  public:
+    bool satisfiedBy (const ArbiterSemanticVersion &) const noexcept override
+    {
+      return true;
+    }
 
-/**
- * Creates a requirement which will match versions that are "compatible with"
- * the given version, according to Semantic Versioning rules about backwards
- * compatibility.
- *
- * Exceptions to the SemVer rules can be applied by using a value other than
- * `ArbiterRequirementStrictnessStrict` for `strictness`.
- *
- * The returned requirement must be freed with ArbiterFreeRequirement().
- */
-ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanticVersion *version, ArbiterRequirementStrictness strictness);
+    bool operator== (const ArbiterRequirement &other) const noexcept override
+    {
+      return (bool)dynamic_cast<const Any *>(&other);
+    }
 
-/**
- * Creates a requirement which will only match the specified version, including
- * any prerelease version and build metadata.
- *
- * The returned requirement must be freed with ArbiterFreeRequirement().
- */
-ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersion *version);
+    size_t hash () const noexcept override
+    {
+      return 4;
+    }
 
-/**
- * Releases the memory associated with a requirement object.
- */
-void ArbiterFreeRequirement (ArbiterRequirement *requirement);
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<Any>(*this);
+    }
 
-/**
- * Checks whether two requirements are equivalent.
- */
-bool ArbiterEqualRequirements (const ArbiterRequirement *lhs, const ArbiterRequirement *rhs);
+    std::ostream &describe (std::ostream &os) const override;
+};
 
-/**
- * Determines whether the given requirement is satisfied by the given version.
- */
-bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSemanticVersion *version);
+class AtLeast : public ArbiterRequirement
+{
+  public:
+    explicit AtLeast (ArbiterSemanticVersion version) noexcept
+      : _minimumVersion(std::move(version))
+    {}
 
-#ifdef __cplusplus
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
+    {
+      return version >= _minimumVersion;
+    }
+
+    bool operator== (const ArbiterRequirement &other) const noexcept override;
+
+    size_t hash () const noexcept override
+    {
+      return hashOf(_minimumVersion);
+    }
+
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<AtLeast>(*this);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
+
+  private:
+    ArbiterSemanticVersion _minimumVersion;
+};
+
+class CompatibleWith : public ArbiterRequirement
+{
+  public:
+    explicit CompatibleWith (ArbiterSemanticVersion version, ArbiterRequirementStrictness strictness) noexcept
+      : _baseVersion(std::move(version))
+      , _strictness(strictness)
+    {}
+
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override;
+    bool operator== (const ArbiterRequirement &other) const noexcept override;
+
+    size_t hash () const noexcept override
+    {
+      return hashOf(_baseVersion);
+    }
+
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<CompatibleWith>(*this);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
+
+  private:
+    ArbiterSemanticVersion _baseVersion;
+    ArbiterRequirementStrictness _strictness;
+};
+
+class Exactly : public ArbiterRequirement
+{
+  public:
+    explicit Exactly (ArbiterSemanticVersion version) noexcept
+      : _version(std::move(version))
+    {}
+
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
+    {
+      return version == _version;
+    }
+
+    bool operator== (const ArbiterRequirement &other) const noexcept override;
+
+    size_t hash () const noexcept override
+    {
+      return hashOf(_version);
+    }
+
+    std::unique_ptr<ArbiterRequirement> clone () const override
+    {
+      return std::make_unique<Exactly>(*this);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
+
+  private:
+    ArbiterSemanticVersion _version;
+};
+
 }
-#endif
+}
 
-#endif
+namespace std {
+
+template<>
+struct hash<ArbiterRequirement>
+{
+  public:
+    size_t operator() (const ArbiterRequirement &requirement) const
+    {
+      return requirement.hash();
+    }
+};
+
+}
