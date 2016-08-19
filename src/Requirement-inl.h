@@ -33,10 +33,7 @@ struct ArbiterRequirement
     }
 };
 
-std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requirement)
-{
-  return requirement.describe(os);
-}
+std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requirement);
 
 namespace Arbiter {
 namespace Requirement {

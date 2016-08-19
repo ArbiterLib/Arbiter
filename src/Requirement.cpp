@@ -35,6 +35,11 @@ bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const
   return requirement->satisfiedBy(*version);
 }
 
+std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requirement)
+{
+  return requirement.describe(os);
+}
+
 namespace Arbiter {
 namespace Requirement {
 

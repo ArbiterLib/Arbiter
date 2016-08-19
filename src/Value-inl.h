@@ -53,11 +53,8 @@ class SharedUserValue
     char *(*_createDescription)(const void *data);
 };
 
-std::ostream &operator<< (std::ostream &os, const SharedUserValue &value)
-{
-  return os << value.description();
 }
 
-}
+std::ostream &operator<< (std::ostream &os, const Arbiter::SharedUserValue &value);
 
 #endif
