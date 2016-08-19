@@ -1,10 +1,64 @@
 #include "Resolver.h"
 
+#include "Requirement.h"
+
 #include <exception>
+#include <map>
+#include <set>
 #include <stdexcept>
 
 using namespace Arbiter;
 using namespace Resolver;
+
+namespace {
+
+struct DependencyNode
+{
+  public:
+    const ArbiterProjectIdentifier _project;
+    const ArbiterSelectedVersion _proposedVersion;
+
+    std::unique_ptr<ArbiterRequirement> _requirement;
+    std::set<DependencyNode> _dependencies;
+
+    DependencyNode (ArbiterProjectIdentifier project, ArbiterSelectedVersion proposedVersion, const ArbiterRequirement &requirement)
+      : _project(std::move(project))
+      , _proposedVersion(std::move(proposedVersion))
+      , _requirement(requirement.clone())
+    {}
+
+    bool operator== (const DependencyNode &other) const
+    {
+      return _project == other._project && _proposedVersion == other._proposedVersion;
+    }
+
+    bool operator< (const DependencyNode &other) const
+    {
+      if (_project != other._project) {
+        // There's no well-defined ordering between nodes for different
+        // projects, and we don't want them to appear equal within a set.
+        return true;
+      }
+
+      // Sort such that higher versions are tried first.
+      return _proposedVersion > other._proposedVersion;
+    }
+};
+
+class DependencyGraph
+{
+  public:
+    std::set<DependencyNode> _allNodes;
+    std::map<DependencyNode, std::set<DependencyNode>> _edges;
+    std::set<DependencyNode> _roots;
+
+    bool operator== (const DependencyGraph &other) const
+    {
+      return _edges == other._edges && _roots == other._roots;
+    }
+};
+
+}
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
 {
