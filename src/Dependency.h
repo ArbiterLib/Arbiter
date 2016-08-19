@@ -25,6 +25,11 @@ struct ArbiterProjectIdentifier
     {
       return _value == other._value;
     }
+
+    bool operator!= (const ArbiterProjectIdentifier &other) const
+    {
+      return !(*this == other);
+    }
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier);
