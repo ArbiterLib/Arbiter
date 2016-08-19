@@ -147,6 +147,24 @@ struct Either
       assert(hasRight());
       return _value._right;
     }
+
+    Right &rightOrThrowLeft ()
+    {
+      if (hasLeft()) {
+        throw left();
+      } else {
+        return right();
+      }
+    }
+
+    const Right &rightOrThrowLeft () const
+    {
+      if (hasLeft()) {
+        throw left();
+      } else {
+        return right();
+      }
+    }
   
   private:
     union Value

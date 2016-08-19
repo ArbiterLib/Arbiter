@@ -2,7 +2,6 @@
 
 #include <exception>
 #include <stdexcept>
-#include <thread>
 
 using namespace Arbiter;
 using namespace Resolver;
@@ -24,16 +23,14 @@ bool ArbiterResolvedAllDependencies (const ArbiterResolver *resolver)
 
 void ArbiterStartResolvingNextDependency (ArbiterResolver *resolver, ArbiterResolverCallbacks callbacks)
 {
-  auto future = resolver->resolveNext();
-
-  std::thread([resolver, future = std::move(future), callbacks = std::move(callbacks)]() mutable {
+  resolver->resolveNext().add_callback([resolver, callbacks = std::move(callbacks)](const auto &result) {
     try {
-      ResolvedDependency dependency = future.get();
+      const ResolvedDependency &dependency = result.rightOrThrowLeft();
       callbacks.onSuccess(resolver, &dependency.projectIdentifier, &dependency.selectedVersion);
     } catch (const std::exception &ex) {
       callbacks.onError(resolver, ex.what());
     }
-  }).detach();
+  });
 }
 
 void ArbiterFreeResolver (ArbiterResolver *resolver)
