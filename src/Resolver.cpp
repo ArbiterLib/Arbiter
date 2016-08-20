@@ -58,7 +58,7 @@ class DependencyGraph
     }
 };
 
-}
+} // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
 {

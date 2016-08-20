@@ -15,4 +15,4 @@ size_t hashOf (const T &value)
   return std::hash<T>()(value);
 }
 
-}
+} // namespace Arbiter

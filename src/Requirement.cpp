@@ -123,5 +123,5 @@ std::ostream &Exactly::describe (std::ostream &os) const
   return os << "==" << _version;
 }
 
-}
-}
+} // namespace Requirement
+} // namespace Arbiter

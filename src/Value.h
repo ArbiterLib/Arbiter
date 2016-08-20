@@ -52,6 +52,6 @@ class SharedUserValue
     char *(*_createDescription)(const void *data);
 };
 
-}
+} // namespace Arbiter
 
 std::ostream &operator<< (std::ostream &os, const Arbiter::SharedUserValue &value);

@@ -191,7 +191,7 @@ auto makeOptional (T &&value)
   return Optional<typename std::decay<T>::type>(std::forward<T>(value));
 }
 
-}
+} // namespace Arbiter
 
 namespace std {
 
@@ -209,4 +209,4 @@ struct hash<Arbiter::Optional<T>>
     }
 };
 
-}
+} // namespace std

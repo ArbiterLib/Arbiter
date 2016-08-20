@@ -241,4 +241,4 @@ class Future
     std::shared_ptr<State> _state;
 };
 
-}
+} // namespace Arbiter

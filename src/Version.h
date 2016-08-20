@@ -134,4 +134,4 @@ struct hash<ArbiterSelectedVersion>
     }
 };
 
-}
+} // namespace std

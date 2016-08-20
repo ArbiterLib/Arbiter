@@ -102,4 +102,4 @@ struct hash<ArbiterDependency>
     }
 };
 
-}
+} // namespace std

@@ -152,8 +152,8 @@ class Exactly : public ArbiterRequirement
     ArbiterSemanticVersion _version;
 };
 
-}
-}
+} // namespace Requirement
+} // namespace Arbiter
 
 namespace std {
 
@@ -167,4 +167,4 @@ struct hash<ArbiterRequirement>
     }
 };
 
-}
+} // namespace std

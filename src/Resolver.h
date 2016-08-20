@@ -28,8 +28,8 @@ struct ResolvedDependency
   bool operator== (const ResolvedDependency &other) const noexcept;
 };
 
-}
-}
+} // namespace Resolver
+} // namespace Arbiter
 
 namespace std {
 
@@ -44,7 +44,7 @@ struct hash<Arbiter::Resolver::ResolvedDependency>
     }
 };
 
-}
+} // namespace std
 
 struct ArbiterResolver
 {

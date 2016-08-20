@@ -234,7 +234,7 @@ bool operator== (const Either<Left, Right> &lhs, const Either<Left, Right> &rhs)
   }
 }
 
-}
+} // namespace Arbiter
 
 namespace std {
 
@@ -252,4 +252,4 @@ struct hash<Arbiter::Either<Left, Right>>
     }
 };
 
-}
+} // namespace std
