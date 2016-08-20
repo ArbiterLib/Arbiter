@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['shareduservalue',['SharedUserValue',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]],
-  ['shareduservalue_3c_20arbiterprojectidentifier_20_3e',['SharedUserValue&lt; ArbiterProjectIdentifier &gt;',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]],
-  ['shareduservalue_3c_20arbiterresolver_20_3e',['SharedUserValue&lt; ArbiterResolver &gt;',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]],
-  ['shareduservalue_3c_20arbiterselectedversion_20_3e',['SharedUserValue&lt; ArbiterSelectedVersion &gt;',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]]
+  ['resolveddependency',['ResolvedDependency',['../struct_arbiter_1_1_resolver_1_1_resolved_dependency.html',1,'Arbiter::Resolver']]],
+  ['right',['Right',['../struct_arbiter_1_1_right.html',1,'Arbiter']]],
+  ['righttag',['RightTag',['../struct_arbiter_1_1_either.html#struct_arbiter_1_1_either_1_1_right_tag',1,'Arbiter::Either']]]
 ];

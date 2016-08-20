@@ -107,6 +107,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_future.html">Future</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_arbiter_1_1_future.html" title="Future type resembling std::shared_future, with support for asynchronous callbacks and composition...">Future</a> type resembling std::shared_future, with support for asynchronous callbacks and composition.  <a href="class_arbiter_1_1_future.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_generator.html">Generator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generator function which will (possibly asynchronously) yield values of T until exhausted or an error occurs.  <a href="class_arbiter_1_1_generator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_1_1_left.html">Left</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporarily holds the left side of an <a class="el" href="struct_arbiter_1_1_either.html" title="Represents one of two values. ">Either</a>, with an unbound <a class="el" href="struct_arbiter_1_1_right.html" title="Temporarily holds the right side of an Either, with an unbound Left type. ">Right</a> type.  <a href="struct_arbiter_1_1_left.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,6 +127,9 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_shared_user_value.html">SharedUserValue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expresses shared ownership of opaque user-provided data, which was originally described in an <a class="el" href="struct_arbiter_user_value.html" title="Represents an arbitrary value that can be associated with Arbiter data types and functionality. ">ArbiterUserValue</a>.  <a href="class_arbiter_1_1_shared_user_value.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_sink.html">Sink</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements an optional "write" end to a <a class="el" href="class_arbiter_1_1_generator.html" title="A generator function which will (possibly asynchronously) yield values of T until exhausted or an err...">Generator</a>, similar to how a <a class="el" href="class_arbiter_1_1_promise.html" title="Promise type resembling std::promise, which yields Arbiter::Future instead of std::future or std::sha...">Promise</a> is the write end of a <a class="el" href="class_arbiter_1_1_future.html" title="Future type resembling std::shared_future, with support for asynchronous callbacks and composition...">Future</a>.  <a href="class_arbiter_1_1_sink.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -348,7 +354,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 13:23:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

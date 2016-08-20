@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['promise',['Promise',['../class_arbiter_1_1_promise.html',1,'Arbiter']]],
-  ['promise_3c_20arbiterdependencylist_20_3e',['Promise&lt; ArbiterDependencyList &gt;',['../class_arbiter_1_1_promise.html',1,'Arbiter']]]
+  ['optional',['Optional',['../struct_arbiter_1_1_optional.html',1,'Arbiter']]],
+  ['optional_3c_20arbiter_3a_3aeither_20_3e',['Optional&lt; Arbiter::Either &gt;',['../struct_arbiter_1_1_optional.html',1,'Arbiter']]],
+  ['optional_3c_20std_3a_3astring_20_3e',['Optional&lt; std::string &gt;',['../struct_arbiter_1_1_optional.html',1,'Arbiter']]]
 ];

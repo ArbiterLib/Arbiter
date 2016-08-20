@@ -126,10 +126,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2d3e8381522f6256dfd8b46d0332ae48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15dc783950df12a4274be45a2a214e8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_promise.html#a15dc783950df12a4274be45a2a214e8b">set_exception</a> (std::exception_ptr ex)</td></tr>
 <tr class="separator:a15dc783950df12a4274be45a2a214e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a221b7e0ca3d4176d52e4d1b6d32cb48d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_promise.html#a221b7e0ca3d4176d52e4d1b6d32cb48d">set_value</a> (const T &amp;value)</td></tr>
-<tr class="separator:a221b7e0ca3d4176d52e4d1b6d32cb48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71121563f92e4b6f4ade545c01819d82"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_promise.html#a71121563f92e4b6f4ade545c01819d82">set_value</a> (T &amp;&amp;value)</td></tr>
-<tr class="separator:a71121563f92e4b6f4ade545c01819d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa52fc2de4a33624cc33c4d0cfd6fba13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_promise.html#aa52fc2de4a33624cc33c4d0cfd6fba13">set_result</a> (<a class="el" href="class_arbiter_1_1_promise.html#ab9e6ed56302079afdb9e3c06ef93e417">Result</a> result)</td></tr>
+<tr class="separator:aa52fc2de4a33624cc33c4d0cfd6fba13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24f579e87cce5e66141d1589a3467e6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_promise.html#a24f579e87cce5e66141d1589a3467e6e">set_value</a> (T value)</td></tr>
+<tr class="separator:a24f579e87cce5e66141d1589a3467e6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -324,11 +324,31 @@ template&lt;typename T&gt; </div>
       </table>
 </div><div class="memdoc">
 
+<p>Definition at line <a class="el" href="_future_8h_source.html#l00076">76</a> of file <a class="el" href="_future_8h_source.html">Future.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa52fc2de4a33624cc33c4d0cfd6fba13"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="class_arbiter_1_1_promise.html">Arbiter::Promise</a>&lt; T &gt;::set_result </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_arbiter_1_1_promise.html#ab9e6ed56302079afdb9e3c06ef93e417">Result</a>&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
 <p>Definition at line <a class="el" href="_future_8h_source.html#l00081">81</a> of file <a class="el" href="_future_8h_source.html">Future.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a221b7e0ca3d4176d52e4d1b6d32cb48d"></a>
+<a class="anchor" id="a24f579e87cce5e66141d1589a3467e6e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -337,7 +357,7 @@ template&lt;typename T&gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="class_arbiter_1_1_promise.html">Arbiter::Promise</a>&lt; T &gt;::set_value </td>
           <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
         </tr>
@@ -348,33 +368,13 @@ template&lt;typename T&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a71121563f92e4b6f4ade545c01819d82"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="class_arbiter_1_1_promise.html">Arbiter::Promise</a>&lt; T &gt;::set_value </td>
-          <td>(</td>
-          <td class="paramtype">T &amp;&amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="_future_8h_source.html#l00076">76</a> of file <a class="el" href="_future_8h_source.html">Future.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/<a class="el" href="_future_8h_source.html">Future.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 13:23:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

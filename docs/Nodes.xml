@@ -470,6 +470,62 @@
               </Subnodes>
              </Node>
              <Node>
+              <Name>Generator</Name>
+              <Path>class_arbiter_1_1_generator.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>EventFuture</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>ac592315074bc7d56d2ca915486e60c4f</Anchor>
+               </Node>
+               <Node>
+                <Name>Function</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>a4e0986827558f87ab89116436d4debbc</Anchor>
+               </Node>
+               <Node>
+                <Name>Generator</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>aed47ea38bd47874fff488c19a5d92f0c</Anchor>
+               </Node>
+               <Node>
+                <Name>Generator</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>a5b7609470053d577aef89b9c3bb51046</Anchor>
+               </Node>
+               <Node>
+                <Name>Generator</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>a55ad808ccbf3d45264c7a4ff30b45c83</Anchor>
+               </Node>
+               <Node>
+                <Name>Generator</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>ad6dc80ef63b15197b7a446267ac93f52</Anchor>
+               </Node>
+               <Node>
+                <Name>empty</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>af97a383aa382816a47159cbe18852f5d</Anchor>
+               </Node>
+               <Node>
+                <Name>next</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>a0511ecf5bae46ab8e7e505353a56084c</Anchor>
+               </Node>
+               <Node>
+                <Name>operator=</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>afa6820bc70926ebfa3fe15e96513dfb0</Anchor>
+               </Node>
+               <Node>
+                <Name>operator=</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Anchor>a70c1628b6bee4f2fa87807f2f8818e57</Anchor>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
               <Name>Left</Name>
               <Path>struct_arbiter_1_1_left.html</Path>
               <Subnodes>
@@ -656,14 +712,14 @@
                 <Anchor>a15dc783950df12a4274be45a2a214e8b</Anchor>
                </Node>
                <Node>
-                <Name>set_value</Name>
+                <Name>set_result</Name>
                 <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a221b7e0ca3d4176d52e4d1b6d32cb48d</Anchor>
+                <Anchor>aa52fc2de4a33624cc33c4d0cfd6fba13</Anchor>
                </Node>
                <Node>
                 <Name>set_value</Name>
                 <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a71121563f92e4b6f4ade545c01819d82</Anchor>
+                <Anchor>a24f579e87cce5e66141d1589a3467e6e</Anchor>
                </Node>
                <Node>
                 <Name>Future&lt; T &gt;</Name>
@@ -726,6 +782,67 @@
                 <Name>operator==</Name>
                 <Path>class_arbiter_1_1_shared_user_value.html</Path>
                 <Anchor>a68809201ace5637f3e6e76bf221d6275</Anchor>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
+              <Name>Sink</Name>
+              <Path>class_arbiter_1_1_sink.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>Event</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a7b160b395cf85446d807e2e9956f7cc0</Anchor>
+               </Node>
+               <Node>
+                <Name>Sink</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a7d4fd31e808b167307099ce865f35635</Anchor>
+               </Node>
+               <Node>
+                <Name>Sink</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>aa7e6468c7448ad21a98a0b3b2865a9f7</Anchor>
+               </Node>
+               <Node>
+                <Name>Sink</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a71d8d45eb1b03ce41b43cd579e856700</Anchor>
+               </Node>
+               <Node>
+                <Name>getGenerator</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a99d4fe044ba0a76325486261834eb3f5</Anchor>
+               </Node>
+               <Node>
+                <Name>onCompleted</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a1cfe31d3c29ee22d24b67144d39d15fb</Anchor>
+               </Node>
+               <Node>
+                <Name>onError</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a10d6faaecdbe168ab4f51b1fb02e115b</Anchor>
+               </Node>
+               <Node>
+                <Name>onEvent</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a55f746c4d43e44b21fd0e9e42754fd3e</Anchor>
+               </Node>
+               <Node>
+                <Name>onNext</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>aebee08f96cfd85b26a9f05cba0f4c1f5</Anchor>
+               </Node>
+               <Node>
+                <Name>operator=</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>aeed0655a7714f8618886c3fa5289f1bd</Anchor>
+               </Node>
+               <Node>
+                <Name>operator=</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Anchor>a52324fa5fd0767defb594f37791e28b1</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -1018,6 +1135,11 @@
               <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
              </Node>
              <Node>
+              <Name>fetchAvailableVersions</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>a23bfaa1f446f0cafea439a4e50b3e9e9</Anchor>
+             </Node>
+             <Node>
               <Name>fetchDependencyList</Name>
               <Path>struct_arbiter_resolver.html</Path>
               <Anchor>a0ed1919df58076b4664051e5b59aa1ce</Anchor>
@@ -1248,6 +1370,10 @@
             <Path>class_arbiter_1_1_future.html</Path>
            </Node>
            <Node>
+            <Name>Arbiter::Generator&lt; T &gt;</Name>
+            <Path>class_arbiter_1_1_generator.html</Path>
+           </Node>
+           <Node>
             <Name>Arbiter::Left&lt; T &gt;</Name>
             <Path>struct_arbiter_1_1_left.html</Path>
            </Node>
@@ -1275,6 +1401,10 @@
            <Node>
             <Name>Arbiter::SharedUserValue&lt; Owner &gt;</Name>
             <Path>class_arbiter_1_1_shared_user_value.html</Path>
+           </Node>
+           <Node>
+            <Name>Arbiter::Sink&lt; T &gt;</Name>
+            <Path>class_arbiter_1_1_sink.html</Path>
            </Node>
            <Node>
             <Name>ArbiterAvailableVersionsFetch</Name>
@@ -1369,6 +1499,10 @@
             <Path>class_arbiter_1_1_shared_user_value.html</Path>
            </Node>
            <Node>
+            <Name>Arbiter::Sink&lt; ArbiterSelectedVersion &gt;</Name>
+            <Path>class_arbiter_1_1_sink.html</Path>
+           </Node>
+           <Node>
             <Name>std::hash&lt; Arbiter::Either&lt; Left, Right &gt; &gt;</Name>
             <Path>structstd_1_1hash_3_01_arbiter_1_1_either_3_01_left_00_01_right_01_4_01_4.html</Path>
            </Node>
@@ -1409,6 +1543,88 @@
            <Node>
             <Name>All</Name>
             <Path>functions.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>_</Name>
+              <Path>functions.html</Path>
+             </Node>
+             <Node>
+              <Name>a</Name>
+              <Path>functions_a.html</Path>
+             </Node>
+             <Node>
+              <Name>c</Name>
+              <Path>functions_c.html</Path>
+             </Node>
+             <Node>
+              <Name>d</Name>
+              <Path>functions_d.html</Path>
+             </Node>
+             <Node>
+              <Name>e</Name>
+              <Path>functions_e.html</Path>
+             </Node>
+             <Node>
+              <Name>f</Name>
+              <Path>functions_f.html</Path>
+             </Node>
+             <Node>
+              <Name>g</Name>
+              <Path>functions_g.html</Path>
+             </Node>
+             <Node>
+              <Name>h</Name>
+              <Path>functions_h.html</Path>
+             </Node>
+             <Node>
+              <Name>i</Name>
+              <Path>functions_i.html</Path>
+             </Node>
+             <Node>
+              <Name>l</Name>
+              <Path>functions_l.html</Path>
+             </Node>
+             <Node>
+              <Name>m</Name>
+              <Path>functions_m.html</Path>
+             </Node>
+             <Node>
+              <Name>n</Name>
+              <Path>functions_n.html</Path>
+             </Node>
+             <Node>
+              <Name>o</Name>
+              <Path>functions_o.html</Path>
+             </Node>
+             <Node>
+              <Name>p</Name>
+              <Path>functions_p.html</Path>
+             </Node>
+             <Node>
+              <Name>r</Name>
+              <Path>functions_r.html</Path>
+             </Node>
+             <Node>
+              <Name>s</Name>
+              <Path>functions_s.html</Path>
+             </Node>
+             <Node>
+              <Name>t</Name>
+              <Path>functions_t.html</Path>
+             </Node>
+             <Node>
+              <Name>v</Name>
+              <Path>functions_v.html</Path>
+             </Node>
+             <Node>
+              <Name>w</Name>
+              <Path>functions_w.html</Path>
+             </Node>
+             <Node>
+              <Name>~</Name>
+              <Path>functions_0x7e.html</Path>
+             </Node>
+            </Subnodes>
            </Node>
            <Node>
             <Name>Functions</Name>
@@ -2290,19 +2506,142 @@
                   <Anchor>a15dc783950df12a4274be45a2a214e8b</Anchor>
                  </Node>
                  <Node>
-                  <Name>set_value</Name>
+                  <Name>set_result</Name>
                   <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a221b7e0ca3d4176d52e4d1b6d32cb48d</Anchor>
+                  <Anchor>aa52fc2de4a33624cc33c4d0cfd6fba13</Anchor>
                  </Node>
                  <Node>
                   <Name>set_value</Name>
                   <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a71121563f92e4b6f4ade545c01819d82</Anchor>
+                  <Anchor>a24f579e87cce5e66141d1589a3467e6e</Anchor>
                  </Node>
                  <Node>
                   <Name>Future&lt; T &gt;</Name>
                   <Path>class_arbiter_1_1_promise.html</Path>
                   <Anchor>a3764cc1bcb8b7944580563d334984ace</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
+              <Name>Generator.h</Name>
+              <Path>_generator_8h.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>Generator</Name>
+                <Path>class_arbiter_1_1_generator.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>EventFuture</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>ac592315074bc7d56d2ca915486e60c4f</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Function</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>a4e0986827558f87ab89116436d4debbc</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Generator</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>aed47ea38bd47874fff488c19a5d92f0c</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Generator</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>a5b7609470053d577aef89b9c3bb51046</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Generator</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>a55ad808ccbf3d45264c7a4ff30b45c83</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Generator</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>ad6dc80ef63b15197b7a446267ac93f52</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>empty</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>af97a383aa382816a47159cbe18852f5d</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>next</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>a0511ecf5bae46ab8e7e505353a56084c</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>afa6820bc70926ebfa3fe15e96513dfb0</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>class_arbiter_1_1_generator.html</Path>
+                  <Anchor>a70c1628b6bee4f2fa87807f2f8818e57</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>Sink</Name>
+                <Path>class_arbiter_1_1_sink.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>Event</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a7b160b395cf85446d807e2e9956f7cc0</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Sink</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a7d4fd31e808b167307099ce865f35635</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Sink</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>aa7e6468c7448ad21a98a0b3b2865a9f7</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Sink</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a71d8d45eb1b03ce41b43cd579e856700</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>getGenerator</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a99d4fe044ba0a76325486261834eb3f5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>onCompleted</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a1cfe31d3c29ee22d24b67144d39d15fb</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>onError</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a10d6faaecdbe168ab4f51b1fb02e115b</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>onEvent</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a55f746c4d43e44b21fd0e9e42754fd3e</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>onNext</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>aebee08f96cfd85b26a9f05cba0f4c1f5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>aeed0655a7714f8618886c3fa5289f1bd</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>class_arbiter_1_1_sink.html</Path>
+                  <Anchor>a52324fa5fd0767defb594f37791e28b1</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -2772,6 +3111,11 @@
                   <Name>ArbiterResolver</Name>
                   <Path>struct_arbiter_resolver.html</Path>
                   <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>fetchAvailableVersions</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>a23bfaa1f446f0cafea439a4e50b3e9e9</Anchor>
                  </Node>
                  <Node>
                   <Name>fetchDependencyList</Name>

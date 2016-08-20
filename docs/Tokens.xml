@@ -904,6 +904,18 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>fetchAvailableVersions</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolver</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolver.html</Path>
+    <Anchor>a23bfaa1f446f0cafea439a4e50b3e9e9</Anchor>
+    <Abstract>Fetches the list of available versions for the given project. </Abstract>
+    <DeclaredIn>Resolver.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>fetchDependencyList</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
@@ -1774,6 +1786,129 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Arbiter::Generator</Name>
+      <APILanguage>c</APILanguage>
+      <Type>tmplt</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Abstract>A generator function which will (possibly asynchronously) yield values of T until exhausted or an err...</Abstract>
+    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>EventFuture</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>ac592315074bc7d56d2ca915486e60c4f</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Function</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>a4e0986827558f87ab89116436d4debbc</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Generator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>aed47ea38bd47874fff488c19a5d92f0c</Anchor>
+    <Abstract>Instantiates an exhausted generator. </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Generator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>a5b7609470053d577aef89b9c3bb51046</Anchor>
+    <Abstract>Instantiates a generator with the given callable object. </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Generator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>a55ad808ccbf3d45264c7a4ff30b45c83</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Generator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>ad6dc80ef63b15197b7a446267ac93f52</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>empty</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>af97a383aa382816a47159cbe18852f5d</Anchor>
+    <Abstract>Returns whether the generator is empty (exhausted). </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>next</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>a0511ecf5bae46ab8e7e505353a56084c</Anchor>
+    <Abstract>Begins generating the next value. </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>afa6820bc70926ebfa3fe15e96513dfb0</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Generator</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_generator.html</Path>
+    <Anchor>a70c1628b6bee4f2fa87807f2f8818e57</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>Arbiter::Left</Name>
       <APILanguage>c</APILanguage>
       <Type>tmplt</Type>
@@ -2180,13 +2315,13 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>set_value</Name>
+      <Name>set_result</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>Arbiter::Promise</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_promise.html</Path>
-    <Anchor>a221b7e0ca3d4176d52e4d1b6d32cb48d</Anchor>
+    <Anchor>aa52fc2de4a33624cc33c4d0cfd6fba13</Anchor>
     <DeclaredIn>Future.h</DeclaredIn>
   </Token>
   <Token>
@@ -2197,7 +2332,7 @@
       <Scope>Arbiter::Promise</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_promise.html</Path>
-    <Anchor>a71121563f92e4b6f4ade545c01819d82</Anchor>
+    <Anchor>a24f579e87cce5e66141d1589a3467e6e</Anchor>
     <DeclaredIn>Future.h</DeclaredIn>
   </Token>
   <Token>
@@ -2319,6 +2454,142 @@
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
     <Anchor>a68809201ace5637f3e6e76bf221d6275</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Arbiter::Sink</Name>
+      <APILanguage>c</APILanguage>
+      <Type>tmplt</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Abstract>Implements an optional &quot;write&quot; end to a Generator, similar to how a Promise is the write end of a Fut...</Abstract>
+    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Event</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a7b160b395cf85446d807e2e9956f7cc0</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Sink</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a7d4fd31e808b167307099ce865f35635</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Sink</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>aa7e6468c7448ad21a98a0b3b2865a9f7</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Sink</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a71d8d45eb1b03ce41b43cd579e856700</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>getGenerator</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a99d4fe044ba0a76325486261834eb3f5</Anchor>
+    <Abstract>Creates a generator for accessing the events which are or will be enqueued upon this sink...</Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>onCompleted</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a1cfe31d3c29ee22d24b67144d39d15fb</Anchor>
+    <Abstract>Enqueues a completion event for the Generator. </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>onError</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a10d6faaecdbe168ab4f51b1fb02e115b</Anchor>
+    <Abstract>Enqueues an error for the Generator. </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>onEvent</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a55f746c4d43e44b21fd0e9e42754fd3e</Anchor>
+    <Abstract>Enqueues an event for the Generator. </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>onNext</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>aebee08f96cfd85b26a9f05cba0f4c1f5</Anchor>
+    <Abstract>Enqueues a value for the Generator. </Abstract>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>aeed0655a7714f8618886c3fa5289f1bd</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Sink</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_sink.html</Path>
+    <Anchor>a52324fa5fd0767defb594f37791e28b1</Anchor>
+    <DeclaredIn>Generator.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
