@@ -53,6 +53,7 @@ struct ArbiterRequirement
 
   protected:
     friend struct std::hash<ArbiterRequirement>;
+    friend std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requirement);
 
     virtual size_t hash () const noexcept = 0;
     virtual std::ostream &describe (std::ostream &os) const = 0;
