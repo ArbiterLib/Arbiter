@@ -55,6 +55,9 @@ unsigned ArbiterGetPatchVersion (const ArbiterSemanticVersion *version);
  *
  * For example, in the version `1.0.0-alpha.1`, the prerelease version string
  * will be `alpha.1`.
+ *
+ * The returned pointer is only guaranteed to remain valid for the current
+ * scope.
  */
 const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version);
 
@@ -64,6 +67,9 @@ const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version);
  *
  * For example, in the version `1.0.0+20160814`, the build metadata string will
  * be `20160814`.
+ *
+ * The returned pointer is only guaranteed to remain valid for the current
+ * scope.
  */
 const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version);
 
@@ -82,12 +88,44 @@ bool ArbiterEqualVersions (const ArbiterSemanticVersion *lhs, const ArbiterSeman
  */
 int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs);
 
+/**
+ * Represents a "selected" version, which is a concrete choice of a real project
+ * version.
+ */
 typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
 
+/**
+ * Creates a selected version which corresponds to the given semantic version.
+ *
+ * The returned version must be freed with ArbiterFreeSelectedVersion().
+ */
 ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata);
+
+/**
+ * Returns the semantic version which corresponds to the given selected version.
+ *
+ * The returned pointer is only guaranteed to remain valid for the current
+ * scope.
+ */
 const ArbiterSemanticVersion *ArbiterSelectedVersionSemanticVersion (const ArbiterSelectedVersion *version);
+
+/**
+ * Returns any metadata pointer which was provided to
+ * ArbiterCreateSelectedVersion().
+ *
+ * The returned pointer is only guaranteed to remain valid for the current
+ * scope.
+ */
 const void *ArbiterSelectedVersionMetadata (const ArbiterSelectedVersion *version);
+
+/**
+ * Returns whether the two selected versions are equivalent.
+ */
 bool ArbiterEqualSelectedVersions (const ArbiterSelectedVersion *lhs, const ArbiterSelectedVersion *rhs);
+
+/**
+ * Releases the memory associated with a selected version object.
+ */
 void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version);
 
 #ifdef __cplusplus
