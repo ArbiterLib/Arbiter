@@ -48,6 +48,13 @@ struct DependencyNode final
     }
 };
 
+std::ostream &operator<< (std::ostream &os, const DependencyNode &node)
+{
+  return os
+    << node._project << " @ " << node._proposedVersion
+    << " (restricted to " << *node._requirement << ")";
+}
+
 class DependencyGraph final
 {
   public:
@@ -60,6 +67,27 @@ class DependencyGraph final
       return _edges == other._edges && _roots == other._roots;
     }
 };
+
+std::ostream &operator<< (std::ostream &os, const DependencyGraph &graph)
+{
+  os << "Roots:";
+  for (const DependencyNode &root : graph._roots) {
+    os << "\n\t" << root;
+  }
+
+  os << "\n\nEdges";
+  for (const auto &pair : graph._edges) {
+    const DependencyNode &node = pair.first;
+    os << "\n\t" << node._project << " ->";
+
+    const auto &dependencies = pair.second;
+    for (const DependencyNode &dep : dependencies) {
+      os << "\n\t\t" << dep;
+    }
+  }
+
+  return os;
+}
 
 } // namespace
 
