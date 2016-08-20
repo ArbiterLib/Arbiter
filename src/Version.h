@@ -31,6 +31,9 @@ struct ArbiterSemanticVersion final
       , _buildMetadata(buildMetadata)
     {}
 
+    /**
+     * Attempts to parse a well-formed semantic version from a string.
+     */
     // TODO: Add error reporting
     static Arbiter::Optional<ArbiterSemanticVersion> fromString (const std::string &versionString);
 

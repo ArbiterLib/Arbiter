@@ -9,6 +9,9 @@
 
 namespace Arbiter {
 
+/**
+ * Converts an arbitrary value into a string, using operator<<.
+ */
 template<typename T>
 std::string toString (const T &value)
 {

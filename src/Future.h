@@ -32,6 +32,10 @@ template<typename T>
 class Promise final
 {
   public:
+    /**
+     * The type of result which will be provided by any future obtained from
+     * this promise.
+     */
     using Result = Either<std::exception_ptr, T>;
 
     Promise ()
@@ -130,6 +134,9 @@ template<typename T>
 class Future final
 {
   public:
+    /**
+     * The type of result that will be provided by this future.
+     */
     using Result = typename Promise<T>::Result;
 
     Future ()

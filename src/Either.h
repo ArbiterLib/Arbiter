@@ -10,6 +10,9 @@
 
 namespace Arbiter {
 
+/**
+ * Temporarily holds the left side of an Either, with an unbound Right type. 
+ */
 template<typename T>
 struct Left final
 {
@@ -26,12 +29,20 @@ struct Left final
   {}
 };
 
+/**
+ * Creates a Left value which can be implicitly converted into an Either.
+ *
+ * This function allows the Right type to be inferred from context.
+ */
 template<typename T>
 auto makeLeft (T &&value)
 {
   return Left<typename std::decay<T>::type>(std::forward<T>(value));
 }
 
+/**
+ * Temporarily holds the right side of an Either, with an unbound Left type. 
+ */
 template<typename T>
 struct Right final
 {
@@ -48,17 +59,37 @@ struct Right final
   {}
 };
 
+/**
+ * Creates a Right value which can be implicitly converted into an Either.
+ *
+ * This function allows the Left type to be inferred from context.
+ */
 template<typename T>
 auto makeRight (T &&value)
 {
   return Right<typename std::decay<T>::type>(std::forward<T>(value));
 }
 
+/**
+ * Represents one of two values.
+ *
+ * By convention, when used for communicating errors, Right is the successful
+ * value (mnemonic "worked right"), while Left contains the error information.
+ */
 template<typename Left, typename Right>
 struct Either final
 {
   public:
+    /**
+     * Type tag used to disambiguate Left values, when the two types are the
+     * same.
+     */
     struct LeftTag final {};
+
+    /**
+     * Type tag used to disambiguate Right values, when the two types are the
+     * same.
+     */
     struct RightTag final {};
 
     Either () = delete;
@@ -148,6 +179,10 @@ struct Either final
       return _value._right;
     }
 
+    /**
+     * Returns the Right value, if hasRight() is true, or else throws an
+     * exception using the Left value.
+     */
     Right &rightOrThrowLeft ()
     {
       if (hasLeft()) {
@@ -157,6 +192,10 @@ struct Either final
       }
     }
 
+    /**
+     * Returns the Right value, if hasRight() is true, or else throws an
+     * exception using the Left value.
+     */
     const Right &rightOrThrowLeft () const
     {
       if (hasLeft()) {

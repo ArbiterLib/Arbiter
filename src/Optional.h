@@ -12,29 +12,45 @@
 
 namespace Arbiter {
 
+/**
+ * Sentinel value which can be used to create an empty Optional of any type.
+ */
 struct None final
 {};
 
+/**
+ * Represents a value which may or may not exist.
+ */
 template<typename T>
 struct Optional final
 {
   public:
-    using value_type = T;
-
+    /**
+     * Creates an empty Optional.
+     */
     constexpr Optional () noexcept
       : _hasValue(false)
     {}
 
+    /**
+     * Creates an empty Optional.
+     */
     Optional (const None &) noexcept
       : _hasValue(false)
     {}
 
+    /**
+     * Creates an Optional containing a copy of the given value.
+     */
     Optional (const T &value) noexcept(std::is_nothrow_copy_constructible<T>::value)
       : _hasValue(true)
     {
       construct(value);
     }
 
+    /**
+     * Creates an Optional containing the given value.
+     */
     Optional (T &&value) noexcept(std::is_nothrow_move_constructible<T>::value)
       : _hasValue(true)
     {
@@ -49,6 +65,9 @@ struct Optional final
       }
     }
 
+    /**
+     * Converts from another Optional containing a compatible type.
+     */
     template<typename U>
     Optional (const Optional<U> &other) noexcept(std::is_nothrow_constructible<T, const U &>::value)
       : _hasValue(static_cast<bool>(other))
@@ -81,6 +100,9 @@ struct Optional final
       }
     }
 
+    /**
+     * Converts from another Optional containing a compatible type.
+     */
     template<typename U>
     Optional (Optional<U> &&other) noexcept(std::is_nothrow_constructible<T, U &&>::value)
       : _hasValue(static_cast<bool>(other))
@@ -106,28 +128,47 @@ struct Optional final
       destroyIfNeeded();
     }
 
+    /**
+     * Returns true if this Optional contains a value, or false if it is empty.
+     */
     explicit operator bool () const noexcept
     {
       return _hasValue;
     }
 
+    /**
+     * Accesses the value in the Optional.
+     *
+     * The Optional must not be empty.
+     */
     T &value () noexcept
     {
       assert(_hasValue);
       return *reinterpret_cast<T *>(&_storage);
     }
 
+    /**
+     * Accesses the value in the Optional.
+     *
+     * The Optional must not be empty.
+     */
     const T &value () const noexcept
     {
       assert(_hasValue);
       return *reinterpret_cast<const T *>(&_storage);
     }
 
+    /**
+     * Returns a pointer to the value in the Optional, or `nullptr` if empty.
+     */
     T *pointer () noexcept
     {
       return _hasValue ? reinterpret_cast<T *>(&_storage) : nullptr;
     }
 
+    /**
+     * Returns a pointer to the value in the Optional, or `nullptr` if empty.
+     */
     const T *pointer () const noexcept
     {
       return _hasValue ? reinterpret_cast<const T *>(&_storage) : nullptr;
@@ -185,6 +226,9 @@ bool operator== (const Optional<T> &lhs, const Optional<T> &rhs)
   }
 }
 
+/**
+ * Creates an Optional from a value, inferring its type.
+ */
 template<typename T>
 auto makeOptional (T &&value)
 {

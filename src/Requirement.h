@@ -17,18 +17,45 @@ struct ArbiterRequirement
   public:
     virtual ~ArbiterRequirement () = default;
 
+    /**
+     * Returns whether this requirement would be satisfied by using the given
+     * version.
+     */
     virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
 
+    /**
+     * Returns whether this requirement is equivalent to the given one.
+     */
     virtual bool operator== (const ArbiterRequirement &other) const noexcept = 0;
-    virtual size_t hash () const noexcept = 0;
-    virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
-    virtual std::ostream &describe (std::ostream &os) const = 0;
-    virtual std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const = 0;
 
     bool operator!= (const ArbiterRequirement &other) const noexcept
     {
       return !(*this == other);
     }
+
+    /**
+     * Creates a copy of this requirement (including its dynamic type).
+     */
+    virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
+
+    /**
+     * Attempts to create a requirement which expresses the intersection of this
+     * requirement and the given one
+     *
+     * In other words, this attempts to find the loosest possible requirement
+     * which is a superset of the two inputs. Any version which passes the
+     * intersected requirement would also pass either one of the original
+     * inputs.
+     *
+     * Returns `nullptr` if no intersection is possible.
+     */
+    virtual std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const = 0;
+
+  protected:
+    friend struct std::hash<ArbiterRequirement>;
+
+    virtual size_t hash () const noexcept = 0;
+    virtual std::ostream &describe (std::ostream &os) const = 0;
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requirement);
@@ -36,6 +63,9 @@ std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requiremen
 namespace Arbiter {
 namespace Requirement {
 
+/**
+ * A requirement satisfied by any version.
+ */
 class Any final : public ArbiterRequirement
 {
   public:
@@ -49,20 +79,26 @@ class Any final : public ArbiterRequirement
       return (bool)dynamic_cast<const Any *>(&other);
     }
 
-    size_t hash () const noexcept override
-    {
-      return 4;
-    }
-
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
       return std::make_unique<Any>(*this);
     }
 
-    std::ostream &describe (std::ostream &os) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+
+  protected:
+    size_t hash () const noexcept override
+    {
+      return 4;
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
 };
 
+/**
+ * A requirement satisfied only by versions greater than or equal to the
+ * specified one.
+ */
 class AtLeast final : public ArbiterRequirement
 {
   public:
@@ -79,20 +115,26 @@ class AtLeast final : public ArbiterRequirement
 
     bool operator== (const ArbiterRequirement &other) const noexcept override;
 
-    size_t hash () const noexcept override
-    {
-      return hashOf(_minimumVersion);
-    }
-
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
       return std::make_unique<AtLeast>(*this);
     }
 
-    std::ostream &describe (std::ostream &os) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+
+  protected:
+    size_t hash () const noexcept override
+    {
+      return hashOf(_minimumVersion);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
 };
 
+/**
+ * A requirement satisfied only by versions which are "compatible with" the
+ * specified one, as defined by SemVer.
+ */
 class CompatibleWith final : public ArbiterRequirement
 {
   public:
@@ -107,20 +149,25 @@ class CompatibleWith final : public ArbiterRequirement
     bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override;
     bool operator== (const ArbiterRequirement &other) const noexcept override;
 
-    size_t hash () const noexcept override
-    {
-      return hashOf(_baseVersion);
-    }
-
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
       return std::make_unique<CompatibleWith>(*this);
     }
 
-    std::ostream &describe (std::ostream &os) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+
+  protected:
+    size_t hash () const noexcept override
+    {
+      return hashOf(_baseVersion);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
 };
 
+/**
+ * A requirement satisfied only by one exact version.
+ */
 class Exactly final : public ArbiterRequirement
 {
   public:
@@ -137,18 +184,20 @@ class Exactly final : public ArbiterRequirement
 
     bool operator== (const ArbiterRequirement &other) const noexcept override;
 
-    size_t hash () const noexcept override
-    {
-      return hashOf(_version);
-    }
-
     std::unique_ptr<ArbiterRequirement> clone () const override
     {
       return std::make_unique<Exactly>(*this);
     }
 
-    std::ostream &describe (std::ostream &os) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+
+  protected:
+    size_t hash () const noexcept override
+    {
+      return hashOf(_version);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
 };
 
 } // namespace Requirement

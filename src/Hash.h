@@ -9,6 +9,12 @@
 
 namespace Arbiter {
 
+/**
+ * Hashes an arbitrary value that has an std::hash specialization.
+ *
+ * This function is slightly more convenient than using std::hash directly,
+ * because of type inference.
+ */
 template<typename T>
 size_t hashOf (const T &value)
 {

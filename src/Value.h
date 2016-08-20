@@ -11,6 +11,10 @@
 
 namespace Arbiter {
 
+/**
+ * Expresses shared ownership of opaque user-provided data, which was originally
+ * described in an ArbiterUserValue.
+ */
 class SharedUserValue final
 {
   public:
