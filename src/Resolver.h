@@ -6,6 +6,7 @@
 
 #include "Dependency.h"
 #include "Future.h"
+#include "Generator.h"
 #include "Hash.h"
 #include "Value.h"
 #include "Version.h"
@@ -73,6 +74,11 @@ struct ArbiterResolver final
     Arbiter::Future<ArbiterDependencyList> fetchDependencyList (Arbiter::Resolver::ResolvedDependency fetch);
 
     /**
+     * Fetches the list of available versions for the given project.
+     */
+    Arbiter::Generator<ArbiterSelectedVersion> fetchAvailableVersions (ArbiterProjectIdentifier project);
+
+    /**
      * Returns whether all dependencies have been resolved.
      */
     bool resolvedAll () const noexcept;
@@ -93,6 +99,7 @@ struct ArbiterResolver final
 
     std::mutex _fetchesMutex;
     std::unordered_map<Arbiter::Resolver::ResolvedDependency, Arbiter::Promise<ArbiterDependencyList>> _dependencyListFetches;
+    std::unordered_map<ArbiterProjectIdentifier, Arbiter::Sink<ArbiterSelectedVersion>> _availableVersionsFetches;
 
     /**
      * Creates a promise/future pair representing a fetch for the given
@@ -105,6 +112,19 @@ struct ArbiterResolver final
      * be placed, and removes it from the collection of in-flight fetches.
      */
     Arbiter::Promise<ArbiterDependencyList> extractDependencyListFetch (const Arbiter::Resolver::ResolvedDependency &fetch);
+
+    /**
+     * Creates a generator/sink pair representing a fetch for available versions
+     * of the given project, and returns the "read" end of it.
+     */
+    Arbiter::Generator<ArbiterSelectedVersion> insertAvailableVersionsFetch (ArbiterProjectIdentifier fetch);
+
+    /**
+     * Given an in-flight fetch, returns the "write" end where the terminal
+     * event should be sent, and removes it from the collection of in-flight
+     * fetches.
+     */
+    Arbiter::Sink<ArbiterSelectedVersion> extractAvailableVersionsFetch (const ArbiterProjectIdentifier &fetch);
 
     // C exports
     static void dependencyListFetchOnSuccess (ArbiterDependencyListFetch cFetch, const ArbiterDependencyList *fetchedList);

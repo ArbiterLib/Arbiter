@@ -59,8 +59,8 @@ class DependencyNode final
       , _state(std::move(other._state))
     {}
 
-    DependencyNode &operator= (const DependencyNode &other) = delete;
-    DependencyNode &operator= (DependencyNode &&other) = delete;
+    DependencyNode &operator= (const DependencyNode &) = delete;
+    DependencyNode &operator= (DependencyNode &&) = delete;
 
     bool operator== (const DependencyNode &other) const
     {
@@ -308,19 +308,36 @@ Arbiter::Future<ResolvedDependency> resolveNext ()
 
 Arbiter::Future<ArbiterDependencyList> ArbiterResolver::insertDependencyListFetch (ResolvedDependency dependency)
 {
-  std::lock_guard<std::mutex> guard(_fetchesMutex);
+  std::lock_guard<std::mutex> lock(_fetchesMutex);
 
   return _dependencyListFetches[std::move(dependency)].get_future();
 }
 
 Arbiter::Promise<ArbiterDependencyList> ArbiterResolver::extractDependencyListFetch (const ResolvedDependency &dependency)
 {
-  std::lock_guard<std::mutex> guard(_fetchesMutex);
+  std::lock_guard<std::mutex> lock(_fetchesMutex);
 
   Arbiter::Promise<ArbiterDependencyList> promise = std::move(_dependencyListFetches.at(dependency));
   _dependencyListFetches.erase(dependency);
 
   return promise;
+}
+
+Arbiter::Generator<ArbiterSelectedVersion> ArbiterResolver::insertAvailableVersionsFetch (ArbiterProjectIdentifier fetch)
+{
+  std::lock_guard<std::mutex> lock(_fetchesMutex);
+
+  return _availableVersionsFetches[std::move(fetch)].getGenerator();
+}
+
+Arbiter::Sink<ArbiterSelectedVersion> ArbiterResolver::extractAvailableVersionsFetch (const ArbiterProjectIdentifier &fetch)
+{
+  std::lock_guard<std::mutex> lock(_fetchesMutex);
+
+  Arbiter::Sink<ArbiterSelectedVersion> sink = std::move(_availableVersionsFetches.at(fetch));
+  _availableVersionsFetches.erase(fetch);
+
+  return sink;
 }
 
 Arbiter::Future<ArbiterDependencyList> ArbiterResolver::fetchDependencyList (ResolvedDependency dependency)
@@ -338,6 +355,23 @@ Arbiter::Future<ArbiterDependencyList> ArbiterResolver::fetchDependencyList (Res
   );
 
   return future;
+}
+
+Arbiter::Generator<ArbiterSelectedVersion> ArbiterResolver::fetchAvailableVersions (ArbiterProjectIdentifier project)
+{
+  // Eventually freed in the C callback function.
+  auto projectCopy = std::make_unique<ArbiterProjectIdentifier>(project);
+
+  auto generator = insertAvailableVersionsFetch(std::move(project));
+
+  _behaviors.fetchAvailableVersions(
+    ArbiterAvailableVersionsFetch { this, projectCopy.release() },
+    &availableVersionsFetchOnNext,
+    &availableVersionsFetchOnCompleted,
+    &availableVersionsFetchOnError
+  );
+
+  return generator;
 }
 
 void ArbiterResolver::dependencyListFetchOnSuccess (ArbiterDependencyListFetch cFetch, const ArbiterDependencyList *fetchedList)
@@ -359,4 +393,37 @@ void ArbiterResolver::dependencyListFetchOnError (ArbiterDependencyListFetch cFe
     .extractDependencyListFetch(dependency)
     // TODO: Better error reporting
     .set_exception(std::make_exception_ptr(std::runtime_error("Dependency list fetch failed")));
+}
+
+void ArbiterResolver::availableVersionsFetchOnNext (ArbiterAvailableVersionsFetch cFetch, const ArbiterSelectedVersion *nextVersion)
+{
+  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
+  const auto &project = *cFetch.project;
+
+  std::lock_guard<std::mutex> lock(resolver._fetchesMutex);
+  resolver
+    ._availableVersionsFetches
+    .at(project)
+    .onNext(*nextVersion);
+}
+
+void ArbiterResolver::availableVersionsFetchOnCompleted (ArbiterAvailableVersionsFetch cFetch)
+{
+  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
+  std::unique_ptr<ArbiterProjectIdentifier> project(const_cast<ArbiterProjectIdentifier *>(cFetch.project));
+
+  resolver
+    .extractAvailableVersionsFetch(*project)
+    .onCompleted();
+}
+
+void ArbiterResolver::availableVersionsFetchOnError (ArbiterAvailableVersionsFetch cFetch)
+{
+  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
+  std::unique_ptr<ArbiterProjectIdentifier> project(const_cast<ArbiterProjectIdentifier *>(cFetch.project));
+
+  resolver
+    .extractAvailableVersionsFetch(*project)
+    // TODO: Better error reporting
+    .onError(std::make_exception_ptr(std::runtime_error("Available versions fetch failed")));
 }
