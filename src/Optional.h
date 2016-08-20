@@ -80,7 +80,7 @@ struct Optional final
     Optional &operator= (const Optional &other) noexcept(std::is_nothrow_destructible<T>::value && std::is_nothrow_copy_constructible<T>::value)
     {
       if (&other == this) {
-        return this;
+        return *this;
       }
 
       destroyIfNeeded();
