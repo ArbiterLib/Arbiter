@@ -300,7 +300,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>src_2_value_8h.html</Path>
-    <Anchor>afa3f647bf636999b60e7d5dae191b39f</Anchor>
+    <Anchor>a0cbbba06d9a26b9b806a63c8ecb5bf0f</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -705,13 +705,23 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Value</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>ArbiterProjectIdentifier</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_project_identifier.html</Path>
+    <Anchor>a4c25c9af6da917d4e111d17115fd59f5</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterProjectIdentifier</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>ArbiterProjectIdentifier</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_project_identifier.html</Path>
-    <Anchor>a724d1a268d5e67d4376b6f35880dc42c</Anchor>
+    <Anchor>a8c28e3259150288a9be44d39a998cb79</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -744,7 +754,7 @@
       <Scope>ArbiterProjectIdentifier</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_project_identifier.html</Path>
-    <Anchor>a09027285ac90f5dac05c3d92ce0f8628</Anchor>
+    <Anchor>a86429cc4755c14bc209df117bc0e2a2e</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -851,6 +861,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>operator&lt;&lt;</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>ffunc</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>aec822e69ff6e37dda6c67c24fc700f90</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterResolver</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -862,13 +883,23 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Context</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>ArbiterResolver</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolver.html</Path>
+    <Anchor>a2a7258fe1962fbf1ed5e4fd923b57a39</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterResolver</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a7c25030bd93fd636c2fd29e5a5d1ec89</Anchor>
+    <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
   <Token>
@@ -915,7 +946,7 @@
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>ad51b127d02ba52ff1d2787a49c5bc6b4</Anchor>
+    <Anchor>a913aeaac961482fc0184e1be380a5d10</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -996,13 +1027,23 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Metadata</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>ArbiterSelectedVersion</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_selected_version.html</Path>
+    <Anchor>a883198df77e7d43882095daa57e2fb02</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterSelectedVersion</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>a3f4abd73ccbc03c39bfe895f03715569</Anchor>
+    <Anchor>aa0419ae1103f4277236ab6e8ef1d85c7</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1079,7 +1120,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>a15a62b073914b0b51c7ab9969983e19b</Anchor>
+    <Anchor>a3c2870d90dc94174d4be6addc33862ae</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2217,7 +2258,7 @@
     <TokenIdentifier>
       <Name>Arbiter::SharedUserValue</Name>
       <APILanguage>c</APILanguage>
-      <Type>cl</Type>
+      <Type>tmplt</Type>
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
@@ -2232,7 +2273,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>aedd3ae5334d9e2d3d918bedebed1df3a</Anchor>
+    <Anchor>ada413b15e8db1702aeb58f63d9dab7fd</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2243,7 +2284,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>aaf587f775728705eb882311602ecb76b</Anchor>
+    <Anchor>ab1848961bb2e8175356faebdde486521</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2254,7 +2295,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>aa8f22f2cab2945ed43333b0722df84a4</Anchor>
+    <Anchor>a4db7260742928ac4898de4fe520105f5</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2265,7 +2306,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>ac748fedcc8c2b0f4ef8ca36f2a099302</Anchor>
+    <Anchor>a00f6ccc566bbebf60645a35126a4b4ea</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2276,7 +2317,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a6642049756707cd26e7da0c6b92efde0</Anchor>
+    <Anchor>a68809201ace5637f3e6e76bf221d6275</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>

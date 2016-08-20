@@ -1,4 +1,4 @@
 <map id="ArbiterDependency" name="ArbiterDependency">
-<area shape="rect" id="node2" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="15,92,168,117"/>
-<area shape="rect" id="node3" href="$class_arbiter_1_1_shared_user_value.html" title="Expresses shared ownership of opaque user&#45;provided data, which was originally described in an Arbiter..." alt="" coords="5,5,178,31"/>
+<area shape="rect" id="node2" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="16,105,170,131"/>
+<area shape="rect" id="node3" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="5,5,181,44"/>
 </map>

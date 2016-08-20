@@ -1,8 +1,10 @@
 <map id="ArbiterDependencyListFetch" name="ArbiterDependencyListFetch">
-<area shape="rect" id="node2" href="$struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. " alt="" coords="94,219,251,244"/>
-<area shape="rect" id="node3" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="62,132,223,157"/>
+<area shape="rect" id="node2" href="$struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. " alt="" coords="634,103,791,128"/>
+<area shape="rect" id="node3" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="307,47,467,72"/>
 <area shape="rect" id="node4" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="5,5,131,44"/>
-<area shape="rect" id="node6" href="$class_arbiter_1_1_shared_user_value.html" title="Expresses shared ownership of opaque user&#45;provided data, which was originally described in an Arbiter..." alt="" coords="294,132,466,157"/>
-<area shape="rect" id="node7" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="274,219,427,244"/>
-<area shape="rect" id="node8" href="$struct_arbiter_resolver.html" title="A dependency resolver which contains context about how to evaluate the dependency graph..." alt="" coords="451,219,565,244"/>
+<area shape="rect" id="node6" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="297,96,477,135"/>
+<area shape="rect" id="node7" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="635,165,789,191"/>
+<area shape="rect" id="node8" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="299,159,475,197"/>
+<area shape="rect" id="node9" href="$struct_arbiter_resolver.html" title="A dependency resolver which contains context about how to evaluate the dependency graph..." alt="" coords="655,221,769,247"/>
+<area shape="rect" id="node10" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterResolver \&gt;" alt="" coords="301,221,473,260"/>
 </map>

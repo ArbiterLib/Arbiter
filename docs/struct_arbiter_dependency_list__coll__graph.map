@@ -1,5 +1,5 @@
 <map id="ArbiterDependencyList" name="ArbiterDependencyList">
-<area shape="rect" id="node3" href="$struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme..." alt="" coords="47,179,183,204"/>
-<area shape="rect" id="node4" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="38,92,192,117"/>
-<area shape="rect" id="node5" href="$class_arbiter_1_1_shared_user_value.html" title="Expresses shared ownership of opaque user&#45;provided data, which was originally described in an Arbiter..." alt="" coords="29,5,201,31"/>
+<area shape="rect" id="node3" href="$struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme..." alt="" coords="47,192,183,217"/>
+<area shape="rect" id="node4" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="38,105,192,131"/>
+<area shape="rect" id="node5" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="27,5,203,44"/>
 </map>

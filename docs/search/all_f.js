@@ -4,6 +4,9 @@ var searchData=
   ['selectedversion',['selectedVersion',['../include_2arbiter_2_resolver_8h.html#ad3c098d1fc1c38588332029b633c7b21',1,'ArbiterDependencyListFetch::selectedVersion()'],['../struct_arbiter_1_1_resolver_1_1_resolved_dependency.html#acf95a9cbbe2d42350dbee384cfef1184',1,'Arbiter::Resolver::ResolvedDependency::selectedVersion()']]],
   ['set_5fexception',['set_exception',['../class_arbiter_1_1_promise.html#a15dc783950df12a4274be45a2a214e8b',1,'Arbiter::Promise']]],
   ['set_5fvalue',['set_value',['../class_arbiter_1_1_promise.html#a221b7e0ca3d4176d52e4d1b6d32cb48d',1,'Arbiter::Promise::set_value(const T &amp;value)'],['../class_arbiter_1_1_promise.html#a71121563f92e4b6f4ade545c01819d82',1,'Arbiter::Promise::set_value(T &amp;&amp;value)']]],
-  ['shareduservalue',['SharedUserValue',['../class_arbiter_1_1_shared_user_value.html#aedd3ae5334d9e2d3d918bedebed1df3a',1,'Arbiter::SharedUserValue']]],
-  ['shareduservalue',['SharedUserValue',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]]
+  ['shareduservalue',['SharedUserValue',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]],
+  ['shareduservalue',['SharedUserValue',['../class_arbiter_1_1_shared_user_value.html#ada413b15e8db1702aeb58f63d9dab7fd',1,'Arbiter::SharedUserValue']]],
+  ['shareduservalue_3c_20arbiterprojectidentifier_20_3e',['SharedUserValue&lt; ArbiterProjectIdentifier &gt;',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]],
+  ['shareduservalue_3c_20arbiterresolver_20_3e',['SharedUserValue&lt; ArbiterResolver &gt;',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]],
+  ['shareduservalue_3c_20arbiterselectedversion_20_3e',['SharedUserValue&lt; ArbiterSelectedVersion &gt;',['../class_arbiter_1_1_shared_user_value.html',1,'Arbiter']]]
 ];

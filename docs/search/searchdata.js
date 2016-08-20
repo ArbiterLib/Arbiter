@@ -6,10 +6,11 @@ var indexSectionsWithContent =
   3: "cdefhlortv",
   4: "acdefghilmoprstvw~",
   5: "_cdefoprs",
-  6: "r",
+  6: "cmrv",
   7: "a",
   8: "a",
-  9: "acl"
+  9: "o",
+  10: "acl"
 };
 
 var indexSectionNames =
@@ -23,7 +24,8 @@ var indexSectionNames =
   6: "typedefs",
   7: "enums",
   8: "enumvalues",
-  9: "pages"
+  9: "related",
+  10: "pages"
 };
 
 var indexSectionLabels =
@@ -37,6 +39,7 @@ var indexSectionLabels =
   6: "Typedefs",
   7: "Enumerations",
   8: "Enumerator",
-  9: "Pages"
+  9: "Friends",
+  10: "Pages"
 };
 

@@ -1,5 +1,6 @@
 <map id="ArbiterAvailableVersionsFetch" name="ArbiterAvailableVersionsFetch">
-<area shape="rect" id="node2" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="5,92,159,117"/>
-<area shape="rect" id="node3" href="$class_arbiter_1_1_shared_user_value.html" title="Expresses shared ownership of opaque user&#45;provided data, which was originally described in an Arbiter..." alt="" coords="84,5,256,31"/>
-<area shape="rect" id="node4" href="$struct_arbiter_resolver.html" title="A dependency resolver which contains context about how to evaluate the dependency graph..." alt="" coords="183,92,296,117"/>
+<area shape="rect" id="node2" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="283,16,436,41"/>
+<area shape="rect" id="node3" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="5,5,181,44"/>
+<area shape="rect" id="node4" href="$struct_arbiter_resolver.html" title="A dependency resolver which contains context about how to evaluate the dependency graph..." alt="" coords="303,68,416,93"/>
+<area shape="rect" id="node5" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterResolver \&gt;" alt="" coords="7,68,179,107"/>
 </map>
