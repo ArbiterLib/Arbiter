@@ -23,6 +23,7 @@ struct ArbiterRequirement
     virtual size_t hash () const noexcept = 0;
     virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
     virtual std::ostream &describe (std::ostream &os) const = 0;
+    virtual std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const = 0;
 
     bool operator!= (const ArbiterRequirement &other) const noexcept
     {
@@ -59,6 +60,7 @@ class Any : public ArbiterRequirement
     }
 
     std::ostream &describe (std::ostream &os) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 };
 
 class AtLeast : public ArbiterRequirement
@@ -88,6 +90,7 @@ class AtLeast : public ArbiterRequirement
     }
 
     std::ostream &describe (std::ostream &os) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 };
 
 class CompatibleWith : public ArbiterRequirement
@@ -115,6 +118,7 @@ class CompatibleWith : public ArbiterRequirement
     }
 
     std::ostream &describe (std::ostream &os) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 };
 
 class Exactly : public ArbiterRequirement
@@ -144,9 +148,8 @@ class Exactly : public ArbiterRequirement
     }
 
     std::ostream &describe (std::ostream &os) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 };
-
-std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &lhs, const ArbiterRequirement &rhs);
 
 } // namespace Requirement
 } // namespace Arbiter

@@ -161,6 +161,27 @@ struct Intersect<Exactly, Exactly>
   }
 };
 
+const std::type_info &any = typeid(Any);
+const std::type_info &atLeast = typeid(AtLeast);
+const std::type_info &compatibleWith = typeid(CompatibleWith);
+const std::type_info &exactly = typeid(Exactly);
+
+template<typename Left>
+std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const ArbiterRequirement &rhs)
+{
+  if (typeid(rhs) == any) {
+    return Intersect<Left, Any>()(lhs, dynamic_cast<const Any &>(rhs));
+  } else if (typeid(rhs) == atLeast) {
+    return Intersect<Left, AtLeast>()(lhs, dynamic_cast<const AtLeast &>(rhs));
+  } else if (typeid(rhs) == compatibleWith) {
+    return Intersect<Left, CompatibleWith>()(lhs, dynamic_cast<const CompatibleWith &>(rhs));
+  } else if (typeid(rhs) == exactly) {
+    return Intersect<Left, Exactly>()(lhs, dynamic_cast<const Exactly &>(rhs));
+  } else {
+    throw std::invalid_argument("Unrecognized type for requirement: " + toString(rhs));
+  }
+}
+
 } // namespace
 
 std::ostream &Any::describe (std::ostream &os) const
@@ -243,40 +264,24 @@ std::ostream &Exactly::describe (std::ostream &os) const
   return os << "==" << _version;
 }
 
-const std::type_info &any = typeid(Any);
-const std::type_info &atLeast = typeid(AtLeast);
-const std::type_info &compatibleWith = typeid(CompatibleWith);
-const std::type_info &exactly = typeid(Exactly);
-
-template<typename Left>
-std::unique_ptr<ArbiterRequirement> intersectRight (const Left &lhs, const ArbiterRequirement &rhs)
+std::unique_ptr<ArbiterRequirement> Any::intersect (const ArbiterRequirement &rhs) const
 {
-  if (typeid(rhs) == any) {
-    return Intersect<Left, Any>()(lhs, dynamic_cast<const Any &>(rhs));
-  } else if (typeid(rhs) == atLeast) {
-    return Intersect<Left, AtLeast>()(lhs, dynamic_cast<const AtLeast &>(rhs));
-  } else if (typeid(rhs) == compatibleWith) {
-    return Intersect<Left, CompatibleWith>()(lhs, dynamic_cast<const CompatibleWith &>(rhs));
-  } else if (typeid(rhs) == exactly) {
-    return Intersect<Left, Exactly>()(lhs, dynamic_cast<const Exactly &>(rhs));
-  } else {
-    throw std::invalid_argument("Unrecognized type for requirement: " + toString(rhs));
-  }
+  return intersectRight<Any>(*this, rhs);
 }
 
-std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &lhs, const ArbiterRequirement &rhs)
+std::unique_ptr<ArbiterRequirement> AtLeast::intersect (const ArbiterRequirement &rhs) const
 {
-  if (typeid(lhs) == any) {
-    return intersectRight<Any>(dynamic_cast<const Any &>(lhs), rhs);
-  } else if (typeid(lhs) == atLeast) {
-    return intersectRight<AtLeast>(dynamic_cast<const AtLeast &>(lhs), rhs);
-  } else if (typeid(lhs) == compatibleWith) {
-    return intersectRight<CompatibleWith>(dynamic_cast<const CompatibleWith &>(lhs), rhs);
-  } else if (typeid(lhs) == exactly) {
-    return intersectRight<Exactly>(dynamic_cast<const Exactly &>(lhs), rhs);
-  } else {
-    throw std::invalid_argument("Unrecognized type for requirement: " + toString(lhs));
-  }
+  return intersectRight<AtLeast>(*this, rhs);
+}
+
+std::unique_ptr<ArbiterRequirement> CompatibleWith::intersect (const ArbiterRequirement &rhs) const
+{
+  return intersectRight<CompatibleWith>(*this, rhs);
+}
+
+std::unique_ptr<ArbiterRequirement> Exactly::intersect (const ArbiterRequirement &rhs) const
+{
+  return intersectRight<Exactly>(*this, rhs);
 }
 
 } // namespace Requirement
