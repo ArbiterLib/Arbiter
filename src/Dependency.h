@@ -15,9 +15,11 @@
 struct ArbiterProjectIdentifier final
 {
   public:
-    Arbiter::SharedUserValue _value;
+    using Value = Arbiter::SharedUserValue<ArbiterProjectIdentifier>;
 
-    explicit ArbiterProjectIdentifier (Arbiter::SharedUserValue value)
+    Value _value;
+
+    explicit ArbiterProjectIdentifier (Value value)
       : _value(std::move(value))
     {}
 

@@ -70,10 +70,12 @@ std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &versio
 struct ArbiterSelectedVersion final
 {
   public:
-    ArbiterSemanticVersion _semanticVersion;
-    Arbiter::SharedUserValue _metadata;
+    using Metadata = Arbiter::SharedUserValue<ArbiterSelectedVersion>;
 
-    ArbiterSelectedVersion (ArbiterSemanticVersion semanticVersion, Arbiter::SharedUserValue metadata)
+    ArbiterSemanticVersion _semanticVersion;
+    Metadata _metadata;
+
+    ArbiterSelectedVersion (ArbiterSemanticVersion semanticVersion, Metadata metadata)
       : _semanticVersion(std::move(semanticVersion))
       , _metadata(std::move(metadata))
     {}

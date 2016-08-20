@@ -57,9 +57,11 @@ struct hash<Arbiter::Resolver::ResolvedDependency> final
 struct ArbiterResolver final
 {
   public:
-    Arbiter::SharedUserValue _context;
+    using Context = Arbiter::SharedUserValue<ArbiterResolver>;
 
-    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, Arbiter::SharedUserValue context)
+    Context _context;
+
+    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, Context context)
       : _context(std::move(context))
       , _behaviors(std::move(behaviors))
       , _remainingDependencies(std::move(dependencyList))

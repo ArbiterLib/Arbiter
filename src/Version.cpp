@@ -192,7 +192,7 @@ int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const Arbi
 
 ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata)
 {
-  return new ArbiterSelectedVersion(*semanticVersion, SharedUserValue(metadata));
+  return new ArbiterSelectedVersion(*semanticVersion, ArbiterSelectedVersion::Metadata(metadata));
 }
 
 const ArbiterSemanticVersion *ArbiterSelectedVersionSemanticVersion (const ArbiterSelectedVersion *version)

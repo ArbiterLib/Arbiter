@@ -4,7 +4,7 @@ using namespace Arbiter;
 
 ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value)
 {
-  return new ArbiterProjectIdentifier(SharedUserValue(value));
+  return new ArbiterProjectIdentifier(ArbiterProjectIdentifier::Value(value));
 }
 
 const void *ArbiterProjectIdentifierValue (const ArbiterProjectIdentifier *projectIdentifier)

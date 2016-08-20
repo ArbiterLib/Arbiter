@@ -14,7 +14,13 @@ namespace Arbiter {
 /**
  * Expresses shared ownership of opaque user-provided data, which was originally
  * described in an ArbiterUserValue.
+ *
+ * `Owner` is a phantom type used to associate the SharedUserValue with its
+ * usage in a particular class. This helps prevent two SharedUserValue instances
+ * from being compared if they represent conceptually different things (which
+ * might crash user code).
  */
+template<typename Owner>
 class SharedUserValue final
 {
   public:
@@ -70,4 +76,8 @@ class SharedUserValue final
 
 } // namespace Arbiter
 
-std::ostream &operator<< (std::ostream &os, const Arbiter::SharedUserValue &value);
+template<typename Owner>
+std::ostream &operator<< (std::ostream &os, const Arbiter::SharedUserValue<Owner> &value)
+{
+  return os << value.description();
+}

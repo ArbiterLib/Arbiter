@@ -62,7 +62,7 @@ class DependencyGraph final
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
 {
-  return new ArbiterResolver(std::move(behaviors), *dependencyList, SharedUserValue(std::move(context)));
+  return new ArbiterResolver(std::move(behaviors), *dependencyList, ArbiterResolver::Context(std::move(context)));
 }
 
 const void *ArbiterResolverContext (const ArbiterResolver *resolver)
