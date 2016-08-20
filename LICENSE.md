@@ -1,4 +1,6 @@
-MIT License
+Arbiter
+
+Released under the MIT License
 
 Copyright (c) 2016 Justin Spahr-Summers
 
@@ -19,3 +21,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+Arbiter makes use of algorithms and ideas from the [Carthage](https://github.com/Carthage/Carthage)
+project.
+
+Carthage is released under [the MIT license](https://github.com/Carthage/Carthage/blob/d8792d67ab0af99945f6a457ac961153cd0826b5/LICENSE.md)
+and is copyright (c) 2014 Carthage contributors.
