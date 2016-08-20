@@ -7,6 +7,8 @@ extern "C" {
 
 #include <arbiter/Requirement.h>
 
+#include <stddef.h>
+
 /**
  * An opaque value which identifies a project participating in dependency
  * resolution.

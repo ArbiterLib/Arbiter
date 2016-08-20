@@ -18,4 +18,4 @@ Functionality that should be provided by Arbiter includes:
 
 ## License
 
-Arbiter is released under the [MIT license](LICENSE).
+Arbiter is released under the [MIT license](LICENSE.md).
