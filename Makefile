@@ -14,7 +14,7 @@ LIBTOOL=libtool
 
 all: $(LIBRARY)
 
-.PHONY: check $(TEST_RUNNER)
+.PHONY: check docs $(TEST_RUNNER)
 
 check: $(TEST_RUNNER)
 	$(TEST_RUNNER)
@@ -22,6 +22,10 @@ check: $(TEST_RUNNER)
 clean:
 	rm -f $(LIBRARY) $(TEST_RUNNER)
 	rm -f $(OBJECTS)
+	rm -rf docs/html/
+
+docs:
+	doxygen Doxyfile
 
 $(LIBRARY): $(OBJECTS)
 	$(LIBTOOL) $(OBJECTS) -o $@
