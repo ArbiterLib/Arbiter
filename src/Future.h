@@ -68,12 +68,7 @@ class Promise final
       return Future<T>(_state);
     }
 
-    void set_value (const T &value)
-    {
-      set_result(makeRight(value));
-    }
-
-    void set_value (T &&value)
+    void set_value (T value)
     {
       set_result(makeRight(std::move(value)));
     }
@@ -83,24 +78,7 @@ class Promise final
       set_result(makeLeft(ex));
     }
 
-  private:
-    friend class Future<T>;
-
-    using Callback = std::function<void(const Result &)>;
-
-    struct State
-    {
-      // All below fields must only be used while synchronized on this mutex.
-      std::mutex _mutex;
-
-      Optional<Result> _result;
-      std::vector<Callback> _callbacks;
-      std::condition_variable _satisfied;
-    };
-
-    std::shared_ptr<State> _state;
-
-    void set_result (Result &&result)
+    void set_result (Result result)
     {
       std::vector<Callback> callbacks;
       const Result *resultPtr;
@@ -119,15 +97,33 @@ class Promise final
         resultPtr = _state->_result.pointer();
       }
 
-      // Notify synchronous observers first, to unblock them.
-      _state->_satisfied.notify_all();
-
+      // Invoke callbacks in the order they were appended.
       for (auto &callback : callbacks) {
         // Now that the result has been assigned within the mutex, it should be
         // safe to read it from outside of one.
         callback(*resultPtr);
       }
+
+      // Finally, notify any synchronous observers.
+      _state->_satisfied.notify_all();
     }
+
+  private:
+    friend class Future<T>;
+
+    using Callback = std::function<void(const Result &)>;
+
+    struct State
+    {
+      // All below fields must only be used while synchronized on this mutex.
+      std::mutex _mutex;
+
+      Optional<Result> _result;
+      std::vector<Callback> _callbacks;
+      std::condition_variable _satisfied;
+    };
+
+    std::shared_ptr<State> _state;
 };
 
 template<typename T>
