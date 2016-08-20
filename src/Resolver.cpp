@@ -12,7 +12,7 @@ using namespace Resolver;
 
 namespace {
 
-struct DependencyNode
+struct DependencyNode final
 {
   public:
     const ArbiterProjectIdentifier _project;
@@ -45,7 +45,7 @@ struct DependencyNode
     }
 };
 
-class DependencyGraph
+class DependencyGraph final
 {
   public:
     std::set<DependencyNode> _allNodes;

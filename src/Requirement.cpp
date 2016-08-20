@@ -62,7 +62,7 @@ ArbiterRequirementStrictness strictestStrictness (ArbiterRequirementStrictness l
 }
 
 template<typename Left, typename Right>
-struct Intersect
+struct Intersect final
 {
   // This will fail to compile if there's no specialization for Intersect<Right,
   // Left>, thereby verifying that we've handled all combinations.
@@ -73,7 +73,7 @@ struct Intersect
 };
 
 template<typename Other>
-struct Intersect<Any, Other>
+struct Intersect<Any, Other> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
@@ -84,7 +84,7 @@ struct Intersect<Any, Other>
 };
 
 template<>
-struct Intersect<AtLeast, AtLeast>
+struct Intersect<AtLeast, AtLeast> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
@@ -95,7 +95,7 @@ struct Intersect<AtLeast, AtLeast>
 };
 
 template<>
-struct Intersect<AtLeast, CompatibleWith>
+struct Intersect<AtLeast, CompatibleWith> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
@@ -114,7 +114,7 @@ struct Intersect<AtLeast, CompatibleWith>
 };
 
 template<>
-struct Intersect<CompatibleWith, CompatibleWith>
+struct Intersect<CompatibleWith, CompatibleWith> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
@@ -132,7 +132,7 @@ struct Intersect<CompatibleWith, CompatibleWith>
 };
 
 template<typename Other>
-struct Intersect<Exactly, Other>
+struct Intersect<Exactly, Other> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
@@ -147,7 +147,7 @@ struct Intersect<Exactly, Other>
 };
 
 template<>
-struct Intersect<Exactly, Exactly>
+struct Intersect<Exactly, Exactly> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 

@@ -29,7 +29,7 @@ class Future;
  * of std::future or std::shared_future.
  */
 template<typename T>
-class Promise
+class Promise final
 {
   public:
     using Result = Either<std::exception_ptr, T>;
@@ -127,7 +127,7 @@ class Promise
 };
 
 template<typename T>
-class Future
+class Future final
 {
   public:
     using Result = typename Promise<T>::Result;

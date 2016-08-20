@@ -11,7 +11,7 @@
 namespace Arbiter {
 
 template<typename T>
-struct Left
+struct Left final
 {
   T _value;
 
@@ -33,7 +33,7 @@ auto makeLeft (T &&value)
 }
 
 template<typename T>
-struct Right
+struct Right final
 {
   T _value;
 
@@ -55,11 +55,11 @@ auto makeRight (T &&value)
 }
 
 template<typename Left, typename Right>
-struct Either
+struct Either final
 {
   public:
-    struct LeftTag {};
-    struct RightTag {};
+    struct LeftTag final {};
+    struct RightTag final {};
 
     Either () = delete;
 
@@ -239,7 +239,7 @@ bool operator== (const Either<Left, Right> &lhs, const Either<Left, Right> &rhs)
 namespace std {
 
 template<typename Left, typename Right>
-struct hash<Arbiter::Either<Left, Right>>
+struct hash<Arbiter::Either<Left, Right>> final
 {
   public:
     size_t operator() (const Arbiter::Either<Left, Right> &either) const

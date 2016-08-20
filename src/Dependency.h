@@ -12,7 +12,7 @@
 #include <ostream>
 #include <vector>
 
-struct ArbiterProjectIdentifier
+struct ArbiterProjectIdentifier final
 {
   public:
     Arbiter::SharedUserValue _value;
@@ -34,7 +34,7 @@ struct ArbiterProjectIdentifier
 
 std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier);
 
-struct ArbiterDependency
+struct ArbiterDependency final
 {
   public:
     ArbiterProjectIdentifier _projectIdentifier;
@@ -66,7 +66,7 @@ struct ArbiterDependency
 
 std::ostream &operator<< (std::ostream &os, const ArbiterDependency &dependency);
 
-struct ArbiterDependencyList
+struct ArbiterDependencyList final
 {
   public:
     std::vector<ArbiterDependency> _dependencies;
@@ -81,7 +81,7 @@ std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &depende
 namespace std {
 
 template<>
-struct hash<ArbiterProjectIdentifier>
+struct hash<ArbiterProjectIdentifier> final
 {
   public:
     size_t operator() (const ArbiterProjectIdentifier &) const
@@ -92,7 +92,7 @@ struct hash<ArbiterProjectIdentifier>
 };
 
 template<>
-struct hash<ArbiterDependency>
+struct hash<ArbiterDependency> final
 {
   public:
     size_t operator() (const ArbiterDependency &dependency) const

@@ -18,7 +18,7 @@
 namespace Arbiter {
 namespace Resolver {
 
-struct ResolvedDependency
+struct ResolvedDependency final
 {
   ArbiterProjectIdentifier projectIdentifier;
   ArbiterSelectedVersion selectedVersion;
@@ -34,7 +34,7 @@ struct ResolvedDependency
 namespace std {
 
 template<>
-struct hash<Arbiter::Resolver::ResolvedDependency>
+struct hash<Arbiter::Resolver::ResolvedDependency> final
 {
   public:
     size_t operator() (const Arbiter::Resolver::ResolvedDependency &fetch) const
@@ -46,7 +46,7 @@ struct hash<Arbiter::Resolver::ResolvedDependency>
 
 } // namespace std
 
-struct ArbiterResolver
+struct ArbiterResolver final
 {
   public:
     Arbiter::SharedUserValue _context;

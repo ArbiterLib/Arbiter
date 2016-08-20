@@ -196,7 +196,7 @@ auto makeOptional (T &&value)
 namespace std {
 
 template<typename T>
-struct hash<Arbiter::Optional<T>>
+struct hash<Arbiter::Optional<T>> final
 {
   public:
     size_t operator() (const Arbiter::Optional<T> &optional) const

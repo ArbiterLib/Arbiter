@@ -36,7 +36,7 @@ std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requiremen
 namespace Arbiter {
 namespace Requirement {
 
-class Any : public ArbiterRequirement
+class Any final : public ArbiterRequirement
 {
   public:
     bool satisfiedBy (const ArbiterSemanticVersion &) const noexcept override
@@ -63,7 +63,7 @@ class Any : public ArbiterRequirement
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 };
 
-class AtLeast : public ArbiterRequirement
+class AtLeast final : public ArbiterRequirement
 {
   public:
     ArbiterSemanticVersion _minimumVersion;
@@ -93,7 +93,7 @@ class AtLeast : public ArbiterRequirement
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 };
 
-class CompatibleWith : public ArbiterRequirement
+class CompatibleWith final : public ArbiterRequirement
 {
   public:
     ArbiterSemanticVersion _baseVersion;
@@ -121,7 +121,7 @@ class CompatibleWith : public ArbiterRequirement
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 };
 
-class Exactly : public ArbiterRequirement
+class Exactly final : public ArbiterRequirement
 {
   public:
     ArbiterSemanticVersion _version;
@@ -157,7 +157,7 @@ class Exactly : public ArbiterRequirement
 namespace std {
 
 template<>
-struct hash<ArbiterRequirement>
+struct hash<ArbiterRequirement> final
 {
   public:
     size_t operator() (const ArbiterRequirement &requirement) const

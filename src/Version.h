@@ -13,7 +13,7 @@
 #include <functional>
 #include <string>
 
-struct ArbiterSemanticVersion
+struct ArbiterSemanticVersion final
 {
   public:
     unsigned _major;
@@ -64,7 +64,7 @@ struct ArbiterSemanticVersion
 
 std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version);
 
-struct ArbiterSelectedVersion
+struct ArbiterSelectedVersion final
 {
   public:
     ArbiterSemanticVersion _semanticVersion;
@@ -111,7 +111,7 @@ std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &versio
 namespace std {
 
 template<>
-struct hash<ArbiterSemanticVersion>
+struct hash<ArbiterSemanticVersion> final
 {
   public:
     size_t operator() (const ArbiterSemanticVersion &version) const
@@ -125,7 +125,7 @@ struct hash<ArbiterSemanticVersion>
 };
 
 template<>
-struct hash<ArbiterSelectedVersion>
+struct hash<ArbiterSelectedVersion> final
 {
   public:
     size_t operator() (const ArbiterSelectedVersion &version) const

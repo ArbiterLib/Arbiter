@@ -11,7 +11,7 @@
 
 namespace Arbiter {
 
-class SharedUserValue
+class SharedUserValue final
 {
   public:
     explicit SharedUserValue (ArbiterUserValue value)
