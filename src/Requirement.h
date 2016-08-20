@@ -20,11 +20,8 @@ struct ArbiterRequirement
     virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
 
     virtual bool operator== (const ArbiterRequirement &other) const noexcept = 0;
-
     virtual size_t hash () const noexcept = 0;
-
     virtual std::unique_ptr<ArbiterRequirement> clone () const = 0;
-
     virtual std::ostream &describe (std::ostream &os) const = 0;
 
     bool operator!= (const ArbiterRequirement &other) const noexcept
@@ -67,6 +64,8 @@ class Any : public ArbiterRequirement
 class AtLeast : public ArbiterRequirement
 {
   public:
+    ArbiterSemanticVersion _minimumVersion;
+
     explicit AtLeast (ArbiterSemanticVersion version) noexcept
       : _minimumVersion(std::move(version))
     {}
@@ -89,14 +88,14 @@ class AtLeast : public ArbiterRequirement
     }
 
     std::ostream &describe (std::ostream &os) const override;
-
-  private:
-    ArbiterSemanticVersion _minimumVersion;
 };
 
 class CompatibleWith : public ArbiterRequirement
 {
   public:
+    ArbiterSemanticVersion _baseVersion;
+    ArbiterRequirementStrictness _strictness;
+
     explicit CompatibleWith (ArbiterSemanticVersion version, ArbiterRequirementStrictness strictness) noexcept
       : _baseVersion(std::move(version))
       , _strictness(strictness)
@@ -116,15 +115,13 @@ class CompatibleWith : public ArbiterRequirement
     }
 
     std::ostream &describe (std::ostream &os) const override;
-
-  private:
-    ArbiterSemanticVersion _baseVersion;
-    ArbiterRequirementStrictness _strictness;
 };
 
 class Exactly : public ArbiterRequirement
 {
   public:
+    ArbiterSemanticVersion _version;
+
     explicit Exactly (ArbiterSemanticVersion version) noexcept
       : _version(std::move(version))
     {}
@@ -147,10 +144,9 @@ class Exactly : public ArbiterRequirement
     }
 
     std::ostream &describe (std::ostream &os) const override;
-
-  private:
-    ArbiterSemanticVersion _version;
 };
+
+std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &lhs, const ArbiterRequirement &rhs);
 
 } // namespace Requirement
 } // namespace Arbiter

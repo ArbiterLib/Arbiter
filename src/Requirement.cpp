@@ -1,5 +1,10 @@
 #include "Requirement.h"
 
+#include "ToString.h"
+
+#include <typeinfo>
+#include <stdexcept>
+
 ArbiterRequirement *ArbiterCreateRequirementAny (void)
 {
   return new Arbiter::Requirement::Any;
@@ -42,6 +47,121 @@ std::ostream &operator<< (std::ostream &os, const ArbiterRequirement &requiremen
 
 namespace Arbiter {
 namespace Requirement {
+
+namespace {
+
+ArbiterRequirementStrictness strictestStrictness (ArbiterRequirementStrictness left, ArbiterRequirementStrictness right)
+{
+  switch (left) {
+    case ArbiterRequirementStrictnessStrict:
+      return left;
+
+    case ArbiterRequirementStrictnessAllowVersionZeroPatches:
+      return right;
+  }
+}
+
+template<typename Left, typename Right>
+struct Intersect
+{
+  // This will fail to compile if there's no specialization for Intersect<Right,
+  // Left>, thereby verifying that we've handled all combinations.
+  typename Intersect<Right, Left>::Result operator() (const Left &lhs, const Right &rhs) const
+  {
+    return Intersect<Right, Left>()(rhs, lhs);
+  }
+};
+
+template<typename Other>
+struct Intersect<Any, Other>
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Any &any, const Other &) const
+  {
+    return any.clone();
+  }
+};
+
+template<>
+struct Intersect<AtLeast, AtLeast>
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const AtLeast &lhs, const AtLeast &rhs) const
+  {
+    return std::make_unique<AtLeast>(std::max(lhs._minimumVersion, rhs._minimumVersion));
+  }
+};
+
+template<>
+struct Intersect<AtLeast, CompatibleWith>
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const AtLeast &atLeast, const CompatibleWith &compatibleWith) const
+  {
+    // >= 1.2.3 vs ~> 2.0.0
+    if (atLeast.satisfiedBy(compatibleWith._baseVersion)) {
+      return compatibleWith.clone();
+    // ~> 1.2.3 vs >= 1.3
+    } else if (compatibleWith.satisfiedBy(atLeast._minimumVersion)) {
+      return std::make_unique<CompatibleWith>(atLeast._minimumVersion, compatibleWith._strictness);
+    } else {
+      return nullptr;
+    }
+  }
+};
+
+template<>
+struct Intersect<CompatibleWith, CompatibleWith>
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const CompatibleWith &lhs, const CompatibleWith &rhs) const
+  {
+    // ~> 1.2.3 vs ~> 1.4.5
+    if (lhs.satisfiedBy(rhs._baseVersion)) {
+      return std::make_unique<CompatibleWith>(rhs._baseVersion, strictestStrictness(lhs._strictness, rhs._strictness));
+    } else if (rhs.satisfiedBy(lhs._baseVersion)) {
+      return std::make_unique<CompatibleWith>(lhs._baseVersion, strictestStrictness(lhs._strictness, rhs._strictness));
+    } else {
+      return nullptr;
+    }
+  }
+};
+
+template<typename Other>
+struct Intersect<Exactly, Other>
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Exactly &exactly, const Other &other) const
+  {
+    if (other.satisfiedBy(exactly._version)) {
+      return exactly.clone();
+    } else {
+      return nullptr;
+    }
+  }
+};
+
+template<>
+struct Intersect<Exactly, Exactly>
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Exactly &lhs, const Exactly &rhs) const
+  {
+    if (lhs == rhs) {
+      return lhs.clone();
+    } else {
+      return nullptr;
+    }
+  }
+};
+
+} // namespace
 
 std::ostream &Any::describe (std::ostream &os) const
 {
@@ -121,6 +241,42 @@ bool Exactly::operator== (const ArbiterRequirement &other) const noexcept
 std::ostream &Exactly::describe (std::ostream &os) const
 {
   return os << "==" << _version;
+}
+
+const std::type_info &any = typeid(Any);
+const std::type_info &atLeast = typeid(AtLeast);
+const std::type_info &compatibleWith = typeid(CompatibleWith);
+const std::type_info &exactly = typeid(Exactly);
+
+template<typename Left>
+std::unique_ptr<ArbiterRequirement> intersectRight (const Left &lhs, const ArbiterRequirement &rhs)
+{
+  if (typeid(rhs) == any) {
+    return Intersect<Left, Any>()(lhs, dynamic_cast<const Any &>(rhs));
+  } else if (typeid(rhs) == atLeast) {
+    return Intersect<Left, AtLeast>()(lhs, dynamic_cast<const AtLeast &>(rhs));
+  } else if (typeid(rhs) == compatibleWith) {
+    return Intersect<Left, CompatibleWith>()(lhs, dynamic_cast<const CompatibleWith &>(rhs));
+  } else if (typeid(rhs) == exactly) {
+    return Intersect<Left, Exactly>()(lhs, dynamic_cast<const Exactly &>(rhs));
+  } else {
+    throw std::invalid_argument("Unrecognized type for requirement: " + toString(rhs));
+  }
+}
+
+std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &lhs, const ArbiterRequirement &rhs)
+{
+  if (typeid(lhs) == any) {
+    return intersectRight<Any>(dynamic_cast<const Any &>(lhs), rhs);
+  } else if (typeid(lhs) == atLeast) {
+    return intersectRight<AtLeast>(dynamic_cast<const AtLeast &>(lhs), rhs);
+  } else if (typeid(lhs) == compatibleWith) {
+    return intersectRight<CompatibleWith>(dynamic_cast<const CompatibleWith &>(lhs), rhs);
+  } else if (typeid(lhs) == exactly) {
+    return intersectRight<Exactly>(dynamic_cast<const Exactly &>(lhs), rhs);
+  } else {
+    throw std::invalid_argument("Unrecognized type for requirement: " + toString(lhs));
+  }
 }
 
 } // namespace Requirement
