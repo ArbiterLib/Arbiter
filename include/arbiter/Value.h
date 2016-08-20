@@ -18,6 +18,10 @@ typedef struct
 {
   /**
    * The underlying data object.
+   *
+   * This object should be considered to be owned by Arbiter as soon as the
+   * ArbiterUserValue is passed into any API. It will eventually be cleaned up
+   * by the library through invocation of the provided `destructor`.
    */
   void *data;
 
