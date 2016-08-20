@@ -22,7 +22,6 @@ check: $(TEST_RUNNER)
 clean:
 	rm -f $(LIBRARY) $(TEST_RUNNER)
 	rm -f $(OBJECTS)
-	rm -rf docs/
 
 docs:
 	doxygen Doxyfile
