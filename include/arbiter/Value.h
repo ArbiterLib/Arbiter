@@ -7,13 +7,40 @@ extern "C" {
 
 #include <stdbool.h>
 
+/**
+ * Represents an arbitrary value that can be associated with Arbiter data types
+ * and functionality.
+ *
+ * For example, ArbiterProjectIdentifiers are defined by providing an opaque
+ * user value.
+ */
 typedef struct
 {
+  /**
+   * The underlying data object.
+   */
   void *data;
+
+  /**
+   * An equality operation over two data objects.
+   *
+   * This must not be NULL.
+   */
   bool (*equals)(const void *first, const void *second);
+
+  /**
+   * A cleanup function to call when the ArbiterUserValue is done being used.
+   *
+   * This may be NULL.
+   */
   void (*destructor)(void *data);
 
-  // optional
+  /**
+   * An operation to convert this data object to a string. The returned value
+   * must be dynamically allocated and support being destroyed with free().
+   *
+   * This may be NULL.
+   */
   char *(*createDescription)(const void *data);
 } ArbiterUserValue;
 

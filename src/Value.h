@@ -15,7 +15,7 @@ class SharedUserValue
 {
   public:
     explicit SharedUserValue (ArbiterUserValue value)
-      : _data(std::shared_ptr<void>(value.data, value.destructor))
+      : _data(std::shared_ptr<void>(value.data, (value.destructor ? value.destructor : &noOpDestructor)))
       , _equals(value.equals)
       , _createDescription(value.createDescription)
     {
@@ -40,7 +40,8 @@ class SharedUserValue
     std::string description () const
     {
       if (_createDescription) {
-        return _createDescription(data());
+        std::unique_ptr<char, FreeDeleter> str(_createDescription(data()));
+        return std::string(str.get());
       } else {
         return "Arbiter::SharedUserValue";
       }
@@ -50,6 +51,17 @@ class SharedUserValue
     std::shared_ptr<void> _data;
     bool (*_equals)(const void *first, const void *second);
     char *(*_createDescription)(const void *data);
+
+    struct FreeDeleter
+    {
+      void operator() (void *ptr) const
+      {
+        free(ptr);
+      }
+    };
+
+    static void noOpDestructor (void *)
+    {}
 };
 
 } // namespace Arbiter
