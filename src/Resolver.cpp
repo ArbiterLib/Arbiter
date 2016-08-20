@@ -2,6 +2,7 @@
 
 #include "Requirement.h"
 
+#include <cassert>
 #include <exception>
 #include <map>
 #include <set>
@@ -25,7 +26,9 @@ struct DependencyNode final
       : _project(std::move(project))
       , _proposedVersion(std::move(proposedVersion))
       , _requirement(requirement.clone())
-    {}
+    {
+      assert(_requirement->satisfiedBy(_proposedVersion._semanticVersion));
+    }
 
     bool operator== (const DependencyNode &other) const
     {
