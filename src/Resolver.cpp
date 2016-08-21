@@ -6,8 +6,6 @@
 #include <cassert>
 #include <exception>
 #include <stdexcept>
-#include <unordered_map>
-#include <unordered_set>
 
 using namespace Arbiter;
 using namespace Resolver;
@@ -30,105 +28,7 @@ void satisfyPromiseWithFirstVersionPassingRequirement (std::shared_ptr<Promise<O
   });
 }
 
-/**
- * A node in, or being considered for, an acyclic dependency graph.
- */
-class DependencyNode final
-{
-  public:
-    struct Hash final
-    {
-      public:
-        size_t operator() (const DependencyNode &node) const
-        {
-          return hashOf(node._project);
-        }
-    };
-
-    const ArbiterProjectIdentifier _project;
-
-    /**
-     * The version of the dependency that this node represents.
-     *
-     * This version is merely "proposed" because it depends on the final
-     * resolution of the graph, as well as whether any "better" graphs exist.
-     */
-    const ArbiterSelectedVersion _proposedVersion;
-
-    DependencyNode (ArbiterProjectIdentifier project, ArbiterSelectedVersion proposedVersion, const ArbiterRequirement &requirement)
-      : _project(std::move(project))
-      , _proposedVersion(std::move(proposedVersion))
-      , _state(std::make_shared<State>())
-    {
-      setRequirement(requirement);
-    }
-
-    DependencyNode (const DependencyNode &other) noexcept
-      : _project(other._project)
-      , _proposedVersion(other._proposedVersion)
-      , _state(other._state)
-    {}
-
-    DependencyNode (DependencyNode &&other) noexcept
-      : _project(other._project)
-      , _proposedVersion(other._proposedVersion)
-      , _state(std::move(other._state))
-    {}
-
-    DependencyNode &operator= (const DependencyNode &) = delete;
-    DependencyNode &operator= (DependencyNode &&) = delete;
-
-    bool operator== (const DependencyNode &other) const
-    {
-      // For the purposes of node lookup in a graph, this is the only field
-      // which matters.
-      return _project == other._project;
-    }
-
-    /**
-     * The current requirement(s) applied to this dependency.
-     *
-     * This specifier may change as the graph is added to, and the requirements
-     * become more stringent.
-     */
-    const ArbiterRequirement &requirement () const noexcept
-    {
-      return *_state->_requirement;
-    }
-
-    void setRequirement (const ArbiterRequirement &requirement)
-    {
-      setRequirement(requirement.clone());
-    }
-
-    void setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
-    {
-      assert(requirement);
-      assert(requirement->satisfiedBy(_proposedVersion._semanticVersion));
-
-      _state->_requirement = std::move(requirement); 
-    }
-
-    std::unordered_set<DependencyNode, Hash> &dependencies () noexcept
-    {
-      return _state->_dependencies;
-    }
-
-    const std::unordered_set<DependencyNode, Hash> &dependencies () const noexcept
-    {
-      return _state->_dependencies;
-    }
-
-  private:
-    struct State final
-    {
-      public:
-        std::unique_ptr<ArbiterRequirement> _requirement;
-        std::unordered_set<DependencyNode, Hash> _dependencies;
-    };
-
-    std::shared_ptr<State> _state;
-};
+} // namespace
 
 std::ostream &operator<< (std::ostream &os, const DependencyNode &node)
 {
@@ -137,108 +37,51 @@ std::ostream &operator<< (std::ostream &os, const DependencyNode &node)
     << " (restricted to " << node.requirement() << ")";
 }
 
-} // namespace
-
-namespace std {
-
-template<>
-struct hash<DependencyNode> final
+bool DependencyGraph::operator== (const DependencyGraph &other) const
 {
-  public:
-    size_t operator() (const DependencyNode &node) const
-    {
-      return DependencyNode::Hash()(node);
-    }
-};
+  return _edges == other._edges && _roots == other._roots;
+}
 
-} // namespace std
-
-namespace {
-
-/**
- * Represents an acyclic dependency graph in which each project appears at most
- * once.
- *
- * Dependency graphs can exist in an incomplete state, but will never be
- * inconsistent (i.e., include versions that are known to be invalid given the
- * current graph).
- */
-class DependencyGraph final
+DependencyNode *DependencyGraph::addNode (const DependencyNode &inputNode, const DependencyNode *dependent)
 {
-  public:
-    /**
-     * A full list of all nodes included in the graph.
-     */
-    std::unordered_set<DependencyNode> _allNodes;
+  auto nodeInsertion = _allNodes.insert(inputNode);
 
-    /**
-     * Maps between nodes in the graph and their immediate dependencies.
-     */
-    std::unordered_map<DependencyNode, std::unordered_set<DependencyNode>> _edges;
+  // Unordered collections rightly discourage mutation so hashes don't get
+  // invalidated, but we've already handled this in the implementation of
+  // DependencyNode.
+  DependencyNode &insertedNode = const_cast<DependencyNode &>(*nodeInsertion.first);
 
-    /**
-     * The root nodes of the graph (i.e., those dependencies that are listed by
-     * the top-level project).
-     */
-    std::unordered_set<DependencyNode> _roots;
-
-    bool operator== (const DependencyGraph &other) const
-    {
-      return _edges == other._edges && _roots == other._roots;
-    }
-
-    /**
-     * Attempts to add the given node into the graph, as a dependency of
-     * `dependent` if specified.
-     *
-     * If the given node refers to a project which already exists in the graph,
-     * this method will attempt to intersect the version requirements of both.
-     *
-     * Returns a pointer to the node as actually inserted into the graph (which
-     * may be different from the node passed in), or `nullptr` if this addition
-     * would make the graph inconsistent.
-     */
-    DependencyNode *addNode (const DependencyNode &inputNode, const DependencyNode *dependent)
-    {
-      auto nodeInsertion = _allNodes.insert(inputNode);
-
-      // Unordered collections rightly discourage mutation so hashes don't get
-      // invalidated, but we've already handled this in the implementation of
-      // DependencyNode.
-      DependencyNode &insertedNode = const_cast<DependencyNode &>(*nodeInsertion.first);
-
-      // If no insertion was actually performed, we need to unify our input with
-      // what was already there.
-      if (!nodeInsertion.second) {
-        if (auto newRequirement = insertedNode.requirement().intersect(inputNode.requirement())) {
-          if (!newRequirement->satisfiedBy(insertedNode._proposedVersion._semanticVersion)) {
-            // This strengthened requirement invalidates the version we've
-            // proposed in this graph, so the graph would become inconsistent.
-            return nullptr;
-          }
-
-          insertedNode.setRequirement(std::move(newRequirement));
-        } else {
-          // If intersecting the requirements is impossible, the versions
-          // currently shouldn't be able to match.
-          //
-          // Notably, though, Carthage does permit scenarios like this when
-          // pinned to a branch. Arbiter doesn't support requirements like this
-          // right now, but may in the future.
-          assert(inputNode._proposedVersion != insertedNode._proposedVersion);
-          return nullptr;
-        }
+  // If no insertion was actually performed, we need to unify our input with
+  // what was already there.
+  if (!nodeInsertion.second) {
+    if (auto newRequirement = insertedNode.requirement().intersect(inputNode.requirement())) {
+      if (!newRequirement->satisfiedBy(insertedNode._proposedVersion._semanticVersion)) {
+        // This strengthened requirement invalidates the version we've
+        // proposed in this graph, so the graph would become inconsistent.
+        return nullptr;
       }
 
-      if (dependent) {
-        _edges[*dependent].insert(insertedNode);
-      } else {
-        _roots.insert(insertedNode);
-      }
-
-      return &insertedNode;
+      insertedNode.setRequirement(std::move(newRequirement));
+    } else {
+      // If intersecting the requirements is impossible, the versions
+      // currently shouldn't be able to match.
+      //
+      // Notably, though, Carthage does permit scenarios like this when
+      // pinned to a branch. Arbiter doesn't support requirements like this
+      // right now, but may in the future.
+      assert(inputNode._proposedVersion != insertedNode._proposedVersion);
+      return nullptr;
     }
-};
+  }
+
+  if (dependent) {
+    _edges[*dependent].insert(insertedNode);
+  } else {
+    _roots.insert(insertedNode);
+  }
+
+  return &insertedNode;
+}
 
 std::ostream &operator<< (std::ostream &os, const DependencyGraph &graph)
 {
@@ -266,8 +109,6 @@ Generator<DependencyGraph> generateDependencyGraphs (const ArbiterDependencyList
   // in `roots`, then merge them together.
   assert(false);
 }
-
-} // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
 {
