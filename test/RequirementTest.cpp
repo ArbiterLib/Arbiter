@@ -6,6 +6,7 @@ using namespace Arbiter;
 
 TEST(RequirementTest, Any) {
   Requirement::Any req;
+  EXPECT_EQ(req, *req.clone());
   EXPECT_EQ(req, Requirement::Any());
   EXPECT_NE(req, Requirement::AtLeast(ArbiterSemanticVersion(1, 2, 3)));
 
@@ -17,6 +18,7 @@ TEST(RequirementTest, Any) {
 
 TEST(RequirementTest, AtLeast) {
   Requirement::AtLeast req(ArbiterSemanticVersion(1, 2, 3));
+  EXPECT_EQ(req, *req.clone());
   EXPECT_EQ(req, Requirement::AtLeast(ArbiterSemanticVersion(1, 2, 3)));
   EXPECT_NE(req, Requirement::AtLeast(ArbiterSemanticVersion(1, 2, 4)));
   EXPECT_NE(req, Requirement::AtLeast(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"))));
@@ -43,6 +45,7 @@ TEST(RequirementTest, AtLeastMajorVersionZero) {
 
 TEST(RequirementTest, CompatibleWith) {
   Requirement::CompatibleWith req(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessStrict);
+  EXPECT_EQ(req, *req.clone());
   EXPECT_EQ(req, Requirement::CompatibleWith(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessStrict));
   EXPECT_NE(req, Requirement::CompatibleWith(ArbiterSemanticVersion(1, 2, 4), ArbiterRequirementStrictnessStrict));
   EXPECT_NE(req, Requirement::CompatibleWith(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")), ArbiterRequirementStrictnessStrict));
@@ -85,6 +88,7 @@ TEST(RequirementTest, CompatibleWithMajorVersionZeroLoose) {
 
 TEST(RequirementTest, Exactly) {
   Requirement::Exactly req(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")));
+  EXPECT_EQ(req, *req.clone());
   EXPECT_EQ(req, Requirement::Exactly(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild"))));
   EXPECT_NE(req, Requirement::Exactly(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"))));
   EXPECT_NE(req, Requirement::Exactly(ArbiterSemanticVersion(1, 2, 3)));
