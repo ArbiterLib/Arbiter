@@ -79,6 +79,12 @@ struct ArbiterResolver final
     Arbiter::Generator<ArbiterSelectedVersion> fetchAvailableVersions (ArbiterProjectIdentifier project);
 
     /**
+     * Fetches the subset of the list of available versions for the given
+     * project that satisfy the given requirement.
+     */
+    Arbiter::Generator<ArbiterSelectedVersion> fetchAvailableVersions (ArbiterProjectIdentifier project, const ArbiterRequirement &requirement);
+
+    /**
      * Returns whether all dependencies have been resolved.
      */
     bool resolvedAll () const noexcept;

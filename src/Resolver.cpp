@@ -15,6 +15,22 @@ using namespace Resolver;
 namespace {
 
 /**
+ * Filters out versions from the given generator which fail the given
+ * requirement, saving whatever is left (even if just a terminal event) into
+ * `promise`.
+ */
+void satisfyPromiseWithFirstVersionPassingRequirement (std::shared_ptr<Promise<Optional<ArbiterSelectedVersion>>> promise, std::shared_ptr<Generator<ArbiterSelectedVersion>> versions, std::shared_ptr<ArbiterRequirement> requirement)
+{
+  versions->next().add_callback([promise, versions, requirement](const auto &result) {
+    if (result.hasLeft() || !result.right() || requirement->satisfiedBy(result.right()->_semanticVersion)) {
+      promise->set_result(result);
+    } else {
+      satisfyPromiseWithFirstVersionPassingRequirement(promise, versions, requirement);
+    }
+  });
+}
+
+/**
  * A node in, or being considered for, an acyclic dependency graph.
  */
 class DependencyNode final
@@ -372,6 +388,20 @@ Arbiter::Generator<ArbiterSelectedVersion> ArbiterResolver::fetchAvailableVersio
   );
 
   return generator;
+}
+
+Generator<ArbiterSelectedVersion> ArbiterResolver::fetchAvailableVersions (ArbiterProjectIdentifier project, const ArbiterRequirement &requirement)
+{
+  auto allVersions = std::make_shared<Generator<ArbiterSelectedVersion>>(fetchAvailableVersions(project));
+  std::shared_ptr<ArbiterRequirement> sharedRequirement(requirement.clone());
+
+  return Arbiter::Generator<ArbiterSelectedVersion>([allVersions, sharedRequirement] {
+    auto promise = std::make_shared<Promise<Optional<ArbiterSelectedVersion>>>();
+
+    satisfyPromiseWithFirstVersionPassingRequirement(promise, allVersions, sharedRequirement);
+
+    return promise->get_future();
+  });
 }
 
 void ArbiterResolver::dependencyListFetchOnSuccess (ArbiterDependencyListFetch cFetch, const ArbiterDependencyList *fetchedList)
