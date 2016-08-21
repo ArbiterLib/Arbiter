@@ -57,6 +57,17 @@ TEST(VersionTest, ComparesForEquality) {
   EXPECT_NE(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.2"), makeOptional("dailybuild")));
 }
 
+TEST(VersionTest, ComparesForPrecedence) {
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 2, 4));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 3, 0));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(2, 0, 0));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3), ArbiterSemanticVersion(1, 2, 10));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")), ArbiterSemanticVersion(1, 2, 3));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.2")));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.2")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.10")));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha")), ArbiterSemanticVersion(1, 2, 3, makeOptional("beta")));
+}
+
 TEST(VersionTest, ConvertsToString) {
   std::stringstream stream;
   stream << ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild"));
