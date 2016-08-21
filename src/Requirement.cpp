@@ -77,9 +77,9 @@ struct Intersect<Any, Other> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
-  Result operator() (const Any &any, const Other &) const
+  Result operator() (const Any &, const Other &other) const
   {
-    return any.clone();
+    return other.clone();
   }
 };
 

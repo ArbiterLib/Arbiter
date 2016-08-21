@@ -105,3 +105,131 @@ TEST(RequirementTest, ExactlyRequirement) {
   EXPECT_FALSE(req.satisfiedBy(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.2"), makeOptional("dailybuild"))));
   EXPECT_FALSE(req.satisfiedBy(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailyfail"))));
 }
+
+TEST(RequirementTest, AnyIntersects) {
+  Any lhs;
+  EXPECT_EQ(*lhs.intersect(lhs), lhs);
+  
+  {
+    AtLeast rhs(ArbiterSemanticVersion(1, 2, 3));
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+  
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessAllowVersionZeroPatches);
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+  
+  {
+    Exactly rhs(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")));
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+}
+
+TEST(RequirementTest, AtLeastIntersects) {
+  AtLeast lhs(ArbiterSemanticVersion(1, 2, 3));
+  EXPECT_EQ(*lhs.intersect(lhs), lhs);
+
+  {
+    AtLeast rhs(ArbiterSemanticVersion(1, 3, 0, makeOptional("alpha.1")));
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessAllowVersionZeroPatches);
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(1, 2, 0), ArbiterRequirementStrictnessStrict);
+    EXPECT_EQ(*lhs.intersect(rhs), CompatibleWith(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessStrict));
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(0, 1, 0), ArbiterRequirementStrictnessAllowVersionZeroPatches);
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+
+  {
+    Exactly rhs(ArbiterSemanticVersion(1, 2, 4, makeOptional("alpha.1")));
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+
+  {
+    Exactly rhs(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")));
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+}
+
+TEST(RequirementTest, CompatibleWithIntersects) {
+  CompatibleWith lhs(ArbiterSemanticVersion(0, 2, 3), ArbiterRequirementStrictnessAllowVersionZeroPatches);
+  EXPECT_EQ(*lhs.intersect(lhs), lhs);
+
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(0, 2, 5), ArbiterRequirementStrictnessAllowVersionZeroPatches);
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(0, 3, 0), ArbiterRequirementStrictnessAllowVersionZeroPatches);
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(0, 2, 3), ArbiterRequirementStrictnessStrict);
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+
+  {
+    CompatibleWith rhs(ArbiterSemanticVersion(0, 2, 2), ArbiterRequirementStrictnessStrict);
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+
+  {
+    Exactly rhs(ArbiterSemanticVersion(0, 2, 3));
+    EXPECT_EQ(*lhs.intersect(rhs), rhs);
+    EXPECT_EQ(*lhs.intersect(rhs), *rhs.intersect(lhs));
+  }
+
+  {
+    Exactly rhs(ArbiterSemanticVersion(0, 2, 3, makeOptional("alpha.1")));
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+}
+
+TEST(RequirementTest, ExactlyIntersects) {
+  Exactly lhs(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("1")));
+  EXPECT_EQ(*lhs.intersect(lhs), lhs);
+
+  {
+    Exactly rhs(ArbiterSemanticVersion(1, 2, 3));
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+
+  {
+    Exactly rhs(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")));
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+
+  {
+    Exactly rhs(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("2")));
+    EXPECT_EQ(lhs.intersect(rhs), nullptr);
+    EXPECT_EQ(rhs.intersect(lhs), nullptr);
+  }
+}
