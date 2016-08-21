@@ -261,6 +261,12 @@ std::ostream &operator<< (std::ostream &os, const DependencyGraph &graph)
   return os;
 }
 
+Generator<DependencyGraph> generateDependencyGraphs (const ArbiterDependencyList &roots) {
+  // TODO: Recursively generate every possible dependency graph for everything
+  // in `roots`, then merge them together.
+  assert(false);
+}
+
 } // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
