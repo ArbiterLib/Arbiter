@@ -6,6 +6,7 @@
 #include "Requirement.h"
 #include "ToString.h"
 
+#include <algorithm>
 #include <cassert>
 #include <exception>
 #include <stdexcept>
@@ -155,4 +156,16 @@ bool ArbiterResolver::resolvedAll () const noexcept
 ArbiterResolvedDependency resolveNext() noexcept(false)
 {
   assert(false);
+}
+
+std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) const noexcept(false)
+{
+  std::vector<ArbiterSelectedVersion> versions = fetchAvailableVersions(project)._versions;
+
+  auto removeStart = std::remove_if(versions.begin(), versions.end(), [&requirement](const ArbiterSelectedVersion &version) {
+    return !requirement.satisfiedBy(version._semanticVersion);
+  });
+
+  versions.erase(removeStart, versions.end());
+  return versions;
 }

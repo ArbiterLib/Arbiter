@@ -135,4 +135,10 @@ struct ArbiterResolver final
   private:
     const ArbiterResolverBehaviors _behaviors;
     ArbiterDependencyList _remainingDependencies;
+
+    /**
+     * Computes a list of available versions for the specified project which
+     * satisfy the given requirement.
+     */
+    std::vector<ArbiterSelectedVersion> availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) const noexcept(false);
 };
