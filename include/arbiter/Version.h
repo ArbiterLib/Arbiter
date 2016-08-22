@@ -8,6 +8,7 @@ extern "C" {
 #include <arbiter/Value.h>
 
 #include <stdbool.h>
+#include <stddef.h>
 
 /**
  * Represents a semantic version, as defined by semver.org.
@@ -127,6 +128,21 @@ bool ArbiterEqualSelectedVersions (const ArbiterSelectedVersion *lhs, const Arbi
  * Releases the memory associated with a selected version object.
  */
 void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version);
+
+/**
+ * Represents a list of selected versions.
+ */
+typedef struct ArbiterSelectedVersionList ArbiterSelectedVersionList;
+
+/**
+ * Creates a version list which wraps a C array of ArbiterSelectedVersion objects.
+ */
+ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelectedVersion *versions, size_t count);
+
+/**
+ * Releases the memory associated with a version list.
+ */
+void ArbiterFreeSelectedVersionList (ArbiterSelectedVersionList *versionList);
 
 #ifdef __cplusplus
 }

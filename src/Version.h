@@ -11,6 +11,7 @@
 
 #include <functional>
 #include <string>
+#include <vector>
 
 struct ArbiterSemanticVersion final
 {
@@ -111,6 +112,18 @@ struct ArbiterSelectedVersion final
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &version);
+
+struct ArbiterSelectedVersionList final
+{
+  public:
+    std::vector<ArbiterSelectedVersion> _versions;
+
+    explicit ArbiterSelectedVersionList (std::vector<ArbiterSelectedVersion> versions)
+      : _versions(std::move(versions))
+    {}
+};
+
+std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersionList &versionList);
 
 namespace std {
 

@@ -131,6 +131,17 @@ std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &versio
   return os << version._semanticVersion << " (" << version._metadata << ")";
 }
 
+std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersionList &versionList)
+{
+  os << "Version list:";
+
+  for (const auto &version : versionList._versions) {
+    os << "\n" << version;
+  }
+
+  return os;
+}
+
 ArbiterSemanticVersion *ArbiterCreateSemanticVersion (unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata)
 {
   return new ArbiterSemanticVersion(
