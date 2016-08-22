@@ -20,4 +20,29 @@ std::string toString (const T &value)
   return ss.str();
 }
 
+/**
+ * Returns a unique_ptr which wraps a NUL-terminated copy of the `c_str()` of
+ * the given string.
+ */
+std::unique_ptr<char[]> copyCString (const std::string &str);
+
+/**
+ * A deleter for unique_ptr which just invokes `free()`.
+ */
+struct FreeDeleter final
+{
+  public:
+    void operator() (void *ptr) const noexcept;
+};
+
+/**
+ * Returns a unique_ptr which takes ownership of `str`.
+ */
+std::unique_ptr<char[], FreeDeleter> acquireCString (char *str);
+
+/**
+ * Returns a string which is a copy of `str`, which will then be freed.
+ */
+std::string copyAcquireCString (char *str);
+
 } // namespace Arbiter

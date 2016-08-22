@@ -6,6 +6,8 @@
 
 #include <arbiter/Value.h>
 
+#include "ToString.h"
+
 #include <cassert>
 #include <ostream>
 
@@ -50,8 +52,7 @@ class SharedUserValue final
     std::string description () const
     {
       if (_createDescription) {
-        std::unique_ptr<char, FreeDeleter> str(_createDescription(data()));
-        return std::string(str.get());
+        return Arbiter::copyAcquireCString(_createDescription(data()));
       } else {
         return "Arbiter::SharedUserValue";
       }
@@ -61,14 +62,6 @@ class SharedUserValue final
     std::shared_ptr<void> _data;
     bool (*_equals)(const void *first, const void *second);
     char *(*_createDescription)(const void *data);
-
-    struct FreeDeleter
-    {
-      void operator() (void *ptr) const
-      {
-        free(ptr);
-      }
-    };
 
     static void noOpDestructor (void *)
     {}
