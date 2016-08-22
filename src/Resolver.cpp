@@ -13,24 +13,46 @@
 using namespace Arbiter;
 using namespace Resolver;
 
-void DependencyNode::setRequirement (const ArbiterRequirement &requirement)
+void DependencyGraph::addNode (Node node, const ArbiterRequirement &initialRequirement, const Node *dependent) noexcept(false)
 {
-  setRequirement(requirement.clone());
+  assert(initialRequirement.satisfiedBy(node._version._semanticVersion));
+
+  std::unique_ptr<ArbiterRequirement> requirementToInsert;
+  if (const std::unique_ptr<ArbiterRequirement> &existingRequirement = _requirementsByNode[node]) {
+    // We need to unify our input with what was already there.
+    if (auto newRequirement = initialRequirement.intersect(*existingRequirement)) {
+      if (!newRequirement->satisfiedBy(node._version._semanticVersion)) {
+        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*newRequirement) + " with " + toString(node._version));
+      }
+
+      requirementToInsert = std::move(newRequirement);
+    } else {
+      throw Exception::MutuallyExclusiveConstraints(toString(*existingRequirement) + " and " + toString(initialRequirement) + " are mutually exclusive");
+    }
+  } else {
+    requirementToInsert = initialRequirement.clone();
+  }
+
+  assert(requirementToInsert);
+  _requirementsByNode[node] = std::move(requirementToInsert);
+
+  if (dependent) {
+    _edges[*dependent].insert(node);
+  } else {
+    _roots.insert(node);
+  }
 }
 
-void DependencyNode::setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
+std::vector<DependencyGraph::Node> DependencyGraph::allNodes() const
 {
-  assert(requirement);
-  assert(requirement->satisfiedBy(_proposedVersion._semanticVersion));
+  std::vector<Node> nodes;
+  nodes.reserve(_requirementsByNode.size());
 
-  _state->_requirement = std::move(requirement); 
-}
+  for (const auto &pair : _requirementsByNode) {
+    nodes.emplace_back(pair.first);
+  }
 
-std::ostream &operator<< (std::ostream &os, const DependencyNode &node)
-{
-  return os
-    << node._project << " @ " << node._proposedVersion
-    << " (restricted to " << node.requirement() << ")";
+  return nodes;
 }
 
 bool DependencyGraph::operator== (const DependencyGraph &other) const
@@ -38,62 +60,20 @@ bool DependencyGraph::operator== (const DependencyGraph &other) const
   return _edges == other._edges && _roots == other._roots;
 }
 
-DependencyNode *DependencyGraph::addNode (const DependencyNode &inputNode, const DependencyNode *dependent)
-{
-  auto nodeInsertion = _allNodes.insert(inputNode);
-
-  // Unordered collections rightly discourage mutation so hashes don't get
-  // invalidated, but we've already handled this in the implementation of
-  // DependencyNode.
-  DependencyNode &insertedNode = const_cast<DependencyNode &>(*nodeInsertion.first);
-
-  // If no insertion was actually performed, we need to unify our input with
-  // what was already there.
-  if (!nodeInsertion.second) {
-    if (auto newRequirement = insertedNode.requirement().intersect(inputNode.requirement())) {
-      if (!newRequirement->satisfiedBy(insertedNode._proposedVersion._semanticVersion)) {
-        // This strengthened requirement invalidates the version we've
-        // proposed in this graph, so the graph would become inconsistent.
-        return nullptr;
-      }
-
-      insertedNode.setRequirement(std::move(newRequirement));
-    } else {
-      // If intersecting the requirements is impossible, the versions
-      // currently shouldn't be able to match.
-      //
-      // Notably, though, Carthage does permit scenarios like this when
-      // pinned to a branch. Arbiter doesn't support requirements like this
-      // right now, but may in the future.
-      assert(inputNode._proposedVersion != insertedNode._proposedVersion);
-      return nullptr;
-    }
-  }
-
-  if (dependent) {
-    _edges[*dependent].insert(insertedNode);
-  } else {
-    _roots.insert(insertedNode);
-  }
-
-  return &insertedNode;
-}
-
 std::ostream &operator<< (std::ostream &os, const DependencyGraph &graph)
 {
   os << "Roots:";
-  for (const DependencyNode &root : graph._roots) {
+  for (const DependencyGraph::Node &root : graph.roots()) {
     os << "\n\t" << root;
   }
 
   os << "\n\nEdges";
-  for (const auto &pair : graph._edges) {
-    const DependencyNode &node = pair.first;
+  for (const auto &pair : graph.edges()) {
+    const DependencyGraph::Node &node = pair.first;
     os << "\n\t" << node._project << " ->";
 
-    const auto &dependencies = pair.second;
-    for (const DependencyNode &dep : dependencies) {
-      os << "\n\t\t" << dep;
+    for (const DependencyGraph::Node &dependency : pair.second) {
+      os << "\n\t\t" << dependency;
     }
   }
 
@@ -146,9 +126,9 @@ ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectId
     assert(!error);
     return *dependencyList;
   } else if (error) {
-    throw UserError(copyAcquireCString(error));
+    throw Exception::UserError(copyAcquireCString(error));
   } else {
-    throw UserError();
+    throw Exception::UserError();
   }
 }
 
@@ -161,9 +141,9 @@ ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const Arbite
     assert(!error);
     return *versionList;
   } else if (error) {
-    throw UserError(copyAcquireCString(error));
+    throw Exception::UserError(copyAcquireCString(error));
   } else {
-    throw UserError();
+    throw Exception::UserError();
   }
 }
 
