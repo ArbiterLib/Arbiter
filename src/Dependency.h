@@ -7,6 +7,7 @@
 #include <arbiter/Dependency.h>
 
 #include "Value.h"
+#include "Version.h"
 
 #include <functional>
 #include <memory>
@@ -76,6 +77,20 @@ struct ArbiterDependencyList final
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &dependencyList);
+
+struct ArbiterResolvedDependency final
+{
+  public:
+    ArbiterProjectIdentifier _project;
+    ArbiterSelectedVersion _version;
+
+    ArbiterResolvedDependency (ArbiterProjectIdentifier project, ArbiterSelectedVersion version)
+      : _project(std::move(project))
+      , _version(std::move(version))
+    {}
+};
+
+std::ostream &operator<< (std::ostream &os, const ArbiterResolvedDependency &dependency);
 
 namespace std {
 

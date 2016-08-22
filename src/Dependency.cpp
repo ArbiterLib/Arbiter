@@ -56,6 +56,26 @@ void ArbiterFreeDependencyList (ArbiterDependencyList *dependencyList)
   delete dependencyList;
 }
 
+ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *version)
+{
+  return new ArbiterResolvedDependency(*project, *version);
+}
+
+const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterResolvedDependency *dependency)
+{
+  return &dependency->_project;
+}
+
+const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency)
+{
+  return &dependency->_version;
+}
+
+void ArbiterFreeResolvedDependency (ArbiterResolvedDependency *dependency)
+{
+  delete dependency;
+}
+
 std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier)
 {
   return os << "ArbiterProjectIdentifier(" << identifier._value << ")";
@@ -96,4 +116,9 @@ std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &depende
   }
 
   return os;
+}
+
+std::ostream &operator<< (std::ostream &os, const ArbiterResolvedDependency &dependency)
+{
+  return os << dependency._project << " @ " << dependency._version;
 }

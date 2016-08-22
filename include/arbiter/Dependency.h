@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include <arbiter/Requirement.h>
+#include <arbiter/Version.h>
 
 #include <stddef.h>
 
@@ -84,6 +85,40 @@ ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency *dep
  * Releases the memory associated with a dependency list.
  */
 void ArbiterFreeDependencyList (ArbiterDependencyList *dependencyList);
+
+/**
+ * Represents a dependency which has been resolved to a specific version.
+ */
+typedef struct ArbiterResolvedDependency ArbiterResolvedDependency;
+
+/**
+ * Creates a fully resolved dependency referring to the specified version of the
+ * given project.
+ *
+ * The returned dependency must be freed with ArbiterFreeResolvedDependency().
+ */
+ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *version);
+
+/**
+ * Returns the project this resolved dependency refers to.
+ *
+ * The returned pointer is only guaranteed to remain valid for the current
+ * scope.
+ */
+const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterResolvedDependency *dependency);
+
+/**
+ * Returns the version which was selected for this resolved dependency.
+ *
+ * The returned pointer is only guaranteed to remain valid for the current
+ * scope.
+ */
+const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency);
+
+/**
+ * Releases the memory associated with a resolved dependency.
+ */
+void ArbiterFreeResolvedDependency (ArbiterResolvedDependency *dependency);
 
 #ifdef __cplusplus
 }
