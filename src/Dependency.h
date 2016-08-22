@@ -4,13 +4,16 @@
 #error "This file must be compiled as C++."
 #endif
 
-#include "Requirement.h"
+#include <arbiter/Dependency.h>
+
 #include "Value.h"
 
 #include <functional>
 #include <memory>
 #include <ostream>
 #include <vector>
+
+struct ArbiterRequirement;
 
 struct ArbiterProjectIdentifier final
 {
@@ -41,10 +44,7 @@ struct ArbiterDependency final
   public:
     ArbiterProjectIdentifier _projectIdentifier;
 
-    ArbiterDependency (ArbiterProjectIdentifier projectIdentifier, const ArbiterRequirement &requirement)
-      : _projectIdentifier(std::move(projectIdentifier))
-      , _requirement(requirement.clone())
-    {}
+    ArbiterDependency (ArbiterProjectIdentifier projectIdentifier, const ArbiterRequirement &requirement);
 
     ArbiterDependency (const ArbiterDependency &other)
       : ArbiterDependency(other._projectIdentifier, other.requirement())
@@ -57,10 +57,7 @@ struct ArbiterDependency final
       return *_requirement;
     }
 
-    bool operator== (const ArbiterDependency &other) const
-    {
-      return _projectIdentifier == other._projectIdentifier && *_requirement == *(other._requirement);
-    }
+    bool operator== (const ArbiterDependency &other) const;
 
   private:
     std::unique_ptr<ArbiterRequirement> _requirement;
@@ -97,11 +94,7 @@ template<>
 struct hash<ArbiterDependency> final
 {
   public:
-    size_t operator() (const ArbiterDependency &dependency) const
-    {
-      return Arbiter::hashOf(dependency._projectIdentifier)
-        ^ Arbiter::hashOf(dependency.requirement());
-    }
+    size_t operator() (const ArbiterDependency &dependency) const;
 };
 
 } // namespace std

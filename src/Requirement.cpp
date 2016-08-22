@@ -1,5 +1,6 @@
 #include "Requirement.h"
 
+#include "Hash.h"
 #include "ToString.h"
 
 #include <typeinfo>
@@ -198,6 +199,11 @@ bool AtLeast::operator== (const ArbiterRequirement &other) const noexcept
   }
 }
 
+size_t AtLeast::hash () const noexcept
+{
+  return hashOf(_minimumVersion);
+}
+
 std::ostream &AtLeast::describe (std::ostream &os) const
 {
   return os << ">=" << _minimumVersion;
@@ -245,6 +251,11 @@ bool CompatibleWith::operator== (const ArbiterRequirement &other) const noexcept
   }
 }
 
+size_t CompatibleWith::hash () const noexcept
+{
+  return hashOf(_baseVersion);
+}
+
 std::ostream &CompatibleWith::describe (std::ostream &os) const
 {
   return os << "~>" << _baseVersion;
@@ -257,6 +268,11 @@ bool Exactly::operator== (const ArbiterRequirement &other) const noexcept
   } else {
     return false;
   }
+}
+
+size_t Exactly::hash () const noexcept
+{
+  return hashOf(_version);
 }
 
 std::ostream &Exactly::describe (std::ostream &os) const

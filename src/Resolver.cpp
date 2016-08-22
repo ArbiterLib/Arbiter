@@ -30,6 +30,19 @@ void satisfyPromiseWithFirstVersionPassingRequirement (std::shared_ptr<Promise<O
 
 } // namespace
 
+void DependencyNode::setRequirement (const ArbiterRequirement &requirement)
+{
+  setRequirement(requirement.clone());
+}
+
+void DependencyNode::setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
+{
+  assert(requirement);
+  assert(requirement->satisfiedBy(_proposedVersion._semanticVersion));
+
+  _state->_requirement = std::move(requirement); 
+}
+
 std::ostream &operator<< (std::ostream &os, const DependencyNode &node)
 {
   return os

@@ -4,10 +4,9 @@
 #error "This file must be compiled as C++."
 #endif
 
-#include "Hash.h"
-#include "Version.h"
-
 #include <arbiter/Requirement.h>
+
+#include "Version.h"
 
 #include <memory>
 #include <ostream>
@@ -124,11 +123,7 @@ class AtLeast final : public ArbiterRequirement
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 
   protected:
-    size_t hash () const noexcept override
-    {
-      return hashOf(_minimumVersion);
-    }
-
+    size_t hash () const noexcept override;
     std::ostream &describe (std::ostream &os) const override;
 };
 
@@ -158,11 +153,7 @@ class CompatibleWith final : public ArbiterRequirement
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 
   protected:
-    size_t hash () const noexcept override
-    {
-      return hashOf(_baseVersion);
-    }
-
+    size_t hash () const noexcept override;
     std::ostream &describe (std::ostream &os) const override;
 };
 
@@ -193,11 +184,7 @@ class Exactly final : public ArbiterRequirement
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
 
   protected:
-    size_t hash () const noexcept override
-    {
-      return hashOf(_version);
-    }
-
+    size_t hash () const noexcept override;
     std::ostream &describe (std::ostream &os) const override;
 };
 

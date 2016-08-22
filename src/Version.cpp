@@ -1,10 +1,26 @@
 #include "Version.h"
 
+#include "Hash.h"
+
 #include <ostream>
 #include <sstream>
 #include <iostream>
 
 using namespace Arbiter;
+
+size_t std::hash<ArbiterSemanticVersion>::operator() (const ArbiterSemanticVersion &version) const
+{
+  return hashOf(version._major)
+    ^ hashOf(version._minor)
+    ^ hashOf(version._patch)
+    ^ hashOf(version._prereleaseVersion)
+    ^ hashOf(version._buildMetadata);
+}
+
+size_t std::hash<ArbiterSelectedVersion>::operator() (const ArbiterSelectedVersion &version) const
+{
+  return hashOf(version._semanticVersion);
+}
 
 Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::string &versionString)
 {

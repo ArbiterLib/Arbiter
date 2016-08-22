@@ -4,11 +4,10 @@
 #error "This file must be compiled as C++."
 #endif
 
-#include "Hash.h"
+#include <arbiter/Version.h>
+
 #include "Optional.h"
 #include "Value.h"
-
-#include <arbiter/Version.h>
 
 #include <functional>
 #include <string>
@@ -119,24 +118,14 @@ template<>
 struct hash<ArbiterSemanticVersion> final
 {
   public:
-    size_t operator() (const ArbiterSemanticVersion &version) const
-    {
-      return Arbiter::hashOf(version._major)
-        ^ Arbiter::hashOf(version._minor)
-        ^ Arbiter::hashOf(version._patch)
-        ^ Arbiter::hashOf(version._prereleaseVersion)
-        ^ Arbiter::hashOf(version._buildMetadata);
-    }
+    size_t operator() (const ArbiterSemanticVersion &version) const;
 };
 
 template<>
 struct hash<ArbiterSelectedVersion> final
 {
   public:
-    size_t operator() (const ArbiterSelectedVersion &version) const
-    {
-      return Arbiter::hashOf(version._semanticVersion);
-    }
+    size_t operator() (const ArbiterSelectedVersion &version) const;
 };
 
 } // namespace std

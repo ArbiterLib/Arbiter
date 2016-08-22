@@ -1,6 +1,15 @@
 #include "Dependency.h"
 
+#include "Hash.h"
+#include "Requirement.h"
+
 using namespace Arbiter;
+
+size_t std::hash<ArbiterDependency>::operator() (const ArbiterDependency &dependency) const
+{
+  return hashOf(dependency._projectIdentifier)
+    ^ hashOf(dependency.requirement());
+}
 
 ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value)
 {
@@ -52,6 +61,11 @@ std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &iden
   return os << "ArbiterProjectIdentifier(" << identifier._value << ")";
 }
 
+ArbiterDependency::ArbiterDependency (ArbiterProjectIdentifier projectIdentifier, const ArbiterRequirement &requirement)
+  : _projectIdentifier(std::move(projectIdentifier))
+  , _requirement(requirement.clone())
+{}
+
 ArbiterDependency &ArbiterDependency::operator= (const ArbiterDependency &other)
 {
   if (this == &other) {
@@ -61,6 +75,11 @@ ArbiterDependency &ArbiterDependency::operator= (const ArbiterDependency &other)
   _projectIdentifier = other._projectIdentifier;
   _requirement = other.requirement().clone();
   return *this;
+}
+
+bool ArbiterDependency::operator== (const ArbiterDependency &other) const
+{
+  return _projectIdentifier == other._projectIdentifier && *_requirement == *(other._requirement);
 }
 
 std::ostream &operator<< (std::ostream &os, const ArbiterDependency &dependency)

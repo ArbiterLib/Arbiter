@@ -4,14 +4,14 @@
 #error "This file must be compiled as C++."
 #endif
 
+#include <arbiter/Resolver.h>
+
 #include "Dependency.h"
 #include "Future.h"
 #include "Generator.h"
 #include "Hash.h"
 #include "Value.h"
 #include "Version.h"
-
-#include <arbiter/Resolver.h>
 
 #include <mutex>
 #include <unordered_map>
@@ -104,18 +104,8 @@ class DependencyNode final
       return *_state->_requirement;
     }
 
-    void setRequirement (const ArbiterRequirement &requirement)
-    {
-      setRequirement(requirement.clone());
-    }
-
-    void setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
-    {
-      assert(requirement);
-      assert(requirement->satisfiedBy(_proposedVersion._semanticVersion));
-
-      _state->_requirement = std::move(requirement); 
-    }
+    void setRequirement (const ArbiterRequirement &requirement);
+    void setRequirement (std::unique_ptr<ArbiterRequirement> requirement);
 
     std::unordered_set<DependencyNode, Hash> &dependencies () noexcept
     {
