@@ -11,6 +11,12 @@ size_t std::hash<ArbiterDependency>::operator() (const ArbiterDependency &depend
     ^ hashOf(dependency.requirement());
 }
 
+size_t std::hash<ArbiterResolvedDependency>::operator() (const ArbiterResolvedDependency &dependency) const
+{
+  return hashOf(dependency._project)
+    ^ hashOf(dependency._version);
+}
+
 ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value)
 {
   return new ArbiterProjectIdentifier(ArbiterProjectIdentifier::Value(value));

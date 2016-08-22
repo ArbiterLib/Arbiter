@@ -88,6 +88,16 @@ struct ArbiterResolvedDependency final
       : _project(std::move(project))
       , _version(std::move(version))
     {}
+
+    bool operator== (const ArbiterResolvedDependency &dependency) const
+    {
+      return _project == dependency._project && _version == dependency._version;
+    }
+
+    bool operator!= (const ArbiterResolvedDependency &dependency) const
+    {
+      return !(*this == dependency);
+    }
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterResolvedDependency &dependency);
@@ -110,6 +120,13 @@ struct hash<ArbiterDependency> final
 {
   public:
     size_t operator() (const ArbiterDependency &dependency) const;
+};
+
+template<>
+struct hash<ArbiterResolvedDependency> final
+{
+  public:
+    size_t operator() (const ArbiterResolvedDependency &dependency) const;
 };
 
 } // namespace std
