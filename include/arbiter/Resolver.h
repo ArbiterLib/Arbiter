@@ -18,106 +18,31 @@ extern "C" {
 typedef struct ArbiterResolver ArbiterResolver;
 
 /**
- * Represents a request for the list of dependencies needed by a specific
- * version of a project.
- */
-typedef struct
-{
-  /**
-   * The dependency resolver which is asking for this information.
-   */
-  const ArbiterResolver *resolver;
-
-  /**
-   * The project whose dependencies need to be fetched.
-   */
-  const ArbiterProjectIdentifier *project;
-
-  /**
-   * The specific version of the project for which the dependency list should be
-   * fetched.
-   */
-  const ArbiterSelectedVersion *selectedVersion;
-} ArbiterDependencyListFetch;
-
-/**
- * Represents a request for all of the available versions of a project.
- */
-typedef struct
-{
-  /**
-   * The dependency resolver which is asking for this information.
-   */
-  const ArbiterResolver *resolver;
-
-  /**
-   * The project whose list of available versions should be fetched.
-   */
-  const ArbiterProjectIdentifier *project;
-} ArbiterAvailableVersionsFetch;
-
-/**
  * User-provided behaviors for how dependency resolution should work.
  */
 typedef struct
 {
   /**
-   * A thread-safe, re-entrant function which fetches a project version's
-   * dependencies according to the given request, then invokes either
-   * `onSuccess` or `onError`.
+   * Requests the list of dependencies needed by a specific version of
+   * a project.
    *
-   * Failure to invoke one of the completion callbacks will result in a memory
-   * leak.
+   * Returns a dependency list, or NULL if an error occurs. Arbiter will be
+   * responsible for freeing the returned dependency list object. If returning
+   * NULL, `error` may be set to a string describing the error which occurred,
+   * in which case Arbiter will be responsible for freeing the string.
    */
-  void (*fetchDependencyList)(
-    ArbiterDependencyListFetch fetch,
-    void (*onSuccess)(ArbiterDependencyListFetch fetch, const ArbiterDependencyList *fetchedList),
-    void (*onError)(ArbiterDependencyListFetch fetch)
-  );
+  ArbiterDependencyList *(*createDependencyList)(const ArbiterResolver *resolver, const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *selectedVersion, char **error);
 
   /**
-   * A thread-safe, re-entrant function which fetches a project's available
-   * versions according to the given request.
+   * Requests the list of versions available for a given project.
    *
-   * The implementor should invoke `onNext` as each version is found, and then
-   * `onCompleted` after all versions have been enumerated, or else `onError` if
-   * an error occurs before enumeration can finish.
-   *
-   * Failure to invoke one of the completion callbacks will result in a memory
-   * leak.
+   * Returns a version list, or NULL if an error occurs. Arbiter will be
+   * responsible for freeing the returned version list object. If returning
+   * NULL, `error` may be set to a string describing the error which occurred,
+   * in which case Arbiter will be responsible for freeing the string.
    */
-  void (*fetchAvailableVersions)(
-    ArbiterAvailableVersionsFetch fetch,
-    void (*onNext)(ArbiterAvailableVersionsFetch fetch, const ArbiterSelectedVersion *nextVersion),
-    void (*onCompleted)(ArbiterAvailableVersionsFetch fetch),
-    void (*onError)(ArbiterAvailableVersionsFetch fetch)
-  );
+  ArbiterSelectedVersionList *(*createAvailableVersionsList)(const ArbiterResolver *resolver, const ArbiterProjectIdentifier *project, char **error);
 } ArbiterResolverBehaviors;
-
-/**
- * User-provided callbacks to invoke when dependency resolution has progressed.
- */
-typedef struct
-{
-  /**
-   * A thread-safe function which will be invoked when the specified version of
-   * `project` has been picked as a fully-resolved dependency.
-   */
-  void (*onSuccess)(
-    const ArbiterResolver *resolver,
-    const ArbiterProjectIdentifier *project,
-    const ArbiterSelectedVersion *selectedVersion
-  );
-
-  /**
-   * A thread-safe function which will be invoked when an error has occurred
-   * trying to resolve the next dependency.
-   */
-  void (*onError)(
-    const ArbiterResolver *resolver,
-    const char *message
-  );
-} ArbiterResolverCallbacks;
 
 /**
  * Creates a dependency resolver, implemented using the given behaviors, which
@@ -143,18 +68,17 @@ const void *ArbiterResolverContext (const ArbiterResolver *resolver);
 bool ArbiterResolvedAllDependencies (const ArbiterResolver *resolver);
 
 /**
- * Begins resolving the next unresolved dependency. Once resolution has
- * completed or an error has occurred, one of the given callbacks will be
- * invoked (possibly on another thread).
- *
- * After starting to resolve a dependency, the dependency resolver object must
- * not be freed with ArbiterFreeResolver() until one of the callbacks has been
- * invoked.
+ * Resolves the next unresolved dependency.
  *
  * It is invalid to invoke this function if ArbiterResolvedAllDependencies()
  * returns true for the same dependency resolver.
+ *
+ * Returns the resolved dependency, or NULL if an error occurred. The caller is
+ * responsible for freeing the returned dependency. If NULL is returned and
+ * `error` is not NULL, it may be set to a string describing the error, which
+ * the caller is responsible for freeing.
  */
-void ArbiterStartResolvingNextDependency (ArbiterResolver *resolver, ArbiterResolverCallbacks callbacks);
+ArbiterResolvedDependency *ArbiterCreateNextResolvedDependency (ArbiterResolver *resolver, char **error);
 
 /**
  * Releases the memory associated with a dependency resolver.

@@ -1,7 +1,10 @@
 #include "Resolver.h"
 
+#include "Exception.h"
 #include "Hash.h"
+#include "Optional.h"
 #include "Requirement.h"
+#include "ToString.h"
 
 #include <cassert>
 #include <exception>
@@ -9,26 +12,6 @@
 
 using namespace Arbiter;
 using namespace Resolver;
-
-namespace {
-
-/**
- * Filters out versions from the given generator which fail the given
- * requirement, saving whatever is left (even if just a terminal event) into
- * `promise`.
- */
-void satisfyPromiseWithFirstVersionPassingRequirement (std::shared_ptr<Promise<Optional<ArbiterSelectedVersion>>> promise, std::shared_ptr<Generator<ArbiterSelectedVersion>> versions, std::shared_ptr<ArbiterRequirement> requirement)
-{
-  versions->next().add_callback([promise, versions, requirement](const auto &result) {
-    if (result.hasLeft() || !result.right() || requirement->satisfiedBy(result.right()->_semanticVersion)) {
-      promise->set_result(result);
-    } else {
-      satisfyPromiseWithFirstVersionPassingRequirement(promise, versions, requirement);
-    }
-  });
-}
-
-} // namespace
 
 void DependencyNode::setRequirement (const ArbiterRequirement &requirement)
 {
@@ -117,12 +100,6 @@ std::ostream &operator<< (std::ostream &os, const DependencyGraph &graph)
   return os;
 }
 
-Generator<DependencyGraph> generateDependencyGraphs (const ArbiterDependencyList &roots) {
-  // TODO: Recursively generate every possible dependency graph for everything
-  // in `roots`, then merge them together.
-  assert(false);
-}
-
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
 {
   return new ArbiterResolver(std::move(behaviors), *dependencyList, ArbiterResolver::Context(std::move(context)));
@@ -138,16 +115,21 @@ bool ArbiterResolvedAllDependencies (const ArbiterResolver *resolver)
   return resolver->resolvedAll();
 }
 
-void ArbiterStartResolvingNextDependency (ArbiterResolver *resolver, ArbiterResolverCallbacks callbacks)
+ArbiterResolvedDependency *ArbiterCreateNextResolvedDependency (ArbiterResolver *resolver, char **error)
 {
-  resolver->resolveNext().add_callback([resolver, callbacks = std::move(callbacks)](const auto &result) {
-    try {
-      const ResolvedDependency &dependency = result.rightOrThrowLeft();
-      callbacks.onSuccess(resolver, &dependency.projectIdentifier, &dependency.selectedVersion);
-    } catch (const std::exception &ex) {
-      callbacks.onError(resolver, ex.what());
+  Optional<ArbiterResolvedDependency> dependency;
+
+  try {
+    dependency = resolver->resolveNext();
+  } catch (const std::exception &ex) {
+    if (error) {
+      *error = copyCString(ex.what()).release();
     }
-  });
+
+    return nullptr;
+  }
+
+  return new ArbiterResolvedDependency(std::move(*dependency));
 }
 
 void ArbiterFreeResolver (ArbiterResolver *resolver)
@@ -155,17 +137,34 @@ void ArbiterFreeResolver (ArbiterResolver *resolver)
   delete resolver;
 }
 
-ResolvedDependency ResolvedDependency::takeOwnership (ArbiterDependencyListFetch fetch) noexcept
+ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) const noexcept(false)
 {
-  std::unique_ptr<ArbiterProjectIdentifier> project(const_cast<ArbiterProjectIdentifier *>(fetch.project));
-  std::unique_ptr<ArbiterSelectedVersion> selectedVersion(const_cast<ArbiterSelectedVersion *>(fetch.selectedVersion));
+  char *error = nullptr;
+  std::unique_ptr<ArbiterDependencyList> dependencyList(_behaviors.createDependencyList(this, &project, &version, &error));
 
-  return ResolvedDependency { std::move(*project), std::move(*selectedVersion) };
+  if (dependencyList) {
+    assert(!error);
+    return *dependencyList;
+  } else if (error) {
+    throw UserError(copyAcquireCString(error));
+  } else {
+    throw UserError();
+  }
 }
 
-bool ResolvedDependency::operator== (const ResolvedDependency &other) const noexcept
+ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const ArbiterProjectIdentifier &project) const noexcept(false)
 {
-  return projectIdentifier == other.projectIdentifier && selectedVersion == other.selectedVersion;
+  char *error = nullptr;
+  std::unique_ptr<ArbiterSelectedVersionList> versionList(_behaviors.createAvailableVersionsList(this, &project, &error));
+
+  if (versionList) {
+    assert(!error);
+    return *versionList;
+  } else if (error) {
+    throw UserError(copyAcquireCString(error));
+  } else {
+    throw UserError();
+  }
 }
 
 bool ArbiterResolver::resolvedAll () const noexcept
@@ -173,147 +172,7 @@ bool ArbiterResolver::resolvedAll () const noexcept
   return _remainingDependencies._dependencies.empty();
 }
 
-Arbiter::Future<ResolvedDependency> resolveNext ()
+ArbiterResolvedDependency resolveNext() noexcept(false)
 {
-  Arbiter::Promise<ResolvedDependency> promise;
-
-  // TODO: Actually resolve
-  
-  return promise.get_future();
-}
-
-Arbiter::Future<ArbiterDependencyList> ArbiterResolver::insertDependencyListFetch (ResolvedDependency dependency)
-{
-  std::lock_guard<std::mutex> lock(_fetchesMutex);
-
-  return _dependencyListFetches[std::move(dependency)].get_future();
-}
-
-Arbiter::Promise<ArbiterDependencyList> ArbiterResolver::extractDependencyListFetch (const ResolvedDependency &dependency)
-{
-  std::lock_guard<std::mutex> lock(_fetchesMutex);
-
-  Arbiter::Promise<ArbiterDependencyList> promise = std::move(_dependencyListFetches.at(dependency));
-  _dependencyListFetches.erase(dependency);
-
-  return promise;
-}
-
-Arbiter::Generator<ArbiterSelectedVersion> ArbiterResolver::insertAvailableVersionsFetch (ArbiterProjectIdentifier fetch)
-{
-  std::lock_guard<std::mutex> lock(_fetchesMutex);
-
-  return _availableVersionsFetches[std::move(fetch)].getGenerator();
-}
-
-Arbiter::Sink<ArbiterSelectedVersion> ArbiterResolver::extractAvailableVersionsFetch (const ArbiterProjectIdentifier &fetch)
-{
-  std::lock_guard<std::mutex> lock(_fetchesMutex);
-
-  Arbiter::Sink<ArbiterSelectedVersion> sink = std::move(_availableVersionsFetches.at(fetch));
-  _availableVersionsFetches.erase(fetch);
-
-  return sink;
-}
-
-Arbiter::Future<ArbiterDependencyList> ArbiterResolver::fetchDependencyList (ResolvedDependency dependency)
-{
-  // Eventually freed in the C callback function.
-  auto project = std::make_unique<ArbiterProjectIdentifier>(dependency.projectIdentifier);
-  auto version = std::make_unique<ArbiterSelectedVersion>(dependency.selectedVersion);
-
-  auto future = insertDependencyListFetch(std::move(dependency));
-
-  _behaviors.fetchDependencyList(
-    ArbiterDependencyListFetch { this, project.release(), version.release() },
-    &dependencyListFetchOnSuccess,
-    &dependencyListFetchOnError
-  );
-
-  return future;
-}
-
-Arbiter::Generator<ArbiterSelectedVersion> ArbiterResolver::fetchAvailableVersions (ArbiterProjectIdentifier project)
-{
-  // Eventually freed in the C callback function.
-  auto projectCopy = std::make_unique<ArbiterProjectIdentifier>(project);
-
-  auto generator = insertAvailableVersionsFetch(std::move(project));
-
-  _behaviors.fetchAvailableVersions(
-    ArbiterAvailableVersionsFetch { this, projectCopy.release() },
-    &availableVersionsFetchOnNext,
-    &availableVersionsFetchOnCompleted,
-    &availableVersionsFetchOnError
-  );
-
-  return generator;
-}
-
-Generator<ArbiterSelectedVersion> ArbiterResolver::fetchAvailableVersions (ArbiterProjectIdentifier project, const ArbiterRequirement &requirement)
-{
-  auto allVersions = std::make_shared<Generator<ArbiterSelectedVersion>>(fetchAvailableVersions(project));
-  std::shared_ptr<ArbiterRequirement> sharedRequirement(requirement.clone());
-
-  return Arbiter::Generator<ArbiterSelectedVersion>([allVersions, sharedRequirement] {
-    auto promise = std::make_shared<Promise<Optional<ArbiterSelectedVersion>>>();
-
-    satisfyPromiseWithFirstVersionPassingRequirement(promise, allVersions, sharedRequirement);
-
-    return promise->get_future();
-  });
-}
-
-void ArbiterResolver::dependencyListFetchOnSuccess (ArbiterDependencyListFetch cFetch, const ArbiterDependencyList *fetchedList)
-{
-  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
-  auto dependency = ResolvedDependency::takeOwnership(cFetch);
-
-  resolver
-    .extractDependencyListFetch(dependency)
-    .set_value(*fetchedList);
-}
-
-void ArbiterResolver::dependencyListFetchOnError (ArbiterDependencyListFetch cFetch)
-{
-  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
-  auto dependency = ResolvedDependency::takeOwnership(cFetch);
-
-  resolver
-    .extractDependencyListFetch(dependency)
-    // TODO: Better error reporting
-    .set_exception(std::make_exception_ptr(std::runtime_error("Dependency list fetch failed")));
-}
-
-void ArbiterResolver::availableVersionsFetchOnNext (ArbiterAvailableVersionsFetch cFetch, const ArbiterSelectedVersion *nextVersion)
-{
-  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
-  const auto &project = *cFetch.project;
-
-  std::lock_guard<std::mutex> lock(resolver._fetchesMutex);
-  resolver
-    ._availableVersionsFetches
-    .at(project)
-    .onNext(*nextVersion);
-}
-
-void ArbiterResolver::availableVersionsFetchOnCompleted (ArbiterAvailableVersionsFetch cFetch)
-{
-  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
-  std::unique_ptr<ArbiterProjectIdentifier> project(const_cast<ArbiterProjectIdentifier *>(cFetch.project));
-
-  resolver
-    .extractAvailableVersionsFetch(*project)
-    .onCompleted();
-}
-
-void ArbiterResolver::availableVersionsFetchOnError (ArbiterAvailableVersionsFetch cFetch)
-{
-  auto &resolver = *const_cast<ArbiterResolver *>(cFetch.resolver);
-  std::unique_ptr<ArbiterProjectIdentifier> project(const_cast<ArbiterProjectIdentifier *>(cFetch.project));
-
-  resolver
-    .extractAvailableVersionsFetch(*project)
-    // TODO: Better error reporting
-    .onError(std::make_exception_ptr(std::runtime_error("Available versions fetch failed")));
+  assert(false);
 }
