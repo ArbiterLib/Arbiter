@@ -4,11 +4,6 @@
 
 using namespace Arbiter;
 
-void FreeDeleter::operator() (void *ptr) const noexcept
-{
-  free(ptr);
-}
-
 std::unique_ptr<char[]> Arbiter::copyCString (const std::string &str)
 {
   size_t length = str.size();
@@ -20,9 +15,9 @@ std::unique_ptr<char[]> Arbiter::copyCString (const std::string &str)
   return cStr;
 }
 
-std::unique_ptr<char[], FreeDeleter> Arbiter::acquireCString (char *str)
+std::unique_ptr<char[], decltype(&free)> Arbiter::acquireCString (char *str)
 {
-  return std::unique_ptr<char[], FreeDeleter>(str);
+  return std::unique_ptr<char[], decltype(&free)>(str, &free);
 }
 
 std::string Arbiter::copyAcquireCString (char *str)

@@ -4,6 +4,7 @@
 #error "This file must be compiled as C++."
 #endif
 
+#include <cstdlib>
 #include <sstream>
 #include <string>
 
@@ -27,18 +28,9 @@ std::string toString (const T &value)
 std::unique_ptr<char[]> copyCString (const std::string &str);
 
 /**
- * A deleter for unique_ptr which just invokes `free()`.
- */
-struct FreeDeleter final
-{
-  public:
-    void operator() (void *ptr) const noexcept;
-};
-
-/**
  * Returns a unique_ptr which takes ownership of `str`.
  */
-std::unique_ptr<char[], FreeDeleter> acquireCString (char *str);
+std::unique_ptr<char[], decltype(&free)> acquireCString (char *str);
 
 /**
  * Returns a string which is a copy of `str`, which will then be freed.
