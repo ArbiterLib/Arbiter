@@ -7,6 +7,7 @@
 #include <arbiter/Resolver.h>
 
 #include "Dependency.h"
+#include "Generator.h"
 #include "Value.h"
 #include "Version.h"
 
@@ -41,7 +42,7 @@ class DependencyGraph final
      *
      * Throws an exception if this addition would make the graph inconsistent.
      */
-    void addNode (Node node, const ArbiterRequirement &initialRequirement, const Node *dependent) noexcept(false);
+    void addNode (Node node, const ArbiterRequirement &initialRequirement, const Optional<Node> &dependent) noexcept(false);
 
     /**
      * Attempts to add a complete graph below `dependent`, or merge it into the
@@ -49,7 +50,7 @@ class DependencyGraph final
      *
      * Throws an exception if this concatenation would make the graph inconsistent.
      */
-    void concatGraph (const DependencyGraph &other, const Node *dependent) noexcept(false);
+    void concatGraph (const DependencyGraph &other, const Optional<Node> &dependent) noexcept(false);
 
     /**
      * Returns a list of all nodes in the graph. There are guaranteed to be no
@@ -87,7 +88,7 @@ class DependencyGraph final
      * The associated requirement may change as the graph is added to, and
      * therefore the requirements become more stringent.
      */
-    std::unordered_map<Node, std::unique_ptr<ArbiterRequirement>> _requirementsByNode;
+    std::unordered_map<Node, std::shared_ptr<ArbiterRequirement>> _requirementsByNode;
 };
 
 } // namespace Resolver
@@ -126,6 +127,12 @@ struct ArbiterResolver final
     ArbiterSelectedVersionList fetchAvailableVersions (const ArbiterProjectIdentifier &project) const noexcept(false);
 
     /**
+     * Computes a list of available versions for the specified project which
+     * satisfy the given requirement.
+     */
+    std::vector<ArbiterSelectedVersion> availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) const noexcept(false);
+
+    /**
      * Returns whether all dependencies have been resolved.
      */
     bool resolvedAll () const noexcept;
@@ -143,9 +150,11 @@ struct ArbiterResolver final
     const ArbiterResolverBehaviors _behaviors;
     ArbiterDependencyList _remainingDependencies;
 
+    Arbiter::Generator<Arbiter::Resolver::DependencyGraph> possibleGraphsSatisfying (Arbiter::Resolver::DependencyGraph baseGraph, Arbiter::Optional<Arbiter::Resolver::DependencyGraph::Node> dependent, ArbiterProjectIdentifier project, const ArbiterRequirement &requirement) const;
+
     /**
-     * Computes a list of available versions for the specified project which
-     * satisfy the given requirement.
+     * Generates all possible dependency graphs for the projects and versions in
+     * the given list.
      */
-    std::vector<ArbiterSelectedVersion> availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) const noexcept(false);
+    Arbiter::Generator<Arbiter::Resolver::DependencyGraph> possibleGraphsForDependencyList (const Arbiter::Resolver::DependencyGraph &baseGraph, const ArbiterDependencyList &list) const;
 };

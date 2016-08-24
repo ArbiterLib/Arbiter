@@ -9,17 +9,78 @@
 #include <algorithm>
 #include <cassert>
 #include <exception>
+#include <map>
 #include <stdexcept>
 
 using namespace Arbiter;
 using namespace Resolver;
 
-void DependencyGraph::addNode (Node node, const ArbiterRequirement &initialRequirement, const Node *dependent) noexcept(false)
+namespace {
+
+struct GraphsForProjectGenerator final
+{
+  public:
+    explicit GraphsForProjectGenerator (const ArbiterResolver &resolver, DependencyGraph baseGraph, Optional<DependencyGraph::Node> dependent, ArbiterDependency dependency)
+      : _resolver(resolver)
+      , _baseGraph(std::move(baseGraph))
+      , _dependent(std::move(dependent))
+      , _dependency(std::move(dependency))
+    {}
+
+    Optional<DependencyGraph> operator() ()
+    {
+      if (!_possibleVersions) {
+        _possibleVersions = _resolver.availableVersionsSatisfying(_dependency._projectIdentifier, _dependency.requirement());
+        _possibleVersionsIter = _possibleVersions->begin();
+      }
+
+      if (_possibleVersionsIter == _possibleVersions->end()) {
+        return None();
+      }
+
+      const ArbiterSelectedVersion &selectedVersion = *_possibleVersionsIter;
+
+      if (!_selectedVersionDependencies) {
+        _selectedVersionDependencies = _resolver.fetchDependencies(_dependency._projectIdentifier, selectedVersion);
+        _selectedVersionDependenciesIter = _selectedVersionDependencies->_dependencies.begin();
+      }
+
+      DependencyGraph graph = _baseGraph;
+      graph.addNode(DependencyGraph::Node(_dependency._projectIdentifier, selectedVersion), _dependency.requirement(), _dependent);
+
+      if (_selectedVersionDependenciesIter == _selectedVersionDependencies->_dependencies.end()) {
+        // No dependencies to explore for this graph.
+        _selectedVersionDependencies = None();
+        ++_possibleVersionsIter;
+
+        return makeOptional(std::move(graph));
+      }
+
+      // TODO
+      assert(false);
+    }
+
+  private:
+    const ArbiterResolver &_resolver;
+    DependencyGraph _baseGraph;
+    Optional<DependencyGraph::Node> _dependent;
+    ArbiterDependency _dependency;
+
+    Optional<std::vector<ArbiterSelectedVersion>> _possibleVersions;
+    std::vector<ArbiterSelectedVersion>::const_iterator _possibleVersionsIter;
+
+    Optional<ArbiterDependencyList> _selectedVersionDependencies;
+    std::vector<ArbiterDependency>::const_iterator _selectedVersionDependenciesIter;
+};
+
+} // namespace
+
+void DependencyGraph::addNode (Node node, const ArbiterRequirement &initialRequirement, const Optional<Node> &dependent) noexcept(false)
 {
   assert(initialRequirement.satisfiedBy(node._version._semanticVersion));
 
   std::unique_ptr<ArbiterRequirement> requirementToInsert;
-  if (const std::unique_ptr<ArbiterRequirement> &existingRequirement = _requirementsByNode[node]) {
+  if (const std::shared_ptr<ArbiterRequirement> &existingRequirement = _requirementsByNode[node]) {
     // We need to unify our input with what was already there.
     if (auto newRequirement = initialRequirement.intersect(*existingRequirement)) {
       if (!newRequirement->satisfiedBy(node._version._semanticVersion)) {
@@ -44,16 +105,17 @@ void DependencyGraph::addNode (Node node, const ArbiterRequirement &initialRequi
   }
 }
 
-void DependencyGraph::concatGraph (const DependencyGraph &other, const Node *dependent) noexcept(false)
+void DependencyGraph::concatGraph (const DependencyGraph &other, const Optional<Node> &dependent) noexcept(false)
 {
   for (const auto &node : other.roots()) {
     addNode(node, *other._requirementsByNode.at(node), dependent);
   }
 
   for (const auto &pair : other.edges()) {
-    const auto &node = pair.first;
+    Optional<Node> node(pair.first);
+
     for (const auto &dependency : pair.second) {
-      addNode(dependency, *other._requirementsByNode.at(dependency), &node);
+      addNode(dependency, *other._requirementsByNode.at(dependency), node);
     }
   }
 }
@@ -182,4 +244,22 @@ std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying
 
   versions.erase(removeStart, versions.end());
   return versions;
+}
+
+Generator<DependencyGraph> ArbiterResolver::possibleGraphsSatisfying (DependencyGraph baseGraph, Optional<DependencyGraph::Node> dependent, ArbiterProjectIdentifier project, const ArbiterRequirement &requirement) const
+{
+  return makeGenerator(GraphsForProjectGenerator(*this, std::move(baseGraph), std::move(dependent), ArbiterDependency(std::move(project), requirement)));
+}
+
+Generator<DependencyGraph> ArbiterResolver::possibleGraphsForDependencyList (const DependencyGraph &baseGraph, const ArbiterDependencyList &list) const
+{
+  std::unordered_map<ArbiterDependency, std::vector<ArbiterSelectedVersion>> validVersionsByDependency;
+
+  for (const auto &dep : list._dependencies) {
+    validVersionsByDependency[dep] = availableVersionsSatisfying(dep._projectIdentifier, dep.requirement());
+  }
+
+  return makeGenerator([list = std::move(list), it = list._dependencies.begin()] {
+    return makeOptional(DependencyGraph());
+  });
 }
