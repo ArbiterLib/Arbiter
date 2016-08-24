@@ -25,6 +25,8 @@ template<typename T>
 struct Optional final
 {
   public:
+    using Value = T;
+
     /**
      * Creates an empty Optional.
      */
