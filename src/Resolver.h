@@ -39,11 +39,18 @@ class DependencyGraph final
      * If the given node refers to a project which already exists in the graph,
      * this method will attempt to intersect the version requirements of both.
      *
-     * Returns true if the node was successfully inserted into the graph, or
-     * false if this addition would make the graph inconsistent.
+     * Throws an exception if this addition would make the graph inconsistent.
      */
     void addNode (Node node, const ArbiterRequirement &initialRequirement, const Node *dependent) noexcept(false);
-    
+
+    /**
+     * Attempts to add a complete graph below `dependent`, or merge it into the
+     * roots of this graph if `dependent` is null.
+     *
+     * Throws an exception if this concatenation would make the graph inconsistent.
+     */
+    void concatGraph (const DependencyGraph &other, const Node *dependent) noexcept(false);
+
     /**
      * Returns a list of all nodes in the graph. There are guaranteed to be no
      * duplicates in the vector.

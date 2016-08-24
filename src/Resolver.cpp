@@ -44,6 +44,20 @@ void DependencyGraph::addNode (Node node, const ArbiterRequirement &initialRequi
   }
 }
 
+void DependencyGraph::concatGraph (const DependencyGraph &other, const Node *dependent) noexcept(false)
+{
+  for (const auto &node : other.roots()) {
+    addNode(node, *other._requirementsByNode.at(node), dependent);
+  }
+
+  for (const auto &pair : other.edges()) {
+    const auto &node = pair.first;
+    for (const auto &dependency : pair.second) {
+      addNode(dependency, *other._requirementsByNode.at(dependency), &node);
+    }
+  }
+}
+
 std::vector<DependencyGraph::Node> DependencyGraph::allNodes() const
 {
   std::vector<Node> nodes;
