@@ -5,6 +5,8 @@
 #include <ostream>
 #include <sstream>
 #include <iostream>
+#include <string>
+#include <regex>
 
 using namespace Arbiter;
 
@@ -24,55 +26,40 @@ size_t std::hash<ArbiterSelectedVersion>::operator() (const ArbiterSelectedVersi
 
 Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::string &versionString)
 {
-  unsigned major = 0;
-  unsigned minor = 0;
-  unsigned patch = 0;
-  size_t skip = 0;
+  // Versions and identifiers cannot have a leading zero.
+  #define VERSION "([1-9][0-9]*)"
+  #define IDENTIFIER "[1-9A-Za-z-][0-9A-Za-z-]*"
+  #define DOT_SEPARATED_IDENTIFIER "(" IDENTIFIER "(?:\\." IDENTIFIER ")*)"
 
-  int argsRead = sscanf(versionString.c_str(), "%u.%u.%u%zn", &major, &minor, &patch, &skip);
-  if (argsRead < 3) {
+  std::regex pattern {
+    VERSION "\\." VERSION "\\." VERSION
+    // prerelease begins with a hyphen followed by a dot separated identifier
+    "(?:"   "-" DOT_SEPARATED_IDENTIFIER ")?"
+    // metadata begins with a plus sign followed by a dot separated identifier
+    "(?:" "\\+" DOT_SEPARATED_IDENTIFIER ")?"
+  };
+
+  #undef DOT_SEPARATED_IDENTIFIER
+  #undef IDENTIFIER
+  #undef VERSION
+
+  std::smatch match;
+  if (!std::regex_match(versionString, match, pattern)) {
     return Optional<ArbiterSemanticVersion>();
   }
+
+  unsigned major = stoi(match.str(1));
+  unsigned minor = stoi(match.str(2));
+  unsigned patch = stoi(match.str(3));
 
   Optional<std::string> prereleaseVersion;
   Optional<std::string> buildMetadata;
 
-  if (skip < versionString.length()) {
-    std::istringstream stream(versionString.substr(skip));
-
-    char ch;
-    stream >> ch;
-    if (stream.good()) {
-      if (ch == '-') {
-        std::string prerelease;
-        std::getline(stream, prerelease, '+');
-        if (stream.fail()) {
-          return Optional<ArbiterSemanticVersion>();
-        }
-
-        // TODO: Verify format of `prerelease`
-
-        prereleaseVersion = Optional<std::string>(std::move(prerelease));
-        if (!stream.eof()) {
-          ch = '+';
-        }
-      }
-
-      if (ch == '+') {
-        std::string metadata;
-        stream >> metadata;
-        if (stream.fail()) {
-          return Optional<ArbiterSemanticVersion>();
-        }
-
-        // TODO: Verify format of `metadata`
-
-        buildMetadata = Optional<std::string>(std::move(metadata));
-      } else if (stream.good()) {
-        // Unrecognized part of the string
-        return Optional<ArbiterSemanticVersion>();
-      }
-    }
+  if (match.length(4) > 0) {
+    prereleaseVersion = Optional<std::string>(match.str(4));
+  }
+  if (match.length(5) > 0) {
+    buildMetadata = Optional<std::string>(match.str(5));
   }
 
   return ArbiterSemanticVersion(major, minor, patch, prereleaseVersion, buildMetadata);
