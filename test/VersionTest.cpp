@@ -23,6 +23,7 @@ TEST(VersionTest, ParsesSimpleVersions) {
 }
 
 TEST(VersionTest, ParsesPrereleaseVersion) {
+  EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2-alpha.0").value(), ArbiterSemanticVersion(1, 0, 2, makeOptional("alpha.0")));
   EXPECT_EQ(ArbiterSemanticVersion::fromString("1.0.2-alpha.1").value(), ArbiterSemanticVersion(1, 0, 2, makeOptional("alpha.1")));
 }
 
