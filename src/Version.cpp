@@ -26,9 +26,9 @@ size_t std::hash<ArbiterSelectedVersion>::operator() (const ArbiterSelectedVersi
 
 Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::string &versionString)
 {
-  // Versions and identifiers cannot have a leading zero.
-  #define VERSION "([1-9][0-9]*)"
-  #define IDENTIFIER "[1-9A-Za-z-][0-9A-Za-z-]*"
+  // Versions cannot have a leading zero.
+  #define VERSION "(0|[1-9][0-9]*)"
+  #define IDENTIFIER "[0-9A-Za-z-]+"
   #define DOT_SEPARATED_IDENTIFIER "(" IDENTIFIER "(?:\\." IDENTIFIER ")*)"
 
   std::regex pattern {
