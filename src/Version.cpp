@@ -29,17 +29,17 @@ Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::
   // Versions and identifiers cannot have a leading zero.
   #define VERSION "(0|[1-9][0-9]*)"
   #define IDENTIFIER "(?:0|[1-9A-Za-z-][0-9A-Za-z-]*)"
-  #define DOT_SEPARATED_IDENTIFIER "(" IDENTIFIER "(?:\\." IDENTIFIER ")*)"
+  #define DOTTED_IDENTIFIER "(" IDENTIFIER "(?:\\." IDENTIFIER ")*)"
 
   std::regex pattern {
     VERSION "\\." VERSION "\\." VERSION
     // prerelease begins with a hyphen followed by a dot separated identifier
-    "(?:"   "-" DOT_SEPARATED_IDENTIFIER ")?"
+    "(?:"   "-" DOTTED_IDENTIFIER ")?"
     // metadata begins with a plus sign followed by a dot separated identifier
-    "(?:" "\\+" DOT_SEPARATED_IDENTIFIER ")?"
+    "(?:" "\\+" DOTTED_IDENTIFIER ")?"
   };
 
-  #undef DOT_SEPARATED_IDENTIFIER
+  #undef DOTTED_IDENTIFIER
   #undef IDENTIFIER
   #undef VERSION
 
