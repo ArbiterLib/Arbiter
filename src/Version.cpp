@@ -48,9 +48,9 @@ Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::
     return Optional<ArbiterSemanticVersion>();
   }
 
-  unsigned major = stoi(match.str(1));
-  unsigned minor = stoi(match.str(2));
-  unsigned patch = stoi(match.str(3));
+  unsigned major = std::stol(match.str(1));
+  unsigned minor = std::stol(match.str(2));
+  unsigned patch = std::stol(match.str(3));
 
   Optional<std::string> prereleaseVersion;
   Optional<std::string> buildMetadata;
