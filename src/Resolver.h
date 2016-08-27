@@ -7,7 +7,6 @@
 #include <arbiter/Resolver.h>
 
 #include "Dependency.h"
-#include "Generator.h"
 #include "Value.h"
 #include "Version.h"
 
@@ -106,7 +105,7 @@ struct ArbiterResolver final
     ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, Context context)
       : _context(std::move(context))
       , _behaviors(std::move(behaviors))
-      , _remainingDependencies(std::move(dependencyList))
+      , _dependencyList(std::move(dependencyList))
     {
       assert(_behaviors.createDependencyList);
       assert(_behaviors.createAvailableVersionsList);
@@ -133,28 +132,11 @@ struct ArbiterResolver final
     std::vector<ArbiterSelectedVersion> availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) const noexcept(false);
 
     /**
-     * Returns whether all dependencies have been resolved.
+     * Attempts to resolve all dependencies.
      */
-    bool resolvedAll () const noexcept;
-
-    /**
-     * Attempts to resolve the next unresolved dependency.
-     *
-     * It is invalid to invoke this method if resolvedAll() returns true.
-     *
-     * Returns the resolved dependency or throws an exception.
-     */
-    ArbiterResolvedDependency resolveNext() noexcept(false);
+    ArbiterResolvedDependencyList resolve () noexcept(false);
 
   private:
     const ArbiterResolverBehaviors _behaviors;
-    ArbiterDependencyList _remainingDependencies;
-
-    Arbiter::Generator<Arbiter::Resolver::DependencyGraph> possibleGraphsSatisfying (Arbiter::Resolver::DependencyGraph baseGraph, Arbiter::Optional<Arbiter::Resolver::DependencyGraph::Node> dependent, ArbiterProjectIdentifier project, const ArbiterRequirement &requirement) const;
-
-    /**
-     * Generates all possible dependency graphs for the projects and versions in
-     * the given list.
-     */
-    Arbiter::Generator<Arbiter::Resolver::DependencyGraph> possibleGraphsForDependencyList (const Arbiter::Resolver::DependencyGraph &baseGraph, const ArbiterDependencyList &list) const;
+    const ArbiterDependencyList _dependencyList;
 };
