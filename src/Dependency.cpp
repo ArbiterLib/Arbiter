@@ -3,6 +3,8 @@
 #include "Hash.h"
 #include "Requirement.h"
 
+#include <algorithm>
+
 using namespace Arbiter;
 
 size_t std::hash<ArbiterDependency>::operator() (const ArbiterDependency &dependency) const
@@ -80,6 +82,33 @@ const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterRes
 void ArbiterFreeResolvedDependency (ArbiterResolvedDependency *dependency)
 {
   delete dependency;
+}
+
+ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency *dependencies, size_t count)
+{
+  return new ArbiterResolvedDependencyList(std::vector<ArbiterResolvedDependency>(dependencies, dependencies + count));
+}
+
+size_t ArbiterResolvedDependencyListCount (const ArbiterResolvedDependencyList *dependencyList)
+{
+  return dependencyList->_dependencies.size();
+}
+
+const ArbiterResolvedDependency *ArbiterResolvedDependencyListGetIndex (const ArbiterResolvedDependencyList *dependencyList, size_t index)
+{
+  return &dependencyList->_dependencies.at(index);
+}
+
+void ArbiterResolvedDependencyListGetAll (const ArbiterResolvedDependencyList *dependencyList, const ArbiterResolvedDependency **buffer)
+{
+  for (const auto &dependency : dependencyList->_dependencies) {
+    *(buffer++) = &dependency;
+  }
+}
+
+void ArbiterFreeResolvedDependencyList (ArbiterResolvedDependencyList *dependencyList)
+{
+  delete dependencyList;
 }
 
 std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier)

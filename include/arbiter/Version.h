@@ -136,6 +136,10 @@ typedef struct ArbiterSelectedVersionList ArbiterSelectedVersionList;
 
 /**
  * Creates a version list which wraps a C array of ArbiterSelectedVersion objects.
+ *
+ * The objects in the C array can be safely freed after calling this function.
+ *
+ * The returned list must be freed with ArbiterFreeSelectedVersionList().
  */
 ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelectedVersion *versions, size_t count);
 

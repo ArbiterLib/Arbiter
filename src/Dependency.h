@@ -102,6 +102,16 @@ struct ArbiterResolvedDependency final
 
 std::ostream &operator<< (std::ostream &os, const ArbiterResolvedDependency &dependency);
 
+struct ArbiterResolvedDependencyList final
+{
+  public:
+    std::vector<ArbiterResolvedDependency> _dependencies;
+
+    explicit ArbiterResolvedDependencyList (std::vector<ArbiterResolvedDependency> dependencies)
+      : _dependencies(std::move(dependencies))
+    {}
+};
+
 namespace std {
 
 template<>
