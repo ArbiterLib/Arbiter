@@ -28,15 +28,44 @@ class SharedUserValue final
   public:
     explicit SharedUserValue (ArbiterUserValue value)
       : _data(std::shared_ptr<void>(value.data, (value.destructor ? value.destructor : &noOpDestructor)))
-      , _equals(value.equals)
+      , _equalTo(value.equalTo)
+      , _lessThan(value.lessThan)
       , _createDescription(value.createDescription)
     {
-      assert(_equals);
+      assert(_equalTo);
+      assert(_lessThan);
     }
 
     bool operator== (const SharedUserValue &other) const
     {
-      return _equals(data(), other.data());
+      assert(_equalTo == other._equalTo);
+      return _equalTo(data(), other.data());
+    }
+
+    bool operator!= (const SharedUserValue &other) const
+    {
+      return !(*this == other);
+    }
+
+    bool operator< (const SharedUserValue &other) const
+    {
+      assert(_lessThan == other._lessThan);
+      return _lessThan(data(), other.data());
+    }
+
+    bool operator> (const SharedUserValue &other) const
+    {
+      return other < *this;
+    }
+
+    bool operator>= (const SharedUserValue &other) const
+    {
+      return !(*this < other);
+    }
+
+    bool operator<= (const SharedUserValue &other) const
+    {
+      return !(*this > other);
     }
 
     void *data () noexcept
@@ -60,7 +89,8 @@ class SharedUserValue final
 
   private:
     std::shared_ptr<void> _data;
-    bool (*_equals)(const void *first, const void *second);
+    bool (*_equalTo)(const void *first, const void *second);
+    bool (*_lessThan)(const void *first, const void *second);
     char *(*_createDescription)(const void *data);
 
     static void noOpDestructor (void *)

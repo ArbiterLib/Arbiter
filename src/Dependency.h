@@ -36,6 +36,11 @@ struct ArbiterProjectIdentifier final
     {
       return !(*this == other);
     }
+
+    bool operator< (const ArbiterProjectIdentifier &other) const
+    {
+      return _value < other._value;
+    }
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier);
@@ -59,6 +64,11 @@ struct ArbiterDependency final
     }
 
     bool operator== (const ArbiterDependency &other) const;
+
+    bool operator< (const ArbiterDependency &other) const
+    {
+      return _projectIdentifier < other._projectIdentifier;
+    }
 
   private:
     std::unique_ptr<ArbiterRequirement> _requirement;
