@@ -38,7 +38,13 @@ class Generator final
     class Iterator final : public std::iterator<std::input_iterator_tag, T>
     {
       public:
-        Iterator () = delete;
+        /**
+         * Creates an empty iterator.
+         */
+        Iterator ()
+          : _latest()
+          , _count(0)
+        {}
 
         Iterator (const Iterator &other)
         {
@@ -52,7 +58,7 @@ class Generator final
 
         Iterator &operator= (const Iterator &other)
         {
-          if (*this == other) {
+          if (this == &other) {
             return *this;
           }
 
@@ -89,10 +95,6 @@ class Generator final
 
         bool operator== (const Iterator &other) const
         {
-          if (_generatorPtr != other._generatorPtr) {
-            return false;
-          }
-
           bool bothEmpty = !_latest && !other._latest;
           return bothEmpty || _count == other._count;
         }
@@ -127,37 +129,26 @@ class Generator final
       private:
         friend class Generator;
 
-        // Creates an empty iterator.
-        explicit Iterator (const Generator &generator)
-          : _latest()
-          , _generatorPtr(&generator)
-          , _count(0)
-        {}
-
         explicit Iterator (const Generator &generator, Optional<T> initial)
           : _fn(generator._fn)
           , _latest(std::move(initial))
-          , _generatorPtr(&generator)
         {}
 
         explicit Iterator (Generator &&generator, Optional<T> initial)
           : _fn(std::move(generator._fn))
           , _latest(std::move(initial))
-          , _generatorPtr(&generator)
         {}
 
         Generator<T>::Function _fn;
         Optional<T> _latest;
 
         // For == only
-        const Generator *_generatorPtr;
         size_t _count{1};
 
         void copyFrom (const Iterator &other)
         {
           _fn = other._fn;
           _latest = other._latest;
-          _generatorPtr = other._generatorPtr;
           _count = other._count;
         }
 
@@ -165,10 +156,11 @@ class Generator final
         {
           _fn = std::move(other._fn);
           _latest = std::move(other._latest);
-          _generatorPtr = other._generatorPtr;
           _count = other._count;
         }
     };
+
+    Generator () = delete;
 
     /**
      * Creates a generator which will invoke the given function to create each
@@ -180,6 +172,30 @@ class Generator final
     explicit Generator (Function fn)
       : _fn(std::move(fn))
     {}
+
+    Generator (const Generator &other)
+      : _fn(other._fn)
+    {}
+
+    Generator (Generator &&other)
+      : _fn(std::move(other._fn))
+    {}
+
+    Generator &operator= (const Generator &other)
+    {
+      if (this == &other) {
+        return *this;
+      }
+
+      _fn = other._fn;
+      return *this;
+    }
+
+    Generator &operator= (Generator &&other)
+    {
+      _fn = std::move(other._fn);
+      return *this;
+    }
 
     /**
      * Evaluates the generator function once, then creates an iterator pointing
@@ -210,7 +226,7 @@ class Generator final
      */
     Iterator end () const
     {
-      return Iterator(*this);
+      return Iterator();
     }
 
   private:
