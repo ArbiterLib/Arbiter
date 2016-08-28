@@ -107,6 +107,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a7de65d449c28f8303e921783db237e21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a7de65d449c28f8303e921783db237e21">ArbiterCreateProjectIdentifier</a> (<a class="el" href="struct_arbiter_user_value.html">ArbiterUserValue</a> value)</td></tr>
 <tr class="memdesc:a7de65d449c28f8303e921783db237e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a project identifier from the given opaque data.  <a href="#a7de65d449c28f8303e921783db237e21">More...</a><br /></td></tr>
 <tr class="separator:a7de65d449c28f8303e921783db237e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1da4a1651859b463c36b273752854a66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a1da4a1651859b463c36b273752854a66">ArbiterCreateResolvedDependency</a> (const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *version)</td></tr>
+<tr class="memdesc:a1da4a1651859b463c36b273752854a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a fully resolved dependency referring to the specified version of the given project.  <a href="#a1da4a1651859b463c36b273752854a66">More...</a><br /></td></tr>
+<tr class="separator:a1da4a1651859b463c36b273752854a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa15607856dd36d027aa07c151b6751e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#aa15607856dd36d027aa07c151b6751e2">ArbiterCreateResolvedDependencyList</a> (const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *dependencies, size_t count)</td></tr>
+<tr class="memdesc:aa15607856dd36d027aa07c151b6751e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a resolved dependency list which wraps a C array of <a class="el" href="struct_arbiter_resolved_dependency.html" title="Represents a dependency which has been resolved to a specific version. ">ArbiterResolvedDependency</a> objects.  <a href="#aa15607856dd36d027aa07c151b6751e2">More...</a><br /></td></tr>
+<tr class="separator:aa15607856dd36d027aa07c151b6751e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fbdf8158145ccdded1dd44eaaf2be36"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a6fbdf8158145ccdded1dd44eaaf2be36">ArbiterDependencyProject</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> *dependency)</td></tr>
 <tr class="memdesc:a6fbdf8158145ccdded1dd44eaaf2be36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the project identified by this dependency.  <a href="#a6fbdf8158145ccdded1dd44eaaf2be36">More...</a><br /></td></tr>
 <tr class="separator:a6fbdf8158145ccdded1dd44eaaf2be36"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -122,9 +128,30 @@ Functions</h2></td></tr>
 <tr class="memitem:a5735a7ffdabaa994813567d5066a6b9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a5735a7ffdabaa994813567d5066a6b9f">ArbiterFreeProjectIdentifier</a> (<a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *projectIdentifier)</td></tr>
 <tr class="memdesc:a5735a7ffdabaa994813567d5066a6b9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a project identifier.  <a href="#a5735a7ffdabaa994813567d5066a6b9f">More...</a><br /></td></tr>
 <tr class="separator:a5735a7ffdabaa994813567d5066a6b9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a22a55c58805e403de89033457b9f4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a0a22a55c58805e403de89033457b9f4b">ArbiterFreeResolvedDependency</a> (<a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *dependency)</td></tr>
+<tr class="memdesc:a0a22a55c58805e403de89033457b9f4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a resolved dependency.  <a href="#a0a22a55c58805e403de89033457b9f4b">More...</a><br /></td></tr>
+<tr class="separator:a0a22a55c58805e403de89033457b9f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a011c6505116050ee973882f807052131"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a011c6505116050ee973882f807052131">ArbiterFreeResolvedDependencyList</a> (<a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *dependencyList)</td></tr>
+<tr class="memdesc:a011c6505116050ee973882f807052131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a resolved dependency list.  <a href="#a011c6505116050ee973882f807052131">More...</a><br /></td></tr>
+<tr class="separator:a011c6505116050ee973882f807052131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9a49ddf74167ba7df7f03ce05df116a"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#ae9a49ddf74167ba7df7f03ce05df116a">ArbiterProjectIdentifierValue</a> (const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *projectIdentifier)</td></tr>
 <tr class="memdesc:ae9a49ddf74167ba7df7f03ce05df116a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the opaque data which was provided to <a class="el" href="include_2arbiter_2_dependency_8h.html#a7de65d449c28f8303e921783db237e21" title="Creates a project identifier from the given opaque data. ">ArbiterCreateProjectIdentifier()</a>.  <a href="#ae9a49ddf74167ba7df7f03ce05df116a">More...</a><br /></td></tr>
 <tr class="separator:ae9a49ddf74167ba7df7f03ce05df116a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8f8246f8d8fbd6992042a6c20c148f3"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#af8f8246f8d8fbd6992042a6c20c148f3">ArbiterResolvedDependencyListCount</a> (const <a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *dependencyList)</td></tr>
+<tr class="memdesc:af8f8246f8d8fbd6992042a6c20c148f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of items in the given list.  <a href="#af8f8246f8d8fbd6992042a6c20c148f3">More...</a><br /></td></tr>
+<tr class="separator:af8f8246f8d8fbd6992042a6c20c148f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c941c6f8dbd3bc150feb6b0d26d5f3f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a1c941c6f8dbd3bc150feb6b0d26d5f3f">ArbiterResolvedDependencyListGetAll</a> (const <a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *dependencyList, const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> **buffer)</td></tr>
+<tr class="memdesc:a1c941c6f8dbd3bc150feb6b0d26d5f3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies pointers to all of the resolved dependencies in the given list, into the C array <code>buffer</code>, which must have enough space to contain all of them.  <a href="#a1c941c6f8dbd3bc150feb6b0d26d5f3f">More...</a><br /></td></tr>
+<tr class="separator:a1c941c6f8dbd3bc150feb6b0d26d5f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1e3828d40058e24d99bb7f75d9edba7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#ad1e3828d40058e24d99bb7f75d9edba7">ArbiterResolvedDependencyListGetIndex</a> (const <a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *dependencyList, size_t index)</td></tr>
+<tr class="memdesc:ad1e3828d40058e24d99bb7f75d9edba7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the item at the given index in the list, which must be in bounds.  <a href="#ad1e3828d40058e24d99bb7f75d9edba7">More...</a><br /></td></tr>
+<tr class="separator:ad1e3828d40058e24d99bb7f75d9edba7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a211126c78b8362b634453487c433dda7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a211126c78b8362b634453487c433dda7">ArbiterResolvedDependencyProject</a> (const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *dependency)</td></tr>
+<tr class="memdesc:a211126c78b8362b634453487c433dda7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the project this resolved dependency refers to.  <a href="#a211126c78b8362b634453487c433dda7">More...</a><br /></td></tr>
+<tr class="separator:a211126c78b8362b634453487c433dda7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf07101e6aa3d594bbd66b1799c8a8b7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#acf07101e6aa3d594bbd66b1799c8a8b7">ArbiterResolvedDependencyVersion</a> (const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *dependency)</td></tr>
+<tr class="memdesc:acf07101e6aa3d594bbd66b1799c8a8b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the version which was selected for this resolved dependency.  <a href="#acf07101e6aa3d594bbd66b1799c8a8b7">More...</a><br /></td></tr>
+<tr class="separator:acf07101e6aa3d594bbd66b1799c8a8b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ae18220cbeb522a6c0344bf0c11140dfe"></a>
@@ -181,6 +208,8 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a dependency list which wraps a C array of <a class="el" href="struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme...">ArbiterDependency</a> objects. </p>
+<p>The objects in the C array can be safely freed after calling this function.</p>
+<p>The returned list must be freed with <a class="el" href="include_2arbiter_2_dependency_8h.html#a28d8873e472d8960ac1e91b295a761cc" title="Releases the memory associated with a dependency list. ">ArbiterFreeDependencyList()</a>. </p>
 
 </div>
 </div>
@@ -200,6 +229,65 @@ Functions</h2></td></tr>
 
 <p>Creates a project identifier from the given opaque data. </p>
 <p>The returned identifier must be freed with <a class="el" href="include_2arbiter_2_dependency_8h.html#a5735a7ffdabaa994813567d5066a6b9f" title="Releases the memory associated with a project identifier. ">ArbiterFreeProjectIdentifier()</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1da4a1651859b463c36b273752854a66"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a>* ArbiterCreateResolvedDependency </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *&#160;</td>
+          <td class="paramname"><em>project</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *&#160;</td>
+          <td class="paramname"><em>version</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a fully resolved dependency referring to the specified version of the given project. </p>
+<p>The returned dependency must be freed with <a class="el" href="include_2arbiter_2_dependency_8h.html#a0a22a55c58805e403de89033457b9f4b" title="Releases the memory associated with a resolved dependency. ">ArbiterFreeResolvedDependency()</a>. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa15607856dd36d027aa07c151b6751e2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a>* ArbiterCreateResolvedDependencyList </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td>
+          <td class="paramname"><em>dependencies</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a resolved dependency list which wraps a C array of <a class="el" href="struct_arbiter_resolved_dependency.html" title="Represents a dependency which has been resolved to a specific version. ">ArbiterResolvedDependency</a> objects. </p>
+<p>The objects in the C array can be safely freed after calling this function.</p>
+<p>The returned list must be freed with <a class="el" href="include_2arbiter_2_dependency_8h.html#a011c6505116050ee973882f807052131" title="Releases the memory associated with a resolved dependency list. ">ArbiterFreeResolvedDependencyList()</a>. </p>
 
 </div>
 </div>
@@ -295,6 +383,42 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a0a22a55c58805e403de89033457b9f4b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbiterFreeResolvedDependency </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td>
+          <td class="paramname"><em>dependency</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases the memory associated with a resolved dependency. </p>
+
+</div>
+</div>
+<a class="anchor" id="a011c6505116050ee973882f807052131"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbiterFreeResolvedDependencyList </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td>
+          <td class="paramname"><em>dependencyList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Releases the memory associated with a resolved dependency list. </p>
+
+</div>
+</div>
 <a class="anchor" id="ae9a49ddf74167ba7df7f03ce05df116a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -314,10 +438,124 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af8f8246f8d8fbd6992042a6c20c148f3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t ArbiterResolvedDependencyListCount </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td>
+          <td class="paramname"><em>dependencyList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the number of items in the given list. </p>
+
+</div>
+</div>
+<a class="anchor" id="a1c941c6f8dbd3bc150feb6b0d26d5f3f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ArbiterResolvedDependencyListGetAll </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td>
+          <td class="paramname"><em>dependencyList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> **&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies pointers to all of the resolved dependencies in the given list, into the C array <code>buffer</code>, which must have enough space to contain all of them. </p>
+<p>The copied pointers are guaranteed to remain valid until the <a class="el" href="struct_arbiter_resolved_dependency_list.html" title="Represents a list of resolved dependencies. ">ArbiterResolvedDependencyList</a> they were obtained from is freed. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad1e3828d40058e24d99bb7f75d9edba7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a>* ArbiterResolvedDependencyListGetIndex </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td>
+          <td class="paramname"><em>dependencyList</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>index</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a pointer to the item at the given index in the list, which must be in bounds. </p>
+<p>The returned pointer is guaranteed to remain valid until the containing <a class="el" href="struct_arbiter_resolved_dependency_list.html" title="Represents a list of resolved dependencies. ">ArbiterResolvedDependencyList</a> is freed. </p>
+
+</div>
+</div>
+<a class="anchor" id="a211126c78b8362b634453487c433dda7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a>* ArbiterResolvedDependencyProject </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td>
+          <td class="paramname"><em>dependency</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the project this resolved dependency refers to. </p>
+<p>The returned pointer is only guaranteed to remain valid for the current scope. </p>
+
+</div>
+</div>
+<a class="anchor" id="acf07101e6aa3d594bbd66b1799c8a8b7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a>* ArbiterResolvedDependencyVersion </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td>
+          <td class="paramname"><em>dependency</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the version which was selected for this resolved dependency. </p>
+<p>The returned pointer is only guaranteed to remain valid for the current scope. </p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

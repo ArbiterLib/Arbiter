@@ -98,55 +98,55 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for ArbiterResolverBehaviors:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_resolver_behaviors__coll__graph.svg" width="751" height="219"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_resolver_behaviors__coll__graph.svg" width="1878" height="204"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a449bf26e592a81e95c939e9b7779a89d"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#a449bf26e592a81e95c939e9b7779a89d">fetchAvailableVersions</a> )(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch, void(*onNext)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *nextVersion), void(*onCompleted)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch), void(*onError)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch))</td></tr>
-<tr class="memdesc:a449bf26e592a81e95c939e9b7779a89d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thread-safe, re-entrant function which fetches a project's available versions according to the given request.  <a href="#a449bf26e592a81e95c939e9b7779a89d">More...</a><br /></td></tr>
-<tr class="separator:a449bf26e592a81e95c939e9b7779a89d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a940b96e662442830714761b1eed8dc89"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#a940b96e662442830714761b1eed8dc89">fetchDependencyList</a> )(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">ArbiterDependencyListFetch</a> fetch, void(*onSuccess)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">ArbiterDependencyListFetch</a> fetch, const <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *fetchedList), void(*onError)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">ArbiterDependencyListFetch</a> fetch))</td></tr>
-<tr class="memdesc:a940b96e662442830714761b1eed8dc89"><td class="mdescLeft">&#160;</td><td class="mdescRight">A thread-safe, re-entrant function which fetches a project version's dependencies according to the given request, then invokes either <code>onSuccess</code> or <code>onError</code>.  <a href="#a940b96e662442830714761b1eed8dc89">More...</a><br /></td></tr>
-<tr class="separator:a940b96e662442830714761b1eed8dc89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb9023a56e27eb92c69a7f578199d8be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#abb9023a56e27eb92c69a7f578199d8be">createAvailableVersionsList</a> )(const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, char **error)</td></tr>
+<tr class="memdesc:abb9023a56e27eb92c69a7f578199d8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the list of versions available for a given project.  <a href="#abb9023a56e27eb92c69a7f578199d8be">More...</a><br /></td></tr>
+<tr class="separator:abb9023a56e27eb92c69a7f578199d8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a50916cf4567d3ba2fcc425d9ebe96a28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#a50916cf4567d3ba2fcc425d9ebe96a28">createDependencyList</a> )(const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *selectedVersion, char **error)</td></tr>
+<tr class="memdesc:a50916cf4567d3ba2fcc425d9ebe96a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the list of dependencies needed by a specific version of a project.  <a href="#a50916cf4567d3ba2fcc425d9ebe96a28">More...</a><br /></td></tr>
+<tr class="separator:a50916cf4567d3ba2fcc425d9ebe96a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>User-provided behaviors for how dependency resolution should work. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00062">62</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00023">23</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a449bf26e592a81e95c939e9b7779a89d"></a>
+<a class="anchor" id="abb9023a56e27eb92c69a7f578199d8be"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* ArbiterResolverBehaviors::fetchAvailableVersions) (<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch, void(*onNext)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *nextVersion), void(*onCompleted)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch), void(*onError)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a> fetch))</td>
+          <td class="memname"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a>*(* ArbiterResolverBehaviors::createAvailableVersionsList) (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, char **error)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A thread-safe, re-entrant function which fetches a project's available versions according to the given request. </p>
-<p>The implementor should invoke <code>onNext</code> as each version is found, and then <code>onCompleted</code> after all versions have been enumerated, or else <code>onError</code> if an error occurs before enumeration can finish.</p>
-<p>Failure to invoke one of the completion callbacks will result in a memory leak. </p>
+<p>Requests the list of versions available for a given project. </p>
+<p>Returns a version list, or NULL if an error occurs. <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the returned version list object. If returning NULL, <code>error</code> may be set to a string describing the error which occurred, in which case <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the string. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00089">89</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00044">44</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a940b96e662442830714761b1eed8dc89"></a>
+<a class="anchor" id="a50916cf4567d3ba2fcc425d9ebe96a28"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* ArbiterResolverBehaviors::fetchDependencyList) (<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">ArbiterDependencyListFetch</a> fetch, void(*onSuccess)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">ArbiterDependencyListFetch</a> fetch, const <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *fetchedList), void(*onError)(<a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">ArbiterDependencyListFetch</a> fetch))</td>
+          <td class="memname"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a>*(* ArbiterResolverBehaviors::createDependencyList) (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *selectedVersion, char **error)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A thread-safe, re-entrant function which fetches a project version's dependencies according to the given request, then invokes either <code>onSuccess</code> or <code>onError</code>. </p>
-<p>Failure to invoke one of the completion callbacks will result in a memory leak. </p>
+<p>Requests the list of dependencies needed by a specific version of a project. </p>
+<p>Returns a dependency list, or NULL if an error occurs. <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the returned dependency list object. If returning NULL, <code>error</code> may be set to a string describing the error which occurred, in which case <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the string. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00072">72</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00034">34</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
 
 </div>
 </div>
@@ -156,7 +156,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

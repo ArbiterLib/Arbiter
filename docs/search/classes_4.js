@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['generator',['Generator',['../class_arbiter_1_1_generator.html',1,'Arbiter']]]
+  ['exactly',['Exactly',['../class_arbiter_1_1_requirement_1_1_exactly.html',1,'Arbiter::Requirement']]]
 ];

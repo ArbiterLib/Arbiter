@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['future',['Future',['../class_arbiter_1_1_future.html',1,'Arbiter']]]
+  ['dependencygraph',['DependencyGraph',['../class_arbiter_1_1_resolver_1_1_dependency_graph.html',1,'Arbiter::Resolver']]]
 ];

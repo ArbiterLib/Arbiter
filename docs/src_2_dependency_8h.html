@@ -108,9 +108,17 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An opaque value which identifies a project participating in dependency resolution.  <a href="struct_arbiter_project_identifier.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a dependency which has been resolved to a specific version.  <a href="struct_arbiter_resolved_dependency.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a list of resolved dependencies.  <a href="struct_arbiter_resolved_dependency_list.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01_arbiter_dependency_01_4.html">std::hash&lt; ArbiterDependency &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01_arbiter_project_identifier_01_4.html">std::hash&lt; ArbiterProjectIdentifier &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html">std::hash&lt; ArbiterResolvedDependency &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -121,6 +129,8 @@ Functions</h2></td></tr>
 <tr class="separator:af5662e0468189524987864d0ce47dd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2d0e8a943fb8d0bb8a67e6aa10ae004"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2_dependency_8h.html#af2d0e8a943fb8d0bb8a67e6aa10ae004">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> &amp;dependencyList)</td></tr>
 <tr class="separator:af2d0e8a943fb8d0bb8a67e6aa10ae004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae15929fb900269c5c127e16415daa5da"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="src_2_dependency_8h.html#ae15929fb900269c5c127e16415daa5da">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> &amp;dependency)</td></tr>
+<tr class="separator:ae15929fb900269c5c127e16415daa5da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a506d6bc052044d7a86f4a79d2e61c886"></a>
@@ -201,10 +211,36 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae15929fb900269c5c127e16415daa5da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> &amp;&#160;</td>
+          <td class="paramname"><em>dependency</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -99,7 +99,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for ArbiterDependency:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_dependency__coll__graph.svg" width="202" height="223"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_dependency__coll__graph.svg" width="202" height="223"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -108,6 +109,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a18646b35930fe215549d90f40c6b7fb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5db242ea37875c7ad5db0658c1380b0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency.html#a5db242ea37875c7ad5db0658c1380b0b">ArbiterDependency</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> &amp;other)</td></tr>
 <tr class="separator:a5db242ea37875c7ad5db0658c1380b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada15f6ccabbb37c903c5196eddd1df92"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency.html#ada15f6ccabbb37c903c5196eddd1df92">operator&lt;</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> &amp;other) const </td></tr>
+<tr class="separator:ada15f6ccabbb37c903c5196eddd1df92"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f739e52f29c04ef8c2e5ce175862671"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency.html#a8f739e52f29c04ef8c2e5ce175862671">operator=</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> &amp;other)</td></tr>
 <tr class="separator:a8f739e52f29c04ef8c2e5ce175862671"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8c87e4e2586752a40c2e600c02a2c09f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency.html#a8c87e4e2586752a40c2e600c02a2c09f">operator==</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> &amp;other) const </td></tr>
@@ -123,7 +126,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a dependency specification, which consists of a project identifier and a version requirement. </p>
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00039">39</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00051">51</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a18646b35930fe215549d90f40c6b7fb7"></a>
 <div class="memitem">
@@ -149,8 +152,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00044">44</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a5db242ea37875c7ad5db0658c1380b0b"></a>
@@ -167,11 +168,29 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00049">49</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00058">58</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="ada15f6ccabbb37c903c5196eddd1df92"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbiterDependency::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00071">71</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a8f739e52f29c04ef8c2e5ce175862671"></a>
 <div class="memitem">
 <div class="memproto">
@@ -202,8 +221,6 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00060">60</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aee1b768080ebb2a3e8de8acee573fcf4"></a>
@@ -227,7 +244,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00055">55</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00064">64</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
 
 </div>
 </div>
@@ -242,7 +259,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00042">42</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00054">54</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
 
 </div>
 </div>
@@ -252,7 +269,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

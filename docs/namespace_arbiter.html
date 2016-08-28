@@ -86,7 +86,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Arbiter Namespace Reference</div>  </div>
 </div><!--header-->
@@ -94,6 +96,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
+<tr class="memitem:namespace_arbiter_1_1_exception"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_arbiter_1_1_exception.html">Exception</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespace_arbiter_1_1_requirement"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_arbiter_1_1_requirement.html">Requirement</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespace_arbiter_1_1_resolver"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_arbiter_1_1_resolver.html">Resolver</a></td></tr>
@@ -101,17 +105,11 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_1_1_either.html">Either</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents one of two values.  <a href="struct_arbiter_1_1_either.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_1_1_iterator_range.html">IteratorRange</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a pair of iterators bracketing the start and end of a range.  <a href="struct_arbiter_1_1_iterator_range.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_future.html">Future</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_arbiter_1_1_future.html" title="Future type resembling std::shared_future, with support for asynchronous callbacks and composition...">Future</a> type resembling std::shared_future, with support for asynchronous callbacks and composition.  <a href="class_arbiter_1_1_future.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_generator.html">Generator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generator function which will (possibly asynchronously) yield values of T until exhausted or an error occurs.  <a href="class_arbiter_1_1_generator.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_1_1_left.html">Left</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporarily holds the left side of an <a class="el" href="struct_arbiter_1_1_either.html" title="Represents one of two values. ">Either</a>, with an unbound <a class="el" href="struct_arbiter_1_1_right.html" title="Temporarily holds the right side of an Either, with an unbound Left type. ">Right</a> type.  <a href="struct_arbiter_1_1_left.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_multipass_iterator.html">MultipassIterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the state necessary to perform an algorithm over an iterator multiple times.  <a href="class_arbiter_1_1_multipass_iterator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:struct_arbiter_1_1_none"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#struct_arbiter_1_1_none">None</a></td></tr>
 <tr class="memdesc:struct_arbiter_1_1_none"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sentinel value which can be used to create an empty <a class="el" href="struct_arbiter_1_1_optional.html" title="Represents a value which may or may not exist. ">Optional</a> of any type.  <a href="namespace_arbiter.html#struct_arbiter_1_1_none">More...</a><br /></td></tr>
@@ -119,47 +117,65 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_1_1_optional.html">Optional</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a value which may or may not exist.  <a href="struct_arbiter_1_1_optional.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_promise.html">Promise</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_arbiter_1_1_promise.html" title="Promise type resembling std::promise, which yields Arbiter::Future instead of std::future or std::sha...">Promise</a> type resembling std::promise, which yields <a class="el" href="class_arbiter_1_1_future.html" title="Future type resembling std::shared_future, with support for asynchronous callbacks and composition...">Arbiter::Future</a> instead of std::future or std::shared_future.  <a href="class_arbiter_1_1_promise.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_1_1_right.html">Right</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Temporarily holds the right side of an <a class="el" href="struct_arbiter_1_1_either.html" title="Represents one of two values. ">Either</a>, with an unbound <a class="el" href="struct_arbiter_1_1_left.html" title="Temporarily holds the left side of an Either, with an unbound Right type. ">Left</a> type.  <a href="struct_arbiter_1_1_right.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_permutation_iterator.html">PermutationIterator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">An iterator which generates every possible combination of the values of other iterators.  <a href="class_arbiter_1_1_permutation_iterator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_shared_user_value.html">SharedUserValue</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expresses shared ownership of opaque user-provided data, which was originally described in an <a class="el" href="struct_arbiter_user_value.html" title="Represents an arbitrary value that can be associated with Arbiter data types and functionality. ">ArbiterUserValue</a>.  <a href="class_arbiter_1_1_shared_user_value.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_sink.html">Sink</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements an optional "write" end to a <a class="el" href="class_arbiter_1_1_generator.html" title="A generator function which will (possibly asynchronously) yield values of T until exhausted or an err...">Generator</a>, similar to how a <a class="el" href="class_arbiter_1_1_promise.html" title="Promise type resembling std::promise, which yields Arbiter::Future instead of std::future or std::sha...">Promise</a> is the write end of a <a class="el" href="class_arbiter_1_1_future.html" title="Future type resembling std::shared_future, with support for asynchronous callbacks and composition...">Future</a>.  <a href="class_arbiter_1_1_sink.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a94a393a7560bf93adc8bab571d5e5854"><td class="memTemplParams" colspan="2">template&lt;typename It &gt; </td></tr>
+<tr class="memitem:a94a393a7560bf93adc8bab571d5e5854"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a94a393a7560bf93adc8bab571d5e5854">IteratorResultVector</a> = std::vector&lt; typename std::iterator_traits&lt; It &gt;::value_type &gt;</td></tr>
+<tr class="memdesc:a94a393a7560bf93adc8bab571d5e5854"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result type of an iterator which yields dynamically-created vectors.  <a href="#a94a393a7560bf93adc8bab571d5e5854">More...</a><br /></td></tr>
+<tr class="separator:a94a393a7560bf93adc8bab571d5e5854"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a7314319b682320ab1b01dfd3f7876cc4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a7314319b682320ab1b01dfd3f7876cc4">copyAcquireCString</a> (char *str)</td></tr>
+<tr class="memdesc:a7314319b682320ab1b01dfd3f7876cc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a string which is a copy of <code>str</code>, which will then be freed.  <a href="#a7314319b682320ab1b01dfd3f7876cc4">More...</a><br /></td></tr>
+<tr class="separator:a7314319b682320ab1b01dfd3f7876cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0c3788361a5e2d3e88ed665498fec62"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; char[]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#af0c3788361a5e2d3e88ed665498fec62">copyCString</a> (const std::string &amp;str)</td></tr>
+<tr class="memdesc:af0c3788361a5e2d3e88ed665498fec62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a unique_ptr which wraps a NUL-terminated copy of the <code>c_str()</code> of the given string.  <a href="#af0c3788361a5e2d3e88ed665498fec62">More...</a><br /></td></tr>
+<tr class="separator:af0c3788361a5e2d3e88ed665498fec62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c177714e947121b6413560c539678a0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a7c177714e947121b6413560c539678a0"><td class="memTemplItemLeft" align="right" valign="top">size_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a7c177714e947121b6413560c539678a0">hashOf</a> (const T &amp;value)</td></tr>
 <tr class="memdesc:a7c177714e947121b6413560c539678a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hashes an arbitrary value that has an std::hash specialization.  <a href="#a7c177714e947121b6413560c539678a0">More...</a><br /></td></tr>
 <tr class="separator:a7c177714e947121b6413560c539678a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b4608a18b32ee835c214af19d13ae71"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4b4608a18b32ee835c214af19d13ae71"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a4b4608a18b32ee835c214af19d13ae71">makeLeft</a> (T &amp;&amp;value)</td></tr>
-<tr class="memdesc:a4b4608a18b32ee835c214af19d13ae71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="struct_arbiter_1_1_left.html" title="Temporarily holds the left side of an Either, with an unbound Right type. ">Left</a> value which can be implicitly converted into an <a class="el" href="struct_arbiter_1_1_either.html" title="Represents one of two values. ">Either</a>.  <a href="#a4b4608a18b32ee835c214af19d13ae71">More...</a><br /></td></tr>
-<tr class="separator:a4b4608a18b32ee835c214af19d13ae71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26165c9469283c29c39f2ab8b81b5347"><td class="memTemplParams" colspan="2">template&lt;typename Collection &gt; </td></tr>
+<tr class="memitem:a26165c9469283c29c39f2ab8b81b5347"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a26165c9469283c29c39f2ab8b81b5347">makeIteratorRange</a> (Collection &amp;collection)</td></tr>
+<tr class="memdesc:a26165c9469283c29c39f2ab8b81b5347"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="struct_arbiter_1_1_iterator_range.html" title="Represents a pair of iterators bracketing the start and end of a range. ">IteratorRange</a> encompassing the entirety of the given collection.  <a href="#a26165c9469283c29c39f2ab8b81b5347">More...</a><br /></td></tr>
+<tr class="separator:a26165c9469283c29c39f2ab8b81b5347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f1578878f0a745be155f724ebb0d3aa"><td class="memTemplParams" colspan="2">template&lt;typename Collection &gt; </td></tr>
+<tr class="memitem:a5f1578878f0a745be155f724ebb0d3aa"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a5f1578878f0a745be155f724ebb0d3aa">makeIteratorRange</a> (const Collection &amp;collection)</td></tr>
+<tr class="memdesc:a5f1578878f0a745be155f724ebb0d3aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="struct_arbiter_1_1_iterator_range.html" title="Represents a pair of iterators bracketing the start and end of a range. ">IteratorRange</a> encompassing the entirety of the given read-only collection.  <a href="#a5f1578878f0a745be155f724ebb0d3aa">More...</a><br /></td></tr>
+<tr class="separator:a5f1578878f0a745be155f724ebb0d3aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b82513a599ffc981e266727d81e816b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a4b82513a599ffc981e266727d81e816b"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a4b82513a599ffc981e266727d81e816b">makeOptional</a> (T &amp;&amp;value)</td></tr>
 <tr class="memdesc:a4b82513a599ffc981e266727d81e816b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an <a class="el" href="struct_arbiter_1_1_optional.html" title="Represents a value which may or may not exist. ">Optional</a> from a value, inferring its type.  <a href="#a4b82513a599ffc981e266727d81e816b">More...</a><br /></td></tr>
 <tr class="separator:a4b82513a599ffc981e266727d81e816b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc5971de887510c036792c967510b391"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:acc5971de887510c036792c967510b391"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#acc5971de887510c036792c967510b391">makeRight</a> (T &amp;&amp;value)</td></tr>
-<tr class="memdesc:acc5971de887510c036792c967510b391"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a <a class="el" href="struct_arbiter_1_1_right.html" title="Temporarily holds the right side of an Either, with an unbound Left type. ">Right</a> value which can be implicitly converted into an <a class="el" href="struct_arbiter_1_1_either.html" title="Represents one of two values. ">Either</a>.  <a href="#acc5971de887510c036792c967510b391">More...</a><br /></td></tr>
-<tr class="separator:acc5971de887510c036792c967510b391"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdfd994bc91edf366d1acd8469e6017e"><td class="memTemplParams" colspan="2">template&lt;typename Map , typename Key , typename Value  = typename Map::mapped_type&gt; </td></tr>
+<tr class="memitem:afdfd994bc91edf366d1acd8469e6017e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_1_1_optional.html">Optional</a>&lt; Value &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#afdfd994bc91edf366d1acd8469e6017e">maybeAt</a> (const Map &amp;map, const Key &amp;key)</td></tr>
+<tr class="memdesc:afdfd994bc91edf366d1acd8469e6017e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Looks up a key in a map, returning the corresponding value if it exists.  <a href="#afdfd994bc91edf366d1acd8469e6017e">More...</a><br /></td></tr>
+<tr class="separator:afdfd994bc91edf366d1acd8469e6017e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d6bb8d6cdbfd55339357539ceb16d80"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a1d6bb8d6cdbfd55339357539ceb16d80"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a1d6bb8d6cdbfd55339357539ceb16d80">operator==</a> (const <a class="el" href="struct_arbiter_1_1_optional.html">Optional</a>&lt; T &gt; &amp;lhs, const <a class="el" href="struct_arbiter_1_1_optional.html">Optional</a>&lt; T &gt; &amp;rhs)</td></tr>
 <tr class="separator:a1d6bb8d6cdbfd55339357539ceb16d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a758080dd6f8b6690fa4d80470935dd58"><td class="memTemplParams" colspan="2">template&lt;typename Left , typename Right &gt; </td></tr>
-<tr class="memitem:a758080dd6f8b6690fa4d80470935dd58"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a758080dd6f8b6690fa4d80470935dd58">operator==</a> (const <a class="el" href="struct_arbiter_1_1_either.html">Either</a>&lt; <a class="el" href="struct_arbiter_1_1_left.html">Left</a>, <a class="el" href="struct_arbiter_1_1_right.html">Right</a> &gt; &amp;lhs, const <a class="el" href="struct_arbiter_1_1_either.html">Either</a>&lt; <a class="el" href="struct_arbiter_1_1_left.html">Left</a>, <a class="el" href="struct_arbiter_1_1_right.html">Right</a> &gt; &amp;rhs)</td></tr>
-<tr class="separator:a758080dd6f8b6690fa4d80470935dd58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a8b9c7372bcb77fd89b3a423016f0e"><td class="memTemplParams" colspan="2">template&lt;typename Swappable &gt; </td></tr>
+<tr class="memitem:a06a8b9c7372bcb77fd89b3a423016f0e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a06a8b9c7372bcb77fd89b3a423016f0e">reset</a> (Swappable &amp;value)</td></tr>
+<tr class="memdesc:a06a8b9c7372bcb77fd89b3a423016f0e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets a swappable value to its default constructor.  <a href="#a06a8b9c7372bcb77fd89b3a423016f0e">More...</a><br /></td></tr>
+<tr class="separator:a06a8b9c7372bcb77fd89b3a423016f0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15c4c9cb7a48232e28ad2165fa35d1b3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a15c4c9cb7a48232e28ad2165fa35d1b3"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#a15c4c9cb7a48232e28ad2165fa35d1b3">toString</a> (const T &amp;value)</td></tr>
 <tr class="memdesc:a15c4c9cb7a48232e28ad2165fa35d1b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an arbitrary value into a string, using operator&lt;&lt;.  <a href="#a15c4c9cb7a48232e28ad2165fa35d1b3">More...</a><br /></td></tr>
 <tr class="separator:a15c4c9cb7a48232e28ad2165fa35d1b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:acc4e6b2707595090e00a60bbb81f3f82"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; char[], decltype(&amp;free)&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_arbiter.html#acc4e6b2707595090e00a60bbb81f3f82">acquireCString</a> (char *str)</td></tr>
+<tr class="memdesc:acc4e6b2707595090e00a60bbb81f3f82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a unique_ptr which takes ownership of <code>str</code>.  <a href="#acc4e6b2707595090e00a60bbb81f3f82">More...</a><br /></td></tr>
+<tr class="separator:acc4e6b2707595090e00a60bbb81f3f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/><h2 class="groupheader">Class Documentation</h2>
 <a name="struct_arbiter_1_1_none" id="struct_arbiter_1_1_none"></a>
@@ -177,7 +193,62 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a class="anchor" id="a94a393a7560bf93adc8bab571d5e5854"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename It &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespace_arbiter.html#a94a393a7560bf93adc8bab571d5e5854">Arbiter::IteratorResultVector</a> = typedef std::vector&lt;typename std::iterator_traits&lt;It&gt;::value_type&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The result type of an iterator which yields dynamically-created vectors. </p>
+
+<p>Definition at line <a class="el" href="_iterator_8h_source.html#l00113">113</a> of file <a class="el" href="_iterator_8h_source.html">Iterator.h</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a class="anchor" id="a7314319b682320ab1b01dfd3f7876cc4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Arbiter::copyAcquireCString </td>
+          <td>(</td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a string which is a copy of <code>str</code>, which will then be freed. </p>
+
+</div>
+</div>
+<a class="anchor" id="af0c3788361a5e2d3e88ed665498fec62"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;char[]&gt; Arbiter::copyCString </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a unique_ptr which wraps a NUL-terminated copy of the <code>c_str()</code> of the given string. </p>
+
+</div>
+</div>
 <a class="anchor" id="a7c177714e947121b6413560c539678a0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -201,26 +272,47 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a4b4608a18b32ee835c214af19d13ae71"></a>
+<a class="anchor" id="a26165c9469283c29c39f2ab8b81b5347"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Collection &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">auto Arbiter::makeLeft </td>
+          <td class="memname">auto Arbiter::makeIteratorRange </td>
           <td>(</td>
-          <td class="paramtype">T &amp;&amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
+          <td class="paramtype">Collection &amp;&#160;</td>
+          <td class="paramname"><em>collection</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="struct_arbiter_1_1_left.html" title="Temporarily holds the left side of an Either, with an unbound Right type. ">Left</a> value which can be implicitly converted into an <a class="el" href="struct_arbiter_1_1_either.html" title="Represents one of two values. ">Either</a>. </p>
-<p>This function allows the <a class="el" href="struct_arbiter_1_1_right.html" title="Temporarily holds the right side of an Either, with an unbound Left type. ">Right</a> type to be inferred from context. </p>
+<p>Creates an <a class="el" href="struct_arbiter_1_1_iterator_range.html" title="Represents a pair of iterators bracketing the start and end of a range. ">IteratorRange</a> encompassing the entirety of the given collection. </p>
 
-<p>Definition at line <a class="el" href="_either_8h_source.html#l00038">38</a> of file <a class="el" href="_either_8h_source.html">Either.h</a>.</p>
+<p>Definition at line <a class="el" href="_iterator_8h_source.html#l00034">34</a> of file <a class="el" href="_iterator_8h_source.html">Iterator.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a5f1578878f0a745be155f724ebb0d3aa"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Collection &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">auto Arbiter::makeIteratorRange </td>
+          <td>(</td>
+          <td class="paramtype">const Collection &amp;&#160;</td>
+          <td class="paramname"><em>collection</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an <a class="el" href="struct_arbiter_1_1_iterator_range.html" title="Represents a pair of iterators bracketing the start and end of a range. ">IteratorRange</a> encompassing the entirety of the given read-only collection. </p>
+
+<p>Definition at line <a class="el" href="_iterator_8h_source.html#l00045">45</a> of file <a class="el" href="_iterator_8h_source.html">Iterator.h</a>.</p>
 
 </div>
 </div>
@@ -242,30 +334,39 @@ template&lt;typename T &gt; </div>
 
 <p>Creates an <a class="el" href="struct_arbiter_1_1_optional.html" title="Represents a value which may or may not exist. ">Optional</a> from a value, inferring its type. </p>
 
-<p>Definition at line <a class="el" href="_optional_8h_source.html#l00233">233</a> of file <a class="el" href="_optional_8h_source.html">Optional.h</a>.</p>
+<p>Definition at line <a class="el" href="_optional_8h_source.html#l00235">235</a> of file <a class="el" href="_optional_8h_source.html">Optional.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="acc5971de887510c036792c967510b391"></a>
+<a class="anchor" id="afdfd994bc91edf366d1acd8469e6017e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename Map , typename Key , typename Value  = typename Map::mapped_type&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">auto Arbiter::makeRight </td>
+          <td class="memname"><a class="el" href="struct_arbiter_1_1_optional.html">Optional</a>&lt;Value&gt; Arbiter::maybeAt </td>
           <td>(</td>
-          <td class="paramtype">T &amp;&amp;&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
+          <td class="paramtype">const Map &amp;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const Key &amp;&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a <a class="el" href="struct_arbiter_1_1_right.html" title="Temporarily holds the right side of an Either, with an unbound Left type. ">Right</a> value which can be implicitly converted into an <a class="el" href="struct_arbiter_1_1_either.html" title="Represents one of two values. ">Either</a>. </p>
-<p>This function allows the <a class="el" href="struct_arbiter_1_1_left.html" title="Temporarily holds the left side of an Either, with an unbound Right type. ">Left</a> type to be inferred from context. </p>
+<p>Looks up a key in a map, returning the corresponding value if it exists. </p>
 
-<p>Definition at line <a class="el" href="_either_8h_source.html#l00068">68</a> of file <a class="el" href="_either_8h_source.html">Either.h</a>.</p>
+<p>Definition at line <a class="el" href="_algorithm_8h_source.html#l00018">18</a> of file <a class="el" href="_algorithm_8h_source.html">Algorithm.h</a>.</p>
 
 </div>
 </div>
@@ -295,37 +396,29 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_optional_8h_source.html#l00220">220</a> of file <a class="el" href="_optional_8h_source.html">Optional.h</a>.</p>
+<p>Definition at line <a class="el" href="_optional_8h_source.html#l00222">222</a> of file <a class="el" href="_optional_8h_source.html">Optional.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a758080dd6f8b6690fa4d80470935dd58"></a>
+<a class="anchor" id="a06a8b9c7372bcb77fd89b3a423016f0e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Left , typename Right &gt; </div>
+template&lt;typename Swappable &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">bool Arbiter::operator== </td>
+          <td class="memname">void Arbiter::reset </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_1_1_either.html">Either</a>&lt; <a class="el" href="struct_arbiter_1_1_left.html">Left</a>, <a class="el" href="struct_arbiter_1_1_right.html">Right</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>lhs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">Swappable &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_1_1_either.html">Either</a>&lt; <a class="el" href="struct_arbiter_1_1_left.html">Left</a>, <a class="el" href="struct_arbiter_1_1_right.html">Right</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_either_8h_source.html#l00261">261</a> of file <a class="el" href="_either_8h_source.html">Either.h</a>.</p>
+<p>Resets a swappable value to its default constructor. </p>
+
+<p>Definition at line <a class="el" href="_algorithm_8h_source.html#l00032">32</a> of file <a class="el" href="_algorithm_8h_source.html">Algorithm.h</a>.</p>
 
 </div>
 </div>
@@ -347,14 +440,31 @@ template&lt;typename T &gt; </div>
 
 <p>Converts an arbitrary value into a string, using operator&lt;&lt;. </p>
 
-<p>Definition at line <a class="el" href="_to_string_8h_source.html#l00016">16</a> of file <a class="el" href="_to_string_8h_source.html">ToString.h</a>.</p>
+<p>Definition at line <a class="el" href="_to_string_8h_source.html#l00017">17</a> of file <a class="el" href="_to_string_8h_source.html">ToString.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="acc4e6b2707595090e00a60bbb81f3f82"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;char[], decltype(&amp;free)&gt; Arbiter::acquireCString(char *str)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a unique_ptr which takes ownership of <code>str</code>. </p>
+
+<p>Definition at line <a class="el" href="_to_string_8h_source.html#l00033">33</a> of file <a class="el" href="_to_string_8h_source.html">ToString.h</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

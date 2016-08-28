@@ -78,19 +78,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
-  <div id="navrow4" class="tabs3">
-    <ul class="tablist">
-      <li><a href="#index__"><span>_</span></a></li>
-      <li><a href="#index_c"><span>c</span></a></li>
-      <li><a href="#index_d"><span>d</span></a></li>
-      <li><a href="#index_e"><span>e</span></a></li>
-      <li><a href="#index_f"><span>f</span></a></li>
-      <li><a href="#index_o"><span>o</span></a></li>
-      <li><a href="#index_p"><span>p</span></a></li>
-      <li><a href="#index_r"><span>r</span></a></li>
-      <li class="current"><a href="#index_s"><span>s</span></a></li>
-    </ul>
-  </div>
 </div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
@@ -107,11 +94,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 <div class="contents">
-&#160;
-
-<h3><a class="anchor" id="index__"></a>- _ -</h3><ul>
+&#160;<ul>
 <li>_baseVersion
 : <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a8a940d45a588bf07f80f75b712eb991c">Arbiter::Requirement::CompatibleWith</a>
+</li>
+<li>_begin
+: <a class="el" href="struct_arbiter_1_1_iterator_range.html#adccd6a1189b08ef2babe2ad4f9b71137">Arbiter::IteratorRange&lt; It &gt;</a>
 </li>
 <li>_buildMetadata
 : <a class="el" href="struct_arbiter_semantic_version.html#a704f664242e1e765f692419ea1e21810">ArbiterSemanticVersion</a>
@@ -121,6 +109,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>_dependencies
 : <a class="el" href="struct_arbiter_dependency_list.html#a97ae63be6483d202ae8c5bbeb5fa56f6">ArbiterDependencyList</a>
+, <a class="el" href="struct_arbiter_resolved_dependency_list.html#a19ceecabc8e893de9134fb887c90731b">ArbiterResolvedDependencyList</a>
+</li>
+<li>_end
+: <a class="el" href="struct_arbiter_1_1_iterator_range.html#a43dbba1ed47b73473d4136d62df6fb6d">Arbiter::IteratorRange&lt; It &gt;</a>
 </li>
 <li>_major
 : <a class="el" href="struct_arbiter_semantic_version.html#aa40218723a2c55f5b25a3853d8175fdf">ArbiterSemanticVersion</a>
@@ -140,6 +132,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>_prereleaseVersion
 : <a class="el" href="struct_arbiter_semantic_version.html#a4c9e7a3d6669b55029f98cef482f7726">ArbiterSemanticVersion</a>
 </li>
+<li>_project
+: <a class="el" href="struct_arbiter_resolved_dependency.html#a2f3abc0c734ca77e89630294451609de">ArbiterResolvedDependency</a>
+</li>
 <li>_projectIdentifier
 : <a class="el" href="struct_arbiter_dependency.html#a6d689040e0aad5aa5f77c956de9123e0">ArbiterDependency</a>
 </li>
@@ -150,89 +145,41 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#aeebab6823ceef5aaa58b5d5ec5805d94">Arbiter::Requirement::CompatibleWith</a>
 </li>
 <li>_value
-: <a class="el" href="struct_arbiter_1_1_left.html#ad831aa094b0251ca1d8b8a9542532eaa">Arbiter::Left&lt; T &gt;</a>
-, <a class="el" href="struct_arbiter_1_1_right.html#ab427e7c59f7cc62868b63043f39e5e3c">Arbiter::Right&lt; T &gt;</a>
-, <a class="el" href="struct_arbiter_project_identifier.html#a86429cc4755c14bc209df117bc0e2a2e">ArbiterProjectIdentifier</a>
+: <a class="el" href="struct_arbiter_project_identifier.html#a86429cc4755c14bc209df117bc0e2a2e">ArbiterProjectIdentifier</a>
 </li>
 <li>_version
 : <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#aad38e1acf5d44a6941d40c46900ed335">Arbiter::Requirement::Exactly</a>
+, <a class="el" href="struct_arbiter_resolved_dependency.html#addf77cd937a0ca7c20f9872671cf285c">ArbiterResolvedDependency</a>
 </li>
-</ul>
-
-
-<h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
+<li>_versions
+: <a class="el" href="struct_arbiter_selected_version_list.html#ad273ed0c04d6356c8df1596bdd3b8bb2">ArbiterSelectedVersionList</a>
+</li>
+<li>createAvailableVersionsList
+: <a class="el" href="struct_arbiter_resolver_behaviors.html#abb9023a56e27eb92c69a7f578199d8be">ArbiterResolverBehaviors</a>
+</li>
+<li>createDependencyList
+: <a class="el" href="struct_arbiter_resolver_behaviors.html#a50916cf4567d3ba2fcc425d9ebe96a28">ArbiterResolverBehaviors</a>
+</li>
 <li>createDescription
 : <a class="el" href="struct_arbiter_user_value.html#a24b7de90b02aa6e93e6ff39669022cb0">ArbiterUserValue</a>
 </li>
-</ul>
-
-
-<h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
 <li>data
 : <a class="el" href="struct_arbiter_user_value.html#a21ad42b0d600af18edb221b0cc7a2870">ArbiterUserValue</a>
 </li>
 <li>destructor
 : <a class="el" href="struct_arbiter_user_value.html#a46326f865baa51148191f64d69846e5f">ArbiterUserValue</a>
 </li>
-</ul>
-
-
-<h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
-<li>equals
-: <a class="el" href="struct_arbiter_user_value.html#a6a6d3cc53439b5bac7c5ea362b033886">ArbiterUserValue</a>
+<li>equalTo
+: <a class="el" href="struct_arbiter_user_value.html#a58ad30575098fbeaba0cf57bf4fa80ac">ArbiterUserValue</a>
 </li>
-</ul>
-
-
-<h3><a class="anchor" id="index_f"></a>- f -</h3><ul>
-<li>fetchAvailableVersions
-: <a class="el" href="struct_arbiter_resolver_behaviors.html#a449bf26e592a81e95c939e9b7779a89d">ArbiterResolverBehaviors</a>
-</li>
-<li>fetchDependencyList
-: <a class="el" href="struct_arbiter_resolver_behaviors.html#a940b96e662442830714761b1eed8dc89">ArbiterResolverBehaviors</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
-<li>onError
-: <a class="el" href="struct_arbiter_resolver_callbacks.html#aa29efe77c90fb9990b017eb3636db87a">ArbiterResolverCallbacks</a>
-</li>
-<li>onSuccess
-: <a class="el" href="struct_arbiter_resolver_callbacks.html#a909305cbe2fd0b68b5c056e3c3b472ab">ArbiterResolverCallbacks</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_p"></a>- p -</h3><ul>
-<li>project
-: <a class="el" href="include_2arbiter_2_resolver_8h.html#abddcd79240b358ef5d218b6f146b667c">ArbiterAvailableVersionsFetch</a>
-, <a class="el" href="include_2arbiter_2_resolver_8h.html#ac092cd519c3ef3149dd8b02f20b57237">ArbiterDependencyListFetch</a>
-</li>
-<li>projectIdentifier
-: <a class="el" href="struct_arbiter_1_1_resolver_1_1_resolved_dependency.html#a3a32b9cd5c0568ef0a26d23c1bc73126">Arbiter::Resolver::ResolvedDependency</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
-<li>resolver
-: <a class="el" href="include_2arbiter_2_resolver_8h.html#a2d6f818a67f614157b1903717cd5f1fc">ArbiterAvailableVersionsFetch</a>
-, <a class="el" href="include_2arbiter_2_resolver_8h.html#ae470b3376951f1761cb66bd4de413585">ArbiterDependencyListFetch</a>
-</li>
-</ul>
-
-
-<h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
-<li>selectedVersion
-: <a class="el" href="struct_arbiter_1_1_resolver_1_1_resolved_dependency.html#acf95a9cbbe2d42350dbee384cfef1184">Arbiter::Resolver::ResolvedDependency</a>
-, <a class="el" href="include_2arbiter_2_resolver_8h.html#ad3c098d1fc1c38588332029b633c7b21">ArbiterDependencyListFetch</a>
+<li>lessThan
+: <a class="el" href="struct_arbiter_user_value.html#a5581905b82a24eefd853a6ed055cde0f">ArbiterUserValue</a>
 </li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

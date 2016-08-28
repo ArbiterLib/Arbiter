@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['none',['None',['../namespace_arbiter.html#struct_arbiter_1_1_none',1,'Arbiter']]]
+  ['multipassiterator',['MultipassIterator',['../class_arbiter_1_1_multipass_iterator.html',1,'Arbiter']]],
+  ['mutuallyexclusiveconstraints',['MutuallyExclusiveConstraints',['../struct_arbiter_1_1_exception_1_1_mutually_exclusive_constraints.html',1,'Arbiter::Exception']]]
 ];

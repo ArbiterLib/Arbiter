@@ -99,17 +99,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:struct_arbiter_available_versions_fetch"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">ArbiterAvailableVersionsFetch</a></td></tr>
-<tr class="memdesc:struct_arbiter_available_versions_fetch"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a request for all of the available versions of a project.  <a href="include_2arbiter_2_resolver_8h.html#struct_arbiter_available_versions_fetch">More...</a><br /></td></tr>
-<tr class="separator:struct_arbiter_available_versions_fetch"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:struct_arbiter_dependency_list_fetch"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">ArbiterDependencyListFetch</a></td></tr>
-<tr class="memdesc:struct_arbiter_dependency_list_fetch"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a request for the list of dependencies needed by a specific version of a project.  <a href="include_2arbiter_2_resolver_8h.html#struct_arbiter_dependency_list_fetch">More...</a><br /></td></tr>
-<tr class="separator:struct_arbiter_dependency_list_fetch"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html">ArbiterResolverBehaviors</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User-provided behaviors for how dependency resolution should work.  <a href="struct_arbiter_resolver_behaviors.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_callbacks.html">ArbiterResolverCallbacks</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">User-provided callbacks to invoke when dependency resolution has progressed.  <a href="struct_arbiter_resolver_callbacks.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -120,93 +111,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a981b62a0d255b1cea4f3e689e0bdcb69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a981b62a0d255b1cea4f3e689e0bdcb69">ArbiterFreeResolver</a> (<a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver)</td></tr>
 <tr class="memdesc:a981b62a0d255b1cea4f3e689e0bdcb69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a dependency resolver.  <a href="#a981b62a0d255b1cea4f3e689e0bdcb69">More...</a><br /></td></tr>
 <tr class="separator:a981b62a0d255b1cea4f3e689e0bdcb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab19872499232505977544b55ba3e3c4b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#ab19872499232505977544b55ba3e3c4b">ArbiterResolvedAllDependencies</a> (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver)</td></tr>
-<tr class="memdesc:ab19872499232505977544b55ba3e3c4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether all dependencies have finished being resolved to specific versions.  <a href="#ab19872499232505977544b55ba3e3c4b">More...</a><br /></td></tr>
-<tr class="separator:ab19872499232505977544b55ba3e3c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75b6c5e452ea46b04c8c20571dd9498d"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a75b6c5e452ea46b04c8c20571dd9498d">ArbiterResolverContext</a> (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver)</td></tr>
 <tr class="memdesc:a75b6c5e452ea46b04c8c20571dd9498d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns any context data which was provided to <a class="el" href="include_2arbiter_2_resolver_8h.html#ae9d62bf4a862c49649fac81a3db58adb" title="Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick comp...">ArbiterCreateResolver()</a>.  <a href="#a75b6c5e452ea46b04c8c20571dd9498d">More...</a><br /></td></tr>
 <tr class="separator:a75b6c5e452ea46b04c8c20571dd9498d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3594810e39f6efb5c6b51e68dbb50358"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a3594810e39f6efb5c6b51e68dbb50358">ArbiterStartResolvingNextDependency</a> (<a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, <a class="el" href="struct_arbiter_resolver_callbacks.html">ArbiterResolverCallbacks</a> callbacks)</td></tr>
-<tr class="memdesc:a3594810e39f6efb5c6b51e68dbb50358"><td class="mdescLeft">&#160;</td><td class="mdescRight">Begins resolving the next unresolved dependency.  <a href="#a3594810e39f6efb5c6b51e68dbb50358">More...</a><br /></td></tr>
-<tr class="separator:a3594810e39f6efb5c6b51e68dbb50358"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9d4604df5123414f984aac71e1063da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#ad9d4604df5123414f984aac71e1063da">ArbiterResolverCreateResolvedDependencyList</a> (<a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, char **error)</td></tr>
+<tr class="memdesc:ad9d4604df5123414f984aac71e1063da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to resolve all dependencies.  <a href="#ad9d4604df5123414f984aac71e1063da">More...</a><br /></td></tr>
+<tr class="separator:ad9d4604df5123414f984aac71e1063da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/><h2 class="groupheader">Class Documentation</h2>
-<a name="struct_arbiter_available_versions_fetch" id="struct_arbiter_available_versions_fetch"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct ArbiterAvailableVersionsFetch</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>Represents a request for all of the available versions of a project. </p>
-
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00046">46</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
-</div><div class="dynheader">
-Collaboration diagram for ArbiterAvailableVersionsFetch:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_available_versions_fetch__coll__graph.svg" width="707" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<table class="fieldtable">
-<tr><th colspan="3">Class Members</th></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="abddcd79240b358ef5d218b6f146b667c"></a>const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *</td>
-<td class="fieldname">
-project</td>
-<td class="fielddoc">
-The project whose list of available versions should be fetched. </td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="a2d6f818a67f614157b1903717cd5f1fc"></a>const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *</td>
-<td class="fieldname">
-resolver</td>
-<td class="fielddoc">
-The dependency resolver which is asking for this information. </td></tr>
-</table>
-
-</div>
-</div>
-<a name="struct_arbiter_dependency_list_fetch" id="struct_arbiter_dependency_list_fetch"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct ArbiterDependencyListFetch</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<div class="textblock"><p>Represents a request for the list of dependencies needed by a specific version of a project. </p>
-
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00024">24</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
-</div><div class="dynheader">
-Collaboration diagram for ArbiterDependencyListFetch:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_dependency_list_fetch__coll__graph.svg" width="1131" height="266"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
-<table class="fieldtable">
-<tr><th colspan="3">Class Members</th></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ac092cd519c3ef3149dd8b02f20b57237"></a>const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *</td>
-<td class="fieldname">
-project</td>
-<td class="fielddoc">
-The project whose dependencies need to be fetched. </td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ae470b3376951f1761cb66bd4de413585"></a>const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *</td>
-<td class="fieldname">
-resolver</td>
-<td class="fielddoc">
-The dependency resolver which is asking for this information. </td></tr>
-<tr><td class="fieldtype">
-<a class="anchor" id="ad3c098d1fc1c38588332029b633c7b21"></a>const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *</td>
-<td class="fieldname">
-selectedVersion</td>
-<td class="fielddoc">
-The specific version of the project for which the dependency list should be fetched. </td></tr>
-</table>
-
-</div>
-</div>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="ae9d62bf4a862c49649fac81a3db58adb"></a>
 <div class="memitem">
@@ -261,24 +172,6 @@ The specific version of the project for which the dependency list should be fetc
 
 </div>
 </div>
-<a class="anchor" id="ab19872499232505977544b55ba3e3c4b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ArbiterResolvedAllDependencies </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *&#160;</td>
-          <td class="paramname"><em>resolver</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether all dependencies have finished being resolved to specific versions. </p>
-
-</div>
-</div>
 <a class="anchor" id="a75b6c5e452ea46b04c8c20571dd9498d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -298,12 +191,12 @@ The specific version of the project for which the dependency list should be fetc
 
 </div>
 </div>
-<a class="anchor" id="a3594810e39f6efb5c6b51e68dbb50358"></a>
+<a class="anchor" id="ad9d4604df5123414f984aac71e1063da"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ArbiterStartResolvingNextDependency </td>
+          <td class="memname"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a>* ArbiterResolverCreateResolvedDependencyList </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *&#160;</td>
           <td class="paramname"><em>resolver</em>, </td>
@@ -311,8 +204,8 @@ The specific version of the project for which the dependency list should be fetc
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct_arbiter_resolver_callbacks.html">ArbiterResolverCallbacks</a>&#160;</td>
-          <td class="paramname"><em>callbacks</em>&#160;</td>
+          <td class="paramtype">char **&#160;</td>
+          <td class="paramname"><em>error</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -322,17 +215,15 @@ The specific version of the project for which the dependency list should be fetc
       </table>
 </div><div class="memdoc">
 
-<p>Begins resolving the next unresolved dependency. </p>
-<p>Once resolution has completed or an error has occurred, one of the given callbacks will be invoked (possibly on another thread).</p>
-<p>After starting to resolve a dependency, the dependency resolver object must not be freed with <a class="el" href="include_2arbiter_2_resolver_8h.html#a981b62a0d255b1cea4f3e689e0bdcb69" title="Releases the memory associated with a dependency resolver. ">ArbiterFreeResolver()</a> until one of the callbacks has been invoked.</p>
-<p>It is invalid to invoke this function if <a class="el" href="include_2arbiter_2_resolver_8h.html#ab19872499232505977544b55ba3e3c4b" title="Returns whether all dependencies have finished being resolved to specific versions. ">ArbiterResolvedAllDependencies()</a> returns true for the same dependency resolver. </p>
+<p>Attempts to resolve all dependencies. </p>
+<p>Returns the list of resolved dependencies, or NULL if an error occurred. The caller is responsible for freeing the returned list. If NULL is returned and <code>error</code> is not NULL, it may be set to a string describing the error, which the caller is responsible for freeing. </p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

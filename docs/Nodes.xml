@@ -26,6 +26,10 @@
             <Path>namespace_arbiter.html</Path>
             <Subnodes>
              <Node>
+              <Name>Exception</Name>
+              <Path>namespace_arbiter_1_1_exception.html</Path>
+             </Node>
+             <Node>
               <Name>Requirement</Name>
               <Path>namespace_arbiter_1_1_requirement.html</Path>
              </Node>
@@ -49,6 +53,14 @@
             <Name>Functions</Name>
             <Path>namespacemembers_func.html</Path>
            </Node>
+           <Node>
+            <Name>Variables</Name>
+            <Path>namespacemembers_vars.html</Path>
+           </Node>
+           <Node>
+            <Name>Typedefs</Name>
+            <Path>namespacemembers_type.html</Path>
+           </Node>
           </Subnodes>
          </Node>
         </Subnodes>
@@ -65,6 +77,66 @@
             <Name>Arbiter</Name>
             <Path>namespace_arbiter.html</Path>
             <Subnodes>
+             <Node>
+              <Name>Exception</Name>
+              <Path>namespace_arbiter_1_1_exception.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>Base</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>Base</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
+                  <Anchor>a6ddd88907768207d9b8a1540e241eec5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>Base</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
+                  <Anchor>a2243931aeb7b6d102780345141ff92db</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>MutuallyExclusiveConstraints</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_mutually_exclusive_constraints.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>MutuallyExclusiveConstraints</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_mutually_exclusive_constraints.html</Path>
+                  <Anchor>ad2d6c4d299a18fa20c3b15a17adb22e2</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>UnsatisfiableConstraints</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>UnsatisfiableConstraints</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html</Path>
+                  <Anchor>a5350881d69f0c4523ca241c75366c819</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>UserError</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>UserError</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
+                  <Anchor>aa6f8bf174919c720eed120e296597317</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>UserError</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
+                  <Anchor>a2c2f043158e7bcd1454d212bfb351e11</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+              </Subnodes>
+             </Node>
              <Node>
               <Name>Requirement</Name>
               <Path>namespace_arbiter_1_1_requirement.html</Path>
@@ -275,279 +347,92 @@
               <Path>namespace_arbiter_1_1_resolver.html</Path>
               <Subnodes>
                <Node>
-                <Name>ResolvedDependency</Name>
-                <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
+                <Name>DependencyGraph</Name>
+                <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>operator==</Name>
-                  <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
-                  <Anchor>aa057cc1ecc43d61ab9a96e6a64a9a9b0</Anchor>
+                  <Name>addNode</Name>
+                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
+                  <Anchor>aa66315f94f0f117493f2ecfe839ff784</Anchor>
                  </Node>
                  <Node>
-                  <Name>projectIdentifier</Name>
-                  <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
-                  <Anchor>a3a32b9cd5c0568ef0a26d23c1bc73126</Anchor>
+                  <Name>allNodes</Name>
+                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
+                  <Anchor>ab2631a0fd5a2c1a064406f1437eac923</Anchor>
                  </Node>
                  <Node>
-                  <Name>selectedVersion</Name>
-                  <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
-                  <Anchor>acf95a9cbbe2d42350dbee384cfef1184</Anchor>
+                  <Name>describe</Name>
+                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
+                  <Anchor>a6175aa0dad35ebc4e1916dfa8e3d887e</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
               </Subnodes>
              </Node>
              <Node>
-              <Name>Either</Name>
-              <Path>struct_arbiter_1_1_either.html</Path>
+              <Name>IteratorRange</Name>
+              <Path>struct_arbiter_1_1_iterator_range.html</Path>
               <Subnodes>
                <Node>
-                <Name>LeftTag</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>struct_arbiter_1_1_either_1_1_left_tag</Anchor>
+                <Name>IteratorRange</Name>
+                <Path>struct_arbiter_1_1_iterator_range.html</Path>
+                <Anchor>a12d25712d6376d28b13ca4368f47e3ec</Anchor>
                </Node>
                <Node>
-                <Name>RightTag</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>struct_arbiter_1_1_either_1_1_right_tag</Anchor>
+                <Name>_begin</Name>
+                <Path>struct_arbiter_1_1_iterator_range.html</Path>
+                <Anchor>adccd6a1189b08ef2babe2ad4f9b71137</Anchor>
                </Node>
                <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a4bd3fd53353986dce643e2a31713b618</Anchor>
-               </Node>
-               <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a4ba254ec4418ac43a3b4ac418ac1797b</Anchor>
-               </Node>
-               <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>afe18ddfd06dcab2b11ef30d9ff813220</Anchor>
-               </Node>
-               <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>aaa3523a7b0c65828381747fa26dce1d0</Anchor>
-               </Node>
-               <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>ae1a884a6513d4b8fb667d24fe8c27676</Anchor>
-               </Node>
-               <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a70249cb37d82d9f23c3fcd356536cb39</Anchor>
-               </Node>
-               <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>ac52e9e09b46d92f9d673fba995d4c8f9</Anchor>
-               </Node>
-               <Node>
-                <Name>~Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>adc7f747c9812cb5c15370f9c4296ac0e</Anchor>
-               </Node>
-               <Node>
-                <Name>hasLeft</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>abd4f9af917819c76ba4aba3faaa24899</Anchor>
-               </Node>
-               <Node>
-                <Name>hasRight</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>afc203f8ddc4a3353ab1db3d3155ff236</Anchor>
-               </Node>
-               <Node>
-                <Name>left</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a51886e36abf77d50d6add81bfca75b95</Anchor>
-               </Node>
-               <Node>
-                <Name>left</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a2731efd12041655339c3528205ea1697</Anchor>
-               </Node>
-               <Node>
-                <Name>operator=</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a33966c7b74794634886d5cca5482dc13</Anchor>
-               </Node>
-               <Node>
-                <Name>operator=</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a9915c5b23c0d8e6064d06db435a5a5f8</Anchor>
-               </Node>
-               <Node>
-                <Name>right</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>ac2fcaaa9d82c3d7e33c4c5cb171fe1ee</Anchor>
-               </Node>
-               <Node>
-                <Name>right</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>aab64002992172d9feabe8306002afe7b</Anchor>
-               </Node>
-               <Node>
-                <Name>rightOrThrowLeft</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>af9f5a1708efd35b1a9a26e1fe793563b</Anchor>
-               </Node>
-               <Node>
-                <Name>rightOrThrowLeft</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>a45fbdc9e23581feba38e4bf03249e62b</Anchor>
+                <Name>_end</Name>
+                <Path>struct_arbiter_1_1_iterator_range.html</Path>
+                <Anchor>a43dbba1ed47b73473d4136d62df6fb6d</Anchor>
                </Node>
               </Subnodes>
              </Node>
              <Node>
-              <Name>Future</Name>
-              <Path>class_arbiter_1_1_future.html</Path>
+              <Name>MultipassIterator</Name>
+              <Path>class_arbiter_1_1_multipass_iterator.html</Path>
               <Subnodes>
                <Node>
-                <Name>Result</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>a9a4364ec96d2aa90e74e3427efd872c0</Anchor>
+                <Name>MultipassIterator</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>a4d9b059e35c2f01bad9ae651553fc673</Anchor>
                </Node>
                <Node>
-                <Name>Future</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>abbc7304b9f86c8f86bcaf0db3cc94c49</Anchor>
+                <Name>MultipassIterator</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>ab7a8c58804ad6d9c5d4a6c8f59d25bd5</Anchor>
                </Node>
                <Node>
-                <Name>Future</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>a796b3f45dfd84c1e8931bf381a12ae46</Anchor>
+                <Name>MultipassIterator</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>abb8fe44afe4be69298e977e081429c64</Anchor>
                </Node>
                <Node>
-                <Name>Future</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>ae3b0ee1dddb5d640f10140b16c8f483b</Anchor>
+                <Name>MultipassIterator</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>a93ac06b6807ddca1bab8f688ed9776a7</Anchor>
                </Node>
                <Node>
-                <Name>add_callback</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>a29ddff2e408cb87aae98ef87f5e568a8</Anchor>
+                <Name>operator bool</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>afb7abbf3b345d6e267ae3b59ebab263f</Anchor>
                </Node>
                <Node>
-                <Name>get</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>a2d4f433d9a4249b9d7c53d84887a0a7d</Anchor>
+                <Name>operator*</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>aa44ce193e69d4cd91d580313aca8f5b9</Anchor>
                </Node>
                <Node>
-                <Name>get</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>ad3eabaf91676bfaccf8a836e22331163</Anchor>
+                <Name>operator++</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>af0c817447315a29ea7199a49c0856437</Anchor>
                </Node>
                <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>af10e4c2c015b056cd95ea365dc71b476</Anchor>
-               </Node>
-               <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>a1bd86b1fd99151405922b8ab0afd8ec4</Anchor>
-               </Node>
-               <Node>
-                <Name>valid</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>aa2130486db9e21ee24e5a7a2d393f247</Anchor>
-               </Node>
-               <Node>
-                <Name>wait</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>a54cf0346b5bf88b6862d17240fa6fe8f</Anchor>
-               </Node>
-               <Node>
-                <Name>Promise&lt; T &gt;</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
-                <Anchor>a697fa51a09bfecabc58fd6d07ce8f501</Anchor>
-               </Node>
-              </Subnodes>
-             </Node>
-             <Node>
-              <Name>Generator</Name>
-              <Path>class_arbiter_1_1_generator.html</Path>
-              <Subnodes>
-               <Node>
-                <Name>EventFuture</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>ac592315074bc7d56d2ca915486e60c4f</Anchor>
-               </Node>
-               <Node>
-                <Name>Function</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>a4e0986827558f87ab89116436d4debbc</Anchor>
-               </Node>
-               <Node>
-                <Name>Generator</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>aed47ea38bd47874fff488c19a5d92f0c</Anchor>
-               </Node>
-               <Node>
-                <Name>Generator</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>a5b7609470053d577aef89b9c3bb51046</Anchor>
-               </Node>
-               <Node>
-                <Name>Generator</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>a55ad808ccbf3d45264c7a4ff30b45c83</Anchor>
-               </Node>
-               <Node>
-                <Name>Generator</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>ad6dc80ef63b15197b7a446267ac93f52</Anchor>
-               </Node>
-               <Node>
-                <Name>empty</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>af97a383aa382816a47159cbe18852f5d</Anchor>
-               </Node>
-               <Node>
-                <Name>next</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>a0511ecf5bae46ab8e7e505353a56084c</Anchor>
-               </Node>
-               <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>afa6820bc70926ebfa3fe15e96513dfb0</Anchor>
-               </Node>
-               <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Anchor>a70c1628b6bee4f2fa87807f2f8818e57</Anchor>
-               </Node>
-              </Subnodes>
-             </Node>
-             <Node>
-              <Name>Left</Name>
-              <Path>struct_arbiter_1_1_left.html</Path>
-              <Subnodes>
-               <Node>
-                <Name>Left</Name>
-                <Path>struct_arbiter_1_1_left.html</Path>
-                <Anchor>add3d0c938c20794ede12490686009c7f</Anchor>
-               </Node>
-               <Node>
-                <Name>Left</Name>
-                <Path>struct_arbiter_1_1_left.html</Path>
-                <Anchor>a0c76b03adf5101f06bc085b580e96041</Anchor>
-               </Node>
-               <Node>
-                <Name>Left</Name>
-                <Path>struct_arbiter_1_1_left.html</Path>
-                <Anchor>aa8e4ea6d6709cfe503d0265bb174813b</Anchor>
-               </Node>
-               <Node>
-                <Name>_value</Name>
-                <Path>struct_arbiter_1_1_left.html</Path>
-                <Anchor>ad831aa094b0251ca1d8b8a9542532eaa</Anchor>
+                <Name>reset</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Anchor>aefc371ed3541c2fe0f3f28c03ffd7474</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -560,6 +445,11 @@
               <Name>Optional</Name>
               <Path>struct_arbiter_1_1_optional.html</Path>
               <Subnodes>
+               <Node>
+                <Name>Value</Name>
+                <Path>struct_arbiter_1_1_optional.html</Path>
+                <Anchor>ac7286ea9106e97c4960a2ab1bf0a30e4</Anchor>
+               </Node>
                <Node>
                 <Name>Optional</Name>
                 <Path>struct_arbiter_1_1_optional.html</Path>
@@ -663,94 +553,48 @@
               </Subnodes>
              </Node>
              <Node>
-              <Name>Promise</Name>
-              <Path>class_arbiter_1_1_promise.html</Path>
+              <Name>PermutationIterator</Name>
+              <Path>class_arbiter_1_1_permutation_iterator.html</Path>
               <Subnodes>
                <Node>
-                <Name>Result</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>ab9e6ed56302079afdb9e3c06ef93e417</Anchor>
+                <Name>PermutationIterator</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>a4d5265385a22860b1593efd69ca5734d</Anchor>
                </Node>
                <Node>
-                <Name>Promise</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a86b94596ae7db0eae64e1e4de07ef992</Anchor>
+                <Name>PermutationIterator</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>ae7122e1e586cfd7f1abb5cb8bed815a3</Anchor>
                </Node>
                <Node>
-                <Name>Promise</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a6545d22333274f51776279552a353c9b</Anchor>
+                <Name>operator bool</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>a8bdb37f88ea1ed9dc81f05988e21b8e7</Anchor>
                </Node>
                <Node>
-                <Name>Promise</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a4a70a43428510f570df4f54066a5f5a2</Anchor>
+                <Name>operator!=</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>a04cae7b97e6c09d63ffe7da78c07ca1d</Anchor>
                </Node>
                <Node>
-                <Name>~Promise</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a1e7398c25153c3a0e587cbe576e03e97</Anchor>
+                <Name>operator*</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>af99840af54fc68caae6b1058e1e19b0c</Anchor>
                </Node>
                <Node>
-                <Name>get_future</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>ab925e00ff33e94ecfe8588f9a3ffa70e</Anchor>
+                <Name>operator++</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>a7cd4ca9995a189a7dc058869ca2c58c5</Anchor>
                </Node>
                <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a23221cfe86512ebdc904281e367dad69</Anchor>
+                <Name>operator++</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>ade84314f66d4f373ae5ecb97ccde84e5</Anchor>
                </Node>
                <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a2d3e8381522f6256dfd8b46d0332ae48</Anchor>
-               </Node>
-               <Node>
-                <Name>set_exception</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a15dc783950df12a4274be45a2a214e8b</Anchor>
-               </Node>
-               <Node>
-                <Name>set_result</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>aa52fc2de4a33624cc33c4d0cfd6fba13</Anchor>
-               </Node>
-               <Node>
-                <Name>set_value</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a24f579e87cce5e66141d1589a3467e6e</Anchor>
-               </Node>
-               <Node>
-                <Name>Future&lt; T &gt;</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
-                <Anchor>a3764cc1bcb8b7944580563d334984ace</Anchor>
-               </Node>
-              </Subnodes>
-             </Node>
-             <Node>
-              <Name>Right</Name>
-              <Path>struct_arbiter_1_1_right.html</Path>
-              <Subnodes>
-               <Node>
-                <Name>Right</Name>
-                <Path>struct_arbiter_1_1_right.html</Path>
-                <Anchor>ac09950a6584a953ec5b97de68a33c563</Anchor>
-               </Node>
-               <Node>
-                <Name>Right</Name>
-                <Path>struct_arbiter_1_1_right.html</Path>
-                <Anchor>a294dd1fe3bc35aad0e68165ab4f13352</Anchor>
-               </Node>
-               <Node>
-                <Name>Right</Name>
-                <Path>struct_arbiter_1_1_right.html</Path>
-                <Anchor>af9b98ac154f3e8b2f243c633e8e08d36</Anchor>
-               </Node>
-               <Node>
-                <Name>_value</Name>
-                <Path>struct_arbiter_1_1_right.html</Path>
-                <Anchor>ab427e7c59f7cc62868b63043f39e5e3c</Anchor>
+                <Name>operator==</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Anchor>afa3e56963bfca89f693bc4d0c519d5dc</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -758,6 +602,11 @@
               <Name>SharedUserValue</Name>
               <Path>class_arbiter_1_1_shared_user_value.html</Path>
               <Subnodes>
+               <Node>
+                <Name>SharedUserValue</Name>
+                <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                <Anchor>a5be9212601a489641488e914aef1f5df</Anchor>
+               </Node>
                <Node>
                 <Name>SharedUserValue</Name>
                 <Path>class_arbiter_1_1_shared_user_value.html</Path>
@@ -779,70 +628,34 @@
                 <Anchor>a00f6ccc566bbebf60645a35126a4b4ea</Anchor>
                </Node>
                <Node>
+                <Name>operator!=</Name>
+                <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                <Anchor>a66587d89a3eb3b90f2cd53418bb0a5c2</Anchor>
+               </Node>
+               <Node>
+                <Name>operator&lt;</Name>
+                <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                <Anchor>accdfdbf00561a461039bc22a646aaaad</Anchor>
+               </Node>
+               <Node>
+                <Name>operator&lt;=</Name>
+                <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                <Anchor>a233b1ddc23b26ed7d607e4fe0d926051</Anchor>
+               </Node>
+               <Node>
                 <Name>operator==</Name>
                 <Path>class_arbiter_1_1_shared_user_value.html</Path>
                 <Anchor>a68809201ace5637f3e6e76bf221d6275</Anchor>
                </Node>
-              </Subnodes>
-             </Node>
-             <Node>
-              <Name>Sink</Name>
-              <Path>class_arbiter_1_1_sink.html</Path>
-              <Subnodes>
                <Node>
-                <Name>Event</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a7b160b395cf85446d807e2e9956f7cc0</Anchor>
+                <Name>operator&gt;</Name>
+                <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                <Anchor>a8e50dcc777757f9945050f0c47a97702</Anchor>
                </Node>
                <Node>
-                <Name>Sink</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a7d4fd31e808b167307099ce865f35635</Anchor>
-               </Node>
-               <Node>
-                <Name>Sink</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>aa7e6468c7448ad21a98a0b3b2865a9f7</Anchor>
-               </Node>
-               <Node>
-                <Name>Sink</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a71d8d45eb1b03ce41b43cd579e856700</Anchor>
-               </Node>
-               <Node>
-                <Name>getGenerator</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a99d4fe044ba0a76325486261834eb3f5</Anchor>
-               </Node>
-               <Node>
-                <Name>onCompleted</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a1cfe31d3c29ee22d24b67144d39d15fb</Anchor>
-               </Node>
-               <Node>
-                <Name>onError</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a10d6faaecdbe168ab4f51b1fb02e115b</Anchor>
-               </Node>
-               <Node>
-                <Name>onEvent</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a55f746c4d43e44b21fd0e9e42754fd3e</Anchor>
-               </Node>
-               <Node>
-                <Name>onNext</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>aebee08f96cfd85b26a9f05cba0f4c1f5</Anchor>
-               </Node>
-               <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>aeed0655a7714f8618886c3fa5289f1bd</Anchor>
-               </Node>
-               <Node>
-                <Name>operator=</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
-                <Anchor>a52324fa5fd0767defb594f37791e28b1</Anchor>
+                <Name>operator&gt;=</Name>
+                <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                <Anchor>a77ce5e722f734967f098e46d8742bd8a</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -853,17 +666,6 @@
             <Path></Path>
             <Subnodes>
              <Node>
-              <Name>hash&lt; Arbiter::Either&lt; Left, Right &gt; &gt;</Name>
-              <Path>structstd_1_1hash_3_01_arbiter_1_1_either_3_01_left_00_01_right_01_4_01_4.html</Path>
-              <Subnodes>
-               <Node>
-                <Name>operator()</Name>
-                <Path>structstd_1_1hash_3_01_arbiter_1_1_either_3_01_left_00_01_right_01_4_01_4.html</Path>
-                <Anchor>a7ecf436ba01b8022e3c9d4a38c72cfb1</Anchor>
-               </Node>
-              </Subnodes>
-             </Node>
-             <Node>
               <Name>hash&lt; Arbiter::Optional&lt; T &gt; &gt;</Name>
               <Path>structstd_1_1hash_3_01_arbiter_1_1_optional_3_01_t_01_4_01_4.html</Path>
               <Subnodes>
@@ -871,17 +673,6 @@
                 <Name>operator()</Name>
                 <Path>structstd_1_1hash_3_01_arbiter_1_1_optional_3_01_t_01_4_01_4.html</Path>
                 <Anchor>a52460037cf96a0590045fc00615ac0b8</Anchor>
-               </Node>
-              </Subnodes>
-             </Node>
-             <Node>
-              <Name>hash&lt; Arbiter::Resolver::ResolvedDependency &gt;</Name>
-              <Path>structstd_1_1hash_3_01_arbiter_1_1_resolver_1_1_resolved_dependency_01_4.html</Path>
-              <Subnodes>
-               <Node>
-                <Name>operator()</Name>
-                <Path>structstd_1_1hash_3_01_arbiter_1_1_resolver_1_1_resolved_dependency_01_4.html</Path>
-                <Anchor>a83782655aa3fcd67b247d50e6e6f97e2</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -919,6 +710,17 @@
               </Subnodes>
              </Node>
              <Node>
+              <Name>hash&lt; ArbiterResolvedDependency &gt;</Name>
+              <Path>structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>operator()</Name>
+                <Path>structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html</Path>
+                <Anchor>a84a5e582f8b330d9f63c06bd5d797423</Anchor>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
               <Name>hash&lt; ArbiterSelectedVersion &gt;</Name>
               <Path>structstd_1_1hash_3_01_arbiter_selected_version_01_4.html</Path>
               <Subnodes>
@@ -943,23 +745,6 @@
             </Subnodes>
            </Node>
            <Node>
-            <Name>ArbiterAvailableVersionsFetch</Name>
-            <Path>include_2arbiter_2_resolver_8h.html</Path>
-            <Anchor>struct_arbiter_available_versions_fetch</Anchor>
-            <Subnodes>
-             <Node>
-              <Name>project</Name>
-              <Path>include_2arbiter_2_resolver_8h.html</Path>
-              <Anchor>abddcd79240b358ef5d218b6f146b667c</Anchor>
-             </Node>
-             <Node>
-              <Name>resolver</Name>
-              <Path>include_2arbiter_2_resolver_8h.html</Path>
-              <Anchor>a2d6f818a67f614157b1903717cd5f1fc</Anchor>
-             </Node>
-            </Subnodes>
-           </Node>
-           <Node>
             <Name>ArbiterDependency</Name>
             <Path>struct_arbiter_dependency.html</Path>
             <Subnodes>
@@ -972,6 +757,11 @@
               <Name>ArbiterDependency</Name>
               <Path>struct_arbiter_dependency.html</Path>
               <Anchor>a5db242ea37875c7ad5db0658c1380b0b</Anchor>
+             </Node>
+             <Node>
+              <Name>operator&lt;</Name>
+              <Path>struct_arbiter_dependency.html</Path>
+              <Anchor>ada15f6ccabbb37c903c5196eddd1df92</Anchor>
              </Node>
              <Node>
               <Name>operator=</Name>
@@ -1002,34 +792,37 @@
              <Node>
               <Name>ArbiterDependencyList</Name>
               <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>a9aa2c8abc462de6fdc88e8af39429e4f</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterDependencyList</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
               <Anchor>af2b9274aa6d6b7a3949274c73100a2af</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterDependencyList</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>ae2d35a204c0b46feffbf7eb52902ad99</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterDependencyList</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>a135f95801b2ab3f386ca5b62b130a94e</Anchor>
+             </Node>
+             <Node>
+              <Name>operator=</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>abc68a72a017cfd8dab52adb4b505b01b</Anchor>
+             </Node>
+             <Node>
+              <Name>operator=</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>a646b783bb794c037f21f988149cce5e6</Anchor>
              </Node>
              <Node>
               <Name>_dependencies</Name>
               <Path>struct_arbiter_dependency_list.html</Path>
               <Anchor>a97ae63be6483d202ae8c5bbeb5fa56f6</Anchor>
-             </Node>
-            </Subnodes>
-           </Node>
-           <Node>
-            <Name>ArbiterDependencyListFetch</Name>
-            <Path>include_2arbiter_2_resolver_8h.html</Path>
-            <Anchor>struct_arbiter_dependency_list_fetch</Anchor>
-            <Subnodes>
-             <Node>
-              <Name>project</Name>
-              <Path>include_2arbiter_2_resolver_8h.html</Path>
-              <Anchor>ac092cd519c3ef3149dd8b02f20b57237</Anchor>
-             </Node>
-             <Node>
-              <Name>resolver</Name>
-              <Path>include_2arbiter_2_resolver_8h.html</Path>
-              <Anchor>ae470b3376951f1761cb66bd4de413585</Anchor>
-             </Node>
-             <Node>
-              <Name>selectedVersion</Name>
-              <Path>include_2arbiter_2_resolver_8h.html</Path>
-              <Anchor>ad3c098d1fc1c38588332029b633c7b21</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -1045,12 +838,22 @@
              <Node>
               <Name>ArbiterProjectIdentifier</Name>
               <Path>struct_arbiter_project_identifier.html</Path>
+              <Anchor>aae2ae2fdf64117cb99a0190f578703a3</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterProjectIdentifier</Name>
+              <Path>struct_arbiter_project_identifier.html</Path>
               <Anchor>a8c28e3259150288a9be44d39a998cb79</Anchor>
              </Node>
              <Node>
               <Name>operator!=</Name>
               <Path>struct_arbiter_project_identifier.html</Path>
               <Anchor>af6441e0c2d5e2b5f12cc0525053ecac0</Anchor>
+             </Node>
+             <Node>
+              <Name>operator&lt;</Name>
+              <Path>struct_arbiter_project_identifier.html</Path>
+              <Anchor>aa8338dd3768d5b5bf269eb954dd272c8</Anchor>
              </Node>
              <Node>
               <Name>operator==</Name>
@@ -1121,6 +924,78 @@
             </Subnodes>
            </Node>
            <Node>
+            <Name>ArbiterResolvedDependency</Name>
+            <Path>struct_arbiter_resolved_dependency.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>ArbiterResolvedDependency</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+              <Anchor>a4f167e3c39287973c68c5c2a9db1e9f0</Anchor>
+             </Node>
+             <Node>
+              <Name>operator!=</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+              <Anchor>a9e8ddecbfec5905b0eff57927f48e023</Anchor>
+             </Node>
+             <Node>
+              <Name>operator==</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+              <Anchor>a0b19374f51b35b3bd2ddda0b640bfd12</Anchor>
+             </Node>
+             <Node>
+              <Name>_project</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+              <Anchor>a2f3abc0c734ca77e89630294451609de</Anchor>
+             </Node>
+             <Node>
+              <Name>_version</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+              <Anchor>addf77cd937a0ca7c20f9872671cf285c</Anchor>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>ArbiterResolvedDependencyList</Name>
+            <Path>struct_arbiter_resolved_dependency_list.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>ArbiterResolvedDependencyList</Name>
+              <Path>struct_arbiter_resolved_dependency_list.html</Path>
+              <Anchor>a8f9db5c6503eccfe7b326b4f91c3a356</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterResolvedDependencyList</Name>
+              <Path>struct_arbiter_resolved_dependency_list.html</Path>
+              <Anchor>affe61dbe6fbca873c4c248dc5c832e9e</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterResolvedDependencyList</Name>
+              <Path>struct_arbiter_resolved_dependency_list.html</Path>
+              <Anchor>a5f3d9a1a307ae7c69af77591b0b0bf83</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterResolvedDependencyList</Name>
+              <Path>struct_arbiter_resolved_dependency_list.html</Path>
+              <Anchor>a3060cc0ee1d17625562b337d9ff8669e</Anchor>
+             </Node>
+             <Node>
+              <Name>operator=</Name>
+              <Path>struct_arbiter_resolved_dependency_list.html</Path>
+              <Anchor>a69df2d0423c138acceea418f11bdd069</Anchor>
+             </Node>
+             <Node>
+              <Name>operator=</Name>
+              <Path>struct_arbiter_resolved_dependency_list.html</Path>
+              <Anchor>a4354f29851168c1a0208d90bc152853d</Anchor>
+             </Node>
+             <Node>
+              <Name>_dependencies</Name>
+              <Path>struct_arbiter_resolved_dependency_list.html</Path>
+              <Anchor>a19ceecabc8e893de9134fb887c90731b</Anchor>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
             <Name>ArbiterResolver</Name>
             <Path>struct_arbiter_resolver.html</Path>
             <Subnodes>
@@ -1135,24 +1010,24 @@
               <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
              </Node>
              <Node>
+              <Name>availableVersionsSatisfying</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>aa86e4d0ed05739bd3ca8d3d62d99e769</Anchor>
+             </Node>
+             <Node>
               <Name>fetchAvailableVersions</Name>
               <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>a23bfaa1f446f0cafea439a4e50b3e9e9</Anchor>
+              <Anchor>a62c3379058d6baca4625d5afceb2d107</Anchor>
              </Node>
              <Node>
-              <Name>fetchDependencyList</Name>
+              <Name>fetchDependencies</Name>
               <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>a0ed1919df58076b4664051e5b59aa1ce</Anchor>
+              <Anchor>a3e9ec2a7efe6a1c20d5c15efa189a362</Anchor>
              </Node>
              <Node>
-              <Name>resolvedAll</Name>
+              <Name>resolve</Name>
               <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>abf493de4cdf62052336e403c2aff9453</Anchor>
-             </Node>
-             <Node>
-              <Name>resolveNext</Name>
-              <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>af17c60b36fd4bedbe0e25dfc026ca1d5</Anchor>
+              <Anchor>aecf6a39dc44552f9ecc7b3174a643b5d</Anchor>
              </Node>
              <Node>
               <Name>_context</Name>
@@ -1166,30 +1041,14 @@
             <Path>struct_arbiter_resolver_behaviors.html</Path>
             <Subnodes>
              <Node>
-              <Name>fetchAvailableVersions</Name>
+              <Name>createAvailableVersionsList</Name>
               <Path>struct_arbiter_resolver_behaviors.html</Path>
-              <Anchor>a449bf26e592a81e95c939e9b7779a89d</Anchor>
+              <Anchor>abb9023a56e27eb92c69a7f578199d8be</Anchor>
              </Node>
              <Node>
-              <Name>fetchDependencyList</Name>
+              <Name>createDependencyList</Name>
               <Path>struct_arbiter_resolver_behaviors.html</Path>
-              <Anchor>a940b96e662442830714761b1eed8dc89</Anchor>
-             </Node>
-            </Subnodes>
-           </Node>
-           <Node>
-            <Name>ArbiterResolverCallbacks</Name>
-            <Path>struct_arbiter_resolver_callbacks.html</Path>
-            <Subnodes>
-             <Node>
-              <Name>onError</Name>
-              <Path>struct_arbiter_resolver_callbacks.html</Path>
-              <Anchor>aa29efe77c90fb9990b017eb3636db87a</Anchor>
-             </Node>
-             <Node>
-              <Name>onSuccess</Name>
-              <Path>struct_arbiter_resolver_callbacks.html</Path>
-              <Anchor>a909305cbe2fd0b68b5c056e3c3b472ab</Anchor>
+              <Anchor>a50916cf4567d3ba2fcc425d9ebe96a28</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -1246,6 +1105,27 @@
               <Name>_semanticVersion</Name>
               <Path>struct_arbiter_selected_version.html</Path>
               <Anchor>a7440b93a72fd6d0646c3df0709936ea8</Anchor>
+             </Node>
+            </Subnodes>
+           </Node>
+           <Node>
+            <Name>ArbiterSelectedVersionList</Name>
+            <Path>struct_arbiter_selected_version_list.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>ArbiterSelectedVersionList</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+              <Anchor>a9f90fefa9407ac232c4cec145148beee</Anchor>
+             </Node>
+             <Node>
+              <Name>ArbiterSelectedVersionList</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+              <Anchor>aa5e441bd0d03ba5e2418ea6324015bdc</Anchor>
+             </Node>
+             <Node>
+              <Name>_versions</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+              <Anchor>ad273ed0c04d6356c8df1596bdd3b8bb2</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -1335,9 +1215,14 @@
               <Anchor>a46326f865baa51148191f64d69846e5f</Anchor>
              </Node>
              <Node>
-              <Name>equals</Name>
+              <Name>equalTo</Name>
               <Path>struct_arbiter_user_value.html</Path>
-              <Anchor>a6a6d3cc53439b5bac7c5ea362b033886</Anchor>
+              <Anchor>a58ad30575098fbeaba0cf57bf4fa80ac</Anchor>
+             </Node>
+             <Node>
+              <Name>lessThan</Name>
+              <Path>struct_arbiter_user_value.html</Path>
+              <Anchor>a5581905b82a24eefd853a6ed055cde0f</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -1352,30 +1237,12 @@
           <Path>hierarchy.html</Path>
           <Subnodes>
            <Node>
-            <Name>Arbiter::Either&lt; Left, Right &gt;</Name>
-            <Path>struct_arbiter_1_1_either.html</Path>
+            <Name>Arbiter::IteratorRange&lt; It &gt;</Name>
+            <Path>struct_arbiter_1_1_iterator_range.html</Path>
            </Node>
            <Node>
-            <Name>Arbiter::Either&lt; Left, Right &gt;::LeftTag</Name>
-            <Path>struct_arbiter_1_1_either.html</Path>
-            <Anchor>struct_arbiter_1_1_either_1_1_left_tag</Anchor>
-           </Node>
-           <Node>
-            <Name>Arbiter::Either&lt; Left, Right &gt;::RightTag</Name>
-            <Path>struct_arbiter_1_1_either.html</Path>
-            <Anchor>struct_arbiter_1_1_either_1_1_right_tag</Anchor>
-           </Node>
-           <Node>
-            <Name>Arbiter::Future&lt; T &gt;</Name>
-            <Path>class_arbiter_1_1_future.html</Path>
-           </Node>
-           <Node>
-            <Name>Arbiter::Generator&lt; T &gt;</Name>
-            <Path>class_arbiter_1_1_generator.html</Path>
-           </Node>
-           <Node>
-            <Name>Arbiter::Left&lt; T &gt;</Name>
-            <Path>struct_arbiter_1_1_left.html</Path>
+            <Name>Arbiter::MultipassIterator&lt; It &gt;</Name>
+            <Path>class_arbiter_1_1_multipass_iterator.html</Path>
            </Node>
            <Node>
             <Name>Arbiter::None</Name>
@@ -1387,29 +1254,12 @@
             <Path>struct_arbiter_1_1_optional.html</Path>
            </Node>
            <Node>
-            <Name>Arbiter::Promise&lt; T &gt;</Name>
-            <Path>class_arbiter_1_1_promise.html</Path>
-           </Node>
-           <Node>
-            <Name>Arbiter::Resolver::ResolvedDependency</Name>
-            <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
-           </Node>
-           <Node>
-            <Name>Arbiter::Right&lt; T &gt;</Name>
-            <Path>struct_arbiter_1_1_right.html</Path>
+            <Name>Arbiter::Resolver::DependencyGraph</Name>
+            <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
            </Node>
            <Node>
             <Name>Arbiter::SharedUserValue&lt; Owner &gt;</Name>
             <Path>class_arbiter_1_1_shared_user_value.html</Path>
-           </Node>
-           <Node>
-            <Name>Arbiter::Sink&lt; T &gt;</Name>
-            <Path>class_arbiter_1_1_sink.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterAvailableVersionsFetch</Name>
-            <Path>include_2arbiter_2_resolver_8h.html</Path>
-            <Anchor>struct_arbiter_available_versions_fetch</Anchor>
            </Node>
            <Node>
             <Name>ArbiterDependency</Name>
@@ -1418,11 +1268,6 @@
            <Node>
             <Name>ArbiterDependencyList</Name>
             <Path>struct_arbiter_dependency_list.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterDependencyListFetch</Name>
-            <Path>include_2arbiter_2_resolver_8h.html</Path>
-            <Anchor>struct_arbiter_dependency_list_fetch</Anchor>
            </Node>
            <Node>
             <Name>ArbiterProjectIdentifier</Name>
@@ -1451,6 +1296,14 @@
             </Subnodes>
            </Node>
            <Node>
+            <Name>ArbiterResolvedDependency</Name>
+            <Path>struct_arbiter_resolved_dependency.html</Path>
+           </Node>
+           <Node>
+            <Name>ArbiterResolvedDependencyList</Name>
+            <Path>struct_arbiter_resolved_dependency_list.html</Path>
+           </Node>
+           <Node>
             <Name>ArbiterResolver</Name>
             <Path>struct_arbiter_resolver.html</Path>
            </Node>
@@ -1459,12 +1312,12 @@
             <Path>struct_arbiter_resolver_behaviors.html</Path>
            </Node>
            <Node>
-            <Name>ArbiterResolverCallbacks</Name>
-            <Path>struct_arbiter_resolver_callbacks.html</Path>
-           </Node>
-           <Node>
             <Name>ArbiterSelectedVersion</Name>
             <Path>struct_arbiter_selected_version.html</Path>
+           </Node>
+           <Node>
+            <Name>ArbiterSelectedVersionList</Name>
+            <Path>struct_arbiter_selected_version_list.html</Path>
            </Node>
            <Node>
             <Name>ArbiterSemanticVersion</Name>
@@ -1475,16 +1328,8 @@
             <Path>struct_arbiter_user_value.html</Path>
            </Node>
            <Node>
-            <Name>Arbiter::Optional&lt; Arbiter::Either &gt;</Name>
-            <Path>struct_arbiter_1_1_optional.html</Path>
-           </Node>
-           <Node>
             <Name>Arbiter::Optional&lt; std::string &gt;</Name>
             <Path>struct_arbiter_1_1_optional.html</Path>
-           </Node>
-           <Node>
-            <Name>Arbiter::Promise&lt; ArbiterDependencyList &gt;</Name>
-            <Path>class_arbiter_1_1_promise.html</Path>
            </Node>
            <Node>
             <Name>Arbiter::SharedUserValue&lt; ArbiterProjectIdentifier &gt;</Name>
@@ -1499,20 +1344,38 @@
             <Path>class_arbiter_1_1_shared_user_value.html</Path>
            </Node>
            <Node>
-            <Name>Arbiter::Sink&lt; ArbiterSelectedVersion &gt;</Name>
-            <Path>class_arbiter_1_1_sink.html</Path>
-           </Node>
-           <Node>
-            <Name>std::hash&lt; Arbiter::Either&lt; Left, Right &gt; &gt;</Name>
-            <Path>structstd_1_1hash_3_01_arbiter_1_1_either_3_01_left_00_01_right_01_4_01_4.html</Path>
+            <Name>std::exception</Name>
+            <Path></Path>
+            <Subnodes>
+             <Node>
+              <Name>std::runtime_error</Name>
+              <Path></Path>
+              <Subnodes>
+               <Node>
+                <Name>Arbiter::Exception::Base</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>Arbiter::Exception::MutuallyExclusiveConstraints</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_mutually_exclusive_constraints.html</Path>
+                 </Node>
+                 <Node>
+                  <Name>Arbiter::Exception::UnsatisfiableConstraints</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html</Path>
+                 </Node>
+                 <Node>
+                  <Name>Arbiter::Exception::UserError</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
+                 </Node>
+                </Subnodes>
+               </Node>
+              </Subnodes>
+             </Node>
+            </Subnodes>
            </Node>
            <Node>
             <Name>std::hash&lt; Arbiter::Optional&lt; T &gt; &gt;</Name>
             <Path>structstd_1_1hash_3_01_arbiter_1_1_optional_3_01_t_01_4_01_4.html</Path>
-           </Node>
-           <Node>
-            <Name>std::hash&lt; Arbiter::Resolver::ResolvedDependency &gt;</Name>
-            <Path>structstd_1_1hash_3_01_arbiter_1_1_resolver_1_1_resolved_dependency_01_4.html</Path>
            </Node>
            <Node>
             <Name>std::hash&lt; ArbiterDependency &gt;</Name>
@@ -1527,12 +1390,26 @@
             <Path>structstd_1_1hash_3_01_arbiter_requirement_01_4.html</Path>
            </Node>
            <Node>
+            <Name>std::hash&lt; ArbiterResolvedDependency &gt;</Name>
+            <Path>structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html</Path>
+           </Node>
+           <Node>
             <Name>std::hash&lt; ArbiterSelectedVersion &gt;</Name>
             <Path>structstd_1_1hash_3_01_arbiter_selected_version_01_4.html</Path>
            </Node>
            <Node>
             <Name>std::hash&lt; ArbiterSemanticVersion &gt;</Name>
             <Path>structstd_1_1hash_3_01_arbiter_semantic_version_01_4.html</Path>
+           </Node>
+           <Node>
+            <Name>iterator</Name>
+            <Path></Path>
+            <Subnodes>
+             <Node>
+              <Name>Arbiter::PermutationIterator&lt; It &gt;</Name>
+              <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+             </Node>
+            </Subnodes>
            </Node>
           </Subnodes>
          </Node>
@@ -1543,88 +1420,6 @@
            <Node>
             <Name>All</Name>
             <Path>functions.html</Path>
-            <Subnodes>
-             <Node>
-              <Name>_</Name>
-              <Path>functions.html</Path>
-             </Node>
-             <Node>
-              <Name>a</Name>
-              <Path>functions_a.html</Path>
-             </Node>
-             <Node>
-              <Name>c</Name>
-              <Path>functions_c.html</Path>
-             </Node>
-             <Node>
-              <Name>d</Name>
-              <Path>functions_d.html</Path>
-             </Node>
-             <Node>
-              <Name>e</Name>
-              <Path>functions_e.html</Path>
-             </Node>
-             <Node>
-              <Name>f</Name>
-              <Path>functions_f.html</Path>
-             </Node>
-             <Node>
-              <Name>g</Name>
-              <Path>functions_g.html</Path>
-             </Node>
-             <Node>
-              <Name>h</Name>
-              <Path>functions_h.html</Path>
-             </Node>
-             <Node>
-              <Name>i</Name>
-              <Path>functions_i.html</Path>
-             </Node>
-             <Node>
-              <Name>l</Name>
-              <Path>functions_l.html</Path>
-             </Node>
-             <Node>
-              <Name>m</Name>
-              <Path>functions_m.html</Path>
-             </Node>
-             <Node>
-              <Name>n</Name>
-              <Path>functions_n.html</Path>
-             </Node>
-             <Node>
-              <Name>o</Name>
-              <Path>functions_o.html</Path>
-             </Node>
-             <Node>
-              <Name>p</Name>
-              <Path>functions_p.html</Path>
-             </Node>
-             <Node>
-              <Name>r</Name>
-              <Path>functions_r.html</Path>
-             </Node>
-             <Node>
-              <Name>s</Name>
-              <Path>functions_s.html</Path>
-             </Node>
-             <Node>
-              <Name>t</Name>
-              <Path>functions_t.html</Path>
-             </Node>
-             <Node>
-              <Name>v</Name>
-              <Path>functions_v.html</Path>
-             </Node>
-             <Node>
-              <Name>w</Name>
-              <Path>functions_w.html</Path>
-             </Node>
-             <Node>
-              <Name>~</Name>
-              <Path>functions_0x7e.html</Path>
-             </Node>
-            </Subnodes>
            </Node>
            <Node>
             <Name>Functions</Name>
@@ -1682,6 +1477,16 @@
                   <Anchor>a7de65d449c28f8303e921783db237e21</Anchor>
                  </Node>
                  <Node>
+                  <Name>ArbiterCreateResolvedDependency</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>a1da4a1651859b463c36b273752854a66</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterCreateResolvedDependencyList</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>aa15607856dd36d027aa07c151b6751e2</Anchor>
+                 </Node>
+                 <Node>
                   <Name>ArbiterDependencyProject</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
                   <Anchor>a6fbdf8158145ccdded1dd44eaaf2be36</Anchor>
@@ -1707,9 +1512,44 @@
                   <Anchor>a5735a7ffdabaa994813567d5066a6b9f</Anchor>
                  </Node>
                  <Node>
+                  <Name>ArbiterFreeResolvedDependency</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>a0a22a55c58805e403de89033457b9f4b</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterFreeResolvedDependencyList</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>a011c6505116050ee973882f807052131</Anchor>
+                 </Node>
+                 <Node>
                   <Name>ArbiterProjectIdentifierValue</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
                   <Anchor>ae9a49ddf74167ba7df7f03ce05df116a</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyListCount</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>af8f8246f8d8fbd6992042a6c20c148f3</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyListGetAll</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>a1c941c6f8dbd3bc150feb6b0d26d5f3f</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyListGetIndex</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>ad1e3828d40058e24d99bb7f75d9edba7</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyProject</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>a211126c78b8362b634453487c433dda7</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyVersion</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>acf07101e6aa3d594bbd66b1799c8a8b7</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -1776,73 +1616,18 @@
                 <Path>include_2arbiter_2_resolver_8h.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>ArbiterAvailableVersionsFetch</Name>
-                  <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>struct_arbiter_available_versions_fetch</Anchor>
-                  <Subnodes>
-                   <Node>
-                    <Name>project</Name>
-                    <Path>include_2arbiter_2_resolver_8h.html</Path>
-                    <Anchor>abddcd79240b358ef5d218b6f146b667c</Anchor>
-                   </Node>
-                   <Node>
-                    <Name>resolver</Name>
-                    <Path>include_2arbiter_2_resolver_8h.html</Path>
-                    <Anchor>a2d6f818a67f614157b1903717cd5f1fc</Anchor>
-                   </Node>
-                  </Subnodes>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterDependencyListFetch</Name>
-                  <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>struct_arbiter_dependency_list_fetch</Anchor>
-                  <Subnodes>
-                   <Node>
-                    <Name>project</Name>
-                    <Path>include_2arbiter_2_resolver_8h.html</Path>
-                    <Anchor>ac092cd519c3ef3149dd8b02f20b57237</Anchor>
-                   </Node>
-                   <Node>
-                    <Name>resolver</Name>
-                    <Path>include_2arbiter_2_resolver_8h.html</Path>
-                    <Anchor>ae470b3376951f1761cb66bd4de413585</Anchor>
-                   </Node>
-                   <Node>
-                    <Name>selectedVersion</Name>
-                    <Path>include_2arbiter_2_resolver_8h.html</Path>
-                    <Anchor>ad3c098d1fc1c38588332029b633c7b21</Anchor>
-                   </Node>
-                  </Subnodes>
-                 </Node>
-                 <Node>
                   <Name>ArbiterResolverBehaviors</Name>
                   <Path>struct_arbiter_resolver_behaviors.html</Path>
                   <Subnodes>
                    <Node>
-                    <Name>fetchAvailableVersions</Name>
+                    <Name>createAvailableVersionsList</Name>
                     <Path>struct_arbiter_resolver_behaviors.html</Path>
-                    <Anchor>a449bf26e592a81e95c939e9b7779a89d</Anchor>
+                    <Anchor>abb9023a56e27eb92c69a7f578199d8be</Anchor>
                    </Node>
                    <Node>
-                    <Name>fetchDependencyList</Name>
+                    <Name>createDependencyList</Name>
                     <Path>struct_arbiter_resolver_behaviors.html</Path>
-                    <Anchor>a940b96e662442830714761b1eed8dc89</Anchor>
-                   </Node>
-                  </Subnodes>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterResolverCallbacks</Name>
-                  <Path>struct_arbiter_resolver_callbacks.html</Path>
-                  <Subnodes>
-                   <Node>
-                    <Name>onError</Name>
-                    <Path>struct_arbiter_resolver_callbacks.html</Path>
-                    <Anchor>aa29efe77c90fb9990b017eb3636db87a</Anchor>
-                   </Node>
-                   <Node>
-                    <Name>onSuccess</Name>
-                    <Path>struct_arbiter_resolver_callbacks.html</Path>
-                    <Anchor>a909305cbe2fd0b68b5c056e3c3b472ab</Anchor>
+                    <Anchor>a50916cf4567d3ba2fcc425d9ebe96a28</Anchor>
                    </Node>
                   </Subnodes>
                  </Node>
@@ -1857,19 +1642,14 @@
                   <Anchor>a981b62a0d255b1cea4f3e689e0bdcb69</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolvedAllDependencies</Name>
-                  <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>ab19872499232505977544b55ba3e3c4b</Anchor>
-                 </Node>
-                 <Node>
                   <Name>ArbiterResolverContext</Name>
                   <Path>include_2arbiter_2_resolver_8h.html</Path>
                   <Anchor>a75b6c5e452ea46b04c8c20571dd9498d</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterStartResolvingNextDependency</Name>
+                  <Name>ArbiterResolverCreateResolvedDependencyList</Name>
                   <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>a3594810e39f6efb5c6b51e68dbb50358</Anchor>
+                  <Anchor>ad9d4604df5123414f984aac71e1063da</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -1897,9 +1677,14 @@
                     <Anchor>a46326f865baa51148191f64d69846e5f</Anchor>
                    </Node>
                    <Node>
-                    <Name>equals</Name>
+                    <Name>equalTo</Name>
                     <Path>struct_arbiter_user_value.html</Path>
-                    <Anchor>a6a6d3cc53439b5bac7c5ea362b033886</Anchor>
+                    <Anchor>a58ad30575098fbeaba0cf57bf4fa80ac</Anchor>
+                   </Node>
+                   <Node>
+                    <Name>lessThan</Name>
+                    <Path>struct_arbiter_user_value.html</Path>
+                    <Anchor>a5581905b82a24eefd853a6ed055cde0f</Anchor>
                    </Node>
                   </Subnodes>
                  </Node>
@@ -1918,6 +1703,11 @@
                   <Name>ArbiterCreateSelectedVersion</Name>
                   <Path>include_2arbiter_2_version_8h.html</Path>
                   <Anchor>a10a48316d9fe53bbb03ca825b6aede54</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterCreateSelectedVersionList</Name>
+                  <Path>include_2arbiter_2_version_8h.html</Path>
+                  <Anchor>a2a73ed5429e64678dd9d93f96dddce04</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterCreateSemanticVersion</Name>
@@ -1943,6 +1733,11 @@
                   <Name>ArbiterFreeSelectedVersion</Name>
                   <Path>include_2arbiter_2_version_8h.html</Path>
                   <Anchor>a901dec118885ae6753bcab8464dd4f48</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterFreeSelectedVersionList</Name>
+                  <Path>include_2arbiter_2_version_8h.html</Path>
+                  <Anchor>a1c9e6c2a919e3231ba367c1012ab3401</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterFreeSemanticVersion</Name>
@@ -1995,6 +1790,22 @@
             <Path>dir_68267d1309a1af8e8297ef4c3efbcdba.html</Path>
             <Subnodes>
              <Node>
+              <Name>Algorithm.h</Name>
+              <Path>_algorithm_8h.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>maybeAt</Name>
+                <Path>_algorithm_8h.html</Path>
+                <Anchor>afdfd994bc91edf366d1acd8469e6017e</Anchor>
+               </Node>
+               <Node>
+                <Name>reset</Name>
+                <Path>_algorithm_8h.html</Path>
+                <Anchor>a06a8b9c7372bcb77fd89b3a423016f0e</Anchor>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
               <Name>Dependency.h</Name>
               <Path>src_2_dependency_8h.html</Path>
               <Subnodes>
@@ -2011,6 +1822,11 @@
                   <Name>ArbiterDependency</Name>
                   <Path>struct_arbiter_dependency.html</Path>
                   <Anchor>a5db242ea37875c7ad5db0658c1380b0b</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator&lt;</Name>
+                  <Path>struct_arbiter_dependency.html</Path>
+                  <Anchor>ada15f6ccabbb37c903c5196eddd1df92</Anchor>
                  </Node>
                  <Node>
                   <Name>operator=</Name>
@@ -2041,7 +1857,32 @@
                  <Node>
                   <Name>ArbiterDependencyList</Name>
                   <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>a9aa2c8abc462de6fdc88e8af39429e4f</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterDependencyList</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
                   <Anchor>af2b9274aa6d6b7a3949274c73100a2af</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterDependencyList</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>ae2d35a204c0b46feffbf7eb52902ad99</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterDependencyList</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>a135f95801b2ab3f386ca5b62b130a94e</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>abc68a72a017cfd8dab52adb4b505b01b</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>a646b783bb794c037f21f988149cce5e6</Anchor>
                  </Node>
                  <Node>
                   <Name>_dependencies</Name>
@@ -2062,12 +1903,22 @@
                  <Node>
                   <Name>ArbiterProjectIdentifier</Name>
                   <Path>struct_arbiter_project_identifier.html</Path>
+                  <Anchor>aae2ae2fdf64117cb99a0190f578703a3</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterProjectIdentifier</Name>
+                  <Path>struct_arbiter_project_identifier.html</Path>
                   <Anchor>a8c28e3259150288a9be44d39a998cb79</Anchor>
                  </Node>
                  <Node>
                   <Name>operator!=</Name>
                   <Path>struct_arbiter_project_identifier.html</Path>
                   <Anchor>af6441e0c2d5e2b5f12cc0525053ecac0</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator&lt;</Name>
+                  <Path>struct_arbiter_project_identifier.html</Path>
+                  <Anchor>aa8338dd3768d5b5bf269eb954dd272c8</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
@@ -2078,6 +1929,78 @@
                   <Name>_value</Name>
                   <Path>struct_arbiter_project_identifier.html</Path>
                   <Anchor>a86429cc4755c14bc209df117bc0e2a2e</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>ArbiterResolvedDependency</Name>
+                <Path>struct_arbiter_resolved_dependency.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>ArbiterResolvedDependency</Name>
+                  <Path>struct_arbiter_resolved_dependency.html</Path>
+                  <Anchor>a4f167e3c39287973c68c5c2a9db1e9f0</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator!=</Name>
+                  <Path>struct_arbiter_resolved_dependency.html</Path>
+                  <Anchor>a9e8ddecbfec5905b0eff57927f48e023</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator==</Name>
+                  <Path>struct_arbiter_resolved_dependency.html</Path>
+                  <Anchor>a0b19374f51b35b3bd2ddda0b640bfd12</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>_project</Name>
+                  <Path>struct_arbiter_resolved_dependency.html</Path>
+                  <Anchor>a2f3abc0c734ca77e89630294451609de</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>_version</Name>
+                  <Path>struct_arbiter_resolved_dependency.html</Path>
+                  <Anchor>addf77cd937a0ca7c20f9872671cf285c</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>ArbiterResolvedDependencyList</Name>
+                <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyList</Name>
+                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                  <Anchor>a8f9db5c6503eccfe7b326b4f91c3a356</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyList</Name>
+                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                  <Anchor>affe61dbe6fbca873c4c248dc5c832e9e</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyList</Name>
+                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                  <Anchor>a5f3d9a1a307ae7c69af77591b0b0bf83</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyList</Name>
+                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                  <Anchor>a3060cc0ee1d17625562b337d9ff8669e</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                  <Anchor>a69df2d0423c138acceea418f11bdd069</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                  <Anchor>a4354f29851168c1a0208d90bc152853d</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>_dependencies</Name>
+                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                  <Anchor>a19ceecabc8e893de9134fb887c90731b</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -2104,6 +2027,17 @@
                 </Subnodes>
                </Node>
                <Node>
+                <Name>hash&lt; ArbiterResolvedDependency &gt;</Name>
+                <Path>structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>operator()</Name>
+                  <Path>structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html</Path>
+                  <Anchor>a84a5e582f8b330d9f63c06bd5d797423</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
                 <Name>operator&lt;&lt;</Name>
                 <Path>src_2_dependency_8h.html</Path>
                 <Anchor>a506d6bc052044d7a86f4a79d2e61c886</Anchor>
@@ -2118,532 +2052,75 @@
                 <Path>src_2_dependency_8h.html</Path>
                 <Anchor>af2d0e8a943fb8d0bb8a67e6aa10ae004</Anchor>
                </Node>
-              </Subnodes>
-             </Node>
-             <Node>
-              <Name>Either.h</Name>
-              <Path>_either_8h.html</Path>
-              <Subnodes>
                <Node>
-                <Name>Either</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>LeftTag</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>struct_arbiter_1_1_either_1_1_left_tag</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>RightTag</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>struct_arbiter_1_1_either_1_1_right_tag</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a4bd3fd53353986dce643e2a31713b618</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a4ba254ec4418ac43a3b4ac418ac1797b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>afe18ddfd06dcab2b11ef30d9ff813220</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>aaa3523a7b0c65828381747fa26dce1d0</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>ae1a884a6513d4b8fb667d24fe8c27676</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a70249cb37d82d9f23c3fcd356536cb39</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>ac52e9e09b46d92f9d673fba995d4c8f9</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>~Either</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>adc7f747c9812cb5c15370f9c4296ac0e</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>hasLeft</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>abd4f9af917819c76ba4aba3faaa24899</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>hasRight</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>afc203f8ddc4a3353ab1db3d3155ff236</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>left</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a51886e36abf77d50d6add81bfca75b95</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>left</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a2731efd12041655339c3528205ea1697</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a33966c7b74794634886d5cca5482dc13</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a9915c5b23c0d8e6064d06db435a5a5f8</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>right</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>ac2fcaaa9d82c3d7e33c4c5cb171fe1ee</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>right</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>aab64002992172d9feabe8306002afe7b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>rightOrThrowLeft</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>af9f5a1708efd35b1a9a26e1fe793563b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>rightOrThrowLeft</Name>
-                  <Path>struct_arbiter_1_1_either.html</Path>
-                  <Anchor>a45fbdc9e23581feba38e4bf03249e62b</Anchor>
-                 </Node>
-                </Subnodes>
-               </Node>
-               <Node>
-                <Name>LeftTag</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>struct_arbiter_1_1_either_1_1_left_tag</Anchor>
-               </Node>
-               <Node>
-                <Name>RightTag</Name>
-                <Path>struct_arbiter_1_1_either.html</Path>
-                <Anchor>struct_arbiter_1_1_either_1_1_right_tag</Anchor>
-               </Node>
-               <Node>
-                <Name>Left</Name>
-                <Path>struct_arbiter_1_1_left.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>Left</Name>
-                  <Path>struct_arbiter_1_1_left.html</Path>
-                  <Anchor>add3d0c938c20794ede12490686009c7f</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Left</Name>
-                  <Path>struct_arbiter_1_1_left.html</Path>
-                  <Anchor>a0c76b03adf5101f06bc085b580e96041</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Left</Name>
-                  <Path>struct_arbiter_1_1_left.html</Path>
-                  <Anchor>aa8e4ea6d6709cfe503d0265bb174813b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>_value</Name>
-                  <Path>struct_arbiter_1_1_left.html</Path>
-                  <Anchor>ad831aa094b0251ca1d8b8a9542532eaa</Anchor>
-                 </Node>
-                </Subnodes>
-               </Node>
-               <Node>
-                <Name>Right</Name>
-                <Path>struct_arbiter_1_1_right.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>Right</Name>
-                  <Path>struct_arbiter_1_1_right.html</Path>
-                  <Anchor>ac09950a6584a953ec5b97de68a33c563</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Right</Name>
-                  <Path>struct_arbiter_1_1_right.html</Path>
-                  <Anchor>a294dd1fe3bc35aad0e68165ab4f13352</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Right</Name>
-                  <Path>struct_arbiter_1_1_right.html</Path>
-                  <Anchor>af9b98ac154f3e8b2f243c633e8e08d36</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>_value</Name>
-                  <Path>struct_arbiter_1_1_right.html</Path>
-                  <Anchor>ab427e7c59f7cc62868b63043f39e5e3c</Anchor>
-                 </Node>
-                </Subnodes>
-               </Node>
-               <Node>
-                <Name>hash&lt; Arbiter::Either&lt; Left, Right &gt; &gt;</Name>
-                <Path>structstd_1_1hash_3_01_arbiter_1_1_either_3_01_left_00_01_right_01_4_01_4.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>operator()</Name>
-                  <Path>structstd_1_1hash_3_01_arbiter_1_1_either_3_01_left_00_01_right_01_4_01_4.html</Path>
-                  <Anchor>a7ecf436ba01b8022e3c9d4a38c72cfb1</Anchor>
-                 </Node>
-                </Subnodes>
-               </Node>
-               <Node>
-                <Name>makeLeft</Name>
-                <Path>_either_8h.html</Path>
-                <Anchor>a4b4608a18b32ee835c214af19d13ae71</Anchor>
-               </Node>
-               <Node>
-                <Name>makeRight</Name>
-                <Path>_either_8h.html</Path>
-                <Anchor>acc5971de887510c036792c967510b391</Anchor>
-               </Node>
-               <Node>
-                <Name>operator==</Name>
-                <Path>_either_8h.html</Path>
-                <Anchor>a758080dd6f8b6690fa4d80470935dd58</Anchor>
+                <Name>operator&lt;&lt;</Name>
+                <Path>src_2_dependency_8h.html</Path>
+                <Anchor>ae15929fb900269c5c127e16415daa5da</Anchor>
                </Node>
               </Subnodes>
              </Node>
              <Node>
-              <Name>Future.h</Name>
-              <Path>_future_8h.html</Path>
+              <Name>Exception.h</Name>
+              <Path>_exception_8h.html</Path>
               <Subnodes>
                <Node>
-                <Name>Future</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
+                <Name>Base</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>Result</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a9a4364ec96d2aa90e74e3427efd872c0</Anchor>
+                  <Name>Base</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
+                  <Anchor>a6ddd88907768207d9b8a1540e241eec5</Anchor>
                  </Node>
                  <Node>
-                  <Name>Future</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>abbc7304b9f86c8f86bcaf0db3cc94c49</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Future</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a796b3f45dfd84c1e8931bf381a12ae46</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Future</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>ae3b0ee1dddb5d640f10140b16c8f483b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>add_callback</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a29ddff2e408cb87aae98ef87f5e568a8</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>get</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a2d4f433d9a4249b9d7c53d84887a0a7d</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>get</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>ad3eabaf91676bfaccf8a836e22331163</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>af10e4c2c015b056cd95ea365dc71b476</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a1bd86b1fd99151405922b8ab0afd8ec4</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>valid</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>aa2130486db9e21ee24e5a7a2d393f247</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>wait</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a54cf0346b5bf88b6862d17240fa6fe8f</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Promise&lt; T &gt;</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a697fa51a09bfecabc58fd6d07ce8f501</Anchor>
+                  <Name>Base</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
+                  <Anchor>a2243931aeb7b6d102780345141ff92db</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
                <Node>
-                <Name>Future</Name>
-                <Path>class_arbiter_1_1_future.html</Path>
+                <Name>MutuallyExclusiveConstraints</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_mutually_exclusive_constraints.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>Result</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a9a4364ec96d2aa90e74e3427efd872c0</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Future</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>abbc7304b9f86c8f86bcaf0db3cc94c49</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Future</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a796b3f45dfd84c1e8931bf381a12ae46</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Future</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>ae3b0ee1dddb5d640f10140b16c8f483b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>add_callback</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a29ddff2e408cb87aae98ef87f5e568a8</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>get</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a2d4f433d9a4249b9d7c53d84887a0a7d</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>get</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>ad3eabaf91676bfaccf8a836e22331163</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>af10e4c2c015b056cd95ea365dc71b476</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a1bd86b1fd99151405922b8ab0afd8ec4</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>valid</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>aa2130486db9e21ee24e5a7a2d393f247</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>wait</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a54cf0346b5bf88b6862d17240fa6fe8f</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Promise&lt; T &gt;</Name>
-                  <Path>class_arbiter_1_1_future.html</Path>
-                  <Anchor>a697fa51a09bfecabc58fd6d07ce8f501</Anchor>
+                  <Name>MutuallyExclusiveConstraints</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_mutually_exclusive_constraints.html</Path>
+                  <Anchor>ad2d6c4d299a18fa20c3b15a17adb22e2</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
                <Node>
-                <Name>Promise</Name>
-                <Path>class_arbiter_1_1_promise.html</Path>
+                <Name>UnsatisfiableConstraints</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>Result</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>ab9e6ed56302079afdb9e3c06ef93e417</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Promise</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a86b94596ae7db0eae64e1e4de07ef992</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Promise</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a6545d22333274f51776279552a353c9b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Promise</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a4a70a43428510f570df4f54066a5f5a2</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>~Promise</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a1e7398c25153c3a0e587cbe576e03e97</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>get_future</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>ab925e00ff33e94ecfe8588f9a3ffa70e</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a23221cfe86512ebdc904281e367dad69</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a2d3e8381522f6256dfd8b46d0332ae48</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>set_exception</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a15dc783950df12a4274be45a2a214e8b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>set_result</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>aa52fc2de4a33624cc33c4d0cfd6fba13</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>set_value</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a24f579e87cce5e66141d1589a3467e6e</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Future&lt; T &gt;</Name>
-                  <Path>class_arbiter_1_1_promise.html</Path>
-                  <Anchor>a3764cc1bcb8b7944580563d334984ace</Anchor>
-                 </Node>
-                </Subnodes>
-               </Node>
-              </Subnodes>
-             </Node>
-             <Node>
-              <Name>Generator.h</Name>
-              <Path>_generator_8h.html</Path>
-              <Subnodes>
-               <Node>
-                <Name>Generator</Name>
-                <Path>class_arbiter_1_1_generator.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>EventFuture</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>ac592315074bc7d56d2ca915486e60c4f</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Function</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>a4e0986827558f87ab89116436d4debbc</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Generator</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>aed47ea38bd47874fff488c19a5d92f0c</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Generator</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>a5b7609470053d577aef89b9c3bb51046</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Generator</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>a55ad808ccbf3d45264c7a4ff30b45c83</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Generator</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>ad6dc80ef63b15197b7a446267ac93f52</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>empty</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>af97a383aa382816a47159cbe18852f5d</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>next</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>a0511ecf5bae46ab8e7e505353a56084c</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>afa6820bc70926ebfa3fe15e96513dfb0</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_generator.html</Path>
-                  <Anchor>a70c1628b6bee4f2fa87807f2f8818e57</Anchor>
+                  <Name>UnsatisfiableConstraints</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html</Path>
+                  <Anchor>a5350881d69f0c4523ca241c75366c819</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
                <Node>
-                <Name>Sink</Name>
-                <Path>class_arbiter_1_1_sink.html</Path>
+                <Name>UserError</Name>
+                <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>Event</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a7b160b395cf85446d807e2e9956f7cc0</Anchor>
+                  <Name>UserError</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
+                  <Anchor>aa6f8bf174919c720eed120e296597317</Anchor>
                  </Node>
                  <Node>
-                  <Name>Sink</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a7d4fd31e808b167307099ce865f35635</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Sink</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>aa7e6468c7448ad21a98a0b3b2865a9f7</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>Sink</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a71d8d45eb1b03ce41b43cd579e856700</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>getGenerator</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a99d4fe044ba0a76325486261834eb3f5</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>onCompleted</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a1cfe31d3c29ee22d24b67144d39d15fb</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>onError</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a10d6faaecdbe168ab4f51b1fb02e115b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>onEvent</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a55f746c4d43e44b21fd0e9e42754fd3e</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>onNext</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>aebee08f96cfd85b26a9f05cba0f4c1f5</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>aeed0655a7714f8618886c3fa5289f1bd</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator=</Name>
-                  <Path>class_arbiter_1_1_sink.html</Path>
-                  <Anchor>a52324fa5fd0767defb594f37791e28b1</Anchor>
+                  <Name>UserError</Name>
+                  <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
+                  <Anchor>a2c2f043158e7bcd1454d212bfb351e11</Anchor>
                  </Node>
                 </Subnodes>
+               </Node>
+               <Node>
+                <Name>operator&lt;&lt;</Name>
+                <Path>_exception_8h.html</Path>
+                <Anchor>a1bd757a3ccca0b86552b12de5a4afb91</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -2655,6 +2132,140 @@
                 <Name>hashOf</Name>
                 <Path>_hash_8h.html</Path>
                 <Anchor>a7c177714e947121b6413560c539678a0</Anchor>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
+              <Name>Iterator.h</Name>
+              <Path>_iterator_8h.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>IteratorRange</Name>
+                <Path>struct_arbiter_1_1_iterator_range.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>IteratorRange</Name>
+                  <Path>struct_arbiter_1_1_iterator_range.html</Path>
+                  <Anchor>a12d25712d6376d28b13ca4368f47e3ec</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>_begin</Name>
+                  <Path>struct_arbiter_1_1_iterator_range.html</Path>
+                  <Anchor>adccd6a1189b08ef2babe2ad4f9b71137</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>_end</Name>
+                  <Path>struct_arbiter_1_1_iterator_range.html</Path>
+                  <Anchor>a43dbba1ed47b73473d4136d62df6fb6d</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>MultipassIterator</Name>
+                <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>MultipassIterator</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>a4d9b059e35c2f01bad9ae651553fc673</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>MultipassIterator</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>ab7a8c58804ad6d9c5d4a6c8f59d25bd5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>MultipassIterator</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>abb8fe44afe4be69298e977e081429c64</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>MultipassIterator</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>a93ac06b6807ddca1bab8f688ed9776a7</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator bool</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>afb7abbf3b345d6e267ae3b59ebab263f</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator*</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>aa44ce193e69d4cd91d580313aca8f5b9</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator++</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>af0c817447315a29ea7199a49c0856437</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>reset</Name>
+                  <Path>class_arbiter_1_1_multipass_iterator.html</Path>
+                  <Anchor>aefc371ed3541c2fe0f3f28c03ffd7474</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>PermutationIterator</Name>
+                <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>PermutationIterator</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>a4d5265385a22860b1593efd69ca5734d</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>PermutationIterator</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>ae7122e1e586cfd7f1abb5cb8bed815a3</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator bool</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>a8bdb37f88ea1ed9dc81f05988e21b8e7</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator!=</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>a04cae7b97e6c09d63ffe7da78c07ca1d</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator*</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>af99840af54fc68caae6b1058e1e19b0c</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator++</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>a7cd4ca9995a189a7dc058869ca2c58c5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator++</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>ade84314f66d4f373ae5ecb97ccde84e5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator==</Name>
+                  <Path>class_arbiter_1_1_permutation_iterator.html</Path>
+                  <Anchor>afa3e56963bfca89f693bc4d0c519d5dc</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>IteratorResultVector</Name>
+                <Path>_iterator_8h.html</Path>
+                <Anchor>a94a393a7560bf93adc8bab571d5e5854</Anchor>
+               </Node>
+               <Node>
+                <Name>makeIteratorRange</Name>
+                <Path>_iterator_8h.html</Path>
+                <Anchor>a26165c9469283c29c39f2ab8b81b5347</Anchor>
+               </Node>
+               <Node>
+                <Name>makeIteratorRange</Name>
+                <Path>_iterator_8h.html</Path>
+                <Anchor>a5f1578878f0a745be155f724ebb0d3aa</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -2671,6 +2282,11 @@
                 <Name>Optional</Name>
                 <Path>struct_arbiter_1_1_optional.html</Path>
                 <Subnodes>
+                 <Node>
+                  <Name>Value</Name>
+                  <Path>struct_arbiter_1_1_optional.html</Path>
+                  <Anchor>ac7286ea9106e97c4960a2ab1bf0a30e4</Anchor>
+                 </Node>
                  <Node>
                   <Name>Optional</Name>
                   <Path>struct_arbiter_1_1_optional.html</Path>
@@ -3078,23 +2694,23 @@
               <Path>src_2_resolver_8h.html</Path>
               <Subnodes>
                <Node>
-                <Name>ResolvedDependency</Name>
-                <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
+                <Name>DependencyGraph</Name>
+                <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>operator==</Name>
-                  <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
-                  <Anchor>aa057cc1ecc43d61ab9a96e6a64a9a9b0</Anchor>
+                  <Name>addNode</Name>
+                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
+                  <Anchor>aa66315f94f0f117493f2ecfe839ff784</Anchor>
                  </Node>
                  <Node>
-                  <Name>projectIdentifier</Name>
-                  <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
-                  <Anchor>a3a32b9cd5c0568ef0a26d23c1bc73126</Anchor>
+                  <Name>allNodes</Name>
+                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
+                  <Anchor>ab2631a0fd5a2c1a064406f1437eac923</Anchor>
                  </Node>
                  <Node>
-                  <Name>selectedVersion</Name>
-                  <Path>struct_arbiter_1_1_resolver_1_1_resolved_dependency.html</Path>
-                  <Anchor>acf95a9cbbe2d42350dbee384cfef1184</Anchor>
+                  <Name>describe</Name>
+                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
+                  <Anchor>a6175aa0dad35ebc4e1916dfa8e3d887e</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -3113,24 +2729,24 @@
                   <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
                  </Node>
                  <Node>
+                  <Name>availableVersionsSatisfying</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>aa86e4d0ed05739bd3ca8d3d62d99e769</Anchor>
+                 </Node>
+                 <Node>
                   <Name>fetchAvailableVersions</Name>
                   <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>a23bfaa1f446f0cafea439a4e50b3e9e9</Anchor>
+                  <Anchor>a62c3379058d6baca4625d5afceb2d107</Anchor>
                  </Node>
                  <Node>
-                  <Name>fetchDependencyList</Name>
+                  <Name>fetchDependencies</Name>
                   <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>a0ed1919df58076b4664051e5b59aa1ce</Anchor>
+                  <Anchor>a3e9ec2a7efe6a1c20d5c15efa189a362</Anchor>
                  </Node>
                  <Node>
-                  <Name>resolvedAll</Name>
+                  <Name>resolve</Name>
                   <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>abf493de4cdf62052336e403c2aff9453</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>resolveNext</Name>
-                  <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>af17c60b36fd4bedbe0e25dfc026ca1d5</Anchor>
+                  <Anchor>aecf6a39dc44552f9ecc7b3174a643b5d</Anchor>
                  </Node>
                  <Node>
                   <Name>_context</Name>
@@ -3140,15 +2756,9 @@
                 </Subnodes>
                </Node>
                <Node>
-                <Name>hash&lt; Arbiter::Resolver::ResolvedDependency &gt;</Name>
-                <Path>structstd_1_1hash_3_01_arbiter_1_1_resolver_1_1_resolved_dependency_01_4.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>operator()</Name>
-                  <Path>structstd_1_1hash_3_01_arbiter_1_1_resolver_1_1_resolved_dependency_01_4.html</Path>
-                  <Anchor>a83782655aa3fcd67b247d50e6e6f97e2</Anchor>
-                 </Node>
-                </Subnodes>
+                <Name>operator&lt;&lt;</Name>
+                <Path>src_2_resolver_8h.html</Path>
+                <Anchor>a80bbc86ad188fb0b927f9ef7e1a84587</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -3157,9 +2767,24 @@
               <Path>_to_string_8h.html</Path>
               <Subnodes>
                <Node>
+                <Name>copyAcquireCString</Name>
+                <Path>_to_string_8h.html</Path>
+                <Anchor>a7314319b682320ab1b01dfd3f7876cc4</Anchor>
+               </Node>
+               <Node>
+                <Name>copyCString</Name>
+                <Path>_to_string_8h.html</Path>
+                <Anchor>af0c3788361a5e2d3e88ed665498fec62</Anchor>
+               </Node>
+               <Node>
                 <Name>toString</Name>
                 <Path>_to_string_8h.html</Path>
                 <Anchor>a15c4c9cb7a48232e28ad2165fa35d1b3</Anchor>
+               </Node>
+               <Node>
+                <Name>acquireCString</Name>
+                <Path>_to_string_8h.html</Path>
+                <Anchor>acc4e6b2707595090e00a60bbb81f3f82</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -3171,6 +2796,11 @@
                 <Name>SharedUserValue</Name>
                 <Path>class_arbiter_1_1_shared_user_value.html</Path>
                 <Subnodes>
+                 <Node>
+                  <Name>SharedUserValue</Name>
+                  <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                  <Anchor>a5be9212601a489641488e914aef1f5df</Anchor>
+                 </Node>
                  <Node>
                   <Name>SharedUserValue</Name>
                   <Path>class_arbiter_1_1_shared_user_value.html</Path>
@@ -3192,9 +2822,34 @@
                   <Anchor>a00f6ccc566bbebf60645a35126a4b4ea</Anchor>
                  </Node>
                  <Node>
+                  <Name>operator!=</Name>
+                  <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                  <Anchor>a66587d89a3eb3b90f2cd53418bb0a5c2</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator&lt;</Name>
+                  <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                  <Anchor>accdfdbf00561a461039bc22a646aaaad</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator&lt;=</Name>
+                  <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                  <Anchor>a233b1ddc23b26ed7d607e4fe0d926051</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_shared_user_value.html</Path>
                   <Anchor>a68809201ace5637f3e6e76bf221d6275</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator&gt;</Name>
+                  <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                  <Anchor>a8e50dcc777757f9945050f0c47a97702</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator&gt;=</Name>
+                  <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                  <Anchor>a77ce5e722f734967f098e46d8742bd8a</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -3262,6 +2917,27 @@
                   <Name>_semanticVersion</Name>
                   <Path>struct_arbiter_selected_version.html</Path>
                   <Anchor>a7440b93a72fd6d0646c3df0709936ea8</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>ArbiterSelectedVersionList</Name>
+                <Path>struct_arbiter_selected_version_list.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>ArbiterSelectedVersionList</Name>
+                  <Path>struct_arbiter_selected_version_list.html</Path>
+                  <Anchor>a9f90fefa9407ac232c4cec145148beee</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterSelectedVersionList</Name>
+                  <Path>struct_arbiter_selected_version_list.html</Path>
+                  <Anchor>aa5e441bd0d03ba5e2418ea6324015bdc</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>_versions</Name>
+                  <Path>struct_arbiter_selected_version_list.html</Path>
+                  <Anchor>ad273ed0c04d6356c8df1596bdd3b8bb2</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -3362,6 +3038,11 @@
                 <Name>operator&lt;&lt;</Name>
                 <Path>src_2_version_8h.html</Path>
                 <Anchor>a3ceb0abab8fc985a9f559c17a56eb9e6</Anchor>
+               </Node>
+               <Node>
+                <Name>operator&lt;&lt;</Name>
+                <Path>src_2_version_8h.html</Path>
+                <Anchor>aec376d1954fd09c259c83ca520602075</Anchor>
                </Node>
               </Subnodes>
              </Node>

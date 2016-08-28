@@ -46,9 +46,10 @@
 </g>
 <!-- Node4&#45;&gt;Node1 -->
 <g id="edge3" class="edge"><title>Node4&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M107.861,-61.8597C135.526,-64.5796 169.339,-68.0354 199.62,-71.5 205.399,-72.1611 211.472,-72.8914 217.471,-73.6339"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="107.873,-58.3442 97.5799,-60.8548 107.192,-65.311 107.873,-58.3442"/>
-<text text-anchor="middle" x="159.325" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00"> equals</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M107.821,-55.162C135.608,-55.3224 169.538,-56.7487 199.62,-61.5 211.814,-63.4259 224.991,-66.975 236.104,-70.4159"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="107.494,-51.6619 97.4929,-55.1582 107.492,-58.6619 107.494,-51.6619"/>
+<text text-anchor="middle" x="159.325" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00"> lessThan</text>
+<text text-anchor="middle" x="159.325" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">equalTo</text>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node"><title>Node5</title>
@@ -57,9 +58,9 @@
 </g>
 <!-- Node5&#45;&gt;Node1 -->
 <g id="edge4" class="edge"><title>Node5&#45;&gt;Node1</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M80.9931,-15.4218C111.277,-21.9299 159.526,-33.4855 199.62,-48.5 215.996,-54.6326 233.789,-63.6746 246.223,-70.4126"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="81.5798,-11.9687 71.0731,-13.3329 80.1373,-18.8185 81.5798,-11.9687"/>
-<text text-anchor="middle" x="159.325" y="-50.5" font-family="Helvetica,sans-Serif" font-size="10.00"> data</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M81.3375,-12.634C111.896,-16.5536 160.36,-24.7564 199.62,-40.5 218.658,-48.1344 238.392,-61.4602 250.515,-70.3809"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="81.668,-9.14848 71.3197,-11.4208 80.8264,-16.0977 81.668,-9.14848"/>
+<text text-anchor="middle" x="159.325" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00"> data</text>
 </g>
 </g>
 </svg>

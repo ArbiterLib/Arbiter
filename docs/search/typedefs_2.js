@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['function',['Function',['../class_arbiter_1_1_generator.html#a4e0986827558f87ab89116436d4debbc',1,'Arbiter::Generator']]]
+  ['metadata',['Metadata',['../struct_arbiter_selected_version.html#a883198df77e7d43882095daa57e2fb02',1,'ArbiterSelectedVersion']]]
 ];

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['takeownership',['takeOwnership',['../struct_arbiter_1_1_resolver_1_1_resolved_dependency.html#ac74b2dbfddd0fece59441bb338519372',1,'Arbiter::Resolver::ResolvedDependency']]],
-  ['tostring',['toString',['../namespace_arbiter.html#a15c4c9cb7a48232e28ad2165fa35d1b3',1,'Arbiter']]]
+  ['value',['value',['../struct_arbiter_1_1_optional.html#a67b927fa3eaddc25997dff085a0b43d1',1,'Arbiter::Optional::value() noexcept'],['../struct_arbiter_1_1_optional.html#ab0f363163225390d70f9edc0b86ca680',1,'Arbiter::Optional::value() const  noexcept']]]
 ];

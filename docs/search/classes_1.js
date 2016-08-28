@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['compatiblewith',['CompatibleWith',['../class_arbiter_1_1_requirement_1_1_compatible_with.html',1,'Arbiter::Requirement']]]
+  ['base',['Base',['../struct_arbiter_1_1_exception_1_1_base.html',1,'Arbiter::Exception']]]
 ];

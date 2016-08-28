@@ -98,7 +98,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for ArbiterUserValue:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_user_value__coll__graph.svg" width="423" height="224"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_user_value__coll__graph.svg" width="423" height="224"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -112,9 +113,12 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a46326f865baa51148191f64d69846e5f"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_user_value.html#a46326f865baa51148191f64d69846e5f">destructor</a> )(void *<a class="el" href="struct_arbiter_user_value.html#a21ad42b0d600af18edb221b0cc7a2870">data</a>)</td></tr>
 <tr class="memdesc:a46326f865baa51148191f64d69846e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A cleanup function to call when the <a class="el" href="struct_arbiter_user_value.html" title="Represents an arbitrary value that can be associated with Arbiter data types and functionality. ">ArbiterUserValue</a> is done being used.  <a href="#a46326f865baa51148191f64d69846e5f">More...</a><br /></td></tr>
 <tr class="separator:a46326f865baa51148191f64d69846e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a6d3cc53439b5bac7c5ea362b033886"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_user_value.html#a6a6d3cc53439b5bac7c5ea362b033886">equals</a> )(const void *first, const void *second)</td></tr>
-<tr class="memdesc:a6a6d3cc53439b5bac7c5ea362b033886"><td class="mdescLeft">&#160;</td><td class="mdescRight">An equality operation over two data objects.  <a href="#a6a6d3cc53439b5bac7c5ea362b033886">More...</a><br /></td></tr>
-<tr class="separator:a6a6d3cc53439b5bac7c5ea362b033886"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ad30575098fbeaba0cf57bf4fa80ac"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_user_value.html#a58ad30575098fbeaba0cf57bf4fa80ac">equalTo</a> )(const void *first, const void *second)</td></tr>
+<tr class="memdesc:a58ad30575098fbeaba0cf57bf4fa80ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">An equality operation over two data objects.  <a href="#a58ad30575098fbeaba0cf57bf4fa80ac">More...</a><br /></td></tr>
+<tr class="separator:a58ad30575098fbeaba0cf57bf4fa80ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5581905b82a24eefd853a6ed055cde0f"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_user_value.html#a5581905b82a24eefd853a6ed055cde0f">lessThan</a> )(const void *first, const void *second)</td></tr>
+<tr class="memdesc:a5581905b82a24eefd853a6ed055cde0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether <code>first</code> is less than (should be ordered before) <code>second</code>.  <a href="#a5581905b82a24eefd853a6ed055cde0f">More...</a><br /></td></tr>
+<tr class="separator:a5581905b82a24eefd853a6ed055cde0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an arbitrary value that can be associated with <a class="el" href="namespace_arbiter.html">Arbiter</a> data types and functionality. </p>
@@ -136,7 +140,7 @@ Public Attributes</h2></td></tr>
 <p>The returned value must be dynamically allocated and support being destroyed with free().</p>
 <p>This may be NULL. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00048">48</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00055">55</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -170,16 +174,16 @@ Public Attributes</h2></td></tr>
 <p>A cleanup function to call when the <a class="el" href="struct_arbiter_user_value.html" title="Represents an arbitrary value that can be associated with Arbiter data types and functionality. ">ArbiterUserValue</a> is done being used. </p>
 <p>This may be NULL. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00040">40</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00047">47</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a6a6d3cc53439b5bac7c5ea362b033886"></a>
+<a class="anchor" id="a58ad30575098fbeaba0cf57bf4fa80ac"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool(* ArbiterUserValue::equals) (const void *first, const void *second)</td>
+          <td class="memname">bool(* ArbiterUserValue::equalTo) (const void *first, const void *second)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -191,13 +195,30 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a5581905b82a24eefd853a6ed055cde0f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool(* ArbiterUserValue::lessThan) (const void *first, const void *second)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether <code>first</code> is less than (should be ordered before) <code>second</code>. </p>
+<p>This must not be NULL. </p>
+
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00040">40</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/arbiter/<a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Aug 20 2016 23:23:16 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Aug 28 2016 23:39:20 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
