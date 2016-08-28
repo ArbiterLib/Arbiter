@@ -354,7 +354,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>include_2arbiter_2_resolver_8h.html</Path>
-    <Anchor>ae9d62bf4a862c49649fac81a3db58adb</Anchor>
+    <Anchor>a0174dd8b9a5f33c398335c346bc30f98</Anchor>
     <Abstract>Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick comp...</Abstract>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
@@ -1333,23 +1333,13 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>Context</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>tdef</Type>
-      <Scope>ArbiterResolver</Scope>
-    </TokenIdentifier>
-    <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a2a7258fe1962fbf1ed5e4fd923b57a39</Anchor>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>ArbiterResolver</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
+    <Anchor>a4db20c7b8839314114cd980b963f212e</Anchor>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
   <Token>
@@ -1408,7 +1398,7 @@
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a913aeaac961482fc0184e1be380a5d10</Anchor>
+    <Anchor>a7b2c6fdaa22e0223d5807275a9ebd87a</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>

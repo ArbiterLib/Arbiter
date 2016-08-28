@@ -1000,14 +1000,9 @@
             <Path>struct_arbiter_resolver.html</Path>
             <Subnodes>
              <Node>
-              <Name>Context</Name>
-              <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>a2a7258fe1962fbf1ed5e4fd923b57a39</Anchor>
-             </Node>
-             <Node>
               <Name>ArbiterResolver</Name>
               <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
+              <Anchor>a4db20c7b8839314114cd980b963f212e</Anchor>
              </Node>
              <Node>
               <Name>availableVersionsSatisfying</Name>
@@ -1032,7 +1027,7 @@
              <Node>
               <Name>_context</Name>
               <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>a913aeaac961482fc0184e1be380a5d10</Anchor>
+              <Anchor>a7b2c6fdaa22e0223d5807275a9ebd87a</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -1336,10 +1331,6 @@
             <Path>class_arbiter_1_1_shared_user_value.html</Path>
            </Node>
            <Node>
-            <Name>Arbiter::SharedUserValue&lt; ArbiterResolver &gt;</Name>
-            <Path>class_arbiter_1_1_shared_user_value.html</Path>
-           </Node>
-           <Node>
             <Name>Arbiter::SharedUserValue&lt; ArbiterSelectedVersion &gt;</Name>
             <Path>class_arbiter_1_1_shared_user_value.html</Path>
            </Node>
@@ -1634,7 +1625,7 @@
                  <Node>
                   <Name>ArbiterCreateResolver</Name>
                   <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>ae9d62bf4a862c49649fac81a3db58adb</Anchor>
+                  <Anchor>a0174dd8b9a5f33c398335c346bc30f98</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterFreeResolver</Name>
@@ -2719,14 +2710,9 @@
                 <Path>struct_arbiter_resolver.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>Context</Name>
-                  <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>a2a7258fe1962fbf1ed5e4fd923b57a39</Anchor>
-                 </Node>
-                 <Node>
                   <Name>ArbiterResolver</Name>
                   <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>a1211dac3e9d2ae7ae6ab8a21f06711fd</Anchor>
+                  <Anchor>a4db20c7b8839314114cd980b963f212e</Anchor>
                  </Node>
                  <Node>
                   <Name>availableVersionsSatisfying</Name>
@@ -2751,7 +2737,7 @@
                  <Node>
                   <Name>_context</Name>
                   <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>a913aeaac961482fc0184e1be380a5d10</Anchor>
+                  <Anchor>a7b2c6fdaa22e0223d5807275a9ebd87a</Anchor>
                  </Node>
                 </Subnodes>
                </Node>

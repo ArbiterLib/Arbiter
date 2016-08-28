@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="5,5,159,31"/>
+<area shape="rect" id="node1" href="$struct_arbiter_requirement.html" title="Represents a requirement for a specific version or set of versions. " alt="" coords="5,93,142,119"/>
+<area shape="rect" id="node2" href="$class_arbiter_1_1_requirement_1_1_any.html" title="A requirement satisfied by any version. " alt="" coords="190,5,365,31"/>
+<area shape="rect" id="node3" href="$class_arbiter_1_1_requirement_1_1_at_least.html" title="A requirement satisfied only by versions greater than or equal to the specified one. " alt="" coords="205,55,350,93"/>
+<area shape="rect" id="node4" href="$class_arbiter_1_1_requirement_1_1_compatible_with.html" title="A requirement satisfied only by versions which are &quot;compatible with&quot; the specified one..." alt="" coords="205,117,350,156"/>
+<area shape="rect" id="node5" href="$class_arbiter_1_1_requirement_1_1_exactly.html" title="A requirement satisfied only by one exact version. " alt="" coords="205,180,350,219"/>
 </map>

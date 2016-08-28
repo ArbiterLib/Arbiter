@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['context',['Context',['../struct_arbiter_resolver.html#a2a7258fe1962fbf1ed5e4fd923b57a39',1,'ArbiterResolver']]]
+  ['iteratorresultvector',['IteratorResultVector',['../namespace_arbiter.html#a94a393a7560bf93adc8bab571d5e5854',1,'Arbiter']]]
 ];
