@@ -23,6 +23,9 @@ struct ArbiterProjectIdentifier final
 
     Value _value;
 
+    ArbiterProjectIdentifier ()
+    {}
+
     explicit ArbiterProjectIdentifier (Value value)
       : _value(std::move(value))
     {}
@@ -35,6 +38,11 @@ struct ArbiterProjectIdentifier final
     bool operator!= (const ArbiterProjectIdentifier &other) const
     {
       return !(*this == other);
+    }
+
+    bool operator< (const ArbiterProjectIdentifier &other) const
+    {
+      return _value < other._value;
     }
 };
 
@@ -60,6 +68,11 @@ struct ArbiterDependency final
 
     bool operator== (const ArbiterDependency &other) const;
 
+    bool operator< (const ArbiterDependency &other) const
+    {
+      return _projectIdentifier < other._projectIdentifier;
+    }
+
   private:
     std::unique_ptr<ArbiterRequirement> _requirement;
 };
@@ -71,9 +84,17 @@ struct ArbiterDependencyList final
   public:
     std::vector<ArbiterDependency> _dependencies;
 
+    ArbiterDependencyList () = default;
+
     explicit ArbiterDependencyList (std::vector<ArbiterDependency> dependencies)
       : _dependencies(std::move(dependencies))
     {}
+
+    ArbiterDependencyList (const ArbiterDependencyList &) = default;
+    ArbiterDependencyList &operator= (const ArbiterDependencyList &) = default;
+
+    ArbiterDependencyList (ArbiterDependencyList &&) = default;
+    ArbiterDependencyList &operator= (ArbiterDependencyList &&) = default;
 };
 
 std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &dependencyList);
@@ -107,9 +128,17 @@ struct ArbiterResolvedDependencyList final
   public:
     std::vector<ArbiterResolvedDependency> _dependencies;
 
+    ArbiterResolvedDependencyList () = default;
+
     explicit ArbiterResolvedDependencyList (std::vector<ArbiterResolvedDependency> dependencies)
       : _dependencies(std::move(dependencies))
     {}
+
+    ArbiterResolvedDependencyList (const ArbiterResolvedDependencyList &) = default;
+    ArbiterResolvedDependencyList &operator= (const ArbiterResolvedDependencyList &) = default;
+
+    ArbiterResolvedDependencyList (ArbiterResolvedDependencyList &&) = default;
+    ArbiterResolvedDependencyList &operator= (ArbiterResolvedDependencyList &&) = default;
 };
 
 namespace std {

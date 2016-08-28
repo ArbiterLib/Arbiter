@@ -30,7 +30,14 @@ typedef struct
    *
    * This must not be NULL.
    */
-  bool (*equals)(const void *first, const void *second);
+  bool (*equalTo)(const void *first, const void *second);
+
+  /**
+   * Returns whether `first` is less than (should be ordered before) `second`.
+   *
+   * This must not be NULL.
+   */
+  bool (*lessThan)(const void *first, const void *second);
 
   /**
    * A cleanup function to call when the ArbiterUserValue is done being used.

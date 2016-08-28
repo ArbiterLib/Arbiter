@@ -5,16 +5,31 @@
 #endif
 
 #include <exception>
+#include <ostream>
 #include <stdexcept>
 
 namespace Arbiter {
 namespace Exception {
 
 /**
+ * Base type for Arbiter exceptions.
+ */
+struct Base : std::runtime_error
+{
+  public:
+    Base () = delete;
+
+  protected:
+    Base (const std::string &string)
+      : std::runtime_error(string)
+    {}
+};
+
+/**
  * Exception type representing an error that was returned from Arbiter client
  * code.
  */
-struct UserError final : std::runtime_error
+struct UserError final : Base
 {
   public:
     UserError ()
@@ -22,7 +37,7 @@ struct UserError final : std::runtime_error
     {}
 
     explicit UserError (const std::string &string)
-      : std::runtime_error(string)
+      : Base(string)
     {}
 };
 
@@ -30,11 +45,11 @@ struct UserError final : std::runtime_error
  * Exception type indicating that there were mutually exclusive constraints in
  * a proposed dependency graph.
  */
-struct MutuallyExclusiveConstraints final : std::runtime_error
+struct MutuallyExclusiveConstraints final : Base
 {
   public:
     explicit MutuallyExclusiveConstraints (const std::string &string)
-      : std::runtime_error(string)
+      : Base(string)
     {}
 };
 
@@ -42,13 +57,15 @@ struct MutuallyExclusiveConstraints final : std::runtime_error
  * Exception type indicating that there were unsatisfiable constraints for the
  * selected versions in a proposed dependency graph.
  */
-struct UnsatisfiableConstraints final : std::runtime_error
+struct UnsatisfiableConstraints final : Base
 {
   public:
     explicit UnsatisfiableConstraints (const std::string &string)
-      : std::runtime_error(string)
+      : Base(string)
     {}
 };
 
 }
 } // namespace Arbiter
+
+std::ostream &operator<< (std::ostream &os, const Arbiter::Exception::Base &ex);

@@ -10,9 +10,11 @@
 #include "Value.h"
 #include "Version.h"
 
-#include <mutex>
+#include <map>
+#include <set>
 #include <unordered_map>
 #include <unordered_set>
+#include <vector>
 
 namespace Arbiter {
 namespace Resolver {
@@ -28,10 +30,6 @@ namespace Resolver {
 class DependencyGraph final
 {
   public:
-    using Node = ArbiterResolvedDependency;
-    using NodeSet = std::unordered_set<Node>;
-    using EdgeMap = std::unordered_map<Node, NodeSet>;
-
     /**
      * Attempts to add the given node into the graph, as a dependency of
      * `dependent` if specified.
@@ -41,53 +39,41 @@ class DependencyGraph final
      *
      * Throws an exception if this addition would make the graph inconsistent.
      */
-    void addNode (Node node, const ArbiterRequirement &initialRequirement, const Optional<Node> &dependent) noexcept(false);
+    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Optional<ArbiterProjectIdentifier> &dependent) noexcept(false);
 
     /**
-     * Attempts to add a complete graph below `dependent`, or merge it into the
-     * roots of this graph if `dependent` is null.
-     *
-     * Throws an exception if this concatenation would make the graph inconsistent.
+     * Returns a list of all nodes in the graph, in no particular order. There
+     * are guaranteed to be no duplicate projects in the vector.
      */
-    void concatGraph (const DependencyGraph &other, const Optional<Node> &dependent) noexcept(false);
+    std::vector<ArbiterResolvedDependency> allNodes () const;
 
-    /**
-     * Returns a list of all nodes in the graph. There are guaranteed to be no
-     * duplicates in the vector.
-     */
-    std::vector<Node> allNodes() const;
-
-    /**
-     * The root nodes of the graph (i.e., those dependencies that are listed by
-     * the top-level project).
-     */
-    const NodeSet &roots() const noexcept
-    {
-      return _roots;
-    }
-
-    /**
-     * Maps between nodes in the graph and their immediate dependencies.
-     */
-    const EdgeMap &edges() const noexcept
-    {
-      return _edges;
-    }
-
-    bool operator== (const DependencyGraph &other) const;
+    std::ostream &describe (std::ostream &os) const;
 
   private:
-    EdgeMap _edges;
-    NodeSet _roots;
+    using NodeKey = ArbiterProjectIdentifier;
 
-    /**
-     * A map containing all nodes in the graph, associated with the current
-     * requirement specification for each.
-     *
-     * The associated requirement may change as the graph is added to, and
-     * therefore the requirements become more stringent.
-     */
-    std::unordered_map<Node, std::shared_ptr<ArbiterRequirement>> _requirementsByNode;
+    struct NodeValue final
+    {
+      public:
+        const ArbiterSelectedVersion _version;
+
+        NodeValue (ArbiterSelectedVersion version, const ArbiterRequirement &requirement);
+
+        const ArbiterRequirement &requirement () const;
+
+        void setRequirement (const ArbiterRequirement &requirement);
+        void setRequirement (std::unique_ptr<ArbiterRequirement> requirement);
+
+      private:
+        std::shared_ptr<ArbiterRequirement> _requirement;
+    };
+
+    static ArbiterResolvedDependency resolveNode (const NodeKey &key, const NodeValue &value);
+    ArbiterResolvedDependency resolveNode (const NodeKey &key) const;
+
+    std::set<NodeKey> _roots;
+    std::map<NodeKey, std::unordered_set<NodeKey>> _edges;
+    std::unordered_map<NodeKey, NodeValue> _nodeMap;
 };
 
 } // namespace Resolver
@@ -116,20 +102,20 @@ struct ArbiterResolver final
      *
      * Returns the dependency list or throws an exception.
      */
-    ArbiterDependencyList fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) const noexcept(false);
+    ArbiterDependencyList fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) noexcept(false);
 
     /**
      * Fetches the list of available versions for the given project.
      *
      * Returns the version list or throws an exception.
      */
-    ArbiterSelectedVersionList fetchAvailableVersions (const ArbiterProjectIdentifier &project) const noexcept(false);
+    ArbiterSelectedVersionList fetchAvailableVersions (const ArbiterProjectIdentifier &project) noexcept(false);
 
     /**
      * Computes a list of available versions for the specified project which
      * satisfy the given requirement.
      */
-    std::vector<ArbiterSelectedVersion> availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) const noexcept(false);
+    std::vector<ArbiterSelectedVersion> availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) noexcept(false);
 
     /**
      * Attempts to resolve all dependencies.
@@ -139,4 +125,9 @@ struct ArbiterResolver final
   private:
     const ArbiterResolverBehaviors _behaviors;
     const ArbiterDependencyList _dependencyList;
+
+    std::unordered_map<ArbiterResolvedDependency, ArbiterDependencyList> _cachedDependencies;
+    std::unordered_map<ArbiterProjectIdentifier, ArbiterSelectedVersionList> _cachedAvailableVersions;
+
+    Arbiter::Resolver::DependencyGraph resolveDependencies (const Arbiter::Resolver::DependencyGraph &baseGraph, std::set<ArbiterDependency> dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false);
 };
