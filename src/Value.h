@@ -26,6 +26,9 @@ template<typename Owner>
 class SharedUserValue final
 {
   public:
+    SharedUserValue ()
+    {}
+
     explicit SharedUserValue (ArbiterUserValue value)
       : _data(std::shared_ptr<void>(value.data, (value.destructor ? value.destructor : &noOpDestructor)))
       , _equalTo(value.equalTo)

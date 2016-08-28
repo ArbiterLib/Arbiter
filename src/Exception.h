@@ -5,6 +5,7 @@
 #endif
 
 #include <exception>
+#include <ostream>
 #include <stdexcept>
 
 namespace Arbiter {
@@ -66,3 +67,5 @@ struct UnsatisfiableConstraints final : Base
 
 }
 } // namespace Arbiter
+
+std::ostream &operator<< (std::ostream &os, const Arbiter::Exception::Base &ex);

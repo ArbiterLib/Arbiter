@@ -118,6 +118,8 @@ struct ArbiterSelectedVersionList final
   public:
     std::vector<ArbiterSelectedVersion> _versions;
 
+    ArbiterSelectedVersionList () = default;
+
     explicit ArbiterSelectedVersionList (std::vector<ArbiterSelectedVersion> versions)
       : _versions(std::move(versions))
     {}
