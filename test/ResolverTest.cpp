@@ -214,7 +214,7 @@ TEST(ResolverTest, ResolvesEmptyDependencies) {
   behaviors.createDependencyList = &createEmptyDependencyList;
   behaviors.createAvailableVersionsList = &createEmptyAvailableVersionsList;
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(), makeSharedUserValue<ArbiterResolver, EmptyTestValue>());
+  ArbiterResolver resolver(behaviors, ArbiterDependencyList(), nullptr);
 
   ArbiterResolvedDependencyList resolved = resolver.resolve();
   EXPECT_TRUE(resolved._dependencies.empty());
@@ -228,7 +228,7 @@ TEST(ResolverTest, ResolvesOneDependency) {
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(emptyProjectIdentifier(), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 0)));
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), makeSharedUserValue<ArbiterResolver, EmptyTestValue>());
+  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyList resolved = resolver.resolve();
   ASSERT_EQ(resolved._dependencies.size(), 1);
@@ -247,7 +247,7 @@ TEST(ResolverTest, ResolvesMultipleDependencies)
   dependencies.emplace_back(makeProjectIdentifier("A"), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 1)));
   dependencies.emplace_back(makeProjectIdentifier("C"), Requirement::Exactly(ArbiterSemanticVersion(1, 0, 0)));
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), makeSharedUserValue<ArbiterResolver, EmptyTestValue>());
+  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyList resolved = resolver.resolve();
   ASSERT_EQ(resolved._dependencies.size(), 3);
@@ -266,7 +266,7 @@ TEST(ResolverTest, ResolvesTransitiveDependencies)
   dependencies.emplace_back(makeProjectIdentifier("ancestor"), Requirement::Exactly(ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha"))));
   dependencies.emplace_back(makeProjectIdentifier("parent"), Requirement::CompatibleWith(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessStrict));
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), makeSharedUserValue<ArbiterResolver, EmptyTestValue>());
+  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyList resolved = resolver.resolve();
   ASSERT_EQ(resolved._dependencies.size(), 6);

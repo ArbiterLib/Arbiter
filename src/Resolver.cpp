@@ -116,14 +116,14 @@ std::ostream &operator<< (std::ostream &os, const DependencyGraph &graph)
   return graph.describe(os);
 }
 
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserValue context)
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, const void *context)
 {
-  return new ArbiterResolver(std::move(behaviors), *dependencyList, ArbiterResolver::Context(std::move(context)));
+  return new ArbiterResolver(std::move(behaviors), *dependencyList, context);
 }
 
 const void *ArbiterResolverContext (const ArbiterResolver *resolver)
 {
-  return resolver->_context.data();
+  return resolver->_context;
 }
 
 ArbiterResolvedDependencyList *ArbiterResolverCreateResolvedDependencyList (ArbiterResolver *resolver, char **error)

@@ -84,12 +84,10 @@ std::ostream &operator<< (std::ostream &os, const Arbiter::Resolver::DependencyG
 struct ArbiterResolver final
 {
   public:
-    using Context = Arbiter::SharedUserValue<ArbiterResolver>;
+    const void *_context;
 
-    Context _context;
-
-    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, Context context)
-      : _context(std::move(context))
+    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, const void *context)
+      : _context(context)
       , _behaviors(std::move(behaviors))
       , _dependencyList(std::move(dependencyList))
     {
