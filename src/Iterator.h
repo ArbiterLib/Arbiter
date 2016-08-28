@@ -4,7 +4,10 @@
 #error "This file must be compiled as C++."
 #endif
 
+#include "Tuple.h"
+
 #include <iterator>
+#include <stdexcept>
 #include <tuple>
 
 namespace Arbiter {
@@ -37,6 +40,9 @@ using TupledIteratorReference = std::tuple<typename std::iterator_traits<It...>:
 template<typename Category, typename Distance, typename... It>
 using TupledIterator = std::iterator<Category, TupledIteratorValue<It...>, Distance, TupledIteratorPointer<It...>, TupledIteratorReference<It...>>;
 
+/**
+ * Represents a pair of iterators bracketing the start and end of a range.
+ */
 template<typename It>
 struct IteratorRange final
 {
@@ -50,13 +56,29 @@ struct IteratorRange final
     {}
 };
 
+template<typename Collection>
+auto makeIteratorRange (Collection &collection)
+{
+  auto begin = std::begin(collection);
+  return IteratorRange<decltype(begin)>(std::move(begin), std::end(collection));
+}
+
+template<typename Collection>
+auto makeIteratorRange (const Collection &collection)
+{
+  auto begin = std::begin(collection);
+  return IteratorRange<decltype(begin)>(std::move(begin), std::end(collection));
+}
+
+/**
+ * Contains the state necessary to perform an algorithm over an iterator
+ * multiple times.
+ */
 template<typename It>
-struct MultipassIterator final
+class MultipassIterator final
 {
   public:
-    It _begin;
-    It _current;
-    It _end;
+    MultipassIterator () = default;
 
     MultipassIterator (It begin, It current, It end)
       : _begin(std::move(begin))
@@ -76,6 +98,38 @@ struct MultipassIterator final
     {
       _current = _begin;
     }
+
+    explicit operator bool () const
+    {
+      return _current != _end;
+    }
+
+    bool incrementIfValid ()
+    {
+      if (static_cast<bool>(*this)) {
+        ++_current;
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    void reset ()
+    {
+      _current = _begin;
+    }
+
+    std::iterator_traits<It>::reference operator* () const
+    {
+      assert(static_cast<bool>(*this));
+      return *_current;
+    }
+
+  private:
+    It _begin;
+    It _current;
+    It _end;
+
 };
 
 /**
@@ -102,15 +156,11 @@ class PermutationIterator final : public TupledIterator<std::forward_iterator_ta
       : _iterators(std::make_tuple(MultipassIterator<It>(std::move(ranges))...))
     {}
 
-    PermutationIterator &operator++ ()
+    PermutationIterator &operator++ () noexcept(false)
     {
-      if (_rightCurrent == _rightEnd) {
-        _rightCurrent = _rightBegin;
-
-        assert(_leftCurrent != _leftEnd);
-        ++_leftCurrent;
-      } else {
-        ++_rightCurrent;
+      bool incremented = Tuple::foldr(_iterators, false, &incrementLastValid, std::make_index_sequence<sizeof...(It)>());
+      if (!incremented) {
+        throw std::out_of_range("Attempt to increment PermutationIterator beyond end");
       }
 
       return *this;
@@ -125,7 +175,7 @@ class PermutationIterator final : public TupledIterator<std::forward_iterator_ta
 
     bool operator== (const PermutationIterator &other) const
     {
-      return _leftCurrent == other._leftCurrent && _rightCurrent == other._rightCurrent;
+      return _iterators == other._iterators;
     }
 
     bool operator!= (const PermutationIterator &other) const
@@ -133,9 +183,9 @@ class PermutationIterator final : public TupledIterator<std::forward_iterator_ta
       return !(*this == other);
     }
 
-    TupledIteratorReference<It...> operator*() const
+    TupledIteratorReference<It...> operator* () const
     {
-      return std::make_tuple(*_leftCurrent, *_rightCurrent);
+      return Tuple::multiDereference(_iterators, std::make_index_sequence<sizeof...(It)>());
     }
 
     /**
@@ -143,25 +193,54 @@ class PermutationIterator final : public TupledIterator<std::forward_iterator_ta
      *
      * If this is false, it is an error to increment the iterator further.
      */
-    operator bool () const
+    explicit operator bool () const
     {
-      return _leftCurrent != _leftEnd && _rightCurrent != _rightEnd;
+      return Tuple::multiAnd(_iterators, std::make_index_sequence<sizeof...(It)>());
     }
 
   private:
-    std::tuple<MultipassIterator<It>...> _iterators;
+    using IteratorTuple = std::tuple<MultipassIterator<It>...>;
+
+    IteratorTuple _iterators;
+
+    template<typename InnerIt>
+    static bool incrementLastValid (MultipassIterator<InnerIt> &it, bool incrementedNext)
+    {
+      if (incrementedNext) {
+        return true;
+      }
+
+      if (it.incrementIfValid()) {
+        return true;
+      } else {
+        it.reset();
+        return false;
+      }
+    }
 };
 
 /**
  * Creates an iterator which generates every possible combination of the values
  * between the given ranges.
  *
- * All inputs must be forward iterators.
+ * All inputs must be forward iterators or better.
  */
-template<typename LeftIt, typename RightIt>
-PermutationIterator<LeftIt, RightIt> permute (LeftIt leftBegin, LeftIt leftEnd, RightIt rightBegin, RightIt rightEnd)
+template<typename... It>
+PermutationIterator<It...> permute (IteratorRange<It>... ranges)
 {
-  return PermutationIterator<LeftIt, RightIt>(std::move(leftBegin), std::move(leftEnd), std::move(rightBegin), std::move(rightEnd));
+  return PermutationIterator<It...>(std::move(ranges)...);
+}
+
+/**
+ * Creates an iterator which generates every possible combination of the values
+ * between the given collections.
+ *
+ * The given collections must support multipass iteration.
+ */
+template<typename... Collections>
+PermutationIterator<It...> permute (Collections... &&collections)
+{
+  return permute(makeIteratorRange(std::forward<Collections>(collections))...)
 }
 
 } // namespace Arbiter
