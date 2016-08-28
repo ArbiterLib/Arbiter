@@ -148,14 +148,21 @@ void ArbiterFreeResolver (ArbiterResolver *resolver)
   delete resolver;
 }
 
-ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) const noexcept(false)
+ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) noexcept(false)
 {
+  ArbiterResolvedDependency resolved(project, version);
+  if (auto list = maybeAt(_cachedDependencies, resolved)) {
+    return *list;
+  }
+
   char *error = nullptr;
   std::unique_ptr<ArbiterDependencyList> dependencyList(_behaviors.createDependencyList(this, &project, &version, &error));
 
   if (dependencyList) {
     assert(!error);
-    return *dependencyList;
+
+    _cachedDependencies[resolved] = *dependencyList;
+    return std::move(*dependencyList);
   } else if (error) {
     throw Exception::UserError(copyAcquireCString(error));
   } else {
@@ -163,14 +170,20 @@ ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectId
   }
 }
 
-ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const ArbiterProjectIdentifier &project) const noexcept(false)
+ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const ArbiterProjectIdentifier &project) noexcept(false)
 {
+  if (auto list = maybeAt(_cachedAvailableVersions, project)) {
+    return *list;
+  }
+
   char *error = nullptr;
   std::unique_ptr<ArbiterSelectedVersionList> versionList(_behaviors.createAvailableVersionsList(this, &project, &error));
 
   if (versionList) {
     assert(!error);
-    return *versionList;
+
+    _cachedAvailableVersions[project] = *versionList;
+    return std::move(*versionList);
   } else if (error) {
     throw Exception::UserError(copyAcquireCString(error));
   } else {
@@ -286,7 +299,7 @@ DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &bas
   rethrow_exception(lastException);
 }
 
-std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) const noexcept(false)
+std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) noexcept(false)
 {
   std::vector<ArbiterSelectedVersion> versions = fetchAvailableVersions(project)._versions;
 
