@@ -3,10 +3,9 @@
 #include "Hash.h"
 
 #include <ostream>
-#include <sstream>
-#include <iostream>
-#include <string>
 #include <regex>
+#include <sstream>
+#include <string>
 
 using namespace Arbiter;
 
@@ -89,9 +88,63 @@ bool ArbiterSemanticVersion::operator< (const ArbiterSemanticVersion &other) con
     if (!other._prereleaseVersion) {
       return true;
     }
+    
+    std::istringstream left(*_prereleaseVersion);
+    std::istringstream right(*other._prereleaseVersion);
 
-    // FIXME: This should compare numbers naturally, not lexically
-    return _prereleaseVersion.value() < other._prereleaseVersion.value();
+    while (true) {
+      std::string leftPiece;
+      std::string rightPiece;
+
+      if (!std::getline(left, leftPiece, '.')) {
+        if (std::getline(right, rightPiece, '.')) {
+          // `left` is shorter, therefore lower precedence
+          return true;
+        } else {
+          // Equivalent prerelease versions
+          return false;
+        }
+      } else if (!std::getline(right, rightPiece, '.')) {
+        // `right` is shorter, therefore `left` is higher precedence
+        return false;
+      }
+
+      Optional<unsigned long> leftNum;
+      Optional<unsigned long> rightNum;
+
+      try {
+        leftNum = std::stoul(leftPiece);
+      } catch (std::invalid_argument &ex) {
+      }
+
+      try {
+        rightNum = std::stoul(rightPiece);
+      } catch (std::invalid_argument &ex) {
+      }
+
+      if (leftNum) {
+        if (rightNum) {
+          if (*leftNum < *rightNum) {
+            return true;
+          } else if (*leftNum > *rightNum) {
+            return false;
+          }
+        } else {
+          // `left` has lower precedence because it is numeric
+          return true;
+        }
+      } else if (rightNum) {
+        // `left` has higher precedence because it is non-numeric
+        return false;
+      } else {
+        // Compare strings lexically
+        if (leftPiece < rightPiece) {
+          return true;
+        } else if (leftPiece > rightPiece) {
+          return false;
+        }
+      }
+    }
   }
 
   // Build metadata does not participate in precedence.

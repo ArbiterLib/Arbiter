@@ -67,6 +67,8 @@ TEST(VersionTest, ComparesForPrecedence) {
   EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.2")));
   EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.2")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.10")));
   EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha")), ArbiterSemanticVersion(1, 2, 3, makeOptional("beta")));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")));
+  EXPECT_LT(ArbiterSemanticVersion(1, 2, 3, makeOptional("1")), ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha")));
 }
 
 TEST(VersionTest, ConvertsToString) {
