@@ -180,19 +180,20 @@ ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const Arbite
 
 ArbiterResolvedDependencyList ArbiterResolver::resolve () noexcept(false)
 {
-  // TODO: Replace _dependencyList with this.
   std::set<ArbiterDependency> dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
 
   DependencyGraph graph = resolveDependencies(DependencyGraph(), std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
   return ArbiterResolvedDependencyList(graph.allNodes());
 }
 
-DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &baseGraph, const std::set<ArbiterDependency> &dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
+DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &baseGraph, std::set<ArbiterDependency> dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
 {
   if (dependencySet.empty()) {
     return baseGraph;
   }
 
+  // This collection is reused when actually building the new dependency graph
+  // below.
   std::map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
 
   for (const ArbiterDependency &dependency : dependencySet) {
@@ -201,6 +202,10 @@ DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &bas
 
   assert(requirementsByProject.size() == dependencySet.size());
 
+  // Free the dependencySet, as it will no longer be used.
+  reset(dependencySet);
+
+  // This collection needs to exist for as long as the permuted iterators do below.
   std::map<ArbiterProjectIdentifier, std::vector<ArbiterResolvedDependency>> possibilities;
 
   for (const auto &pair : requirementsByProject) {
@@ -270,7 +275,7 @@ DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &bas
         collectedTransitives.insert(transitives.begin(), transitives.end());
       }
 
-      // TODO: Free local collections before recursing?
+      reset(choices);
 
       return resolveDependencies(candidate, std::move(collectedTransitives), std::move(dependentsByTransitive));
     } catch (Arbiter::Exception::Base &ex) {

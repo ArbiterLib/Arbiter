@@ -6,6 +6,7 @@
 
 #include "Optional.h"
 
+#include <algorithm>
 #include <type_traits>
 
 namespace Arbiter {
@@ -22,6 +23,16 @@ Optional<Value> maybeAt (const Map &map, const Key &key)
   } else {
     return makeOptional(it->second);
   }
+}
+
+/**
+ * Resets a swappable value to its default constructor.
+ */
+template<typename Swappable>
+void reset (Swappable &value)
+{
+  Swappable temp;
+  std::swap(value, temp);
 }
 
 } // namespace Arbiter

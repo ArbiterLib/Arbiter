@@ -102,6 +102,7 @@ struct ArbiterResolver final
      *
      * Returns the dependency list or throws an exception.
      */
+    // TODO: Implement caching.
     ArbiterDependencyList fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) const noexcept(false);
 
     /**
@@ -109,6 +110,7 @@ struct ArbiterResolver final
      *
      * Returns the version list or throws an exception.
      */
+    // TODO: Implement caching.
     ArbiterSelectedVersionList fetchAvailableVersions (const ArbiterProjectIdentifier &project) const noexcept(false);
 
     /**
@@ -126,5 +128,5 @@ struct ArbiterResolver final
     const ArbiterResolverBehaviors _behaviors;
     const ArbiterDependencyList _dependencyList;
 
-    Arbiter::Resolver::DependencyGraph resolveDependencies (const Arbiter::Resolver::DependencyGraph &baseGraph, const std::set<ArbiterDependency> &dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false);
+    Arbiter::Resolver::DependencyGraph resolveDependencies (const Arbiter::Resolver::DependencyGraph &baseGraph, std::set<ArbiterDependency> dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false);
 };
