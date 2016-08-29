@@ -12,6 +12,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// not portable
+#include <dirent.h>
+
 static const int lineReadLength = 1024;
 
 typedef enum
@@ -134,5 +137,60 @@ cleanup:
   }
 
   free(dependenciesPath);
+  return result;
+}
+
+ArbiterSelectedVersionList *create_available_versions_list (const ArbiterResolver *resolver, const ArbiterProjectIdentifier *project, char **error)
+{
+  assert(project);
+  assert(error);
+
+  const char *projectPath = ArbiterProjectIdentifierValue(project);
+  assert(projectPath);
+
+  ArbiterSelectedVersionList *result = NULL;
+
+  ArbiterSelectedVersion **versions = NULL;
+  size_t versionsCount = 0;
+
+  DIR *dir = opendir(projectPath);
+
+  struct dirent *dp;
+  while ((dp = readdir(dir))) {
+    const char *name = dp->d_name;
+    size_t len = dp->d_namlen;
+
+    ArbiterSemanticVersion *semanticVersion = ArbiterCreateSemanticVersionFromString(name);
+    if (!semanticVersion) {
+      continue;
+    }
+
+    ArbiterUserValue versionValue = string_value_from_string(name, len);
+    ArbiterSelectedVersion *selectedVersion = ArbiterCreateSelectedVersion(semanticVersion, versionValue);
+
+    ArbiterFreeSemanticVersion(semanticVersion);
+
+    void *newVersions = realloc(versions, sizeof(*versions) * (++versionsCount));
+    if (!newVersions) {
+      ArbiterFreeSelectedVersion(selectedVersion);
+
+      *error = strerror_copy("Error reallocating versions list", errno);
+      goto cleanup;
+    }
+
+    versions = newVersions;
+    versions[versionsCount - 1] = selectedVersion;
+  }
+
+  result = ArbiterCreateSelectedVersionList((const ArbiterSelectedVersion * const *)versions, versionsCount);
+
+cleanup:
+  for (size_t i = 0; i < versionsCount; i++) {
+    ArbiterFreeSelectedVersion(versions[i]);
+  }
+
+  free(versions);
+
+  closedir(dir);
   return result;
 }
