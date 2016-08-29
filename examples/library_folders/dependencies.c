@@ -37,8 +37,25 @@ ArbiterDependencyList *create_dependency_list (const ArbiterResolver *resolver, 
   const char *versionPath = ArbiterSelectedVersionMetadata(selectedVersion);
   assert(versionPath);
 
+  char *dependenciesPath;
+  if (custom_asprintf(&dependenciesPath, "%s/%s/Dependencies", projectPath, versionPath) < 0) {
+    assert(!dependenciesPath);
+
+    *error = strerror_copy("Could not allocate space for path", errno);
+    return NULL;
+  }
+
+  ArbiterDependencyList *result = create_dependency_list_from_path(dependenciesPath, error);
+  free(dependenciesPath);
+
+  return result;
+}
+
+ArbiterDependencyList *create_dependency_list_from_path (const char *path, char **error)
+{
+  assert(error);
+
   ArbiterDependencyList *result = NULL;
-  char *dependenciesPath = NULL;
   FILE *dependenciesFd = NULL;
 
   ArbiterDependency **dependencies = NULL;
@@ -46,14 +63,7 @@ ArbiterDependencyList *create_dependency_list (const ArbiterResolver *resolver, 
 
   char buffer[lineReadLength];
 
-  if (custom_asprintf(&dependenciesPath, "%s/%s/Dependencies", projectPath, versionPath) < 0) {
-    assert(!dependenciesPath);
-
-    *error = strerror_copy("Could not allocate space for path", errno);
-    goto cleanup;
-  }
-
-  dependenciesFd = fopen(dependenciesPath, "r");
+  dependenciesFd = fopen(path, "r");
   if (!dependenciesFd) {
     *error = strerror_copy("Could not open Dependencies file", errno);
     goto cleanup;
@@ -136,7 +146,6 @@ cleanup:
     fclose(dependenciesFd);
   }
 
-  free(dependenciesPath);
   return result;
 }
 
