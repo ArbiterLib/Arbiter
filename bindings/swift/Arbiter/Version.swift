@@ -2,7 +2,7 @@ public final class SemanticVersion : Equatable, Comparable
 {
   public init (_ semanticVersionPtr: COpaquePointer)
   {
-    _semanticVersion = UnsafeMutablePointer(semanticVersionPtr)
+    pointer = UnsafeMutablePointer(semanticVersionPtr)
   }
 
   public convenience init (major: Int, minor: Int, patch: Int, prereleaseVersion: String? = nil, buildMetadata: String? = nil)
@@ -30,28 +30,30 @@ public final class SemanticVersion : Equatable, Comparable
 
   deinit
   {
-    _semanticVersion.destroy()
-    _semanticVersion.dealloc(1)
+    pointer.destroy()
+    pointer.dealloc(1)
   }
+
+  public let pointer: UnsafeMutablePointer<Void>
 
   public var major: Int
   {
-    return Int(ArbiterGetMajorVersion(COpaquePointer(_semanticVersion)))
+    return Int(ArbiterGetMajorVersion(COpaquePointer(pointer)))
   }
 
   public var minor: Int
   {
-    return Int(ArbiterGetMinorVersion(COpaquePointer(_semanticVersion)))
+    return Int(ArbiterGetMinorVersion(COpaquePointer(pointer)))
   }
 
   public var patch: Int
   {
-    return Int(ArbiterGetPatchVersion(COpaquePointer(_semanticVersion)))
+    return Int(ArbiterGetPatchVersion(COpaquePointer(pointer)))
   }
 
   public var prereleaseVersion: String?
   {
-    let str = ArbiterGetPrereleaseVersion(COpaquePointer(_semanticVersion))
+    let str = ArbiterGetPrereleaseVersion(COpaquePointer(pointer))
     if str == nil {
       return nil
     }
@@ -61,25 +63,23 @@ public final class SemanticVersion : Equatable, Comparable
 
   public var buildMetadata: String?
   {
-    let str = ArbiterGetBuildMetadata(COpaquePointer(_semanticVersion))
+    let str = ArbiterGetBuildMetadata(COpaquePointer(pointer))
     if str == nil {
       return nil
     }
 
     return String.fromCString(str)
   }
-
-  private let _semanticVersion: UnsafeMutablePointer<Void>
 }
 
 public func == (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool
 {
-  return ArbiterEqualVersions(COpaquePointer(lhs._semanticVersion), COpaquePointer(rhs._semanticVersion))
+  return ArbiterEqualVersions(COpaquePointer(lhs.pointer), COpaquePointer(rhs.pointer))
 }
 
 public func < (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool
 {
-  return ArbiterCompareVersionOrdering(COpaquePointer(lhs._semanticVersion), COpaquePointer(rhs._semanticVersion)) < 0
+  return ArbiterCompareVersionOrdering(COpaquePointer(lhs.pointer), COpaquePointer(rhs.pointer)) < 0
 }
 
 private func maybeWithCString<Result> (str: String?, @noescape f: UnsafePointer<Int8> throws -> Result) rethrows -> Result
