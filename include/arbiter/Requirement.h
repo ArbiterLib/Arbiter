@@ -38,7 +38,7 @@ typedef struct ArbiterRequirement ArbiterRequirement;
 /**
  * Creates a requirement which will match any version.
  *
- * The returned requirement must be freed with ArbiterFreeRequirement().
+ * The returned requirement must be freed with ArbiterFree().
  */
 ArbiterRequirement *ArbiterCreateRequirementAny (void);
 
@@ -46,7 +46,7 @@ ArbiterRequirement *ArbiterCreateRequirementAny (void);
  * Creates a requirement which will match versions not less than the specified
  * version.
  *
- * The returned requirement must be freed with ArbiterFreeRequirement().
+ * The returned requirement must be freed with ArbiterFree().
  */
 ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersion *version);
 
@@ -58,7 +58,7 @@ ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersio
  * Exceptions to the SemVer rules can be applied by using a value other than
  * `ArbiterRequirementStrictnessStrict` for `strictness`.
  *
- * The returned requirement must be freed with ArbiterFreeRequirement().
+ * The returned requirement must be freed with ArbiterFree().
  */
 ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanticVersion *version, ArbiterRequirementStrictness strictness);
 
@@ -66,19 +66,9 @@ ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanti
  * Creates a requirement which will only match the specified version, including
  * any prerelease version and build metadata.
  *
- * The returned requirement must be freed with ArbiterFreeRequirement().
+ * The returned requirement must be freed with ArbiterFree().
  */
 ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersion *version);
-
-/**
- * Releases the memory associated with a requirement object.
- */
-void ArbiterFreeRequirement (ArbiterRequirement *requirement);
-
-/**
- * Checks whether two requirements are equivalent.
- */
-bool ArbiterEqualRequirements (const ArbiterRequirement *lhs, const ArbiterRequirement *rhs);
 
 /**
  * Determines whether the given requirement is satisfied by the given version.

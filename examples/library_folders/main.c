@@ -1,5 +1,7 @@
 #include "dependencies.h"
 
+#include <arbiter/Types.h>
+
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,10 +54,10 @@ int main (int argc, const char **argv)
   };
 
   ArbiterResolver *resolver = ArbiterCreateResolver(behaviors, dependencyList, NULL);
-  ArbiterFreeDependencyList(dependencyList);
+  ArbiterFree(dependencyList);
 
   ArbiterResolvedDependencyList *resolvedList = ArbiterResolverCreateResolvedDependencyList(resolver, &error);
-  ArbiterFreeResolver(resolver);
+  ArbiterFree(resolver);
   if (!resolvedList) {
     die(error);
   }
@@ -72,7 +74,7 @@ int main (int argc, const char **argv)
     printf("%s @ %s\n", ArbiterProjectIdentifierValue(project), ArbiterSelectedVersionMetadata(version));
   }
 
-  ArbiterFreeResolvedDependencyList(resolvedList);
+  ArbiterFree(resolvedList);
 
   return EXIT_SUCCESS;
 }

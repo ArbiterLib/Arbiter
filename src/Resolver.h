@@ -7,6 +7,7 @@
 #include <arbiter/Resolver.h>
 
 #include "Dependency.h"
+#include "Types.h"
 #include "Value.h"
 #include "Version.h"
 
@@ -81,7 +82,7 @@ class DependencyGraph final
 
 std::ostream &operator<< (std::ostream &os, const Arbiter::Resolver::DependencyGraph &graph);
 
-struct ArbiterResolver final
+struct ArbiterResolver final : public Arbiter::Base
 {
   public:
     const void *_context;
@@ -94,6 +95,9 @@ struct ArbiterResolver final
       assert(_behaviors.createDependencyList);
       assert(_behaviors.createAvailableVersionsList);
     }
+
+    ArbiterResolver (const ArbiterResolver &) = delete;
+    ArbiterResolver &operator= (const ArbiterResolver &) = delete;
 
     /**
      * Fetches the list of dependencies for the given project and version.
@@ -119,6 +123,10 @@ struct ArbiterResolver final
      * Attempts to resolve all dependencies.
      */
     ArbiterResolvedDependencyList resolve () noexcept(false);
+
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 
   private:
     const ArbiterResolverBehaviors _behaviors;

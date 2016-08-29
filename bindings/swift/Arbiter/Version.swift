@@ -1,8 +1,12 @@
 public final class SemanticVersion : Equatable, Comparable
 {
-  public init (_ pointer: COpaquePointer)
+  public init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
   {
-    self.pointer = pointer
+    if (shouldCopy) {
+      self.pointer = COpaquePointer(ArbiterCreateCopy(UnsafePointer(pointer)));
+    } else {
+      self.pointer = pointer
+    }
   }
 
   public convenience init (major: Int, minor: Int, patch: Int, prereleaseVersion: String? = nil, buildMetadata: String? = nil)
@@ -15,7 +19,7 @@ public final class SemanticVersion : Equatable, Comparable
       }
     }
 
-    self.init(semanticVersionPtr)
+    self.init(semanticVersionPtr, shouldCopy: false)
   }
 
   public convenience init? (fromString str: String)
@@ -25,12 +29,12 @@ public final class SemanticVersion : Equatable, Comparable
       return nil
     }
 
-    self.init(ptr)
+    self.init(ptr, shouldCopy: false)
   }
 
   deinit
   {
-    ArbiterFreeSemanticVersion(pointer)
+    ArbiterFree(UnsafeMutablePointer(pointer))
   }
 
   public let pointer: COpaquePointer
@@ -73,7 +77,7 @@ public final class SemanticVersion : Equatable, Comparable
 
 public func == (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool
 {
-  return ArbiterEqualVersions(lhs.pointer, rhs.pointer)
+  return ArbiterEqual(UnsafePointer(lhs.pointer), UnsafePointer(rhs.pointer))
 }
 
 public func < (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool

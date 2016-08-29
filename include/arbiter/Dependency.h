@@ -19,7 +19,7 @@ typedef struct ArbiterProjectIdentifier ArbiterProjectIdentifier;
 /**
  * Creates a project identifier from the given opaque data.
  *
- * The returned identifier must be freed with ArbiterFreeProjectIdentifier().
+ * The returned identifier must be freed with ArbiterFree().
  */
 ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value);
 
@@ -32,11 +32,6 @@ ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value
 const void *ArbiterProjectIdentifierValue (const ArbiterProjectIdentifier *projectIdentifier);
 
 /**
- * Releases the memory associated with a project identifier.
- */
-void ArbiterFreeProjectIdentifier (ArbiterProjectIdentifier *projectIdentifier);
-
-/**
  * Represents a dependency specification, which consists of a project identifier
  * and a version requirement.
  */
@@ -46,7 +41,7 @@ typedef struct ArbiterDependency ArbiterDependency;
  * Creates a dependency which specifies a version requirement of the given
  * project.
  *
- * The returned dependency must be freed with ArbiterFreeDependency().
+ * The returned dependency must be freed with ArbiterFree().
  */
 ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *projectIdentifier, const ArbiterRequirement *requirement);
 
@@ -67,11 +62,6 @@ const ArbiterProjectIdentifier *ArbiterDependencyProject (const ArbiterDependenc
 const ArbiterRequirement *ArbiterDependencyRequirement (const ArbiterDependency *dependency);
 
 /**
- * Releases the memory associated with a dependency object.
- */
-void ArbiterFreeDependency (ArbiterDependency *dependency);
-
-/**
  * Represents a list of dependencies.
  */
 typedef struct ArbiterDependencyList ArbiterDependencyList;
@@ -81,14 +71,9 @@ typedef struct ArbiterDependencyList ArbiterDependencyList;
  *
  * The objects in the C array can be safely freed after calling this function.
  *
- * The returned list must be freed with ArbiterFreeDependencyList().
+ * The returned list must be freed with ArbiterFree().
  */
 ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency * const *dependencies, size_t count);
-
-/**
- * Releases the memory associated with a dependency list.
- */
-void ArbiterFreeDependencyList (ArbiterDependencyList *dependencyList);
 
 /**
  * Represents a dependency which has been resolved to a specific version.
@@ -99,7 +84,7 @@ typedef struct ArbiterResolvedDependency ArbiterResolvedDependency;
  * Creates a fully resolved dependency referring to the specified version of the
  * given project.
  *
- * The returned dependency must be freed with ArbiterFreeResolvedDependency().
+ * The returned dependency must be freed with ArbiterFree().
  */
 ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *version);
 
@@ -120,11 +105,6 @@ const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterR
 const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency);
 
 /**
- * Releases the memory associated with a resolved dependency.
- */
-void ArbiterFreeResolvedDependency (ArbiterResolvedDependency *dependency);
-
-/**
  * Represents a list of resolved dependencies.
  */
 typedef struct ArbiterResolvedDependencyList ArbiterResolvedDependencyList;
@@ -135,7 +115,7 @@ typedef struct ArbiterResolvedDependencyList ArbiterResolvedDependencyList;
  *
  * The objects in the C array can be safely freed after calling this function.
  *
- * The returned list must be freed with ArbiterFreeResolvedDependencyList().
+ * The returned list must be freed with ArbiterFree().
  */
 ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency * const *dependencies, size_t count);
 
@@ -161,11 +141,6 @@ const ArbiterResolvedDependency *ArbiterResolvedDependencyListGetIndex (const Ar
  * ArbiterResolvedDependencyList they were obtained from is freed.
  */
 void ArbiterResolvedDependencyListGetAll (const ArbiterResolvedDependencyList *dependencyList, const ArbiterResolvedDependency **buffer);
-
-/**
- * Releases the memory associated with a resolved dependency list.
- */
-void ArbiterFreeResolvedDependencyList (ArbiterResolvedDependencyList *dependencyList);
 
 #ifdef __cplusplus
 }
