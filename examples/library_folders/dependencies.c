@@ -70,6 +70,11 @@ ArbiterDependencyList *create_dependency_list_from_path (const char *path, char 
   }
 
   while (fgets(buffer, lineReadLength, dependenciesFd)) {
+    char *newline = strchr(buffer, '\n');
+    if (newline) {
+      *newline = '\0';
+    }
+
     const char *dependencyPath = strtok(buffer, " ");
     if (!dependencyPath) {
       continue;
