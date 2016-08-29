@@ -1,5 +1,6 @@
 #include "string_value.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -16,6 +17,11 @@ static bool lessThan (const void *first, const void *second)
 static char *copyString (const char *str, size_t length)
 {
   char *copy = malloc(length + 1);
+  if (!copy) {
+    perror("Could not allocate space for string copy");
+    abort();
+  }
+
   strncpy(copy, str, length);
 
   copy[length] = '\0';
