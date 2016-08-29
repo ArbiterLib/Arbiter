@@ -64,9 +64,28 @@ public func < (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool
   return ArbiterCompareVersionOrdering(lhs.pointer, rhs.pointer) < 0
 }
 
-public final class SelectedVersion<Metadata: AnyObject where Metadata: Comparable> /* TODO : Equatable */
+public final class SelectedVersion<Metadata: AnyObject where Metadata: Comparable> : CObject
 {
-  // TODO
+  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
+  {
+    super.init(pointer, shouldCopy: shouldCopy)
+  }
+
+  public convenience init (semanticVersion: SemanticVersion, metadata: Metadata)
+  {
+    let ptr = ArbiterCreateSelectedVersion(semanticVersion.pointer, toUserValue(metadata))
+    self.init(ptr, shouldCopy: false)
+  }
+
+  public var semanticVersion: SemanticVersion
+  {
+    return SemanticVersion(ArbiterSelectedVersionSemanticVersion(pointer))
+  }
+
+  public var metadata: Metadata
+  {
+    return fromUserValue(ArbiterSelectedVersionMetadata(pointer))
+  }
 }
 
 private func maybeWithCString<Result> (str: String?, @noescape f: UnsafePointer<Int8> throws -> Result) rethrows -> Result
