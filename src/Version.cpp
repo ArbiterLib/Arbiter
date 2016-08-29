@@ -281,3 +281,20 @@ void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version)
 {
   delete version;
 }
+
+ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelectedVersion * const *versions, size_t count)
+{
+  std::vector<ArbiterSelectedVersion> vec;
+  vec.reserve(count);
+
+  for (size_t i = 0; i < count; i++) {
+    vec.emplace_back(*versions[i]);
+  }
+
+  return new ArbiterSelectedVersionList(std::move(vec));
+}
+
+void ArbiterFreeSelectedVersionList (ArbiterSelectedVersionList *versionList)
+{
+  delete versionList;
+}

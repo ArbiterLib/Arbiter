@@ -141,7 +141,7 @@ typedef struct ArbiterSelectedVersionList ArbiterSelectedVersionList;
  *
  * The returned list must be freed with ArbiterFreeSelectedVersionList().
  */
-ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelectedVersion *versions, size_t count);
+ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelectedVersion * const *versions, size_t count);
 
 /**
  * Releases the memory associated with a version list.

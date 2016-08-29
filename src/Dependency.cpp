@@ -54,9 +54,16 @@ void ArbiterFreeDependency (ArbiterDependency *dependency)
   delete dependency;
 }
 
-ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency *dependencies, size_t count)
+ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency * const *dependencies, size_t count)
 {
-  return new ArbiterDependencyList(std::vector<ArbiterDependency>(dependencies, dependencies + count));
+  std::vector<ArbiterDependency> vec;
+  vec.reserve(count);
+
+  for (size_t i = 0; i < count; i++) {
+    vec.emplace_back(*dependencies[i]);
+  }
+
+  return new ArbiterDependencyList(std::move(vec));
 }
 
 void ArbiterFreeDependencyList (ArbiterDependencyList *dependencyList)
@@ -84,9 +91,16 @@ void ArbiterFreeResolvedDependency (ArbiterResolvedDependency *dependency)
   delete dependency;
 }
 
-ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency *dependencies, size_t count)
+ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency * const *dependencies, size_t count)
 {
-  return new ArbiterResolvedDependencyList(std::vector<ArbiterResolvedDependency>(dependencies, dependencies + count));
+  std::vector<ArbiterResolvedDependency> vec;
+  vec.reserve(count);
+
+  for (size_t i = 0; i < count; i++) {
+    vec.emplace_back(*dependencies[i]);
+  }
+
+  return new ArbiterResolvedDependencyList(std::move(vec));
 }
 
 size_t ArbiterResolvedDependencyListCount (const ArbiterResolvedDependencyList *dependencyList)

@@ -12,7 +12,7 @@ extern "C" {
 /**
  * How strict to be in matching compatible versions.
  */
-enum ArbiterRequirementStrictness
+typedef enum
 {
   /**
    * Determine compatibility according to a strict interpretation of SemVer.
@@ -28,7 +28,7 @@ enum ArbiterRequirementStrictness
    * closer to what the user wants.
    */
   ArbiterRequirementStrictnessAllowVersionZeroPatches,
-};
+} ArbiterRequirementStrictness;
 
 /**
  * Represents a requirement for a specific version or set of versions.
