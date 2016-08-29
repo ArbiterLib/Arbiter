@@ -13,7 +13,7 @@ EXAMPLE_LIBRARY_FOLDERS=$(shell find examples/library_folders -name '*.c')
 CXX=clang++
 CXXFLAGS=-std=c++14 -pedantic -Wall -Wextra -Iinclude/
 CC=clang
-CFLAGS=-std=c99 -pedantic -Wall -Wextra -Iinclude/
+CFLAGS=-std=c99 -lc++ -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 LIBTOOL=libtool
 
 all: $(LIBRARY)
