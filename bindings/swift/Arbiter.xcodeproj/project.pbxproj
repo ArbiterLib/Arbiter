@@ -16,6 +16,8 @@
 		D0F65B4D1D7496AE00DD582F /* Version.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F65B481D7496AE00DD582F /* Version.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F65B521D74974500DD582F /* libArbiter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F65B511D74974500DD582F /* libArbiter.a */; };
 		D0F8619E1D74DFA1009BD4C6 /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F8619D1D74DFA1009BD4C6 /* Types.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F861A01D74E0D9009BD4C6 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8619F1D74E0D9009BD4C6 /* Types.swift */; };
+		D0F861A21D74E183009BD4C6 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F861A11D74E183009BD4C6 /* Value.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		D0F65B481D7496AE00DD582F /* Version.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Version.h; path = ../../../include/arbiter/Version.h; sourceTree = "<group>"; };
 		D0F65B511D74974500DD582F /* libArbiter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libArbiter.a; path = ../../../libArbiter.a; sourceTree = "<group>"; };
 		D0F8619D1D74DFA1009BD4C6 /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Types.h; path = ../../../include/arbiter/Types.h; sourceTree = "<group>"; };
+		D0F8619F1D74E0D9009BD4C6 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		D0F861A11D74E183009BD4C6 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,8 @@
 		D0F65B4F1D7496BB00DD582F /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				D0F8619F1D74E0D9009BD4C6 /* Types.swift */,
+				D0F861A11D74E183009BD4C6 /* Value.swift */,
 				D0F65B331D7493E800DD582F /* Version.swift */,
 			);
 			name = Swift;
@@ -218,6 +224,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F65B341D7493E800DD582F /* Version.swift in Sources */,
+				D0F861A01D74E0D9009BD4C6 /* Types.swift in Sources */,
+				D0F861A21D74E183009BD4C6 /* Value.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
