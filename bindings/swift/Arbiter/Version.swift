@@ -1,4 +1,4 @@
-public class SemanticVersion : Equatable, Comparable
+public final class SemanticVersion : Equatable, Comparable
 {
   public init (major: Int, minor: Int, patch: Int, prereleaseVersion: String? = nil, buildMetadata: String? = nil) {
     // Makes the compiler happy
