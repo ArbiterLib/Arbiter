@@ -18,7 +18,7 @@ typedef struct ArbiterSemanticVersion ArbiterSemanticVersion;
 /**
  * Creates a semantic version with the given components.
  *
- * The returned version must be freed with ArbiterFreeSemanticVersion().
+ * The returned version must be freed with ArbiterFree().
  */
 ArbiterSemanticVersion *ArbiterCreateSemanticVersion (unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata);
 
@@ -26,14 +26,9 @@ ArbiterSemanticVersion *ArbiterCreateSemanticVersion (unsigned major, unsigned m
  * Attempts to parse the given NUL-terminated string into a semantic version,
  * returning NULL if a parse failure occurs.
  *
- * The returned version must be freed with ArbiterFreeSemanticVersion().
+ * The returned version must be freed with ArbiterFree().
  */
 ArbiterSemanticVersion *ArbiterCreateSemanticVersionFromString (const char *string);
-
-/**
- * Releases the memory associated with a version object.
- */
-void ArbiterFreeSemanticVersion (ArbiterSemanticVersion *version);
 
 /**
  * Returns the major version number (X.y.z) from a semantic version.
@@ -75,12 +70,6 @@ const char *ArbiterGetPrereleaseVersion (const ArbiterSemanticVersion *version);
 const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version);
 
 /**
- * Checks whether two versions are equal in every component, including those
- * which may not participate in ordering (e.g., build metadata).
- */
-bool ArbiterEqualVersions (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs);
-
-/**
  * Orders two semantic versions relative to each other.
  *
  * Returns -1 if `lhs` is less than `rhs`, 1 if `lhs` is greater than `rhs`, or
@@ -98,7 +87,7 @@ typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
 /**
  * Creates a selected version which corresponds to the given semantic version.
  *
- * The returned version must be freed with ArbiterFreeSelectedVersion().
+ * The returned version must be freed with ArbiterFree().
  */
 ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata);
 
@@ -120,16 +109,6 @@ const ArbiterSemanticVersion *ArbiterSelectedVersionSemanticVersion (const Arbit
 const void *ArbiterSelectedVersionMetadata (const ArbiterSelectedVersion *version);
 
 /**
- * Returns whether the two selected versions are equivalent.
- */
-bool ArbiterEqualSelectedVersions (const ArbiterSelectedVersion *lhs, const ArbiterSelectedVersion *rhs);
-
-/**
- * Releases the memory associated with a selected version object.
- */
-void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version);
-
-/**
  * Represents a list of selected versions.
  */
 typedef struct ArbiterSelectedVersionList ArbiterSelectedVersionList;
@@ -139,14 +118,9 @@ typedef struct ArbiterSelectedVersionList ArbiterSelectedVersionList;
  *
  * The objects in the C array can be safely freed after calling this function.
  *
- * The returned list must be freed with ArbiterFreeSelectedVersionList().
+ * The returned list must be freed with ArbiterFree().
  */
 ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelectedVersion * const *versions, size_t count);
-
-/**
- * Releases the memory associated with a version list.
- */
-void ArbiterFreeSelectedVersionList (ArbiterSelectedVersionList *versionList);
 
 #ifdef __cplusplus
 }
