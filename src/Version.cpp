@@ -64,6 +64,36 @@ Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::
   return ArbiterSemanticVersion(major, minor, patch, prereleaseVersion, buildMetadata);
 }
 
+std::unique_ptr<Arbiter::Base> ArbiterSemanticVersion::clone () const
+{
+  return std::make_unique<ArbiterSemanticVersion>(*this);
+}
+
+std::ostream &ArbiterSemanticVersion::describe (std::ostream &os) const
+{
+  os << _major << '.' << _minor << '.' << _patch;
+
+  if (_prereleaseVersion) {
+    os << '-' << _prereleaseVersion.value();
+  }
+
+  if (_buildMetadata) {
+    os << '+' << _buildMetadata.value();
+  }
+
+  return os;
+}
+
+bool ArbiterSemanticVersion::operator== (const Arbiter::Base &other) const
+{
+  auto ptr = dynamic_cast<const ArbiterSemanticVersion *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _major == ptr->_major && _minor == ptr->_minor && _patch == ptr->_patch && _prereleaseVersion == ptr->_prereleaseVersion && _buildMetadata == ptr->_buildMetadata;
+}
+
 bool ArbiterSemanticVersion::operator< (const ArbiterSemanticVersion &other) const noexcept
 {
   if (_major < other._major) {
@@ -151,24 +181,50 @@ bool ArbiterSemanticVersion::operator< (const ArbiterSemanticVersion &other) con
   return false;
 }
 
-std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version)
+std::unique_ptr<Arbiter::Base> ArbiterSelectedVersion::clone () const
 {
-  os << version._major << '.' << version._minor << '.' << version._patch;
+  return std::make_unique<ArbiterSelectedVersion>(*this);
+}
 
-  if (version._prereleaseVersion) {
-    os << '-' << version._prereleaseVersion.value();
+std::ostream &ArbiterSelectedVersion::describe (std::ostream &os) const
+{
+  return os << _semanticVersion << " (" << _metadata << ")";
+}
+
+bool ArbiterSelectedVersion::operator== (const Arbiter::Base &other) const
+{
+  auto ptr = dynamic_cast<const ArbiterSelectedVersion *>(&other);
+  if (!ptr) {
+    return false;
   }
 
-  if (version._buildMetadata) {
-    os << '+' << version._buildMetadata.value();
+  return _semanticVersion == ptr->_semanticVersion && _metadata == ptr->_metadata;
+}
+
+std::unique_ptr<Arbiter::Base> ArbiterSelectedVersionList::clone () const
+{
+  return std::make_unique<ArbiterSelectedVersionList>(*this);
+}
+
+std::ostream &ArbiterSelectedVersionList::describe (std::ostream &os) const
+{
+  os << "Version list:";
+
+  for (const auto &version : _versions) {
+    os << "\n" << version;
   }
 
   return os;
 }
 
-std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &version)
+bool ArbiterSelectedVersionList::operator== (const Arbiter::Base &other) const
 {
-  return os << version._semanticVersion << " (" << version._metadata << ")";
+  auto ptr = dynamic_cast<const ArbiterSelectedVersionList *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _versions == ptr->_versions;
 }
 
 std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersionList &versionList)
@@ -201,11 +257,6 @@ ArbiterSemanticVersion *ArbiterCreateSemanticVersionFromString (const char *stri
   } else {
     return nullptr;
   }
-}
-
-void ArbiterFreeSemanticVersion (ArbiterSemanticVersion *version)
-{
-  delete version;
 }
 
 unsigned ArbiterGetMajorVersion (const ArbiterSemanticVersion *version)
@@ -241,11 +292,6 @@ const char *ArbiterGetBuildMetadata (const ArbiterSemanticVersion *version)
   }
 }
 
-bool ArbiterEqualVersions (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs)
-{
-  return *lhs == *rhs;
-}
-
 int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const ArbiterSemanticVersion *rhs)
 {
   if (*lhs < *rhs) {
@@ -272,16 +318,6 @@ const void *ArbiterSelectedVersionMetadata (const ArbiterSelectedVersion *versio
   return version->_metadata.data();
 }
 
-bool ArbiterEqualSelectedVersions (const ArbiterSelectedVersion *lhs, const ArbiterSelectedVersion *rhs)
-{
-  return *lhs == *rhs;
-}
-
-void ArbiterFreeSelectedVersion (ArbiterSelectedVersion *version)
-{
-  delete version;
-}
-
 ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelectedVersion * const *versions, size_t count)
 {
   std::vector<ArbiterSelectedVersion> vec;
@@ -292,9 +328,4 @@ ArbiterSelectedVersionList *ArbiterCreateSelectedVersionList (const ArbiterSelec
   }
 
   return new ArbiterSelectedVersionList(std::move(vec));
-}
-
-void ArbiterFreeSelectedVersionList (ArbiterSelectedVersionList *versionList)
-{
-  delete versionList;
 }

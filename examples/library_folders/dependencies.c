@@ -5,6 +5,7 @@
 #include "string_value.h"
 
 #include <arbiter/Requirement.h>
+#include <arbiter/Types.h>
 
 #include <assert.h>
 #include <errno.h>
@@ -143,7 +144,7 @@ ArbiterDependencyList *create_dependency_list_from_path (const char *path, char 
           assert(false);
       }
 
-      ArbiterFreeSemanticVersion(semanticVersion);
+      ArbiterFree(semanticVersion);
     }
 
     ArbiterUserValue dependencyValue = string_value_from_string(dependencyPath, strlen(dependencyPath));
@@ -151,8 +152,8 @@ ArbiterDependencyList *create_dependency_list_from_path (const char *path, char 
 
     dependencies[dependenciesCount - 1] = ArbiterCreateDependency(dependencyProject, requirement);
 
-    ArbiterFreeProjectIdentifier(dependencyProject);
-    ArbiterFreeRequirement(requirement);
+    ArbiterFree(dependencyProject);
+    ArbiterFree(requirement);
   }
 
   if (ferror(dependenciesFd)) {
@@ -164,7 +165,7 @@ ArbiterDependencyList *create_dependency_list_from_path (const char *path, char 
 
 cleanup:
   for (size_t i = 0; i < dependenciesCount; i++) {
-    ArbiterFreeDependency(dependencies[i]);
+    ArbiterFree(dependencies[i]);
   }
 
   free(dependencies);
@@ -204,11 +205,11 @@ ArbiterSelectedVersionList *create_available_versions_list (const ArbiterResolve
     ArbiterUserValue versionValue = string_value_from_string(name, len);
     ArbiterSelectedVersion *selectedVersion = ArbiterCreateSelectedVersion(semanticVersion, versionValue);
 
-    ArbiterFreeSemanticVersion(semanticVersion);
+    ArbiterFree(semanticVersion);
 
     void *newVersions = realloc(versions, sizeof(*versions) * (++versionsCount));
     if (!newVersions) {
-      ArbiterFreeSelectedVersion(selectedVersion);
+      ArbiterFree(selectedVersion);
 
       *error = strerror_copy("Error reallocating versions list", errno);
       goto cleanup;
@@ -222,7 +223,7 @@ ArbiterSelectedVersionList *create_available_versions_list (const ArbiterResolve
 
 cleanup:
   for (size_t i = 0; i < versionsCount; i++) {
-    ArbiterFreeSelectedVersion(versions[i]);
+    ArbiterFree(versions[i]);
   }
 
   free(versions);

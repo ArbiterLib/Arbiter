@@ -7,18 +7,6 @@
 
 using namespace Arbiter;
 
-size_t std::hash<ArbiterDependency>::operator() (const ArbiterDependency &dependency) const
-{
-  return hashOf(dependency._projectIdentifier)
-    ^ hashOf(dependency.requirement());
-}
-
-size_t std::hash<ArbiterResolvedDependency>::operator() (const ArbiterResolvedDependency &dependency) const
-{
-  return hashOf(dependency._project)
-    ^ hashOf(dependency._version);
-}
-
 ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value)
 {
   return new ArbiterProjectIdentifier(ArbiterProjectIdentifier::Value(value));
@@ -27,11 +15,6 @@ ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value
 const void *ArbiterProjectIdentifierValue (const ArbiterProjectIdentifier *projectIdentifier)
 {
   return projectIdentifier->_value.data();
-}
-
-void ArbiterFreeProjectIdentifier (ArbiterProjectIdentifier *projectIdentifier)
-{
-  delete projectIdentifier;
 }
 
 ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *projectIdentifier, const ArbiterRequirement *requirement)
@@ -49,11 +32,6 @@ const ArbiterRequirement *ArbiterDependencyRequirement (const ArbiterDependency 
   return &dependency->requirement();
 }
 
-void ArbiterFreeDependency (ArbiterDependency *dependency)
-{
-  delete dependency;
-}
-
 ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency * const *dependencies, size_t count)
 {
   std::vector<ArbiterDependency> vec;
@@ -64,11 +42,6 @@ ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency * co
   }
 
   return new ArbiterDependencyList(std::move(vec));
-}
-
-void ArbiterFreeDependencyList (ArbiterDependencyList *dependencyList)
-{
-  delete dependencyList;
 }
 
 ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *version)
@@ -84,11 +57,6 @@ const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterR
 const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency)
 {
   return &dependency->_version;
-}
-
-void ArbiterFreeResolvedDependency (ArbiterResolvedDependency *dependency)
-{
-  delete dependency;
 }
 
 ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency * const *dependencies, size_t count)
@@ -120,19 +88,29 @@ void ArbiterResolvedDependencyListGetAll (const ArbiterResolvedDependencyList *d
   }
 }
 
-void ArbiterFreeResolvedDependencyList (ArbiterResolvedDependencyList *dependencyList)
+std::unique_ptr<Base> ArbiterProjectIdentifier::clone () const
 {
-  delete dependencyList;
+  return std::make_unique<ArbiterProjectIdentifier>(*this);
 }
 
-std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier)
+std::ostream &ArbiterProjectIdentifier::describe (std::ostream &os) const
 {
-  return os << "ArbiterProjectIdentifier(" << identifier._value << ")";
+  return os << "ArbiterProjectIdentifier(" << _value << ")";
+}
+
+bool ArbiterProjectIdentifier::operator== (const Arbiter::Base &other) const
+{
+  auto ptr = dynamic_cast<const ArbiterProjectIdentifier *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _value == ptr->_value;
 }
 
 ArbiterDependency::ArbiterDependency (ArbiterProjectIdentifier projectIdentifier, const ArbiterRequirement &requirement)
   : _projectIdentifier(std::move(projectIdentifier))
-  , _requirement(requirement.clone())
+  , _requirement(requirement.cloneRequirement())
 {}
 
 ArbiterDependency &ArbiterDependency::operator= (const ArbiterDependency &other)
@@ -142,32 +120,110 @@ ArbiterDependency &ArbiterDependency::operator= (const ArbiterDependency &other)
   }
 
   _projectIdentifier = other._projectIdentifier;
-  _requirement = other.requirement().clone();
+  _requirement = other.requirement().cloneRequirement();
   return *this;
 }
 
-bool ArbiterDependency::operator== (const ArbiterDependency &other) const
+std::unique_ptr<Arbiter::Base> ArbiterDependency::clone () const
 {
-  return _projectIdentifier == other._projectIdentifier && *_requirement == *(other._requirement);
+  return std::make_unique<ArbiterDependency>(*this);
 }
 
-std::ostream &operator<< (std::ostream &os, const ArbiterDependency &dependency)
+std::ostream &ArbiterDependency::describe (std::ostream &os) const
 {
-  return os << "Dependency(" << dependency._projectIdentifier << dependency.requirement() << ")";
+  return os << "Dependency(" << _projectIdentifier << requirement() << ")";
 }
 
-std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &dependencyList)
+bool ArbiterDependency::operator== (const Base &other) const
+{
+  auto ptr = dynamic_cast<const ArbiterDependency *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _projectIdentifier == ptr->_projectIdentifier && *_requirement == *(ptr->_requirement);
+}
+
+std::unique_ptr<Arbiter::Base> ArbiterDependencyList::clone () const
+{
+  return std::make_unique<ArbiterDependencyList>(*this);
+}
+
+std::ostream &ArbiterDependencyList::describe (std::ostream &os) const
 {
   os << "Dependency list:";
 
-  for (const auto &dep : dependencyList._dependencies) {
+  for (const auto &dep : _dependencies) {
     os << "\n" << dep;
   }
 
   return os;
 }
 
-std::ostream &operator<< (std::ostream &os, const ArbiterResolvedDependency &dependency)
+bool ArbiterDependencyList::operator== (const Arbiter::Base &other) const
 {
-  return os << dependency._project << " @ " << dependency._version;
+  auto ptr = dynamic_cast<const ArbiterDependencyList *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _dependencies == ptr->_dependencies;
+}
+
+std::unique_ptr<Arbiter::Base> ArbiterResolvedDependency::clone () const
+{
+  return std::make_unique<ArbiterResolvedDependency>(*this);
+}
+
+std::ostream &ArbiterResolvedDependency::describe (std::ostream &os) const
+{
+  return os << _project << " @ " << _version;
+}
+
+bool ArbiterResolvedDependency::operator== (const Arbiter::Base &other) const
+{
+  auto ptr = dynamic_cast<const ArbiterResolvedDependency *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _project == ptr->_project && _version == ptr->_version;
+}
+
+std::unique_ptr<Arbiter::Base> ArbiterResolvedDependencyList::clone () const
+{
+  return std::make_unique<ArbiterResolvedDependencyList>(*this);
+}
+
+std::ostream &ArbiterResolvedDependencyList::describe (std::ostream &os) const
+{
+  os << "Resolved dependency list:";
+
+  for (const auto &dep : _dependencies) {
+    os << "\n" << dep;
+  }
+
+  return os;
+}
+
+bool ArbiterResolvedDependencyList::operator== (const Arbiter::Base &other) const
+{
+  auto ptr = dynamic_cast<const ArbiterResolvedDependencyList *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _dependencies == ptr->_dependencies;
+}
+
+size_t std::hash<ArbiterDependency>::operator() (const ArbiterDependency &dependency) const
+{
+  return hashOf(dependency._projectIdentifier)
+    ^ hashOf(dependency.requirement());
+}
+
+size_t std::hash<ArbiterResolvedDependency>::operator() (const ArbiterResolvedDependency &dependency) const
+{
+  return hashOf(dependency._project)
+    ^ hashOf(dependency._version);
 }

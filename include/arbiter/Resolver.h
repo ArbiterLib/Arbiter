@@ -49,7 +49,7 @@ typedef struct
  * will attempt to pick compatible versions of all dependencies in
  * `dependencyList` and transitive dependencies thereof.
  *
- * The returned dependency resolver must be freed with ArbiterFreeResolver().
+ * The returned dependency resolver must be freed with ArbiterFree().
  */
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, const void *context);
 
@@ -70,11 +70,6 @@ const void *ArbiterResolverContext (const ArbiterResolver *resolver);
  * the caller is responsible for freeing.
  */
 ArbiterResolvedDependencyList *ArbiterResolverCreateResolvedDependencyList (ArbiterResolver *resolver, char **error);
-
-/**
- * Releases the memory associated with a dependency resolver.
- */
-void ArbiterFreeResolver (ArbiterResolver *resolver);
 
 #ifdef __cplusplus
 }

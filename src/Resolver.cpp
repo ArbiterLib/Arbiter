@@ -72,7 +72,7 @@ const ArbiterRequirement &DependencyGraph::NodeValue::requirement () const
 
 void DependencyGraph::NodeValue::setRequirement (const ArbiterRequirement &requirement)
 {
-  setRequirement(requirement.clone());
+  setRequirement(requirement.cloneRequirement());
 }
 
 void DependencyGraph::NodeValue::setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
@@ -199,6 +199,21 @@ ArbiterResolvedDependencyList ArbiterResolver::resolve () noexcept(false)
   return ArbiterResolvedDependencyList(graph.allNodes());
 }
 
+std::unique_ptr<Arbiter::Base> ArbiterResolver::clone () const
+{
+  return std::make_unique<ArbiterResolver>(_behaviors, _dependencyList, _context);
+}
+
+std::ostream &ArbiterResolver::describe (std::ostream &os) const
+{
+  return os << "ArbiterResolver: " << _dependencyList;
+}
+
+bool ArbiterResolver::operator== (const Arbiter::Base &other) const
+{
+  return this == &other;
+}
+
 DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &baseGraph, std::set<ArbiterDependency> dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
 {
   if (dependencySet.empty()) {
@@ -210,7 +225,7 @@ DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &bas
   std::map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
 
   for (const ArbiterDependency &dependency : dependencySet) {
-    requirementsByProject[dependency._projectIdentifier] = dependency.requirement().clone();
+    requirementsByProject[dependency._projectIdentifier] = dependency.requirement().cloneRequirement();
   }
 
   assert(requirementsByProject.size() == dependencySet.size());

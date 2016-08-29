@@ -6,6 +6,7 @@
 
 #include <arbiter/Dependency.h>
 
+#include "Types.h"
 #include "Value.h"
 #include "Version.h"
 
@@ -16,7 +17,7 @@
 
 struct ArbiterRequirement;
 
-struct ArbiterProjectIdentifier final
+struct ArbiterProjectIdentifier final : public Arbiter::Base
 {
   public:
     using Value = Arbiter::SharedUserValue<ArbiterProjectIdentifier>;
@@ -30,15 +31,9 @@ struct ArbiterProjectIdentifier final
       : _value(std::move(value))
     {}
 
-    bool operator== (const ArbiterProjectIdentifier &other) const
-    {
-      return _value == other._value;
-    }
-
-    bool operator!= (const ArbiterProjectIdentifier &other) const
-    {
-      return !(*this == other);
-    }
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 
     bool operator< (const ArbiterProjectIdentifier &other) const
     {
@@ -46,9 +41,7 @@ struct ArbiterProjectIdentifier final
     }
 };
 
-std::ostream &operator<< (std::ostream &os, const ArbiterProjectIdentifier &identifier);
-
-struct ArbiterDependency final
+struct ArbiterDependency final : public Arbiter::Base
 {
   public:
     ArbiterProjectIdentifier _projectIdentifier;
@@ -66,7 +59,9 @@ struct ArbiterDependency final
       return *_requirement;
     }
 
-    bool operator== (const ArbiterDependency &other) const;
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 
     bool operator< (const ArbiterDependency &other) const
     {
@@ -77,9 +72,7 @@ struct ArbiterDependency final
     std::unique_ptr<ArbiterRequirement> _requirement;
 };
 
-std::ostream &operator<< (std::ostream &os, const ArbiterDependency &dependency);
-
-struct ArbiterDependencyList final
+struct ArbiterDependencyList final : public Arbiter::Base
 {
   public:
     std::vector<ArbiterDependency> _dependencies;
@@ -95,11 +88,13 @@ struct ArbiterDependencyList final
 
     ArbiterDependencyList (ArbiterDependencyList &&) = default;
     ArbiterDependencyList &operator= (ArbiterDependencyList &&) = default;
+
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 };
 
-std::ostream &operator<< (std::ostream &os, const ArbiterDependencyList &dependencyList);
-
-struct ArbiterResolvedDependency final
+struct ArbiterResolvedDependency final : public Arbiter::Base
 {
   public:
     ArbiterProjectIdentifier _project;
@@ -110,20 +105,12 @@ struct ArbiterResolvedDependency final
       , _version(std::move(version))
     {}
 
-    bool operator== (const ArbiterResolvedDependency &dependency) const
-    {
-      return _project == dependency._project && _version == dependency._version;
-    }
-
-    bool operator!= (const ArbiterResolvedDependency &dependency) const
-    {
-      return !(*this == dependency);
-    }
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 };
 
-std::ostream &operator<< (std::ostream &os, const ArbiterResolvedDependency &dependency);
-
-struct ArbiterResolvedDependencyList final
+struct ArbiterResolvedDependencyList final : public Arbiter::Base
 {
   public:
     std::vector<ArbiterResolvedDependency> _dependencies;
@@ -139,6 +126,10 @@ struct ArbiterResolvedDependencyList final
 
     ArbiterResolvedDependencyList (ArbiterResolvedDependencyList &&) = default;
     ArbiterResolvedDependencyList &operator= (ArbiterResolvedDependencyList &&) = default;
+
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 };
 
 namespace std {
