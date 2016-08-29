@@ -23,7 +23,7 @@ all: build
 
 bindings: bindings/swift
 
-bindings/swift: $(LIBRARY)
+bindings/swift:
 	cd $@ && xcodebuild -scheme Arbiter
 
 build: $(LIBRARY)
@@ -35,7 +35,6 @@ clean:
 	rm -f $(EXAMPLES)
 	rm -f $(LIBRARY) $(TEST_RUNNER)
 	rm -f $(OBJECTS)
-	cd bindings/swift && xcodebuild clean
 
 docs:
 	doxygen Doxyfile

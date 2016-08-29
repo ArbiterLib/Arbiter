@@ -17,6 +17,16 @@
 		D0F65B521D74974500DD582F /* libArbiter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F65B511D74974500DD582F /* libArbiter.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D0EE7ABB1D74A26500952C9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0DB8BF91D74937A003657D3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0F65B361D74942100DD582F;
+			remoteInfo = libArbiter;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		D0DB8C021D74937A003657D3 /* Arbiter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arbiter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DB8C051D74937A003657D3 /* Arbiter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arbiter.h; sourceTree = "<group>"; };
@@ -146,6 +156,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0EE7ABC1D74A26500952C9B /* PBXTargetDependency */,
 			);
 			name = Arbiter;
 			productName = Arbiter;
@@ -207,6 +218,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0EE7ABC1D74A26500952C9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0F65B361D74942100DD582F /* libArbiter */;
+			targetProxy = D0EE7ABB1D74A26500952C9B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		D0DB8C081D74937A003657D3 /* Debug */ = {
@@ -391,6 +410,7 @@
 				D0F65B391D74942100DD582F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
