@@ -17,9 +17,11 @@ CC=clang
 CFLAGS=-std=c99 -lc++ -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 LIBTOOL=libtool
 
-all: $(LIBRARY)
-
 .PHONY: check docs $(TEST_RUNNER)
+
+all: build
+
+build: $(LIBRARY)
 
 check: examples $(TEST_RUNNER)
 	$(TEST_RUNNER)
