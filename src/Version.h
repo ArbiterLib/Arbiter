@@ -7,13 +7,14 @@
 #include <arbiter/Version.h>
 
 #include "Optional.h"
+#include "Types.h"
 #include "Value.h"
 
 #include <functional>
 #include <string>
 #include <vector>
 
-struct ArbiterSemanticVersion final
+struct ArbiterSemanticVersion final : public Arbiter::Base
 {
   public:
     unsigned _major;
@@ -37,15 +38,9 @@ struct ArbiterSemanticVersion final
     // TODO: Add error reporting
     static Arbiter::Optional<ArbiterSemanticVersion> fromString (const std::string &versionString);
 
-    bool operator== (const ArbiterSemanticVersion &other) const noexcept
-    {
-      return _major == other._major && _minor == other._minor && _patch == other._patch && _prereleaseVersion == other._prereleaseVersion && _buildMetadata == other._buildMetadata;
-    }
-
-    bool operator!= (const ArbiterSemanticVersion &other) const noexcept
-    {
-      return !(*this == other);
-    }
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 
     bool operator< (const ArbiterSemanticVersion &other) const noexcept;
 
@@ -65,9 +60,7 @@ struct ArbiterSemanticVersion final
     }
 };
 
-std::ostream &operator<< (std::ostream &os, const ArbiterSemanticVersion &version);
-
-struct ArbiterSelectedVersion final
+struct ArbiterSelectedVersion final : public Arbiter::Base
 {
   public:
     using Metadata = Arbiter::SharedUserValue<ArbiterSelectedVersion>;
@@ -80,15 +73,9 @@ struct ArbiterSelectedVersion final
       , _metadata(std::move(metadata))
     {}
 
-    bool operator== (const ArbiterSelectedVersion &other) const
-    {
-      return _semanticVersion == other._semanticVersion && _metadata == other._metadata;
-    }
-
-    bool operator!= (const ArbiterSelectedVersion &other) const
-    {
-      return !(*this == other);
-    }
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
 
     bool operator< (const ArbiterSelectedVersion &other) const
     {
@@ -111,9 +98,7 @@ struct ArbiterSelectedVersion final
     }
 };
 
-std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersion &version);
-
-struct ArbiterSelectedVersionList final
+struct ArbiterSelectedVersionList final : public Arbiter::Base
 {
   public:
     std::vector<ArbiterSelectedVersion> _versions;
@@ -123,9 +108,11 @@ struct ArbiterSelectedVersionList final
     explicit ArbiterSelectedVersionList (std::vector<ArbiterSelectedVersion> versions)
       : _versions(std::move(versions))
     {}
-};
 
-std::ostream &operator<< (std::ostream &os, const ArbiterSelectedVersionList &versionList);
+    std::unique_ptr<Arbiter::Base> clone () const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+};
 
 namespace std {
 
