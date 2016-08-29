@@ -1,43 +1,56 @@
 public final class SemanticVersion : Equatable, Comparable
 {
-  public init (major: Int, minor: Int, patch: Int, prereleaseVersion: String? = nil, buildMetadata: String? = nil) {
-    // Makes the compiler happy
-    _semanticVersion = nil
+  public init (_ semanticVersionPtr: COpaquePointer)
+  {
+    _semanticVersion = UnsafeMutablePointer(semanticVersionPtr)
+  }
+
+  public convenience init (major: Int, minor: Int, patch: Int, prereleaseVersion: String? = nil, buildMetadata: String? = nil)
+  {
+    var semanticVersionPtr: COpaquePointer = nil
 
     maybeWithCString(prereleaseVersion) { prereleaseVersion in
       maybeWithCString(buildMetadata) { buildMetadata in
-        _semanticVersion = UnsafeMutablePointer(ArbiterCreateSemanticVersion(UInt32(major), UInt32(minor), UInt32(patch), prereleaseVersion, buildMetadata))
+        semanticVersionPtr = ArbiterCreateSemanticVersion(UInt32(major), UInt32(minor), UInt32(patch), prereleaseVersion, buildMetadata)
       }
     }
+
+    self.init(semanticVersionPtr)
   }
 
-  public init? (fromString str: String) {
+  public convenience init? (fromString str: String)
+  {
     let ptr = ArbiterCreateSemanticVersionFromString(str)
     if ptr == nil {
       return nil
     }
 
-    _semanticVersion = UnsafeMutablePointer(ptr)
+    self.init(ptr)
   }
 
-  deinit {
+  deinit
+  {
     _semanticVersion.destroy()
     _semanticVersion.dealloc(1)
   }
 
-  public var major: Int {
+  public var major: Int
+  {
     return Int(ArbiterGetMajorVersion(COpaquePointer(_semanticVersion)))
   }
 
-  public var minor: Int {
+  public var minor: Int
+  {
     return Int(ArbiterGetMinorVersion(COpaquePointer(_semanticVersion)))
   }
 
-  public var patch: Int {
+  public var patch: Int
+  {
     return Int(ArbiterGetPatchVersion(COpaquePointer(_semanticVersion)))
   }
 
-  public var prereleaseVersion: String? {
+  public var prereleaseVersion: String?
+  {
     let str = ArbiterGetPrereleaseVersion(COpaquePointer(_semanticVersion))
     if str == nil {
       return nil
@@ -46,7 +59,8 @@ public final class SemanticVersion : Equatable, Comparable
     return String.fromCString(str)
   }
 
-  public var buildMetadata: String? {
+  public var buildMetadata: String?
+  {
     let str = ArbiterGetBuildMetadata(COpaquePointer(_semanticVersion))
     if str == nil {
       return nil
