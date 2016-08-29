@@ -83,7 +83,7 @@ typedef struct ArbiterDependencyList ArbiterDependencyList;
  *
  * The returned list must be freed with ArbiterFreeDependencyList().
  */
-ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency *dependencies, size_t count);
+ArbiterDependencyList *ArbiterCreateDependencyList (const ArbiterDependency * const *dependencies, size_t count);
 
 /**
  * Releases the memory associated with a dependency list.
@@ -137,7 +137,7 @@ typedef struct ArbiterResolvedDependencyList ArbiterResolvedDependencyList;
  *
  * The returned list must be freed with ArbiterFreeResolvedDependencyList().
  */
-ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency *dependencies, size_t count);
+ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency * const *dependencies, size_t count);
 
 /**
  * Returns the number of items in the given list.
