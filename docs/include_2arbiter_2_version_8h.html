@@ -104,9 +104,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a10a48316d9fe53bbb03ca825b6aede54"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a10a48316d9fe53bbb03ca825b6aede54">ArbiterCreateSelectedVersion</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *semanticVersion, <a class="el" href="struct_arbiter_user_value.html">ArbiterUserValue</a> metadata)</td></tr>
 <tr class="memdesc:a10a48316d9fe53bbb03ca825b6aede54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a selected version which corresponds to the given semantic version.  <a href="#a10a48316d9fe53bbb03ca825b6aede54">More...</a><br /></td></tr>
 <tr class="separator:a10a48316d9fe53bbb03ca825b6aede54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a73ed5429e64678dd9d93f96dddce04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a2a73ed5429e64678dd9d93f96dddce04">ArbiterCreateSelectedVersionList</a> (const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *versions, size_t count)</td></tr>
-<tr class="memdesc:a2a73ed5429e64678dd9d93f96dddce04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a version list which wraps a C array of <a class="el" href="struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. ">ArbiterSelectedVersion</a> objects.  <a href="#a2a73ed5429e64678dd9d93f96dddce04">More...</a><br /></td></tr>
-<tr class="separator:a2a73ed5429e64678dd9d93f96dddce04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07f6210a32dde270ac1b29338c5f25c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a07f6210a32dde270ac1b29338c5f25c3">ArbiterCreateSelectedVersionList</a> (const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *const *versions, size_t count)</td></tr>
+<tr class="memdesc:a07f6210a32dde270ac1b29338c5f25c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a version list which wraps a C array of <a class="el" href="struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. ">ArbiterSelectedVersion</a> objects.  <a href="#a07f6210a32dde270ac1b29338c5f25c3">More...</a><br /></td></tr>
+<tr class="separator:a07f6210a32dde270ac1b29338c5f25c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27dd48159dbc855ca290f55d0e9fc299"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a27dd48159dbc855ca290f55d0e9fc299">ArbiterCreateSemanticVersion</a> (unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata)</td></tr>
 <tr class="memdesc:a27dd48159dbc855ca290f55d0e9fc299"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a semantic version with the given components.  <a href="#a27dd48159dbc855ca290f55d0e9fc299">More...</a><br /></td></tr>
 <tr class="separator:a27dd48159dbc855ca290f55d0e9fc299"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,14 +209,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2a73ed5429e64678dd9d93f96dddce04"></a>
+<a class="anchor" id="a07f6210a32dde270ac1b29338c5f25c3"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a>* ArbiterCreateSelectedVersionList </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *const *&#160;</td>
           <td class="paramname"><em>versions</em>, </td>
         </tr>
         <tr>
@@ -550,7 +550,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 28 2016 23:49:51 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

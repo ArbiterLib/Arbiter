@@ -101,18 +101,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ae18220cbeb522a6c0344bf0c11140dfe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#ae18220cbeb522a6c0344bf0c11140dfe">ArbiterCreateDependency</a> (const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *projectIdentifier, const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *requirement)</td></tr>
 <tr class="memdesc:ae18220cbeb522a6c0344bf0c11140dfe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a dependency which specifies a version requirement of the given project.  <a href="#ae18220cbeb522a6c0344bf0c11140dfe">More...</a><br /></td></tr>
 <tr class="separator:ae18220cbeb522a6c0344bf0c11140dfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0118f0f1cccc5b9c7204b46264d334c3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a0118f0f1cccc5b9c7204b46264d334c3">ArbiterCreateDependencyList</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> *dependencies, size_t count)</td></tr>
-<tr class="memdesc:a0118f0f1cccc5b9c7204b46264d334c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a dependency list which wraps a C array of <a class="el" href="struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme...">ArbiterDependency</a> objects.  <a href="#a0118f0f1cccc5b9c7204b46264d334c3">More...</a><br /></td></tr>
-<tr class="separator:a0118f0f1cccc5b9c7204b46264d334c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9ca351cdd64f264aaebecc3f26288238"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a9ca351cdd64f264aaebecc3f26288238">ArbiterCreateDependencyList</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> *const *dependencies, size_t count)</td></tr>
+<tr class="memdesc:a9ca351cdd64f264aaebecc3f26288238"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a dependency list which wraps a C array of <a class="el" href="struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme...">ArbiterDependency</a> objects.  <a href="#a9ca351cdd64f264aaebecc3f26288238">More...</a><br /></td></tr>
+<tr class="separator:a9ca351cdd64f264aaebecc3f26288238"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7de65d449c28f8303e921783db237e21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a7de65d449c28f8303e921783db237e21">ArbiterCreateProjectIdentifier</a> (<a class="el" href="struct_arbiter_user_value.html">ArbiterUserValue</a> value)</td></tr>
 <tr class="memdesc:a7de65d449c28f8303e921783db237e21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a project identifier from the given opaque data.  <a href="#a7de65d449c28f8303e921783db237e21">More...</a><br /></td></tr>
 <tr class="separator:a7de65d449c28f8303e921783db237e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1da4a1651859b463c36b273752854a66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a1da4a1651859b463c36b273752854a66">ArbiterCreateResolvedDependency</a> (const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *version)</td></tr>
 <tr class="memdesc:a1da4a1651859b463c36b273752854a66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a fully resolved dependency referring to the specified version of the given project.  <a href="#a1da4a1651859b463c36b273752854a66">More...</a><br /></td></tr>
 <tr class="separator:a1da4a1651859b463c36b273752854a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa15607856dd36d027aa07c151b6751e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#aa15607856dd36d027aa07c151b6751e2">ArbiterCreateResolvedDependencyList</a> (const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *dependencies, size_t count)</td></tr>
-<tr class="memdesc:aa15607856dd36d027aa07c151b6751e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a resolved dependency list which wraps a C array of <a class="el" href="struct_arbiter_resolved_dependency.html" title="Represents a dependency which has been resolved to a specific version. ">ArbiterResolvedDependency</a> objects.  <a href="#aa15607856dd36d027aa07c151b6751e2">More...</a><br /></td></tr>
-<tr class="separator:aa15607856dd36d027aa07c151b6751e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf18081cb6e76b17b1625c2f30e23279"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#aaf18081cb6e76b17b1625c2f30e23279">ArbiterCreateResolvedDependencyList</a> (const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *const *dependencies, size_t count)</td></tr>
+<tr class="memdesc:aaf18081cb6e76b17b1625c2f30e23279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a resolved dependency list which wraps a C array of <a class="el" href="struct_arbiter_resolved_dependency.html" title="Represents a dependency which has been resolved to a specific version. ">ArbiterResolvedDependency</a> objects.  <a href="#aaf18081cb6e76b17b1625c2f30e23279">More...</a><br /></td></tr>
+<tr class="separator:aaf18081cb6e76b17b1625c2f30e23279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6fbdf8158145ccdded1dd44eaaf2be36"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_dependency_8h.html#a6fbdf8158145ccdded1dd44eaaf2be36">ArbiterDependencyProject</a> (const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> *dependency)</td></tr>
 <tr class="memdesc:a6fbdf8158145ccdded1dd44eaaf2be36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the project identified by this dependency.  <a href="#a6fbdf8158145ccdded1dd44eaaf2be36">More...</a><br /></td></tr>
 <tr class="separator:a6fbdf8158145ccdded1dd44eaaf2be36"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -183,14 +183,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a0118f0f1cccc5b9c7204b46264d334c3"></a>
+<a class="anchor" id="a9ca351cdd64f264aaebecc3f26288238"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a>* ArbiterCreateDependencyList </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_dependency.html">ArbiterDependency</a> *const *&#160;</td>
           <td class="paramname"><em>dependencies</em>, </td>
         </tr>
         <tr>
@@ -261,14 +261,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa15607856dd36d027aa07c151b6751e2"></a>
+<a class="anchor" id="aaf18081cb6e76b17b1625c2f30e23279"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a>* ArbiterCreateResolvedDependencyList </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *&#160;</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_resolved_dependency.html">ArbiterResolvedDependency</a> *const *&#160;</td>
           <td class="paramname"><em>dependencies</em>, </td>
         </tr>
         <tr>
@@ -555,7 +555,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Aug 28 2016 23:49:51 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -18,7 +18,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>include_2arbiter_2_dependency_8h.html</Path>
-    <Anchor>a0118f0f1cccc5b9c7204b46264d334c3</Anchor>
+    <Anchor>a9ca351cdd64f264aaebecc3f26288238</Anchor>
     <Abstract>Creates a dependency list which wraps a C array of ArbiterDependency objects. </Abstract>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
@@ -51,7 +51,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>include_2arbiter_2_dependency_8h.html</Path>
-    <Anchor>aa15607856dd36d027aa07c151b6751e2</Anchor>
+    <Anchor>aaf18081cb6e76b17b1625c2f30e23279</Anchor>
     <Abstract>Creates a resolved dependency list which wraps a C array of ArbiterResolvedDependency objects...</Abstract>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
@@ -440,7 +440,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>include_2arbiter_2_version_8h.html</Path>
-    <Anchor>a2a73ed5429e64678dd9d93f96dddce04</Anchor>
+    <Anchor>a07f6210a32dde270ac1b29338c5f25c3</Anchor>
     <Abstract>Creates a version list which wraps a C array of ArbiterSelectedVersion objects. </Abstract>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
