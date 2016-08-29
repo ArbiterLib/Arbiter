@@ -19,6 +19,7 @@
 		D0F861A01D74E0D9009BD4C6 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8619F1D74E0D9009BD4C6 /* Types.swift */; };
 		D0F861A21D74E183009BD4C6 /* Value.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F861A11D74E183009BD4C6 /* Value.swift */; };
 		D0F861A41D74E9B7009BD4C6 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F861A31D74E9B7009BD4C6 /* Dependency.swift */; };
+		D0F861A61D74EBB2009BD4C6 /* Requirement.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F861A51D74EBB2009BD4C6 /* Requirement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		D0F8619F1D74E0D9009BD4C6 /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		D0F861A11D74E183009BD4C6 /* Value.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Value.swift; sourceTree = "<group>"; };
 		D0F861A31D74E9B7009BD4C6 /* Dependency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		D0F861A51D74EBB2009BD4C6 /* Requirement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requirement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				D0F861A31D74E9B7009BD4C6 /* Dependency.swift */,
+				D0F861A51D74EBB2009BD4C6 /* Requirement.swift */,
 				D0F8619F1D74E0D9009BD4C6 /* Types.swift */,
 				D0F861A11D74E183009BD4C6 /* Value.swift */,
 				D0F65B331D7493E800DD582F /* Version.swift */,
@@ -227,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F65B341D7493E800DD582F /* Version.swift in Sources */,
+				D0F861A61D74EBB2009BD4C6 /* Requirement.swift in Sources */,
 				D0F861A01D74E0D9009BD4C6 /* Types.swift in Sources */,
 				D0F861A41D74E9B7009BD4C6 /* Dependency.swift in Sources */,
 				D0F861A21D74E183009BD4C6 /* Value.swift in Sources */,
