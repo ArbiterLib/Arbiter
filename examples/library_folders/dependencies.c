@@ -120,8 +120,30 @@ ArbiterDependencyList *create_dependency_list_from_path (const char *path, char 
         goto cleanup;
       }
 
-      // TODO: Create appropriate requirement depending on the specifier
-      abort();
+      ArbiterSemanticVersion *semanticVersion = ArbiterCreateSemanticVersionFromString(version);
+      if (!semanticVersion) {
+        custom_asprintf(error, "Could not parse semantic version: %s", version);
+        goto cleanup;
+      }
+
+      switch (type) {
+        case AtLeast:
+          requirement = ArbiterCreateRequirementAtLeast(semanticVersion);
+          break;
+
+        case CompatibleWith:
+          requirement = ArbiterCreateRequirementCompatibleWith(semanticVersion, ArbiterRequirementStrictnessAllowVersionZeroPatches);
+          break;
+
+        case Exactly:
+          requirement = ArbiterCreateRequirementExactly(semanticVersion);
+          break;
+
+        case Any:
+          assert(false);
+      }
+
+      ArbiterFreeSemanticVersion(semanticVersion);
     }
 
     ArbiterUserValue dependencyValue = string_value_from_string(dependencyPath, strlen(dependencyPath));
