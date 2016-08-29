@@ -8,6 +8,7 @@ TEST_SOURCES=$(shell find test -name '*.cpp') $(GTEST_DIR)/src/gtest-all.cc $(GT
 TEST_RUNNER=test/main
 TEST_INCLUDES=-isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -Isrc/
 
+EXAMPLES=examples/library_folders/library_folders
 EXAMPLE_LIBRARY_FOLDERS=$(shell find examples/library_folders -name '*.c')
 
 CXX=clang++
@@ -24,16 +25,17 @@ check: $(TEST_RUNNER)
 	$(TEST_RUNNER)
 
 clean:
+	rm -f $(EXAMPLES)
 	rm -f $(LIBRARY) $(TEST_RUNNER)
 	rm -f $(OBJECTS)
 
 docs:
 	doxygen Doxyfile
 
-examples: library_folders
+examples: $(EXAMPLES)
 
-library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS)
-	$(CC) $(CFLAGS) $(EXAMPLE_LIBRARY_FOLDERS) $(LIBRARY) -o examples/library_folders/$@
+examples/library_folders/library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS)
+	$(CC) $(CFLAGS) $(EXAMPLE_LIBRARY_FOLDERS) $(LIBRARY) -o $@
 
 $(LIBRARY): $(OBJECTS)
 	$(LIBTOOL) $(OBJECTS) -o $@
