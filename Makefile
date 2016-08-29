@@ -28,7 +28,7 @@ bindings/swift: $(LIBRARY)
 
 build: $(LIBRARY)
 
-check: examples $(TEST_RUNNER)
+check: $(TEST_RUNNER) examples bindings
 	$(TEST_RUNNER)
 
 clean:
