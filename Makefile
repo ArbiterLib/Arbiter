@@ -17,9 +17,14 @@ CC=clang
 CFLAGS=-std=c99 -lc++ -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 LIBTOOL=libtool
 
-.PHONY: check docs $(TEST_RUNNER)
+.PHONY: bindings/swift check docs
 
 all: build
+
+bindings: bindings/swift
+
+bindings/swift: $(LIBRARY)
+	cd $@ && xcodebuild -scheme Arbiter
 
 build: $(LIBRARY)
 
@@ -30,6 +35,7 @@ clean:
 	rm -f $(EXAMPLES)
 	rm -f $(LIBRARY) $(TEST_RUNNER)
 	rm -f $(OBJECTS)
+	cd bindings/swift && xcodebuild clean
 
 docs:
 	doxygen Doxyfile
