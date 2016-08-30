@@ -71,6 +71,10 @@ class DependencyGraph final
     ArbiterResolvedDependencyGraph resolvedGraph () const
     {
       ArbiterResolvedDependencyGraph resolved;
+      if (_nodeMap.empty()) {
+        return resolved;
+      }
+
       size_t resolvedCount = 0;
 
       // Maps from dependencies to their dependents.
