@@ -88,6 +88,28 @@ public final class SelectedVersion<Metadata: ArbiterValue> : CObject
   }
 }
 
+public final class SelectedVersionList<Metadata: ArbiterValue> : CObject
+{
+  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
+  {
+    super.init(pointer, shouldCopy: shouldCopy)
+  }
+
+  public convenience init (_ versions: [SelectedVersion<Metadata>])
+  {
+    var pointers: [COpaquePointer] = []
+    for version in versions {
+      pointers.append(version.pointer)
+    }
+
+    let ptr = pointers.withUnsafeBufferPointer { bufferPtr in
+      return ArbiterCreateSelectedVersionList(bufferPtr.baseAddress, bufferPtr.count)
+    }
+
+    self.init(ptr, shouldCopy: false)
+  }
+}
+
 private func maybeWithCString<Result> (str: String?, @noescape f: UnsafePointer<Int8> throws -> Result) rethrows -> Result
 {
   if let str = str {
