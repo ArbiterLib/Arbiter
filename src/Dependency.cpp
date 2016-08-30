@@ -216,6 +216,11 @@ bool ArbiterResolvedDependencyList::operator== (const Arbiter::Base &other) cons
   return _dependencies == ptr->_dependencies;
 }
 
+size_t std::hash<ArbiterProjectIdentifier>::operator() (const ArbiterProjectIdentifier &project) const
+{
+  return hashOf(project._value);
+}
+
 size_t std::hash<ArbiterDependency>::operator() (const ArbiterDependency &dependency) const
 {
   return hashOf(dependency._projectIdentifier)

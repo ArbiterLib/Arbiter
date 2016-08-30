@@ -28,6 +28,20 @@ static char *copyString (const char *str, size_t length)
   return copy;
 }
 
+static size_t hash (const void *ptr)
+{
+  size_t value = 0;
+
+  const char *str = ptr;
+
+  // how not to write a hash function
+  while (*str != '\0') {
+    value += *(str++);
+  }
+
+  return value;
+}
+
 static char *createDescription (const void *str)
 {
   return copyString(str, strlen(str));
@@ -39,8 +53,9 @@ ArbiterUserValue string_value_from_string (const char *str, size_t length)
     .data = copyString(str, length),
     .equalTo = &equalTo,
     .lessThan = &lessThan,
-    .destructor = &free,
+    .hash = &hash,
     .createDescription = &createDescription,
+    .destructor = &free,
   };
 
   return value;

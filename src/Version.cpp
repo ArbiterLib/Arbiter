@@ -20,7 +20,7 @@ size_t std::hash<ArbiterSemanticVersion>::operator() (const ArbiterSemanticVersi
 
 size_t std::hash<ArbiterSelectedVersion>::operator() (const ArbiterSelectedVersion &version) const
 {
-  return hashOf(version._semanticVersion);
+  return hashOf(version._semanticVersion) ^ hashOf(version._metadata);
 }
 
 Optional<ArbiterSemanticVersion> ArbiterSemanticVersion::fromString (const std::string &versionString)

@@ -1,4 +1,5 @@
 #include "Dependency.h"
+#include "Hash.h"
 #include "Requirement.h"
 #include "Resolver.h"
 #include "ToString.h"
@@ -24,6 +25,7 @@ class TestValue
     virtual bool operator== (const TestValue &) const = 0;
     virtual bool operator< (const TestValue &) const = 0;
     virtual std::ostream &describe (std::ostream &os) const = 0;
+    virtual size_t hash () const = 0;
 
     static ArbiterUserValue convertToUserValue (std::unique_ptr<TestValue> testValue)
     {
@@ -31,6 +33,7 @@ class TestValue
       userValue.data = testValue.release();
       userValue.equalTo = &equalTo;
       userValue.lessThan = &lessThan;
+      userValue.hash = &hash;
       userValue.destructor = &destructor;
       userValue.createDescription = &createDescription;
       return userValue;
@@ -45,6 +48,11 @@ class TestValue
     static bool lessThan (const void *first, const void *second)
     {
       return *static_cast<const TestValue *>(first) < *static_cast<const TestValue *>(second);
+    }
+
+    static size_t hash (const void *data)
+    {
+      return static_cast<const TestValue *>(data)->hash();
     }
 
     static void destructor (void *data)
@@ -78,6 +86,11 @@ class EmptyTestValue final : public TestValue
       return !(*this == other);
     }
 
+    size_t hash () const override
+    {
+      return 4;
+    }
+
     std::ostream &describe (std::ostream &os) const override
     {
       return os << "EmptyTestValue";
@@ -107,6 +120,11 @@ struct StringTestValue final : public TestValue
       } else {
         return true;
       }
+    }
+
+    size_t hash () const override
+    {
+      return hashOf(_str);
     }
 
     std::ostream &describe (std::ostream &os) const override

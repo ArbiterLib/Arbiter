@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
+#include <stddef.h>
 
 /**
  * Represents an arbitrary value that can be associated with Arbiter data types
@@ -40,11 +41,12 @@ typedef struct
   bool (*lessThan)(const void *first, const void *second);
 
   /**
-   * A cleanup function to call when the ArbiterUserValue is done being used.
+   * Generates a hash of the data object. The hash does not need to be
+   * cryptographically secure.
    *
-   * This may be NULL.
+   * This must not be NULL.
    */
-  void (*destructor)(void *data);
+  size_t (*hash)(const void *first);
 
   /**
    * An operation to convert this data object to a string. The returned value
@@ -53,6 +55,13 @@ typedef struct
    * This may be NULL.
    */
   char *(*createDescription)(const void *data);
+
+  /**
+   * A cleanup function to call when the ArbiterUserValue is done being used.
+   *
+   * This may be NULL.
+   */
+  void (*destructor)(void *data);
 } ArbiterUserValue;
 
 #ifdef __cplusplus
