@@ -1,4 +1,4 @@
-public final class ProjectIdentifier<Value: AnyObject where Value: Comparable> : CObject
+public final class ProjectIdentifier<Value: ArbiterValue> : CObject
 {
   public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
   {
@@ -7,17 +7,17 @@ public final class ProjectIdentifier<Value: AnyObject where Value: Comparable> :
 
   public convenience init (value: Value)
   {
-    let ptr = ArbiterCreateProjectIdentifier(toUserValue(value))
+    let ptr = ArbiterCreateProjectIdentifier(value.toUserValue())
     self.init(ptr, shouldCopy: false)
   }
 
   public var value: Value
   {
-    return fromUserValue(ArbiterProjectIdentifierValue(pointer))
+    return Value.fromUserValue(ArbiterProjectIdentifierValue(pointer))
   }
 }
 
-public final class Dependency<ProjectValue: AnyObject where ProjectValue: Comparable> : CObject
+public final class Dependency<ProjectValue: ArbiterValue> : CObject
 {
   public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
   {

@@ -64,7 +64,7 @@ public func < (lhs: SemanticVersion, rhs: SemanticVersion) -> Bool
   return ArbiterCompareVersionOrdering(lhs.pointer, rhs.pointer) < 0
 }
 
-public final class SelectedVersion<Metadata: AnyObject where Metadata: Comparable> : CObject
+public final class SelectedVersion<Metadata: ArbiterValue> : CObject
 {
   public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
   {
@@ -73,7 +73,7 @@ public final class SelectedVersion<Metadata: AnyObject where Metadata: Comparabl
 
   public convenience init (semanticVersion: SemanticVersion, metadata: Metadata)
   {
-    let ptr = ArbiterCreateSelectedVersion(semanticVersion.pointer, toUserValue(metadata))
+    let ptr = ArbiterCreateSelectedVersion(semanticVersion.pointer, metadata.toUserValue())
     self.init(ptr, shouldCopy: false)
   }
 
@@ -84,7 +84,7 @@ public final class SelectedVersion<Metadata: AnyObject where Metadata: Comparabl
 
   public var metadata: Metadata
   {
-    return fromUserValue(ArbiterSelectedVersionMetadata(pointer))
+    return Metadata.fromUserValue(ArbiterSelectedVersionMetadata(pointer))
   }
 }
 
