@@ -13,6 +13,7 @@
 #include <functional>
 #include <memory>
 #include <ostream>
+#include <unordered_set>
 #include <vector>
 
 struct ArbiterRequirement;
@@ -110,22 +111,17 @@ struct ArbiterResolvedDependency final : public Arbiter::Base
     bool operator== (const Arbiter::Base &other) const override;
 };
 
-struct ArbiterResolvedDependencyList final : public Arbiter::Base
+struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 {
   public:
-    std::vector<ArbiterResolvedDependency> _dependencies;
+    std::vector<std::unordered_set<ArbiterResolvedDependency>> _depths;
 
-    ArbiterResolvedDependencyList () = default;
+    ArbiterResolvedDependencyGraph () = default;
 
-    explicit ArbiterResolvedDependencyList (std::vector<ArbiterResolvedDependency> dependencies)
-      : _dependencies(std::move(dependencies))
-    {}
+    size_t count () const;
 
-    ArbiterResolvedDependencyList (const ArbiterResolvedDependencyList &) = default;
-    ArbiterResolvedDependencyList &operator= (const ArbiterResolvedDependencyList &) = default;
-
-    ArbiterResolvedDependencyList (ArbiterResolvedDependencyList &&) = default;
-    ArbiterResolvedDependencyList &operator= (ArbiterResolvedDependencyList &&) = default;
+    size_t depth () const noexcept;
+    size_t countAtDepth (size_t depthIndex) const;
 
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
