@@ -8,7 +8,7 @@ extern "C" {
 #include <stdbool.h>
 
 // forward declarations
-typedef struct ArbiterSemanticVersion ArbiterSemanticVersion;
+struct ArbiterSemanticVersion;
 
 /**
  * How strict to be in matching compatible versions.
@@ -49,7 +49,7 @@ ArbiterRequirement *ArbiterCreateRequirementAny (void);
  *
  * The returned requirement must be freed with ArbiterFree().
  */
-ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersion *version);
+ArbiterRequirement *ArbiterCreateRequirementAtLeast (const struct ArbiterSemanticVersion *version);
 
 /**
  * Creates a requirement which will match versions that are "compatible with"
@@ -61,7 +61,7 @@ ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersio
  *
  * The returned requirement must be freed with ArbiterFree().
  */
-ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanticVersion *version, ArbiterRequirementStrictness strictness);
+ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const struct ArbiterSemanticVersion *version, ArbiterRequirementStrictness strictness);
 
 /**
  * Creates a requirement which will only match the specified version, including
@@ -69,12 +69,12 @@ ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanti
  *
  * The returned requirement must be freed with ArbiterFree().
  */
-ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersion *version);
+ArbiterRequirement *ArbiterCreateRequirementExactly (const struct ArbiterSemanticVersion *version);
 
 /**
  * Determines whether the given requirement is satisfied by the given version.
  */
-bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSemanticVersion *version);
+bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSemanticVersion *version);
 
 #ifdef __cplusplus
 }

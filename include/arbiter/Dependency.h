@@ -10,8 +10,8 @@ extern "C" {
 #include <stddef.h>
 
 // forward declarations
-typedef struct ArbiterRequirement ArbiterRequirement;
-typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
+struct ArbiterRequirement;
+struct ArbiterSelectedVersion;
 
 /**
  * An opaque value which identifies a project participating in dependency
@@ -46,7 +46,7 @@ typedef struct ArbiterDependency ArbiterDependency;
  *
  * The returned dependency must be freed with ArbiterFree().
  */
-ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *projectIdentifier, const ArbiterRequirement *requirement);
+ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *projectIdentifier, const struct ArbiterRequirement *requirement);
 
 /**
  * Returns the project identified by this dependency. 
@@ -62,7 +62,7 @@ const ArbiterProjectIdentifier *ArbiterDependencyProject (const ArbiterDependenc
  * The returned pointer is only guaranteed to remain valid for the current
  * scope.
  */
-const ArbiterRequirement *ArbiterDependencyRequirement (const ArbiterDependency *dependency);
+const struct ArbiterRequirement *ArbiterDependencyRequirement (const ArbiterDependency *dependency);
 
 /**
  * Represents a list of dependencies.
@@ -89,7 +89,7 @@ typedef struct ArbiterResolvedDependency ArbiterResolvedDependency;
  *
  * The returned dependency must be freed with ArbiterFree().
  */
-ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *version);
+ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const ArbiterProjectIdentifier *project, const struct ArbiterSelectedVersion *version);
 
 /**
  * Returns the project this resolved dependency refers to.
@@ -105,7 +105,7 @@ const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterR
  * The returned pointer is only guaranteed to remain valid for the current
  * scope.
  */
-const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency);
+const struct ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency);
 
 /**
  * Represents a list of resolved dependencies.

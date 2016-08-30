@@ -10,11 +10,11 @@ extern "C" {
 #include <stdbool.h>
 
 // forward declarations
-typedef struct ArbiterDependencyList ArbiterDependencyList;
-typedef struct ArbiterProjectIdentifier ArbiterProjectIdentifier;
-typedef struct ArbiterResolvedDependencyList ArbiterResolvedDependencyList;
-typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
-typedef struct ArbiterSelectedVersionList ArbiterSelectedVersionList;
+struct ArbiterDependencyList;
+struct ArbiterProjectIdentifier;
+struct ArbiterResolvedDependencyList;
+struct ArbiterSelectedVersion;
+struct ArbiterSelectedVersionList;
 
 /**
  * A dependency resolver which contains context about how to evaluate the
@@ -36,7 +36,7 @@ typedef struct
    * NULL, `error` may be set to a string describing the error which occurred,
    * in which case Arbiter will be responsible for freeing the string.
    */
-  ArbiterDependencyList *(*createDependencyList)(const ArbiterResolver *resolver, const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *selectedVersion, char **error);
+  struct ArbiterDependencyList *(*createDependencyList)(const ArbiterResolver *resolver, const struct ArbiterProjectIdentifier *project, const struct ArbiterSelectedVersion *selectedVersion, char **error);
 
   /**
    * Requests the list of versions available for a given project.
@@ -46,7 +46,7 @@ typedef struct
    * NULL, `error` may be set to a string describing the error which occurred,
    * in which case Arbiter will be responsible for freeing the string.
    */
-  ArbiterSelectedVersionList *(*createAvailableVersionsList)(const ArbiterResolver *resolver, const ArbiterProjectIdentifier *project, char **error);
+  struct ArbiterSelectedVersionList *(*createAvailableVersionsList)(const ArbiterResolver *resolver, const struct ArbiterProjectIdentifier *project, char **error);
 } ArbiterResolverBehaviors;
 
 /**
@@ -56,7 +56,7 @@ typedef struct
  *
  * The returned dependency resolver must be freed with ArbiterFree().
  */
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, const void *context);
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterDependencyList *dependencyList, const void *context);
 
 /**
  * Returns any context data which was provided to ArbiterCreateResolver().
@@ -74,7 +74,7 @@ const void *ArbiterResolverContext (const ArbiterResolver *resolver);
  * `error` is not NULL, it may be set to a string describing the error, which
  * the caller is responsible for freeing.
  */
-ArbiterResolvedDependencyList *ArbiterResolverCreateResolvedDependencyList (ArbiterResolver *resolver, char **error);
+struct ArbiterResolvedDependencyList *ArbiterResolverCreateResolvedDependencyList (ArbiterResolver *resolver, char **error);
 
 #ifdef __cplusplus
 }
