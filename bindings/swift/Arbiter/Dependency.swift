@@ -41,6 +41,28 @@ public final class Dependency<ProjectValue: ArbiterValue> : CObject
   }
 }
 
+public final class DependencyList<ProjectValue: ArbiterValue> : CObject
+{
+  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
+  {
+    super.init(pointer, shouldCopy: shouldCopy)
+  }
+
+  public convenience init (_ dependencies: [Dependency<ProjectValue>])
+  {
+    var pointers: [COpaquePointer] = []
+    for dependency in dependencies {
+      pointers.append(dependency.pointer)
+    }
+
+    let ptr = pointers.withUnsafeBufferPointer { bufferPtr in
+      return ArbiterCreateDependencyList(bufferPtr.baseAddress, bufferPtr.count)
+    }
+
+    self.init(ptr, shouldCopy: false)
+  }
+}
+
 public final class ResolvedDependency<ProjectValue: ArbiterValue, VersionMetadata: ArbiterValue> : CObject
 {
   public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
