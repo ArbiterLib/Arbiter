@@ -4,7 +4,6 @@
 #error "This file must be compiled as C++."
 #endif
 
-#include <exception>
 #include <ostream>
 #include <stdexcept>
 

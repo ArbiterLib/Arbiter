@@ -4,7 +4,6 @@
 #include "ToString.h"
 
 #include <typeinfo>
-#include <stdexcept>
 
 ArbiterRequirement *ArbiterCreateRequirementAny (void)
 {
