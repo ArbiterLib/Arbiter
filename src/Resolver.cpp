@@ -7,114 +7,253 @@
 #include "Requirement.h"
 #include "ToString.h"
 
-#include <algorithm>
 #include <cassert>
 #include <exception>
 #include <map>
-#include <stdexcept>
+#include <set>
+#include <unordered_set>
 
 using namespace Arbiter;
-using namespace Resolver;
 
-void DependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Optional<ArbiterProjectIdentifier> &dependent) noexcept(false)
+namespace {
+
+/**
+ * Represents an acyclic dependency graph in which each project appears at most
+ * once.
+ *
+ * Dependency graphs can exist in an incomplete state, but will never be
+ * inconsistent (i.e., include versions that are known to be invalid given the
+ * current graph).
+ */
+class DependencyGraph final
 {
-  assert(initialRequirement.satisfiedBy(node._version._semanticVersion));
+  public:
+    /**
+     * Attempts to add the given node into the graph, as a dependency of
+     * `dependent` if specified.
+     *
+     * If the given node refers to a project which already exists in the graph,
+     * this method will attempt to intersect the version requirements of both.
+     *
+     * Throws an exception if this addition would make the graph inconsistent.
+     */
+    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Optional<ArbiterProjectIdentifier> &dependent) noexcept(false)
+    {
+      assert(initialRequirement.satisfiedBy(node._version._semanticVersion));
 
-  const NodeKey &key = node._project;
+      const NodeKey &key = node._project;
 
-  const auto it = _nodeMap.find(key);
-  if (it != _nodeMap.end()) {
-    NodeValue &value = it->second;
+      const auto it = _nodeMap.find(key);
+      if (it != _nodeMap.end()) {
+        NodeValue &value = it->second;
 
-    // We need to unify our input with what was already there.
-    if (auto newRequirement = initialRequirement.intersect(value.requirement())) {
-      if (!newRequirement->satisfiedBy(value._version._semanticVersion)) {
-        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*newRequirement) + " with " + toString(value._version));
+        // We need to unify our input with what was already there.
+        if (auto newRequirement = initialRequirement.intersect(value.requirement())) {
+          if (!newRequirement->satisfiedBy(value._version._semanticVersion)) {
+            throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*newRequirement) + " with " + toString(value._version));
+          }
+
+          value.setRequirement(std::move(newRequirement));
+        } else {
+          throw Exception::MutuallyExclusiveConstraints(toString(value.requirement()) + " and " + toString(initialRequirement) + " are mutually exclusive");
+        }
+      } else {
+        _nodeMap.emplace(std::make_pair(key, NodeValue(node._version, initialRequirement)));
       }
 
-      value.setRequirement(std::move(newRequirement));
-    } else {
-      throw Exception::MutuallyExclusiveConstraints(toString(value.requirement()) + " and " + toString(initialRequirement) + " are mutually exclusive");
+      if (dependent) {
+        _edges[*dependent].insert(key);
+      } else {
+        _roots.insert(key);
+      }
     }
-  } else {
-    _nodeMap.emplace(std::make_pair(key, NodeValue(node._version, initialRequirement)));
+
+    /**
+     * Returns a list of all nodes in the graph, in no particular order. There
+     * are guaranteed to be no duplicate projects in the vector.
+     */
+    std::vector<ArbiterResolvedDependency> allNodes () const
+    {
+      std::vector<ArbiterResolvedDependency> nodes;
+      nodes.reserve(_nodeMap.size());
+
+      for (const auto &pair : _nodeMap) {
+        nodes.emplace_back(resolveNode(pair.first, pair.second));
+      }
+
+      return nodes;
+    }
+
+    std::ostream &describe (std::ostream &os) const
+    {
+      os << "Roots:";
+      for (const NodeKey &key : _roots) {
+        os << "\n\t" << resolveNode(key);
+      }
+
+      os << "\n\nEdges";
+      for (const auto &pair : _edges) {
+        const NodeKey &key = pair.first;
+        os << "\n\t" << key << " ->";
+
+        for (const NodeKey &dependency : pair.second) {
+          os << "\n\t\t" << resolveNode(dependency);
+        }
+      }
+
+      return os;
+    }
+
+  private:
+    using NodeKey = ArbiterProjectIdentifier;
+
+    struct NodeValue final
+    {
+      public:
+        const ArbiterSelectedVersion _version;
+
+        NodeValue (ArbiterSelectedVersion version, const ArbiterRequirement &requirement)
+          : _version(std::move(version))
+        {
+          setRequirement(requirement);
+        }
+
+        const ArbiterRequirement &requirement () const
+        {
+          return *_requirement;
+        }
+
+        void setRequirement (const ArbiterRequirement &requirement)
+        {
+          setRequirement(requirement.cloneRequirement());
+        }
+
+        void setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
+        {
+          assert(requirement->satisfiedBy(_version._semanticVersion));
+          _requirement = std::move(requirement);
+        }
+
+      private:
+        std::shared_ptr<ArbiterRequirement> _requirement;
+    };
+
+    static ArbiterResolvedDependency resolveNode (const NodeKey &key, const NodeValue &value)
+    {
+      return ArbiterResolvedDependency(key, value._version);
+    }
+
+    ArbiterResolvedDependency resolveNode (const NodeKey &key) const
+    {
+      return resolveNode(key, _nodeMap.at(key));
+    }
+
+    std::set<NodeKey> _roots;
+    std::map<NodeKey, std::unordered_set<NodeKey>> _edges;
+    std::unordered_map<NodeKey, NodeValue> _nodeMap;
+};
+
+DependencyGraph resolveDependencies (ArbiterResolver &resolver, const DependencyGraph &baseGraph, std::set<ArbiterDependency> dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
+{
+  if (dependencySet.empty()) {
+    return baseGraph;
   }
 
-  if (dependent) {
-    _edges[*dependent].insert(key);
-  } else {
-    _roots.insert(key);
-  }
-}
+  // This collection is reused when actually building the new dependency graph
+  // below.
+  std::map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
 
-std::vector<ArbiterResolvedDependency> DependencyGraph::allNodes() const
-{
-  std::vector<ArbiterResolvedDependency> nodes;
-  nodes.reserve(_nodeMap.size());
-
-  for (const auto &pair : _nodeMap) {
-    nodes.emplace_back(resolveNode(pair.first, pair.second));
+  for (const ArbiterDependency &dependency : dependencySet) {
+    requirementsByProject[dependency._projectIdentifier] = dependency.requirement().cloneRequirement();
   }
 
-  return nodes;
-}
+  assert(requirementsByProject.size() == dependencySet.size());
 
-DependencyGraph::NodeValue::NodeValue (ArbiterSelectedVersion version, const ArbiterRequirement &requirement)
-  : _version(std::move(version))
-{
-  setRequirement(requirement);
-}
+  // Free the dependencySet, as it will no longer be used.
+  reset(dependencySet);
 
-const ArbiterRequirement &DependencyGraph::NodeValue::requirement () const
-{
-  return *_requirement;
-}
+  // This collection needs to exist for as long as the permuted iterators do below.
+  std::map<ArbiterProjectIdentifier, std::vector<ArbiterResolvedDependency>> possibilities;
 
-void DependencyGraph::NodeValue::setRequirement (const ArbiterRequirement &requirement)
-{
-  setRequirement(requirement.cloneRequirement());
-}
+  for (const auto &pair : requirementsByProject) {
+    const ArbiterProjectIdentifier &project = pair.first;
+    const ArbiterRequirement &requirement = *pair.second;
 
-void DependencyGraph::NodeValue::setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
-{
-  assert(requirement->satisfiedBy(_version._semanticVersion));
-  _requirement = std::move(requirement);
-}
+    std::vector<ArbiterSelectedVersion> versions = resolver.availableVersionsSatisfying(project, requirement);
+    if (versions.empty()) {
+      throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(project));
+    }
 
-ArbiterResolvedDependency DependencyGraph::resolveNode (const NodeKey &key, const NodeValue &value)
-{
-  return ArbiterResolvedDependency(key, value._version);
-}
+    // Sort the version list with highest precedence first, so we try the newest
+    // possible versions first.
+    std::sort(versions.begin(), versions.end(), std::greater<ArbiterSelectedVersion>());
 
-ArbiterResolvedDependency DependencyGraph::resolveNode (const NodeKey &key) const
-{
-  return resolveNode(key, _nodeMap.at(key));
-}
+    std::vector<ArbiterResolvedDependency> resolutions;
+    resolutions.reserve(versions.size());
 
-std::ostream &DependencyGraph::describe (std::ostream &os) const
-{
-  os << "Roots:";
-  for (const NodeKey &key : _roots) {
-    os << "\n\t" << resolveNode(key);
+    for (ArbiterSelectedVersion &version : versions) {
+      resolutions.emplace_back(project, std::move(version));
+    }
+
+    possibilities[project] = std::move(resolutions);
   }
 
-  os << "\n\nEdges";
-  for (const auto &pair : _edges) {
-    const NodeKey &key = pair.first;
-    os << "\n\t" << key << " ->";
+  assert(possibilities.size() == requirementsByProject.size());
 
-    for (const NodeKey &dependency : pair.second) {
-      os << "\n\t\t" << resolveNode(dependency);
+  using Iterator = std::vector<ArbiterResolvedDependency>::const_iterator;
+
+  std::vector<IteratorRange<Iterator>> ranges;
+  for (const auto &pair : possibilities) {
+    const std::vector<ArbiterResolvedDependency> &dependencies = pair.second;
+    ranges.emplace_back(dependencies.cbegin(), dependencies.cend());
+  }
+
+  assert(ranges.size() == possibilities.size());
+
+  std::exception_ptr lastException = std::make_exception_ptr(Exception::UnsatisfiableConstraints("No further combinations to attempt"));
+
+  for (PermutationIterator<Iterator> permuter(std::move(ranges)); permuter; ++permuter) {
+    try {
+      std::vector<ArbiterResolvedDependency> choices = *permuter;
+
+      DependencyGraph candidate = baseGraph;
+
+      // Add everything to the graph first, to throw any exceptions that would
+      // occur before we perform the computation- and memory-expensive stuff for
+      // transitive dependencies.
+      for (ArbiterResolvedDependency &dependency : choices) {
+        const ArbiterRequirement &requirement = *requirementsByProject.at(dependency._project);
+        candidate.addNode(dependency, requirement, maybeAt(dependentsByProject, dependency._project));
+      }
+
+      // Collect immediate children for the next phase of dependency resolution,
+      // so we can permute their versions as a group (for something
+      // approximating breadth-first search).
+      std::set<ArbiterDependency> collectedTransitives;
+      std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> dependentsByTransitive;
+
+      for (ArbiterResolvedDependency &dependency : choices) {
+        std::vector<ArbiterDependency> transitives = resolver.fetchDependencies(dependency._project, dependency._version)._dependencies;
+
+        for (const ArbiterDependency &transitive : transitives) {
+          dependentsByTransitive[transitive._projectIdentifier] = dependency._project;
+        }
+
+        collectedTransitives.insert(transitives.begin(), transitives.end());
+      }
+
+      reset(choices);
+
+      return resolveDependencies(resolver, candidate, std::move(collectedTransitives), std::move(dependentsByTransitive));
+    } catch (Arbiter::Exception::Base &ex) {
+      lastException = std::current_exception();
     }
   }
 
-  return os;
+  rethrow_exception(lastException);
 }
 
-std::ostream &operator<< (std::ostream &os, const DependencyGraph &graph)
-{
-  return graph.describe(os);
-}
+} // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, const void *context)
 {
@@ -195,7 +334,7 @@ ArbiterResolvedDependencyList ArbiterResolver::resolve () noexcept(false)
 {
   std::set<ArbiterDependency> dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
 
-  DependencyGraph graph = resolveDependencies(DependencyGraph(), std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
+  DependencyGraph graph = resolveDependencies(*this, DependencyGraph(), std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
   return ArbiterResolvedDependencyList(graph.allNodes());
 }
 
@@ -212,106 +351,6 @@ std::ostream &ArbiterResolver::describe (std::ostream &os) const
 bool ArbiterResolver::operator== (const Arbiter::Base &other) const
 {
   return this == &other;
-}
-
-DependencyGraph ArbiterResolver::resolveDependencies (const DependencyGraph &baseGraph, std::set<ArbiterDependency> dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
-{
-  if (dependencySet.empty()) {
-    return baseGraph;
-  }
-
-  // This collection is reused when actually building the new dependency graph
-  // below.
-  std::map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
-
-  for (const ArbiterDependency &dependency : dependencySet) {
-    requirementsByProject[dependency._projectIdentifier] = dependency.requirement().cloneRequirement();
-  }
-
-  assert(requirementsByProject.size() == dependencySet.size());
-
-  // Free the dependencySet, as it will no longer be used.
-  reset(dependencySet);
-
-  // This collection needs to exist for as long as the permuted iterators do below.
-  std::map<ArbiterProjectIdentifier, std::vector<ArbiterResolvedDependency>> possibilities;
-
-  for (const auto &pair : requirementsByProject) {
-    const ArbiterProjectIdentifier &project = pair.first;
-    const ArbiterRequirement &requirement = *pair.second;
-
-    std::vector<ArbiterSelectedVersion> versions = availableVersionsSatisfying(project, requirement);
-    if (versions.empty()) {
-      throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(project));
-    }
-
-    // Sort the version list with highest precedence first, so we try the newest
-    // possible versions first.
-    std::sort(versions.begin(), versions.end(), std::greater<ArbiterSelectedVersion>());
-
-    std::vector<ArbiterResolvedDependency> resolutions;
-    resolutions.reserve(versions.size());
-
-    for (ArbiterSelectedVersion &version : versions) {
-      resolutions.emplace_back(project, std::move(version));
-    }
-
-    possibilities[project] = std::move(resolutions);
-  }
-
-  assert(possibilities.size() == requirementsByProject.size());
-
-  using Iterator = std::vector<ArbiterResolvedDependency>::const_iterator;
-
-  std::vector<IteratorRange<Iterator>> ranges;
-  for (const auto &pair : possibilities) {
-    const std::vector<ArbiterResolvedDependency> &dependencies = pair.second;
-    ranges.emplace_back(dependencies.cbegin(), dependencies.cend());
-  }
-
-  assert(ranges.size() == possibilities.size());
-
-  std::exception_ptr lastException = std::make_exception_ptr(Exception::UnsatisfiableConstraints("No further combinations to attempt"));
-
-  for (PermutationIterator<Iterator> permuter(std::move(ranges)); permuter; ++permuter) {
-    try {
-      std::vector<ArbiterResolvedDependency> choices = *permuter;
-
-      DependencyGraph candidate = baseGraph;
-
-      // Add everything to the graph first, to throw any exceptions that would
-      // occur before we perform the computation- and memory-expensive stuff for
-      // transitive dependencies.
-      for (ArbiterResolvedDependency &dependency : choices) {
-        const ArbiterRequirement &requirement = *requirementsByProject.at(dependency._project);
-        candidate.addNode(dependency, requirement, maybeAt(dependentsByProject, dependency._project));
-      }
-
-      // Collect immediate children for the next phase of dependency resolution,
-      // so we can permute their versions as a group (for something
-      // approximating breadth-first search).
-      std::set<ArbiterDependency> collectedTransitives;
-      std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> dependentsByTransitive;
-
-      for (ArbiterResolvedDependency &dependency : choices) {
-        std::vector<ArbiterDependency> transitives = fetchDependencies(dependency._project, dependency._version)._dependencies;
-
-        for (const ArbiterDependency &transitive : transitives) {
-          dependentsByTransitive[transitive._projectIdentifier] = dependency._project;
-        }
-
-        collectedTransitives.insert(transitives.begin(), transitives.end());
-      }
-
-      reset(choices);
-
-      return resolveDependencies(candidate, std::move(collectedTransitives), std::move(dependentsByTransitive));
-    } catch (Arbiter::Exception::Base &ex) {
-      lastException = std::current_exception();
-    }
-  }
-
-  rethrow_exception(lastException);
 }
 
 std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) noexcept(false)

@@ -10,7 +10,6 @@
 #include <stdexcept>
 
 using namespace Arbiter;
-using namespace Resolver;
 
 namespace {
 
