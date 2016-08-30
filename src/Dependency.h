@@ -138,11 +138,7 @@ template<>
 struct hash<ArbiterProjectIdentifier> final
 {
   public:
-    size_t operator() (const ArbiterProjectIdentifier &) const
-    {
-      // TODO: Need a real hash!
-      return 4;
-    }
+    size_t operator() (const ArbiterProjectIdentifier &project) const;
 };
 
 template<>

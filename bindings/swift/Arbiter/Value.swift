@@ -1,4 +1,4 @@
-public protocol ArbiterValue : AnyObject, Comparable
+public protocol ArbiterValue : AnyObject, Comparable, Hashable
 {}
 
 extension ArbiterValue {
@@ -18,8 +18,9 @@ extension ArbiterValue {
         let unmanagedSecond = UnmanagedValue.fromOpaque(COpaquePointer(second))
         return unmanagedFirst.takeUnretainedValue() < unmanagedSecond.takeUnretainedValue()
       },
-      destructor: { ptr in
-        UnmanagedValue.fromOpaque(COpaquePointer(ptr)).release()
+      hash: { ptr in
+        let unmanaged = UnmanagedValue.fromOpaque(COpaquePointer(ptr))
+        return unmanaged.takeUnretainedValue().hashValue
       },
       createDescription: { ptr in
         let unmanaged = UnmanagedValue.fromOpaque(COpaquePointer(ptr))
@@ -28,6 +29,9 @@ extension ArbiterValue {
         return str.withCString { constStr in
           return strdup(constStr)
         }
+      },
+      destructor: { ptr in
+        UnmanagedValue.fromOpaque(COpaquePointer(ptr)).release()
       })
 
     return ArbiterUserValue(
@@ -42,13 +46,17 @@ extension ArbiterValue {
         let unmanagedSecond = Unmanaged<UserValueWrapper>.fromOpaque(COpaquePointer(second))
         return unmanagedFirst.takeUnretainedValue() < unmanagedSecond.takeUnretainedValue()
       },
-      destructor: { ptr in
-        let wrapper = Unmanaged<UserValueWrapper>.fromOpaque(COpaquePointer(ptr)).takeRetainedValue()
-        wrapper.destructor(wrapper.data)
+      hash: { ptr in
+        let wrapper = Unmanaged<UserValueWrapper>.fromOpaque(COpaquePointer(ptr)).takeUnretainedValue()
+        return wrapper.hash(UnsafePointer(wrapper.data))
       },
       createDescription: { ptr in
         let wrapper = Unmanaged<UserValueWrapper>.fromOpaque(COpaquePointer(ptr)).takeUnretainedValue()
         return wrapper.createDescription(UnsafePointer(wrapper.data))
+      },
+      destructor: { ptr in
+        let wrapper = Unmanaged<UserValueWrapper>.fromOpaque(COpaquePointer(ptr)).takeRetainedValue()
+        wrapper.destructor(wrapper.data)
       })
   }
 
@@ -68,16 +76,18 @@ private class UserValueWrapper : Comparable
   let data: UnsafeMutablePointer<Void>
   let equalTo: Comparator
   let lessThan: Comparator
-  let destructor: (UnsafeMutablePointer<Void> -> Void)
+  let hash: (UnsafePointer<Void> -> Int)
   let createDescription: (UnsafePointer<Void> -> UnsafeMutablePointer<CChar>)
+  let destructor: (UnsafeMutablePointer<Void> -> Void)
 
-  init (data: UnsafeMutablePointer<Void>, equalTo: Comparator, lessThan: Comparator, destructor: (UnsafeMutablePointer<Void> -> Void), createDescription: (UnsafePointer<Void> -> UnsafeMutablePointer<CChar>))
+  init (data: UnsafeMutablePointer<Void>, equalTo: Comparator, lessThan: Comparator, hash: (UnsafePointer<Void> -> Int), createDescription: (UnsafePointer<Void> -> UnsafeMutablePointer<CChar>), destructor: (UnsafeMutablePointer<Void> -> Void))
   {
     self.data = data
     self.equalTo = equalTo
     self.lessThan = lessThan
-    self.destructor = destructor
+    self.hash = hash
     self.createDescription = createDescription
+    self.destructor = destructor
   }
 }
 
