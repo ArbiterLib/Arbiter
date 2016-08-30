@@ -114,7 +114,10 @@ struct ArbiterResolvedDependency final : public Arbiter::Base
 struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 {
   public:
-    std::vector<std::unordered_set<ArbiterResolvedDependency>> _depths;
+    // TODO: Should this be ordered?
+    using DepthSet = std::unordered_set<ArbiterResolvedDependency>;
+
+    std::vector<DepthSet> _depths;
 
     ArbiterResolvedDependencyGraph () = default;
 

@@ -53,7 +53,7 @@ struct ArbiterResolver final : public Arbiter::Base
     /**
      * Attempts to resolve all dependencies.
      */
-    ArbiterResolvedDependencyList resolve () noexcept(false);
+    ArbiterResolvedDependencyGraph resolve () noexcept(false);
 
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
