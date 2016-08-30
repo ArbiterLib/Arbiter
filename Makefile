@@ -21,7 +21,7 @@ all: $(LIBRARY)
 
 .PHONY: check docs $(TEST_RUNNER)
 
-check: examples $(TEST_RUNNER)
+check: $(TEST_RUNNER) examples
 	$(TEST_RUNNER)
 
 clean:
