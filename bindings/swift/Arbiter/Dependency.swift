@@ -86,3 +86,40 @@ public final class ResolvedDependency<ProjectValue: ArbiterValue, VersionMetadat
     return SelectedVersion<VersionMetadata>(ArbiterResolvedDependencyVersion(pointer))
   }
 }
+
+public final class ResolvedDependencyList<ProjectValue: ArbiterValue, VersionMetadata: ArbiterValue> : CObject
+{
+  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
+  {
+    super.init(pointer, shouldCopy: shouldCopy)
+  }
+
+  public convenience init (_ dependencies: [ResolvedDependency<ProjectValue, VersionMetadata>])
+  {
+    var pointers: [COpaquePointer] = []
+    for dependency in dependencies {
+      pointers.append(dependency.pointer)
+    }
+
+    let ptr = pointers.withUnsafeBufferPointer { bufferPtr in
+      return ArbiterCreateDependencyList(bufferPtr.baseAddress, bufferPtr.count)
+    }
+
+    self.init(ptr, shouldCopy: false)
+  }
+
+  public var dependencies: [ResolvedDependency<ProjectValue, VersionMetadata>] {
+    let count = ArbiterResolvedDependencyListCount(pointer)
+    let buffer = UnsafeMutablePointer<COpaquePointer>.alloc(count)
+    ArbiterResolvedDependencyListGetAll(pointer, buffer)
+
+    let array = UnsafeBufferPointer(start: buffer, count: count).map { ptr in
+      return ResolvedDependency<ProjectValue, VersionMetadata>(ptr)
+    }
+
+    buffer.destroy(count)
+    buffer.dealloc(count)
+
+    return array
+  }
+}
