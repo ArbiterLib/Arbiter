@@ -40,3 +40,27 @@ public final class Dependency<ProjectValue: ArbiterValue> : CObject
     return Requirement(ArbiterDependencyRequirement(pointer))
   }
 }
+
+public final class ResolvedDependency<ProjectValue: ArbiterValue, VersionMetadata: ArbiterValue> : CObject
+{
+  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
+  {
+    super.init(pointer, shouldCopy: shouldCopy)
+  }
+
+  public convenience init (project: ProjectIdentifier<ProjectValue>, version: SelectedVersion<VersionMetadata>)
+  {
+    let ptr = ArbiterCreateResolvedDependency(project.pointer, version.pointer)
+    self.init(ptr, shouldCopy: false)
+  }
+
+  public var project: ProjectIdentifier<ProjectValue>
+  {
+    return ProjectIdentifier<ProjectValue>(ArbiterResolvedDependencyProject(pointer))
+  }
+
+  public var version: SelectedVersion<VersionMetadata>
+  {
+    return SelectedVersion<VersionMetadata>(ArbiterResolvedDependencyVersion(pointer))
+  }
+}
