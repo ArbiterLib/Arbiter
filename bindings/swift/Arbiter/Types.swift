@@ -3,10 +3,17 @@ public class CObject : Equatable
   public init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
   {
     if (shouldCopy) {
-      self.pointer = COpaquePointer(ArbiterCreateCopy(UnsafePointer(pointer)));
+      self._pointer = COpaquePointer(ArbiterCreateCopy(UnsafePointer(pointer)));
     } else {
-      self.pointer = pointer
+      self._pointer = pointer
     }
+  }
+
+  public func takeOwnership () -> COpaquePointer
+  {
+    precondition(shouldFree)
+    shouldFree = false
+    return pointer
   }
 
   deinit
@@ -14,7 +21,14 @@ public class CObject : Equatable
     ArbiterFree(UnsafeMutablePointer(pointer))
   }
 
-  public let pointer: COpaquePointer
+  public var pointer: COpaquePointer {
+    return _pointer
+  }
+
+  // Mutable internally, for two-step initialization.
+  var _pointer: COpaquePointer
+
+  private var shouldFree = true
 }
 
 public func == (lhs: CObject, rhs: CObject) -> Bool
