@@ -5,10 +5,13 @@
 extern "C" {
 #endif
 
-#include <arbiter/Requirement.h>
-#include <arbiter/Version.h>
+#include <arbiter/Value.h>
 
 #include <stddef.h>
+
+// forward declarations
+typedef struct ArbiterRequirement ArbiterRequirement;
+typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
 
 /**
  * An opaque value which identifies a project participating in dependency

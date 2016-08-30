@@ -5,11 +5,16 @@
 extern "C" {
 #endif
 
-#include <arbiter/Dependency.h>
 #include <arbiter/Value.h>
-#include <arbiter/Version.h>
 
 #include <stdbool.h>
+
+// forward declarations
+typedef struct ArbiterDependencyList ArbiterDependencyList;
+typedef struct ArbiterProjectIdentifier ArbiterProjectIdentifier;
+typedef struct ArbiterResolvedDependencyList ArbiterResolvedDependencyList;
+typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
+typedef struct ArbiterSelectedVersionList ArbiterSelectedVersionList;
 
 /**
  * A dependency resolver which contains context about how to evaluate the

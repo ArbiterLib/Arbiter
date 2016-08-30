@@ -5,9 +5,10 @@
 extern "C" {
 #endif
 
-#include <arbiter/Version.h>
-
 #include <stdbool.h>
+
+// forward declarations
+typedef struct ArbiterSemanticVersion ArbiterSemanticVersion;
 
 /**
  * How strict to be in matching compatible versions.
