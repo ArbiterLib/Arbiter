@@ -213,6 +213,17 @@ size_t ArbiterResolvedDependencyGraph::countAtDepth (size_t depthIndex) const
   return _depths.at(depthIndex).size();
 }
 
+bool ArbiterResolvedDependencyGraph::contains (const ArbiterResolvedDependency &node) const
+{
+  for (const DepthSet &depth : _depths) {
+    if (depth.find(node) != depth.end()) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 std::unique_ptr<Arbiter::Base> ArbiterResolvedDependencyGraph::clone () const
 {
   return std::make_unique<ArbiterResolvedDependencyGraph>(*this);

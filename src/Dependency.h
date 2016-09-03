@@ -126,6 +126,8 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
     size_t depth () const noexcept;
     size_t countAtDepth (size_t depthIndex) const;
 
+    bool contains (const ArbiterResolvedDependency &node) const;
+
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
