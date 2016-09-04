@@ -11,6 +11,11 @@ extern "C" {
 struct ArbiterSemanticVersion;
 
 /**
+ * Represents a requirement for a specific version or set of versions.
+ */
+typedef struct ArbiterRequirement ArbiterRequirement;
+
+/**
  * How strict to be in matching compatible versions.
  */
 typedef enum
@@ -32,9 +37,33 @@ typedef enum
 } ArbiterRequirementStrictness;
 
 /**
- * Represents a requirement for a specific version or set of versions.
+ * How suitable a specific version is for a requirement.
  */
-typedef struct ArbiterRequirement ArbiterRequirement;
+typedef enum
+{
+  /**
+   * The version is unsuitable for (does not satisfy) the requirement.
+   */
+  ArbiterRequirementSuitabilityUnsuitable,
+
+  /**
+   * The version is suitable for (satisfies) the requirement.
+   */
+  ArbiterRequirementSuitabilitySuitable,
+  
+  /**
+   * The version should be considered the best possible choice for satisfying
+   * the requirement.
+   *
+   * This result is unique in that it _overrides other requirements_, which is
+   * sometimes desirable (e.g., pinning to a specific named branch or tag
+   * instead of a semantic version).
+   *
+   * If this result is returned multiple times for different versions, it is
+   * unspecified which version will be selected.
+   */
+  ArbiterRequirementSuitabilityBestPossibleChoice,
+} ArbiterRequirementSuitability;
 
 /**
  * Creates a requirement which will match any version.

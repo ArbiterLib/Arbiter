@@ -30,6 +30,15 @@ bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const
   return requirement->satisfiedBy(*version);
 }
 
+ArbiterRequirementSuitability ArbiterRequirement::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  if (satisfiedBy(selectedVersion._semanticVersion)) {
+    return ArbiterRequirementSuitabilitySuitable;
+  } else {
+    return ArbiterRequirementSuitabilityUnsuitable;
+  }
+}
+
 std::unique_ptr<ArbiterRequirement> ArbiterRequirement::cloneRequirement () const
 {
   return std::unique_ptr<ArbiterRequirement>(dynamic_cast<ArbiterRequirement *>(clone().release()));

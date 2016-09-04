@@ -17,9 +17,22 @@ struct ArbiterRequirement : public Arbiter::Base
   public:
     /**
      * Returns whether this requirement would be satisfied by using the given
-     * version.
+     * semantic version.
+     *
+     * Some requirements may only be satisfied by certain _selected_ versions,
+     * and so may fail this check regardless of the semantic version provided
+     * here.
      */
     virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
+
+    /**
+     * Returns whether this requirement would be satisfied by using the given
+     * selected version.
+     *
+     * The default behavior is that any selected version whose semantic version
+     * passes satisfiedBy() results in ArbiterRequirementSuitabilitySuitable.
+     */
+    virtual ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const;
 
     /**
      * Attempts to create a requirement which expresses the intersection of this
@@ -50,6 +63,11 @@ class Any final : public ArbiterRequirement
     bool satisfiedBy (const ArbiterSemanticVersion &) const noexcept override
     {
       return true;
+    }
+
+    ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &) const override
+    {
+      return ArbiterRequirementSuitabilitySuitable;
     }
 
     bool operator== (const Arbiter::Base &other) const override
