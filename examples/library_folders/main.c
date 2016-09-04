@@ -56,25 +56,34 @@ int main (int argc, const char **argv)
   ArbiterResolver *resolver = ArbiterCreateResolver(behaviors, dependencyList, NULL);
   ArbiterFree(dependencyList);
 
-  ArbiterResolvedDependencyList *resolvedList = ArbiterResolverCreateResolvedDependencyList(resolver, &error);
+  ArbiterResolvedDependencyGraph *resolvedGraph = ArbiterResolverCreateResolvedDependencyGraph(resolver, &error);
   ArbiterFree(resolver);
-  if (!resolvedList) {
+  if (!resolvedGraph) {
     die(error);
   }
 
-  size_t count = ArbiterResolvedDependencyListCount(resolvedList);
+  size_t depth = ArbiterResolvedDependencyGraphDepth(resolvedGraph);
 
-  const ArbiterResolvedDependency *resolved[count];
-  ArbiterResolvedDependencyListGetAll(resolvedList, resolved); 
+  for (size_t depthIndex = 0; depthIndex < depth; depthIndex++) {
+    size_t count = ArbiterResolvedDependencyGraphCountAtDepth(resolvedGraph, depthIndex);
 
-  for (size_t i = 0; i < count; i++) {
-    const ArbiterProjectIdentifier *project = ArbiterResolvedDependencyProject(resolved[i]);
-    const ArbiterSelectedVersion *version = ArbiterResolvedDependencyVersion(resolved[i]);
+    const ArbiterResolvedDependency *resolved[count];
+    ArbiterResolvedDependencyGraphGetAllAtDepth(resolvedGraph, depthIndex, resolved); 
 
-    printf("%s @ %s\n", ArbiterProjectIdentifierValue(project), ArbiterSelectedVersionMetadata(version));
+    printf("{ ");
+    for (size_t i = 0; i < count; i++) {
+      const ArbiterProjectIdentifier *project = ArbiterResolvedDependencyProject(resolved[i]);
+      const ArbiterSelectedVersion *version = ArbiterResolvedDependencyVersion(resolved[i]);
+      printf("%s @ %s", ArbiterProjectIdentifierValue(project), ArbiterSelectedVersionMetadata(version));
+      
+      if (i + 1 < count) {
+        printf(", ");
+      }
+    }
+
+    printf(" }\n");
   }
 
-  ArbiterFree(resolvedList);
-
+  ArbiterFree(resolvedGraph);
   return EXIT_SUCCESS;
 }

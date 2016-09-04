@@ -68,20 +68,66 @@ class DependencyGraph final
       }
     }
 
-    /**
-     * Returns a list of all nodes in the graph, in no particular order. There
-     * are guaranteed to be no duplicate projects in the vector.
-     */
-    std::vector<ArbiterResolvedDependency> allNodes () const
+    ArbiterResolvedDependencyGraph resolvedGraph () const
     {
-      std::vector<ArbiterResolvedDependency> nodes;
-      nodes.reserve(_nodeMap.size());
-
-      for (const auto &pair : _nodeMap) {
-        nodes.emplace_back(resolveNode(pair.first, pair.second));
+      ArbiterResolvedDependencyGraph resolved;
+      if (_nodeMap.empty()) {
+        return resolved;
       }
 
-      return nodes;
+      // Contains edges which still need to be added to the resolved graph.
+      std::unordered_map<NodeKey, std::unordered_set<NodeKey>> remainingEdges;
+
+      // Contains dependencies without any dependencies themselves.
+      ArbiterResolvedDependencyGraph::DepthSet leaves;
+
+      for (const auto &pair : _nodeMap) {
+        const NodeKey &key = pair.first;
+        const auto it = _edges.find(key);
+
+        if (it == _edges.end()) {
+          leaves.emplace(resolveNode(key));
+        } else {
+          remainingEdges[key] = it->second;
+        }
+      }
+
+      resolved._depths.emplace_back(std::move(leaves));
+
+      while (!remainingEdges.empty()) {
+        ArbiterResolvedDependencyGraph::DepthSet thisDepth;
+
+        for (auto edgeIt = remainingEdges.begin(); edgeIt != remainingEdges.end(); ) {
+          const NodeKey &dependent = edgeIt->first;
+          auto &dependencies = edgeIt->second;
+
+          for (auto depIt = dependencies.begin(); depIt != dependencies.end(); ) {
+            const NodeKey &dependency = *depIt;
+
+            // If this dependency is in the graph already, it can be removed
+            // from the list of remaining edges.
+            if (resolved.contains(resolveNode(dependency))) {
+              depIt = dependencies.erase(depIt);
+            } else {
+              ++depIt;
+            }
+          }
+
+          // If all dependencies are now in the graph, we can add this node to
+          // the current depth we're building.
+          if (dependencies.empty()) {
+            thisDepth.emplace(resolveNode(dependent));
+            edgeIt = remainingEdges.erase(edgeIt);
+          } else {
+            ++edgeIt;
+          }
+        }
+
+        resolved._depths.emplace_back(std::move(thisDepth));
+      }
+
+      assert(resolved.count() == _nodeMap.size());
+      return resolved;
     }
 
     std::ostream &describe (std::ostream &os) const
@@ -148,7 +194,10 @@ class DependencyGraph final
       return resolveNode(key, _nodeMap.at(key));
     }
 
+    // TODO: Should these be unordered, with ordering instead applied in
+    // resolvedGraph?
     std::set<NodeKey> _roots;
+    // TODO: This should probably be a multimap.
     std::map<NodeKey, std::unordered_set<NodeKey>> _edges;
     std::unordered_map<NodeKey, NodeValue> _nodeMap;
 };
@@ -265,9 +314,9 @@ const void *ArbiterResolverContext (const ArbiterResolver *resolver)
   return resolver->_context;
 }
 
-ArbiterResolvedDependencyList *ArbiterResolverCreateResolvedDependencyList (ArbiterResolver *resolver, char **error)
+ArbiterResolvedDependencyGraph *ArbiterResolverCreateResolvedDependencyGraph (ArbiterResolver *resolver, char **error)
 {
-  Optional<ArbiterResolvedDependencyList> dependencies;
+  Optional<ArbiterResolvedDependencyGraph> dependencies;
 
   try {
     dependencies = resolver->resolve();
@@ -279,7 +328,7 @@ ArbiterResolvedDependencyList *ArbiterResolverCreateResolvedDependencyList (Arbi
     return nullptr;
   }
 
-  return new ArbiterResolvedDependencyList(std::move(*dependencies));
+  return new ArbiterResolvedDependencyGraph(std::move(*dependencies));
 }
 
 void ArbiterFreeResolver (ArbiterResolver *resolver)
@@ -330,12 +379,12 @@ ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const Arbite
   }
 }
 
-ArbiterResolvedDependencyList ArbiterResolver::resolve () noexcept(false)
+ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
   std::set<ArbiterDependency> dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
 
   DependencyGraph graph = resolveDependencies(*this, DependencyGraph(), std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
-  return ArbiterResolvedDependencyList(graph.allNodes());
+  return graph.resolvedGraph();
 }
 
 std::unique_ptr<Arbiter::Base> ArbiterResolver::clone () const

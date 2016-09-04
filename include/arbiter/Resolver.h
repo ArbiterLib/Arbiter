@@ -12,7 +12,7 @@ extern "C" {
 // forward declarations
 struct ArbiterDependencyList;
 struct ArbiterProjectIdentifier;
-struct ArbiterResolvedDependencyList;
+struct ArbiterResolvedDependencyGraph;
 struct ArbiterSelectedVersion;
 struct ArbiterSelectedVersionList;
 
@@ -69,12 +69,12 @@ const void *ArbiterResolverContext (const ArbiterResolver *resolver);
 /**
  * Attempts to resolve all dependencies.
  *
- * Returns the list of resolved dependencies, or NULL if an error occurred. The
- * caller is responsible for freeing the returned list. If NULL is returned and
+ * Returns the graph of resolved dependencies, or NULL if an error occurred. The
+ * caller is responsible for freeing the returned graph. If NULL is returned and
  * `error` is not NULL, it may be set to a string describing the error, which
  * the caller is responsible for freeing.
  */
-struct ArbiterResolvedDependencyList *ArbiterResolverCreateResolvedDependencyList (ArbiterResolver *resolver, char **error);
+struct ArbiterResolvedDependencyGraph *ArbiterResolverCreateResolvedDependencyGraph (ArbiterResolver *resolver, char **error);
 
 #ifdef __cplusplus
 }

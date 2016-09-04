@@ -108,42 +108,67 @@ const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterR
 const struct ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency);
 
 /**
- * Represents a list of resolved dependencies.
- */
-typedef struct ArbiterResolvedDependencyList ArbiterResolvedDependencyList;
-
-/**
- * Creates a resolved dependency list which wraps a C array of
- * ArbiterResolvedDependency objects.
+ * Represents a resolved dependency graph, preserving relationships between
+ * dependencies.
  *
- * The objects in the C array can be safely freed after calling this function.
+ * Resolved graphs are ordered in such a way that projects without any
+ * dependencies all exist at depth 0, projects which depend only upon those
+ * exist at depth 1, projects which depend upon depth 0 or 1 exist at depth 2,
+ * etc.
  *
- * The returned list must be freed with ArbiterFree().
+ * In other words, the graph can be thought of as being "install-ordered," where
+ * the projects listed within one depth index may be safely installed in
+ * parallel with respect to each another, and the projects within _each
+ * successive depth_ must be installed only after the projects in _all previous
+ * depths_ have been completely installed.
  */
-ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency * const *dependencies, size_t count);
+typedef struct ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph;
 
 /**
- * Returns the number of items in the given list.
+ * Returns the number of unique nodes in the given graph, for use with
+ * ArbiterResolvedDependencyGraphGetAll().
  */
-size_t ArbiterResolvedDependencyListCount (const ArbiterResolvedDependencyList *dependencyList);
+size_t ArbiterResolvedDependencyGraphCount (const ArbiterResolvedDependencyGraph *graph);
 
 /**
- * Returns a pointer to the item at the given index in the list, which must be
- * in bounds.
+ * Copies pointers to all of the resolved dependencies in the given graph, into
+ * the C array `buffer`, which must have enough space to contain
+ * ArbiterResolvedDependencyGraphCount() elements.
  *
- * The returned pointer is guaranteed to remain valid until the containing
- * ArbiterResolvedDependencyList is freed.
- */
-const ArbiterResolvedDependency *ArbiterResolvedDependencyListGetIndex (const ArbiterResolvedDependencyList *dependencyList, size_t index);
-
-/**
- * Copies pointers to all of the resolved dependencies in the given list, into
- * the C array `buffer`, which must have enough space to contain all of them.
+ * This operation does not guarantee a specific ordering to the copied items.
  *
  * The copied pointers are guaranteed to remain valid until the
- * ArbiterResolvedDependencyList they were obtained from is freed.
+ * ArbiterResolvedDependencyGraph they were obtained from is freed.
  */
-void ArbiterResolvedDependencyListGetAll (const ArbiterResolvedDependencyList *dependencyList, const ArbiterResolvedDependency **buffer);
+void ArbiterResolvedDependencyGraphGetAll (const ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency **buffer);
+
+/**
+ * Returns the depth of the graph, for use with
+ * ArbiterResolvedDependencyGraphCountAtDepth() and
+ * ArbiterResolvedDependencyGraphGetAllAtDepth().
+ */
+size_t ArbiterResolvedDependencyGraphDepth (const ArbiterResolvedDependencyGraph *graph);
+
+/**
+ * Returns the number of projects which exist at the given zero-based "depth
+ * index."
+ *
+ * This represents a set of projects which safely be built or installed in
+ * parallel with one another.
+ */
+size_t ArbiterResolvedDependencyGraphCountAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex);
+
+/**
+ * Copies pointers to the resolved dependencies which exist at the given
+ * zero-based "depth index," into the C array `buffer`, which must have enough
+ * space to contain ArbiterResolvedDependencyGraphCountAtDepth() elements.
+ *
+ * This operation does not guarantee a specific ordering to the copied items.
+ *
+ * The copied pointers are guaranteed to remain valid until the
+ * ArbiterResolvedDependencyGraph they were obtained from is freed.
+ */
+void ArbiterResolvedDependencyGraphGetAllAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex, const ArbiterResolvedDependency **buffer);
 
 #ifdef __cplusplus
 }
