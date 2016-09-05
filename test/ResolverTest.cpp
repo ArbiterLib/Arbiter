@@ -209,16 +209,17 @@ ArbiterDependencyList *createTransitiveDependencyList (const ArbiterResolver *, 
   return new ArbiterDependencyList(std::move(dependencies));
 }
 
-const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyList &list, const std::string &name)
+const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyGraph &graph, size_t depthIndex, const std::string &name)
 {
   ArbiterProjectIdentifier identifier = makeProjectIdentifier(name);
 
-  auto it = std::find_if(list._dependencies.begin(), list._dependencies.end(), [&identifier](const ArbiterResolvedDependency &dependency) {
+  const auto &depth = graph._depths.at(depthIndex);
+  auto it = std::find_if(depth.begin(), depth.end(), [&identifier](const ArbiterResolvedDependency &dependency) {
     return dependency._project == identifier;
   });
 
-  if (it == list._dependencies.end()) {
-    throw std::out_of_range("Dependency " + name + " not found in resolved list");
+  if (it == depth.end()) {
+    throw std::out_of_range("Dependency " + name + " not found in resolved graph");
   }
 
   return *it;
@@ -233,8 +234,10 @@ TEST(ResolverTest, ResolvesEmptyDependencies) {
 
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(), nullptr);
 
-  ArbiterResolvedDependencyList resolved = resolver.resolve();
-  EXPECT_TRUE(resolved._dependencies.empty());
+  ArbiterResolvedDependencyGraph resolved = resolver.resolve();
+  EXPECT_TRUE(resolved._depths.empty());
+  EXPECT_EQ(resolved.depth(), 0);
+  EXPECT_EQ(resolved.count(), 0);
 }
 
 TEST(ResolverTest, ResolvesOneDependency) {
@@ -247,10 +250,11 @@ TEST(ResolverTest, ResolvesOneDependency) {
 
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
-  ArbiterResolvedDependencyList resolved = resolver.resolve();
-  ASSERT_EQ(resolved._dependencies.size(), 1);
-  EXPECT_EQ(resolved._dependencies[0]._project, emptyProjectIdentifier());
-  EXPECT_EQ(resolved._dependencies[0]._version._semanticVersion, ArbiterSemanticVersion(3, 0, 0));
+  ArbiterResolvedDependencyGraph resolved = resolver.resolve();
+  ASSERT_EQ(resolved.depth(), 1);
+  EXPECT_EQ(resolved.count(), 1);
+  EXPECT_EQ(resolved._depths.front().begin()->_project, emptyProjectIdentifier());
+  EXPECT_EQ(resolved._depths.front().begin()->_version._semanticVersion, ArbiterSemanticVersion(3, 0, 0));
 }
 
 TEST(ResolverTest, ResolvesMultipleDependencies)
@@ -266,11 +270,12 @@ TEST(ResolverTest, ResolvesMultipleDependencies)
 
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
-  ArbiterResolvedDependencyList resolved = resolver.resolve();
-  ASSERT_EQ(resolved._dependencies.size(), 3);
-  EXPECT_EQ(findResolved(resolved, "A")._version._semanticVersion, ArbiterSemanticVersion(3, 0, 0));
-  EXPECT_EQ(findResolved(resolved, "B")._version._semanticVersion, ArbiterSemanticVersion(2, 0, 0));
-  EXPECT_EQ(findResolved(resolved, "C")._version._semanticVersion, ArbiterSemanticVersion(1, 0, 0));
+  ArbiterResolvedDependencyGraph resolved = resolver.resolve();
+  ASSERT_EQ(resolved.depth(), 1);
+  EXPECT_EQ(resolved.count(), 3);
+  EXPECT_EQ(findResolved(resolved, 0, "A")._version._semanticVersion, ArbiterSemanticVersion(3, 0, 0));
+  EXPECT_EQ(findResolved(resolved, 0, "B")._version._semanticVersion, ArbiterSemanticVersion(2, 0, 0));
+  EXPECT_EQ(findResolved(resolved, 0, "C")._version._semanticVersion, ArbiterSemanticVersion(1, 0, 0));
 }
 
 TEST(ResolverTest, ResolvesTransitiveDependencies)
@@ -285,14 +290,15 @@ TEST(ResolverTest, ResolvesTransitiveDependencies)
 
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
-  ArbiterResolvedDependencyList resolved = resolver.resolve();
-  ASSERT_EQ(resolved._dependencies.size(), 6);
-  EXPECT_EQ(findResolved(resolved, "ancestor")._version._semanticVersion, ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha")));
-  EXPECT_EQ(findResolved(resolved, "middle")._version._semanticVersion, ArbiterSemanticVersion(1, 3, 0));
-  EXPECT_EQ(findResolved(resolved, "parent")._version._semanticVersion, ArbiterSemanticVersion(1, 3, 0));
-  EXPECT_EQ(findResolved(resolved, "leaf")._version._semanticVersion, ArbiterSemanticVersion(0, 2, 3));
-  EXPECT_EQ(findResolved(resolved, "leaf_majors_only")._version._semanticVersion, ArbiterSemanticVersion(2, 0, 0));
-  EXPECT_EQ(findResolved(resolved, "leaf_dailybuild")._version._semanticVersion, ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild")));
+  ArbiterResolvedDependencyGraph resolved = resolver.resolve();
+  ASSERT_EQ(resolved.depth(), 3);
+  EXPECT_EQ(resolved.count(), 6);
+  EXPECT_EQ(findResolved(resolved, 2, "ancestor")._version._semanticVersion, ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha")));
+  EXPECT_EQ(findResolved(resolved, 1, "middle")._version._semanticVersion, ArbiterSemanticVersion(1, 3, 0));
+  EXPECT_EQ(findResolved(resolved, 1, "parent")._version._semanticVersion, ArbiterSemanticVersion(1, 3, 0));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf")._version._semanticVersion, ArbiterSemanticVersion(0, 2, 3));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf_majors_only")._version._semanticVersion, ArbiterSemanticVersion(2, 0, 0));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf_dailybuild")._version._semanticVersion, ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild")));
 }
 
 #if 0

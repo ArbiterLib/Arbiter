@@ -59,31 +59,34 @@ const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterRes
   return &dependency->_version;
 }
 
-ArbiterResolvedDependencyList *ArbiterCreateResolvedDependencyList (const ArbiterResolvedDependency * const *dependencies, size_t count)
+size_t ArbiterResolvedDependencyGraphCount (const ArbiterResolvedDependencyGraph *graph)
 {
-  std::vector<ArbiterResolvedDependency> vec;
-  vec.reserve(count);
+  return graph->count();
+}
 
-  for (size_t i = 0; i < count; i++) {
-    vec.emplace_back(*dependencies[i]);
+void ArbiterResolvedDependencyGraphGetAll (const ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency **buffer)
+{
+  for (const auto &depth : graph->_depths) {
+    for (const auto &dependency : depth) {
+      *(buffer++) = &dependency;
+    }
   }
-
-  return new ArbiterResolvedDependencyList(std::move(vec));
 }
 
-size_t ArbiterResolvedDependencyListCount (const ArbiterResolvedDependencyList *dependencyList)
+size_t ArbiterResolvedDependencyGraphDepth (const ArbiterResolvedDependencyGraph *graph)
 {
-  return dependencyList->_dependencies.size();
+  return graph->depth();
 }
 
-const ArbiterResolvedDependency *ArbiterResolvedDependencyListGetIndex (const ArbiterResolvedDependencyList *dependencyList, size_t index)
+size_t ArbiterResolvedDependencyGraphCountAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex)
 {
-  return &dependencyList->_dependencies.at(index);
+  return graph->countAtDepth(depthIndex);
 }
 
-void ArbiterResolvedDependencyListGetAll (const ArbiterResolvedDependencyList *dependencyList, const ArbiterResolvedDependency **buffer)
+void ArbiterResolvedDependencyGraphGetAllAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex, const ArbiterResolvedDependency **buffer)
 {
-  for (const auto &dependency : dependencyList->_dependencies) {
+  const auto &depth = graph->_depths.at(depthIndex);
+  for (const auto &dependency : depth) {
     *(buffer++) = &dependency;
   }
 }
@@ -190,30 +193,63 @@ bool ArbiterResolvedDependency::operator== (const Arbiter::Base &other) const
   return _project == ptr->_project && _version == ptr->_version;
 }
 
-std::unique_ptr<Arbiter::Base> ArbiterResolvedDependencyList::clone () const
+size_t ArbiterResolvedDependencyGraph::count () const
 {
-  return std::make_unique<ArbiterResolvedDependencyList>(*this);
+  size_t accum = 0;
+  for (size_t i = 0; i < depth(); ++i) {
+    accum += countAtDepth(i);
+  }
+
+  return accum;
 }
 
-std::ostream &ArbiterResolvedDependencyList::describe (std::ostream &os) const
+size_t ArbiterResolvedDependencyGraph::depth () const noexcept
 {
-  os << "Resolved dependency list:";
+  return _depths.size();
+}
 
-  for (const auto &dep : _dependencies) {
-    os << "\n" << dep;
+size_t ArbiterResolvedDependencyGraph::countAtDepth (size_t depthIndex) const
+{
+  return _depths.at(depthIndex).size();
+}
+
+bool ArbiterResolvedDependencyGraph::contains (const ArbiterResolvedDependency &node) const
+{
+  for (const DepthSet &depth : _depths) {
+    if (depth.find(node) != depth.end()) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+std::unique_ptr<Arbiter::Base> ArbiterResolvedDependencyGraph::clone () const
+{
+  return std::make_unique<ArbiterResolvedDependencyGraph>(*this);
+}
+
+std::ostream &ArbiterResolvedDependencyGraph::describe (std::ostream &os) const
+{
+  os << "Resolved dependency graph:";
+
+  for (const auto &depth : _depths) {
+    for (const auto &dependency : depth) {
+      os << "\n" << dependency;
+    }
   }
 
   return os;
 }
 
-bool ArbiterResolvedDependencyList::operator== (const Arbiter::Base &other) const
+bool ArbiterResolvedDependencyGraph::operator== (const Arbiter::Base &other) const
 {
-  auto ptr = dynamic_cast<const ArbiterResolvedDependencyList *>(&other);
+  auto ptr = dynamic_cast<const ArbiterResolvedDependencyGraph *>(&other);
   if (!ptr) {
     return false;
   }
 
-  return _dependencies == ptr->_dependencies;
+  return _depths == ptr->_depths;
 }
 
 size_t std::hash<ArbiterProjectIdentifier>::operator() (const ArbiterProjectIdentifier &project) const
