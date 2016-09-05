@@ -32,15 +32,19 @@ The Arbiter API is extensively documented in header comments, from which we peri
 
 ## Examples
 
-This repository contains not-production-strength [examples](examples/) for demonstrating how the Arbiter API can be used to build different functionality. Of course, there are almost certainly other possible uses that we assuredly haven’t thought of or implemented, so this shouldn’t be taken as an exhaustive showcase.
+This repository contains not-production-strength [examples](examples/) for demonstrating how the Arbiter API can be used to build different functionality.
 
-For more information about individual examples, see the README in each folder.
+To compile all included examples, run `make examples`.
+
+For more information about individual examples, see the README in each folder. Of course, there are almost certainly other possible uses that we assuredly haven’t thought of or implemented, so this shouldn’t be taken as an exhaustive showcase!
 
 ## Bindings
 
-Because the functionality of Arbiter is exposed in a C interface, it’s easy to build bindings into other languages.
+Because the functionality of Arbiter is exposed in a C interface, it’s easy to build bindings into other languages. Currently, Arbiter already has [Swift bindings](bindings/swift/), with more planned!
 
-Currently, Arbiter already has [Swift bindings](bindings/swift/), with more planned! If you’d like to implement your own bindings, please let us know about them [in a GitHub issue](https://github.com/jspahrsummers/Arbiter/issues/new), and we can include a link here in the README.
+To compile all included bindings, run `make bindings`.
+
+If you’d like to implement your own bindings, please let us know about them [in a GitHub issue](https://github.com/jspahrsummers/Arbiter/issues/new), and we can include a link here in the README.
 
 ## License
 
