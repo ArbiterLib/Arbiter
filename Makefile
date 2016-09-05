@@ -17,11 +17,18 @@ CC=clang
 CFLAGS=-std=c99 -lc++ -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 LIBTOOL=libtool
 
-all: $(LIBRARY)
+.PHONY: bindings/swift check docs
 
-.PHONY: check docs $(TEST_RUNNER)
+all: build
 
-check: $(TEST_RUNNER) examples
+bindings: bindings/swift
+
+bindings/swift:
+	cd $@ && xcodebuild -scheme Arbiter
+
+build: $(LIBRARY)
+
+check: $(TEST_RUNNER) examples bindings
 	$(TEST_RUNNER)
 
 clean:
