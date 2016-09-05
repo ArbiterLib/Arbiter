@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['none',['None',['../namespace_arbiter.html#struct_arbiter_1_1_none',1,'Arbiter']]]
+  ['optional',['Optional',['../struct_arbiter_1_1_optional.html',1,'Arbiter']]],
+  ['optional_3c_20std_3a_3astring_20_3e',['Optional&lt; std::string &gt;',['../struct_arbiter_1_1_optional.html',1,'Arbiter']]]
 ];

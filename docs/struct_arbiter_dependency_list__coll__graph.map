@@ -1,5 +1,6 @@
 <map id="ArbiterDependencyList" name="ArbiterDependencyList">
-<area shape="rect" id="node3" href="$struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme..." alt="" coords="47,192,183,217"/>
-<area shape="rect" id="node4" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="38,105,192,131"/>
-<area shape="rect" id="node5" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="27,5,203,44"/>
+<area shape="rect" id="node2" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="14,12,113,37"/>
+<area shape="rect" id="node4" href="$struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme..." alt="" coords="116,192,251,217"/>
+<area shape="rect" id="node5" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="124,105,277,131"/>
+<area shape="rect" id="node6" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="137,5,313,44"/>
 </map>

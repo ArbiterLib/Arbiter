@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -105,21 +105,18 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a0174dd8b9a5f33c398335c346bc30f98"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a0174dd8b9a5f33c398335c346bc30f98">ArbiterCreateResolver</a> (<a class="el" href="struct_arbiter_resolver_behaviors.html">ArbiterResolverBehaviors</a> behaviors, const <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *dependencyList, const void *context)</td></tr>
-<tr class="memdesc:a0174dd8b9a5f33c398335c346bc30f98"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick compatible versions of all dependencies in <code>dependencyList</code> and transitive dependencies thereof.  <a href="#a0174dd8b9a5f33c398335c346bc30f98">More...</a><br /></td></tr>
-<tr class="separator:a0174dd8b9a5f33c398335c346bc30f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a981b62a0d255b1cea4f3e689e0bdcb69"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a981b62a0d255b1cea4f3e689e0bdcb69">ArbiterFreeResolver</a> (<a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver)</td></tr>
-<tr class="memdesc:a981b62a0d255b1cea4f3e689e0bdcb69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a dependency resolver.  <a href="#a981b62a0d255b1cea4f3e689e0bdcb69">More...</a><br /></td></tr>
-<tr class="separator:a981b62a0d255b1cea4f3e689e0bdcb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20607e85a4aaa0838293dd764bf38cdf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a20607e85a4aaa0838293dd764bf38cdf">ArbiterCreateResolver</a> (<a class="el" href="struct_arbiter_resolver_behaviors.html">ArbiterResolverBehaviors</a> behaviors, const struct <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *dependencyList, const void *context)</td></tr>
+<tr class="memdesc:a20607e85a4aaa0838293dd764bf38cdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick compatible versions of all dependencies in <code>dependencyList</code> and transitive dependencies thereof.  <a href="#a20607e85a4aaa0838293dd764bf38cdf">More...</a><br /></td></tr>
+<tr class="separator:a20607e85a4aaa0838293dd764bf38cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75b6c5e452ea46b04c8c20571dd9498d"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a75b6c5e452ea46b04c8c20571dd9498d">ArbiterResolverContext</a> (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver)</td></tr>
-<tr class="memdesc:a75b6c5e452ea46b04c8c20571dd9498d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns any context data which was provided to <a class="el" href="include_2arbiter_2_resolver_8h.html#a0174dd8b9a5f33c398335c346bc30f98" title="Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick comp...">ArbiterCreateResolver()</a>.  <a href="#a75b6c5e452ea46b04c8c20571dd9498d">More...</a><br /></td></tr>
+<tr class="memdesc:a75b6c5e452ea46b04c8c20571dd9498d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns any context data which was provided to <a class="el" href="include_2arbiter_2_resolver_8h.html#a20607e85a4aaa0838293dd764bf38cdf" title="Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick comp...">ArbiterCreateResolver()</a>.  <a href="#a75b6c5e452ea46b04c8c20571dd9498d">More...</a><br /></td></tr>
 <tr class="separator:a75b6c5e452ea46b04c8c20571dd9498d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9d4604df5123414f984aac71e1063da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#ad9d4604df5123414f984aac71e1063da">ArbiterResolverCreateResolvedDependencyList</a> (<a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, char **error)</td></tr>
-<tr class="memdesc:ad9d4604df5123414f984aac71e1063da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to resolve all dependencies.  <a href="#ad9d4604df5123414f984aac71e1063da">More...</a><br /></td></tr>
-<tr class="separator:ad9d4604df5123414f984aac71e1063da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5efe4c91a22e7acd84d0cf20c78d513f"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_arbiter_resolved_dependency_graph.html">ArbiterResolvedDependencyGraph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_resolver_8h.html#a5efe4c91a22e7acd84d0cf20c78d513f">ArbiterResolverCreateResolvedDependencyGraph</a> (<a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, char **error)</td></tr>
+<tr class="memdesc:a5efe4c91a22e7acd84d0cf20c78d513f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to resolve all dependencies.  <a href="#a5efe4c91a22e7acd84d0cf20c78d513f">More...</a><br /></td></tr>
+<tr class="separator:a5efe4c91a22e7acd84d0cf20c78d513f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a0174dd8b9a5f33c398335c346bc30f98"></a>
+<a class="anchor" id="a20607e85a4aaa0838293dd764bf38cdf"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -132,7 +129,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *&#160;</td>
           <td class="paramname"><em>dependencyList</em>, </td>
         </tr>
         <tr>
@@ -150,25 +147,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick compatible versions of all dependencies in <code>dependencyList</code> and transitive dependencies thereof. </p>
-<p>The returned dependency resolver must be freed with <a class="el" href="include_2arbiter_2_resolver_8h.html#a981b62a0d255b1cea4f3e689e0bdcb69" title="Releases the memory associated with a dependency resolver. ">ArbiterFreeResolver()</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="a981b62a0d255b1cea4f3e689e0bdcb69"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ArbiterFreeResolver </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *&#160;</td>
-          <td class="paramname"><em>resolver</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the memory associated with a dependency resolver. </p>
+<p>The returned dependency resolver must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
@@ -186,17 +165,17 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns any context data which was provided to <a class="el" href="include_2arbiter_2_resolver_8h.html#a0174dd8b9a5f33c398335c346bc30f98" title="Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick comp...">ArbiterCreateResolver()</a>. </p>
+<p>Returns any context data which was provided to <a class="el" href="include_2arbiter_2_resolver_8h.html#a20607e85a4aaa0838293dd764bf38cdf" title="Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick comp...">ArbiterCreateResolver()</a>. </p>
 <p>The returned pointer is only guaranteed to remain valid for the current scope. </p>
 
 </div>
 </div>
-<a class="anchor" id="ad9d4604df5123414f984aac71e1063da"></a>
+<a class="anchor" id="a5efe4c91a22e7acd84d0cf20c78d513f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_arbiter_resolved_dependency_list.html">ArbiterResolvedDependencyList</a>* ArbiterResolverCreateResolvedDependencyList </td>
+          <td class="memname">struct <a class="el" href="struct_arbiter_resolved_dependency_graph.html">ArbiterResolvedDependencyGraph</a>* ArbiterResolverCreateResolvedDependencyGraph </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *&#160;</td>
           <td class="paramname"><em>resolver</em>, </td>
@@ -216,14 +195,14 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Attempts to resolve all dependencies. </p>
-<p>Returns the list of resolved dependencies, or NULL if an error occurred. The caller is responsible for freeing the returned list. If NULL is returned and <code>error</code> is not NULL, it may be set to a string describing the error, which the caller is responsible for freeing. </p>
+<p>Returns the graph of resolved dependencies, or NULL if an error occurred. The caller is responsible for freeing the returned graph. If NULL is returned and <code>error</code> is not NULL, it may be set to a string describing the error, which the caller is responsible for freeing. </p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

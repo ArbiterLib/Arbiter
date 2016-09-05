@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -75,7 +75,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_func.html"><span>Functions</span></a></li>
       <li class="current"><a href="functions_vars.html"><span>Variables</span></a></li>
       <li><a href="functions_type.html"><span>Typedefs</span></a></li>
-      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -109,7 +108,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>_dependencies
 : <a class="el" href="struct_arbiter_dependency_list.html#a97ae63be6483d202ae8c5bbeb5fa56f6">ArbiterDependencyList</a>
-, <a class="el" href="struct_arbiter_resolved_dependency_list.html#a19ceecabc8e893de9134fb887c90731b">ArbiterResolvedDependencyList</a>
+</li>
+<li>_depths
+: <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a29ea95e83612764507fa07247cfa6777">ArbiterResolvedDependencyGraph</a>
 </li>
 <li>_end
 : <a class="el" href="struct_arbiter_1_1_iterator_range.html#a43dbba1ed47b73473d4136d62df6fb6d">Arbiter::IteratorRange&lt; It &gt;</a>
@@ -155,10 +156,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="struct_arbiter_selected_version_list.html#ad273ed0c04d6356c8df1596bdd3b8bb2">ArbiterSelectedVersionList</a>
 </li>
 <li>createAvailableVersionsList
-: <a class="el" href="struct_arbiter_resolver_behaviors.html#abb9023a56e27eb92c69a7f578199d8be">ArbiterResolverBehaviors</a>
+: <a class="el" href="struct_arbiter_resolver_behaviors.html#a5e58d671818c4ceb8dd4ba62d6fd42a9">ArbiterResolverBehaviors</a>
 </li>
 <li>createDependencyList
-: <a class="el" href="struct_arbiter_resolver_behaviors.html#a50916cf4567d3ba2fcc425d9ebe96a28">ArbiterResolverBehaviors</a>
+: <a class="el" href="struct_arbiter_resolver_behaviors.html#a8a53fd0268af2d9b9c4933ca9c87c271">ArbiterResolverBehaviors</a>
 </li>
 <li>createDescription
 : <a class="el" href="struct_arbiter_user_value.html#a24b7de90b02aa6e93e6ff39669022cb0">ArbiterUserValue</a>
@@ -172,6 +173,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>equalTo
 : <a class="el" href="struct_arbiter_user_value.html#a58ad30575098fbeaba0cf57bf4fa80ac">ArbiterUserValue</a>
 </li>
+<li>hash
+: <a class="el" href="struct_arbiter_user_value.html#a0bbe1c09aa9b1d1ae8872d613576e6d5">ArbiterUserValue</a>
+</li>
 <li>lessThan
 : <a class="el" href="struct_arbiter_user_value.html#a5581905b82a24eefd853a6ed055cde0f">ArbiterUserValue</a>
 </li>
@@ -179,7 +183,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

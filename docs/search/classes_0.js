@@ -6,7 +6,7 @@ var searchData=
   ['arbiterprojectidentifier',['ArbiterProjectIdentifier',['../struct_arbiter_project_identifier.html',1,'']]],
   ['arbiterrequirement',['ArbiterRequirement',['../struct_arbiter_requirement.html',1,'']]],
   ['arbiterresolveddependency',['ArbiterResolvedDependency',['../struct_arbiter_resolved_dependency.html',1,'']]],
-  ['arbiterresolveddependencylist',['ArbiterResolvedDependencyList',['../struct_arbiter_resolved_dependency_list.html',1,'']]],
+  ['arbiterresolveddependencygraph',['ArbiterResolvedDependencyGraph',['../struct_arbiter_resolved_dependency_graph.html',1,'']]],
   ['arbiterresolver',['ArbiterResolver',['../struct_arbiter_resolver.html',1,'']]],
   ['arbiterresolverbehaviors',['ArbiterResolverBehaviors',['../struct_arbiter_resolver_behaviors.html',1,'']]],
   ['arbiterselectedversion',['ArbiterSelectedVersion',['../struct_arbiter_selected_version.html',1,'']]],

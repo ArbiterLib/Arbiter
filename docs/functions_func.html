@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -75,7 +75,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
       <li><a href="functions_vars.html"><span>Variables</span></a></li>
       <li><a href="functions_type.html"><span>Typedefs</span></a></li>
-      <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
@@ -117,12 +116,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 &#160;
 
 <h3><a class="anchor" id="index_a"></a>- a -</h3><ul>
-<li>addNode()
-: <a class="el" href="class_arbiter_1_1_resolver_1_1_dependency_graph.html#aa66315f94f0f117493f2ecfe839ff784">Arbiter::Resolver::DependencyGraph</a>
-</li>
-<li>allNodes()
-: <a class="el" href="class_arbiter_1_1_resolver_1_1_dependency_graph.html#ab2631a0fd5a2c1a064406f1437eac923">Arbiter::Resolver::DependencyGraph</a>
-</li>
 <li>AtLeast()
 : <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#a73c21686e5e593b532b8c61328f71ba1">Arbiter::Requirement::AtLeast</a>
 </li>
@@ -141,14 +134,35 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <h3><a class="anchor" id="index_c"></a>- c -</h3><ul>
 <li>clone()
-: <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#af7f20fa6276c2c62a23c851aa5770816">Arbiter::Requirement::Any</a>
-, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#ab4e8255cd4ed8eb3f908e5fc0f285cf7">Arbiter::Requirement::AtLeast</a>
-, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a77a3bb1d31d0a64524c941a5c8c864ef">Arbiter::Requirement::CompatibleWith</a>
-, <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#ac684a1bf851d2d5588e1c7c4eefa1a54">Arbiter::Requirement::Exactly</a>
-, <a class="el" href="struct_arbiter_requirement.html#aa0a4382f74c2ac504ab391b473f2b9de">ArbiterRequirement</a>
+: <a class="el" href="class_arbiter_1_1_base.html#a36499ee4dd9e6821f72b0af03b86b731">Arbiter::Base</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a88d33ff811589099c94663410c2d662e">Arbiter::Requirement::Any</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#a4277b6fe9f280c157b19233c46ebea99">Arbiter::Requirement::AtLeast</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#aea861e920ed44c5944d2e8b43cbc7aa5">Arbiter::Requirement::CompatibleWith</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#acdf7cac9c211d738c9d1fdbfc6629bc0">Arbiter::Requirement::Exactly</a>
+, <a class="el" href="struct_arbiter_dependency.html#a1dc45488b33c44ba617ccdee75ee8573">ArbiterDependency</a>
+, <a class="el" href="struct_arbiter_dependency_list.html#afe4e5476d4a53e1705f939cf076a091a">ArbiterDependencyList</a>
+, <a class="el" href="struct_arbiter_project_identifier.html#aaaac2a46d6259325bf3b7ba096d6032e">ArbiterProjectIdentifier</a>
+, <a class="el" href="struct_arbiter_resolved_dependency.html#a8ec3a664cf07b7f06c50d9a2cb233c01">ArbiterResolvedDependency</a>
+, <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a48e9f194b51f78f25ec7d699e533d3fc">ArbiterResolvedDependencyGraph</a>
+, <a class="el" href="struct_arbiter_resolver.html#a28e1d2d502abfbc8ecfe4a7881797339">ArbiterResolver</a>
+, <a class="el" href="struct_arbiter_selected_version.html#a520f84d8692f89bcaaf5a63670742bbe">ArbiterSelectedVersion</a>
+, <a class="el" href="struct_arbiter_selected_version_list.html#a596b9d2ca1fe33360151fdae331bd8ff">ArbiterSelectedVersionList</a>
+, <a class="el" href="struct_arbiter_semantic_version.html#acdd9d60b9c5ad1c969c42983687e88b1">ArbiterSemanticVersion</a>
+</li>
+<li>cloneRequirement()
+: <a class="el" href="struct_arbiter_requirement.html#a1231089736b96e5dab43d90a08bbfb2d">ArbiterRequirement</a>
 </li>
 <li>CompatibleWith()
 : <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a02bfcf4d29d86c926d75179a35e9959b">Arbiter::Requirement::CompatibleWith</a>
+</li>
+<li>contains()
+: <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a022bdc7fc66f3a3f03a0fcacd4f5e8e2">ArbiterResolvedDependencyGraph</a>
+</li>
+<li>count()
+: <a class="el" href="struct_arbiter_resolved_dependency_graph.html#aef421d2bb05ad6d4668ca3bc314ee66b">ArbiterResolvedDependencyGraph</a>
+</li>
+<li>countAtDepth()
+: <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a8d3ca153338fbc0aac6f191b0cb69835">ArbiterResolvedDependencyGraph</a>
 </li>
 </ul>
 
@@ -163,13 +177,24 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>data()
 : <a class="el" href="class_arbiter_1_1_shared_user_value.html#ab1848961bb2e8175356faebdde486521">Arbiter::SharedUserValue&lt; Owner &gt;</a>
 </li>
+<li>depth()
+: <a class="el" href="struct_arbiter_resolved_dependency_graph.html#ade30737227051c1f0c71aea8da9a5efa">ArbiterResolvedDependencyGraph</a>
+</li>
 <li>describe()
-: <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a48d99887052d9f43255729e13bb86382">Arbiter::Requirement::Any</a>
+: <a class="el" href="class_arbiter_1_1_base.html#adbc261eb40b20d3a185e0355049f60a4">Arbiter::Base</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a48d99887052d9f43255729e13bb86382">Arbiter::Requirement::Any</a>
 , <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#afaca70c755039939a96663c89a9af3f6">Arbiter::Requirement::AtLeast</a>
 , <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a0451138e83193de099bcbeb08fa8fbd0">Arbiter::Requirement::CompatibleWith</a>
 , <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#a25ce37c745539db525ba7036f70dc858">Arbiter::Requirement::Exactly</a>
-, <a class="el" href="class_arbiter_1_1_resolver_1_1_dependency_graph.html#a6175aa0dad35ebc4e1916dfa8e3d887e">Arbiter::Resolver::DependencyGraph</a>
-, <a class="el" href="struct_arbiter_requirement.html#a14e6877e7bae9b4e477ab31fbf3dc3bc">ArbiterRequirement</a>
+, <a class="el" href="struct_arbiter_dependency.html#ad8b41b9bb8f0cfcb6a113615cc4b1d09">ArbiterDependency</a>
+, <a class="el" href="struct_arbiter_dependency_list.html#a6ffe91420c171d2dcc18dd616e8d4830">ArbiterDependencyList</a>
+, <a class="el" href="struct_arbiter_project_identifier.html#aa2f1bb7f30002465c1a39e1553ed22dc">ArbiterProjectIdentifier</a>
+, <a class="el" href="struct_arbiter_resolved_dependency.html#a0ca93b4d8aea63e44d9f09bc8826ea07">ArbiterResolvedDependency</a>
+, <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a4a76e8cbee90995bb1ed284fc37cc958">ArbiterResolvedDependencyGraph</a>
+, <a class="el" href="struct_arbiter_resolver.html#a938812d347f4bb4a17166ba122e1176f">ArbiterResolver</a>
+, <a class="el" href="struct_arbiter_selected_version.html#a7e40bd24c8bc966ce300af7f0309fa8b">ArbiterSelectedVersion</a>
+, <a class="el" href="struct_arbiter_selected_version_list.html#a366c03f9535d254b22afbbb0e10eb835">ArbiterSelectedVersionList</a>
+, <a class="el" href="struct_arbiter_semantic_version.html#a0865ba34bfce47255b2d70846690f612">ArbiterSemanticVersion</a>
 </li>
 <li>description()
 : <a class="el" href="class_arbiter_1_1_shared_user_value.html#a00f6ccc566bbebf60645a35126a4b4ea">Arbiter::SharedUserValue&lt; Owner &gt;</a>
@@ -203,6 +228,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#a38901907e9be6c1a5182c102f320928e">Arbiter::Requirement::AtLeast</a>
 , <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#ad78f28e06645072137e31c6f6ff87a10">Arbiter::Requirement::CompatibleWith</a>
 , <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#a12d85bdf24d9e39fe88a93014f3fefdf">Arbiter::Requirement::Exactly</a>
+, <a class="el" href="class_arbiter_1_1_shared_user_value.html#a7c38e5dfc73c8752eb3a518d55df949c">Arbiter::SharedUserValue&lt; Owner &gt;</a>
 , <a class="el" href="struct_arbiter_requirement.html#a5d9d40e896f8eccf73a8b33d4839b877">ArbiterRequirement</a>
 </li>
 </ul>
@@ -239,18 +265,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="class_arbiter_1_1_permutation_iterator.html#a8bdb37f88ea1ed9dc81f05988e21b8e7">Arbiter::PermutationIterator&lt; It &gt;</a>
 </li>
 <li>operator!=()
-: <a class="el" href="class_arbiter_1_1_permutation_iterator.html#a04cae7b97e6c09d63ffe7da78c07ca1d">Arbiter::PermutationIterator&lt; It &gt;</a>
+: <a class="el" href="class_arbiter_1_1_base.html#a531914803ab5722a848f51b36a866d23">Arbiter::Base</a>
+, <a class="el" href="class_arbiter_1_1_permutation_iterator.html#a04cae7b97e6c09d63ffe7da78c07ca1d">Arbiter::PermutationIterator&lt; It &gt;</a>
 , <a class="el" href="class_arbiter_1_1_shared_user_value.html#a66587d89a3eb3b90f2cd53418bb0a5c2">Arbiter::SharedUserValue&lt; Owner &gt;</a>
-, <a class="el" href="struct_arbiter_project_identifier.html#af6441e0c2d5e2b5f12cc0525053ecac0">ArbiterProjectIdentifier</a>
-, <a class="el" href="struct_arbiter_requirement.html#a817a41700a2eb366dee80ec5a462f34f">ArbiterRequirement</a>
-, <a class="el" href="struct_arbiter_resolved_dependency.html#a9e8ddecbfec5905b0eff57927f48e023">ArbiterResolvedDependency</a>
-, <a class="el" href="struct_arbiter_selected_version.html#ad7166bafd063c07cf2eb2e2929651a03">ArbiterSelectedVersion</a>
-, <a class="el" href="struct_arbiter_semantic_version.html#aec2e8ff2e29c040df88d7659568da41f">ArbiterSemanticVersion</a>
 </li>
 <li>operator()()
 : <a class="el" href="structstd_1_1hash_3_01_arbiter_1_1_optional_3_01_t_01_4_01_4.html#a52460037cf96a0590045fc00615ac0b8">std::hash&lt; Arbiter::Optional&lt; T &gt; &gt;</a>
+, <a class="el" href="structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html#a7c49216475b8c7ce30b68c5743627182">std::hash&lt; Arbiter::SharedUserValue&lt; Owner &gt; &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01_arbiter_dependency_01_4.html#a008de161b013f3a8c3a3e04dd3fb3ee2">std::hash&lt; ArbiterDependency &gt;</a>
-, <a class="el" href="structstd_1_1hash_3_01_arbiter_project_identifier_01_4.html#a156c9bda8b50f2513d1ac43342346e35">std::hash&lt; ArbiterProjectIdentifier &gt;</a>
+, <a class="el" href="structstd_1_1hash_3_01_arbiter_project_identifier_01_4.html#a30677cd5340ce51b4d0547f0d8221c5b">std::hash&lt; ArbiterProjectIdentifier &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01_arbiter_requirement_01_4.html#a501993e1a96ab9e40ddbec9a98373ae6">std::hash&lt; ArbiterRequirement &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html#a84a5e582f8b330d9f63c06bd5d797423">std::hash&lt; ArbiterResolvedDependency &gt;</a>
 , <a class="el" href="structstd_1_1hash_3_01_arbiter_selected_version_01_4.html#aed3d58d7862a302ca313f84e78205b28">std::hash&lt; ArbiterSelectedVersion &gt;</a>
@@ -284,21 +307,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="struct_arbiter_1_1_optional.html#a006f8d063762614ced4d57e13a675fa5">Arbiter::Optional&lt; T &gt;</a>
 , <a class="el" href="struct_arbiter_dependency.html#a8f739e52f29c04ef8c2e5ce175862671">ArbiterDependency</a>
 , <a class="el" href="struct_arbiter_dependency_list.html#abc68a72a017cfd8dab52adb4b505b01b">ArbiterDependencyList</a>
-, <a class="el" href="struct_arbiter_resolved_dependency_list.html#a69df2d0423c138acceea418f11bdd069">ArbiterResolvedDependencyList</a>
+, <a class="el" href="struct_arbiter_resolver.html#acd7fba5859a07c6710a42182187f19f7">ArbiterResolver</a>
 </li>
 <li>operator==()
-: <a class="el" href="class_arbiter_1_1_permutation_iterator.html#afa3e56963bfca89f693bc4d0c519d5dc">Arbiter::PermutationIterator&lt; It &gt;</a>
-, <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a3b16f09fcc1098a15db3360d0bb29ed5">Arbiter::Requirement::Any</a>
-, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#a09d8f1afd4d7308a604c52b3e14c8c14">Arbiter::Requirement::AtLeast</a>
-, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a7ddbcfbb67b3c3c4e041b7a96d6420ea">Arbiter::Requirement::CompatibleWith</a>
-, <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#ad6e08e7cd1b68c41221d0d3e7c99104b">Arbiter::Requirement::Exactly</a>
+: <a class="el" href="class_arbiter_1_1_base.html#a3dee918ed636c26db8c9367f4a504d96">Arbiter::Base</a>
+, <a class="el" href="class_arbiter_1_1_permutation_iterator.html#afa3e56963bfca89f693bc4d0c519d5dc">Arbiter::PermutationIterator&lt; It &gt;</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#ab5c7f4498e17f492c5847f48eedf98e2">Arbiter::Requirement::Any</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#ac7f2616a73cdb489d590584158d0d803">Arbiter::Requirement::AtLeast</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#ab14d8dd0731c30966efd10f6057991ce">Arbiter::Requirement::CompatibleWith</a>
+, <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#a241cf2f8b67b8cf01aa057d5235e4b00">Arbiter::Requirement::Exactly</a>
 , <a class="el" href="class_arbiter_1_1_shared_user_value.html#a68809201ace5637f3e6e76bf221d6275">Arbiter::SharedUserValue&lt; Owner &gt;</a>
-, <a class="el" href="struct_arbiter_dependency.html#a8c87e4e2586752a40c2e600c02a2c09f">ArbiterDependency</a>
-, <a class="el" href="struct_arbiter_project_identifier.html#a919c5e9749d14d53aac182a7b6db77ba">ArbiterProjectIdentifier</a>
-, <a class="el" href="struct_arbiter_requirement.html#a82161e1baaa12ed1206f8ea77e313864">ArbiterRequirement</a>
-, <a class="el" href="struct_arbiter_resolved_dependency.html#a0b19374f51b35b3bd2ddda0b640bfd12">ArbiterResolvedDependency</a>
-, <a class="el" href="struct_arbiter_selected_version.html#ae1013b083003d44934e867c095f0fb61">ArbiterSelectedVersion</a>
-, <a class="el" href="struct_arbiter_semantic_version.html#af65327f600a0351a5fcdfc158a154377">ArbiterSemanticVersion</a>
+, <a class="el" href="struct_arbiter_dependency.html#aea159dc9ac4ca032e31175cc81ce3300">ArbiterDependency</a>
+, <a class="el" href="struct_arbiter_dependency_list.html#aa69a234f28b189e229b86242d84a17db">ArbiterDependencyList</a>
+, <a class="el" href="struct_arbiter_project_identifier.html#acac8eb2576226af678ef5804dad1334d">ArbiterProjectIdentifier</a>
+, <a class="el" href="struct_arbiter_resolved_dependency.html#ae14fcc4d09e555d74759005f67d992bf">ArbiterResolvedDependency</a>
+, <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a7e3db4d797ad4e879197385917a9f514">ArbiterResolvedDependencyGraph</a>
+, <a class="el" href="struct_arbiter_resolver.html#a585e58622f45f1c72c3347e89d203a69">ArbiterResolver</a>
+, <a class="el" href="struct_arbiter_selected_version.html#abbe9cfc456727ab300d49b2b375af4a5">ArbiterSelectedVersion</a>
+, <a class="el" href="struct_arbiter_selected_version_list.html#ad0c8093543d93c9198e2c1fa2a64305c">ArbiterSelectedVersionList</a>
+, <a class="el" href="struct_arbiter_semantic_version.html#a028ad1c27160639ae0c2c346682c7adb">ArbiterSemanticVersion</a>
 </li>
 <li>operator&gt;()
 : <a class="el" href="class_arbiter_1_1_shared_user_value.html#a8e50dcc777757f9945050f0c47a97702">Arbiter::SharedUserValue&lt; Owner &gt;</a>
@@ -311,7 +338,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 , <a class="el" href="struct_arbiter_semantic_version.html#a9ccfd9dcb2b667e58cc9fac55932acf9">ArbiterSemanticVersion</a>
 </li>
 <li>Optional()
-: <a class="el" href="struct_arbiter_1_1_optional.html#abb0208a623c70842ef2dfa08267d6054">Arbiter::Optional&lt; T &gt;</a>
+: <a class="el" href="struct_arbiter_1_1_optional.html#a08266cbe814b6be9503158915e2facb0">Arbiter::Optional&lt; T &gt;</a>
 </li>
 </ul>
 
@@ -333,8 +360,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>ArbiterResolvedDependency()
 : <a class="el" href="struct_arbiter_resolved_dependency.html#a4f167e3c39287973c68c5c2a9db1e9f0">ArbiterResolvedDependency</a>
 </li>
-<li>ArbiterResolvedDependencyList()
-: <a class="el" href="struct_arbiter_resolved_dependency_list.html#a8f9db5c6503eccfe7b326b4f91c3a356">ArbiterResolvedDependencyList</a>
+<li>ArbiterResolvedDependencyGraph()
+: <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a8804467e485fe9e7266293c7fff456b1">ArbiterResolvedDependencyGraph</a>
 </li>
 <li>ArbiterResolver()
 : <a class="el" href="struct_arbiter_resolver.html#a4db20c7b8839314114cd980b963f212e">ArbiterResolver</a>
@@ -346,7 +373,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="class_arbiter_1_1_multipass_iterator.html#aefc371ed3541c2fe0f3f28c03ffd7474">Arbiter::MultipassIterator&lt; It &gt;</a>
 </li>
 <li>resolve()
-: <a class="el" href="struct_arbiter_resolver.html#aecf6a39dc44552f9ecc7b3174a643b5d">ArbiterResolver</a>
+: <a class="el" href="struct_arbiter_resolver.html#aed77f5e43cd1fd0f56087a35aef4bf82">ArbiterResolver</a>
 </li>
 </ul>
 
@@ -392,8 +419,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_0x7e"></a>- ~ -</h3><ul>
-<li>~ArbiterRequirement()
-: <a class="el" href="struct_arbiter_requirement.html#a047d4a05356a389f581c635d7e8d9b2e">ArbiterRequirement</a>
+<li>~Base()
+: <a class="el" href="class_arbiter_1_1_base.html#acf308cb34de270b459f02640270e52e3">Arbiter::Base</a>
 </li>
 <li>~Optional()
 : <a class="el" href="struct_arbiter_1_1_optional.html#a44d6dd8c9529cae4f719b35f4509a7be">Arbiter::Optional&lt; T &gt;</a>
@@ -402,7 +429,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

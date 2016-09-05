@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -92,19 +92,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>This is the complete list of members for <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_requirement.html#aa0a4382f74c2ac504ab391b473f2b9de">clone</a>() const  =0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a14e6877e7bae9b4e477ab31fbf3dc3bc">describe</a>(std::ostream &amp;os) const  =0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a5d9d40e896f8eccf73a8b33d4839b877">hash</a>() const  noexcept=0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a154df9eef873c0cdb2c1470f8ac9eb8b">intersect</a>(const ArbiterRequirement &amp;rhs) const  =0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a817a41700a2eb366dee80ec5a462f34f">operator!=</a>(const ArbiterRequirement &amp;other) const  noexcept</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_arbiter_requirement.html#aec822e69ff6e37dda6c67c24fc700f90">operator&lt;&lt;</a>(std::ostream &amp;os, const ArbiterRequirement &amp;requirement)</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a82161e1baaa12ed1206f8ea77e313864">operator==</a>(const ArbiterRequirement &amp;other) const  noexcept=0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#a36499ee4dd9e6821f72b0af03b86b731">clone</a>() const  =0</td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a1231089736b96e5dab43d90a08bbfb2d">cloneRequirement</a>() const </td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#adbc261eb40b20d3a185e0355049f60a4">describe</a>(std::ostream &amp;os) const  =0</td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a5d9d40e896f8eccf73a8b33d4839b877">hash</a>() const  noexcept=0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a154df9eef873c0cdb2c1470f8ac9eb8b">intersect</a>(const ArbiterRequirement &amp;rhs) const  =0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#a531914803ab5722a848f51b36a866d23">operator!=</a>(const Base &amp;other) const </td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#a3dee918ed636c26db8c9367f4a504d96">operator==</a>(const Base &amp;other) const  =0</td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="struct_arbiter_requirement.html#aec26c2d8f8ace95bcaebde074c93b50f">satisfiedBy</a>(const ArbiterSemanticVersion &amp;version) const  noexcept=0</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_requirement.html#a047d4a05356a389f581c635d7e8d9b2e">~ArbiterRequirement</a>()=default</td><td class="entry"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#acf308cb34de270b459f02640270e52e3">~Base</a>() noexcept(false)</td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

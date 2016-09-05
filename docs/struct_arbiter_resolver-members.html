@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -94,14 +94,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a7b2c6fdaa22e0223d5807275a9ebd87a">_context</a></td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a4db20c7b8839314114cd980b963f212e">ArbiterResolver</a>(ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, const void *context)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_resolver.html#aa86e4d0ed05739bd3ca8d3d62d99e769">availableVersionsSatisfying</a>(const ArbiterProjectIdentifier &amp;project, const ArbiterRequirement &amp;requirement) noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a62c3379058d6baca4625d5afceb2d107">fetchAvailableVersions</a>(const ArbiterProjectIdentifier &amp;project) noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a3e9ec2a7efe6a1c20d5c15efa189a362">fetchDependencies</a>(const ArbiterProjectIdentifier &amp;project, const ArbiterSelectedVersion &amp;version) noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#aecf6a39dc44552f9ecc7b3174a643b5d">resolve</a>() noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a73c3122e49679288bf62e5b6083ccd73">ArbiterResolver</a>(const ArbiterResolver &amp;)=delete</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#aa86e4d0ed05739bd3ca8d3d62d99e769">availableVersionsSatisfying</a>(const ArbiterProjectIdentifier &amp;project, const ArbiterRequirement &amp;requirement) noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a28e1d2d502abfbc8ecfe4a7881797339">clone</a>() const  override</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a938812d347f4bb4a17166ba122e1176f">describe</a>(std::ostream &amp;os) const  override</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a62c3379058d6baca4625d5afceb2d107">fetchAvailableVersions</a>(const ArbiterProjectIdentifier &amp;project) noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a3e9ec2a7efe6a1c20d5c15efa189a362">fetchDependencies</a>(const ArbiterProjectIdentifier &amp;project, const ArbiterSelectedVersion &amp;version) noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#a531914803ab5722a848f51b36a866d23">operator!=</a>(const Base &amp;other) const </td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#acd7fba5859a07c6710a42182187f19f7">operator=</a>(const ArbiterResolver &amp;)=delete</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_resolver.html#a585e58622f45f1c72c3347e89d203a69">operator==</a>(const Arbiter::Base &amp;other) const  override</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_resolver.html#aed77f5e43cd1fd0f56087a35aef4bf82">resolve</a>() noexcept(false)</td><td class="entry"><a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#acf308cb34de270b459f02640270e52e3">~Base</a>() noexcept(false)</td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

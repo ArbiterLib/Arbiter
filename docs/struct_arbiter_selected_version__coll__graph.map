@@ -1,5 +1,6 @@
 <map id="ArbiterSelectedVersion" name="ArbiterSelectedVersion">
-<area shape="rect" id="node2" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="62,139,223,164"/>
-<area shape="rect" id="node3" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="5,5,131,44"/>
-<area shape="rect" id="node5" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="246,132,426,171"/>
+<area shape="rect" id="node2" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="19,5,117,31"/>
+<area shape="rect" id="node3" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="307,59,467,84"/>
+<area shape="rect" id="node4" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="5,67,131,105"/>
+<area shape="rect" id="node6" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="297,108,477,147"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dependencygraph',['DependencyGraph',['../class_arbiter_1_1_resolver_1_1_dependency_graph.html',1,'Arbiter::Resolver']]]
+  ['exactly',['Exactly',['../class_arbiter_1_1_requirement_1_1_exactly.html',1,'Arbiter::Requirement']]]
 ];

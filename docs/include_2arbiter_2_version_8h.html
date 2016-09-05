@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -113,21 +113,6 @@ Functions</h2></td></tr>
 <tr class="memitem:af4e5aa3f0b2f888377149a5bf67d28e2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#af4e5aa3f0b2f888377149a5bf67d28e2">ArbiterCreateSemanticVersionFromString</a> (const char *string)</td></tr>
 <tr class="memdesc:af4e5aa3f0b2f888377149a5bf67d28e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to parse the given NUL-terminated string into a semantic version, returning NULL if a parse failure occurs.  <a href="#af4e5aa3f0b2f888377149a5bf67d28e2">More...</a><br /></td></tr>
 <tr class="separator:af4e5aa3f0b2f888377149a5bf67d28e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4739dd668feb854f63d8d99a9ad7a170"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a4739dd668feb854f63d8d99a9ad7a170">ArbiterEqualSelectedVersions</a> (const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *lhs, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *rhs)</td></tr>
-<tr class="memdesc:a4739dd668feb854f63d8d99a9ad7a170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the two selected versions are equivalent.  <a href="#a4739dd668feb854f63d8d99a9ad7a170">More...</a><br /></td></tr>
-<tr class="separator:a4739dd668feb854f63d8d99a9ad7a170"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a076544fb41154ba974a54361343bd2fa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a076544fb41154ba974a54361343bd2fa">ArbiterEqualVersions</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *lhs, const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *rhs)</td></tr>
-<tr class="memdesc:a076544fb41154ba974a54361343bd2fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether two versions are equal in every component, including those which may not participate in ordering (e.g., build metadata).  <a href="#a076544fb41154ba974a54361343bd2fa">More...</a><br /></td></tr>
-<tr class="separator:a076544fb41154ba974a54361343bd2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a901dec118885ae6753bcab8464dd4f48"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a901dec118885ae6753bcab8464dd4f48">ArbiterFreeSelectedVersion</a> (<a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *version)</td></tr>
-<tr class="memdesc:a901dec118885ae6753bcab8464dd4f48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a selected version object.  <a href="#a901dec118885ae6753bcab8464dd4f48">More...</a><br /></td></tr>
-<tr class="separator:a901dec118885ae6753bcab8464dd4f48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c9e6c2a919e3231ba367c1012ab3401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a1c9e6c2a919e3231ba367c1012ab3401">ArbiterFreeSelectedVersionList</a> (<a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a> *versionList)</td></tr>
-<tr class="memdesc:a1c9e6c2a919e3231ba367c1012ab3401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a version list.  <a href="#a1c9e6c2a919e3231ba367c1012ab3401">More...</a><br /></td></tr>
-<tr class="separator:a1c9e6c2a919e3231ba367c1012ab3401"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc727be4523308d364f369a0f005d4a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#adc727be4523308d364f369a0f005d4a8">ArbiterFreeSemanticVersion</a> (<a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
-<tr class="memdesc:adc727be4523308d364f369a0f005d4a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a version object.  <a href="#adc727be4523308d364f369a0f005d4a8">More...</a><br /></td></tr>
-<tr class="separator:adc727be4523308d364f369a0f005d4a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21ff3211cabef158b268257106ffd231"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_version_8h.html#a21ff3211cabef158b268257106ffd231">ArbiterGetBuildMetadata</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
 <tr class="memdesc:a21ff3211cabef158b268257106ffd231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the build metadata string from a semantic version, or NULL if there is not one associated with the version.  <a href="#a21ff3211cabef158b268257106ffd231">More...</a><br /></td></tr>
 <tr class="separator:a21ff3211cabef158b268257106ffd231"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,7 +190,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a selected version which corresponds to the given semantic version. </p>
-<p>The returned version must be freed with <a class="el" href="include_2arbiter_2_version_8h.html#a901dec118885ae6753bcab8464dd4f48" title="Releases the memory associated with a selected version object. ">ArbiterFreeSelectedVersion()</a>. </p>
+<p>The returned version must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
@@ -235,7 +220,7 @@ Functions</h2></td></tr>
 
 <p>Creates a version list which wraps a C array of <a class="el" href="struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. ">ArbiterSelectedVersion</a> objects. </p>
 <p>The objects in the C array can be safely freed after calling this function.</p>
-<p>The returned list must be freed with <a class="el" href="include_2arbiter_2_version_8h.html#a1c9e6c2a919e3231ba367c1012ab3401" title="Releases the memory associated with a version list. ">ArbiterFreeSelectedVersionList()</a>. </p>
+<p>The returned list must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
@@ -282,7 +267,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a semantic version with the given components. </p>
-<p>The returned version must be freed with <a class="el" href="include_2arbiter_2_version_8h.html#adc727be4523308d364f369a0f005d4a8" title="Releases the memory associated with a version object. ">ArbiterFreeSemanticVersion()</a>. </p>
+<p>The returned version must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
@@ -301,117 +286,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Attempts to parse the given NUL-terminated string into a semantic version, returning NULL if a parse failure occurs. </p>
-<p>The returned version must be freed with <a class="el" href="include_2arbiter_2_version_8h.html#adc727be4523308d364f369a0f005d4a8" title="Releases the memory associated with a version object. ">ArbiterFreeSemanticVersion()</a>. </p>
-
-</div>
-</div>
-<a class="anchor" id="a4739dd668feb854f63d8d99a9ad7a170"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ArbiterEqualSelectedVersions </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *&#160;</td>
-          <td class="paramname"><em>lhs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether the two selected versions are equivalent. </p>
-
-</div>
-</div>
-<a class="anchor" id="a076544fb41154ba974a54361343bd2fa"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ArbiterEqualVersions </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
-          <td class="paramname"><em>lhs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks whether two versions are equal in every component, including those which may not participate in ordering (e.g., build metadata). </p>
-
-</div>
-</div>
-<a class="anchor" id="a901dec118885ae6753bcab8464dd4f48"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ArbiterFreeSelectedVersion </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *&#160;</td>
-          <td class="paramname"><em>version</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the memory associated with a selected version object. </p>
-
-</div>
-</div>
-<a class="anchor" id="a1c9e6c2a919e3231ba367c1012ab3401"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ArbiterFreeSelectedVersionList </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a> *&#160;</td>
-          <td class="paramname"><em>versionList</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the memory associated with a version list. </p>
-
-</div>
-</div>
-<a class="anchor" id="adc727be4523308d364f369a0f005d4a8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ArbiterFreeSemanticVersion </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
-          <td class="paramname"><em>version</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the memory associated with a version object. </p>
+<p>The returned version must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
@@ -550,7 +425,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

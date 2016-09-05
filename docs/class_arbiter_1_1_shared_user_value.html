@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -112,6 +112,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4db7260742928ac4898de4fe520105f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00f6ccc566bbebf60645a35126a4b4ea"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_shared_user_value.html#a00f6ccc566bbebf60645a35126a4b4ea">description</a> () const </td></tr>
 <tr class="separator:a00f6ccc566bbebf60645a35126a4b4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c38e5dfc73c8752eb3a518d55df949c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_shared_user_value.html#a7c38e5dfc73c8752eb3a518d55df949c">hash</a> () const </td></tr>
+<tr class="separator:a7c38e5dfc73c8752eb3a518d55df949c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66587d89a3eb3b90f2cd53418bb0a5c2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_shared_user_value.html#a66587d89a3eb3b90f2cd53418bb0a5c2">operator!=</a> (const <a class="el" href="class_arbiter_1_1_shared_user_value.html">SharedUserValue</a> &amp;other) const </td></tr>
 <tr class="separator:a66587d89a3eb3b90f2cd53418bb0a5c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accdfdbf00561a461039bc22a646aaaad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_shared_user_value.html#accdfdbf00561a461039bc22a646aaaad">operator&lt;</a> (const <a class="el" href="class_arbiter_1_1_shared_user_value.html">SharedUserValue</a> &amp;other) const </td></tr>
@@ -132,7 +134,7 @@ class Arbiter::SharedUserValue&lt; Owner &gt;</h3>
 <p>Expresses shared ownership of opaque user-provided data, which was originally described in an <a class="el" href="struct_arbiter_user_value.html" title="Represents an arbitrary value that can be associated with Arbiter data types and functionality. ">ArbiterUserValue</a>. </p>
 <p><code>Owner</code> is a phantom type used to associate the <a class="el" href="class_arbiter_1_1_shared_user_value.html" title="Expresses shared ownership of opaque user-provided data, which was originally described in an Arbiter...">SharedUserValue</a> with its usage in a particular class. This helps prevent two <a class="el" href="class_arbiter_1_1_shared_user_value.html" title="Expresses shared ownership of opaque user-provided data, which was originally described in an Arbiter...">SharedUserValue</a> instances from being compared if they represent conceptually different things (which might crash user code). </p>
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00026">26</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00027">27</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5be9212601a489641488e914aef1f5df"></a>
 <div class="memitem">
@@ -149,7 +151,7 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00029">29</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00030">30</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -177,7 +179,7 @@ template&lt;typename Owner&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00032">32</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00033">33</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -205,7 +207,7 @@ template&lt;typename Owner&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00074">74</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00077">77</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -232,7 +234,7 @@ template&lt;typename Owner&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00079">79</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00082">82</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -251,7 +253,26 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00084">84</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00087">87</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a7c38e5dfc73c8752eb3a518d55df949c"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Owner&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t <a class="el" href="class_arbiter_1_1_shared_user_value.html">Arbiter::SharedUserValue</a>&lt; Owner &gt;::hash </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00096">96</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -271,7 +292,7 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00048">48</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00051">51</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -291,7 +312,7 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00053">53</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00056">56</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -311,7 +332,7 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00069">69</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00072">72</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -331,7 +352,7 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00042">42</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00045">45</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -351,7 +372,7 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00059">59</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00062">62</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -371,7 +392,7 @@ template&lt;typename Owner&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00064">64</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_value_8h_source.html#l00067">67</a> of file <a class="el" href="src_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -381,7 +402,7 @@ template&lt;typename Owner&gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

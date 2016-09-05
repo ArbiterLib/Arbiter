@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -99,7 +99,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for ArbiterDependencyList:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_dependency_list__coll__graph.svg" width="230" height="396"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_dependency_list__coll__graph.svg" width="318" height="396"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -112,10 +113,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae2d35a204c0b46feffbf7eb52902ad99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a135f95801b2ab3f386ca5b62b130a94e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency_list.html#a135f95801b2ab3f386ca5b62b130a94e">ArbiterDependencyList</a> (<a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> &amp;&amp;)=default</td></tr>
 <tr class="separator:a135f95801b2ab3f386ca5b62b130a94e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe4e5476d4a53e1705f939cf076a091a"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency_list.html#afe4e5476d4a53e1705f939cf076a091a">clone</a> () const  override</td></tr>
+<tr class="separator:afe4e5476d4a53e1705f939cf076a091a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ffe91420c171d2dcc18dd616e8d4830"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency_list.html#a6ffe91420c171d2dcc18dd616e8d4830">describe</a> (std::ostream &amp;os) const  override</td></tr>
+<tr class="separator:a6ffe91420c171d2dcc18dd616e8d4830"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a531914803ab5722a848f51b36a866d23"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_base.html#a531914803ab5722a848f51b36a866d23">operator!=</a> (const Base &amp;other) const </td></tr>
+<tr class="separator:a531914803ab5722a848f51b36a866d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc68a72a017cfd8dab52adb4b505b01b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency_list.html#abc68a72a017cfd8dab52adb4b505b01b">operator=</a> (const <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> &amp;)=default</td></tr>
 <tr class="separator:abc68a72a017cfd8dab52adb4b505b01b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a646b783bb794c037f21f988149cce5e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency_list.html#a646b783bb794c037f21f988149cce5e6">operator=</a> (<a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> &amp;&amp;)=default</td></tr>
 <tr class="separator:a646b783bb794c037f21f988149cce5e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa69a234f28b189e229b86242d84a17db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_dependency_list.html#aa69a234f28b189e229b86242d84a17db">operator==</a> (const <a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a> &amp;other) const  override</td></tr>
+<tr class="separator:aa69a234f28b189e229b86242d84a17db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -125,7 +134,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a list of dependencies. </p>
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00082">82</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00076">76</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9aa2c8abc462de6fdc88e8af39429e4f"></a>
 <div class="memitem">
@@ -172,7 +181,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00089">89</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00083">83</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
 
 </div>
 </div>
@@ -225,6 +234,83 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="afe4e5476d4a53e1705f939cf076a091a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a>&gt; ArbiterDependencyList::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_arbiter_1_1_base.html#a36499ee4dd9e6821f72b0af03b86b731">Arbiter::Base</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6ffe91420c171d2dcc18dd616e8d4830"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; ArbiterDependencyList::describe </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_arbiter_1_1_base.html#adbc261eb40b20d3a185e0355049f60a4">Arbiter::Base</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a531914803ab5722a848f51b36a866d23"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Arbiter::Base::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_arbiter_1_1_base.html">Base</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="src_2_types_8h_source.html#l00028">28</a> of file <a class="el" href="src_2_types_8h_source.html">Types.h</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="abc68a72a017cfd8dab52adb4b505b01b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -273,6 +359,32 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa69a234f28b189e229b86242d84a17db"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ArbiterDependencyList::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="class_arbiter_1_1_base.html#a3dee918ed636c26db8c9367f4a504d96">Arbiter::Base</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="a97ae63be6483d202ae8c5bbeb5fa56f6"></a>
 <div class="memitem">
@@ -284,7 +396,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00085">85</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_dependency_8h_source.html#l00079">79</a> of file <a class="el" href="src_2_dependency_8h_source.html">Dependency.h</a>.</p>
 
 </div>
 </div>
@@ -294,7 +406,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

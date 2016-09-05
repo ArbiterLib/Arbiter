@@ -1,4 +1,5 @@
 <map id="ArbiterDependency" name="ArbiterDependency">
-<area shape="rect" id="node2" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="16,105,170,131"/>
-<area shape="rect" id="node3" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="5,5,181,44"/>
+<area shape="rect" id="node2" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="5,12,104,37"/>
+<area shape="rect" id="node3" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="91,105,244,131"/>
+<area shape="rect" id="node4" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="128,5,304,44"/>
 </map>

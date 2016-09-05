@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -98,7 +98,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for ArbiterUserValue:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_user_value__coll__graph.svg" width="423" height="224"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_user_value__coll__graph.svg" width="423" height="287"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
@@ -115,6 +116,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a58ad30575098fbeaba0cf57bf4fa80ac"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_user_value.html#a58ad30575098fbeaba0cf57bf4fa80ac">equalTo</a> )(const void *first, const void *second)</td></tr>
 <tr class="memdesc:a58ad30575098fbeaba0cf57bf4fa80ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">An equality operation over two data objects.  <a href="#a58ad30575098fbeaba0cf57bf4fa80ac">More...</a><br /></td></tr>
 <tr class="separator:a58ad30575098fbeaba0cf57bf4fa80ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bbe1c09aa9b1d1ae8872d613576e6d5"><td class="memItemLeft" align="right" valign="top">size_t(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_user_value.html#a0bbe1c09aa9b1d1ae8872d613576e6d5">hash</a> )(const void *first)</td></tr>
+<tr class="memdesc:a0bbe1c09aa9b1d1ae8872d613576e6d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a hash of the data object.  <a href="#a0bbe1c09aa9b1d1ae8872d613576e6d5">More...</a><br /></td></tr>
+<tr class="separator:a0bbe1c09aa9b1d1ae8872d613576e6d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5581905b82a24eefd853a6ed055cde0f"><td class="memItemLeft" align="right" valign="top">bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_user_value.html#a5581905b82a24eefd853a6ed055cde0f">lessThan</a> )(const void *first, const void *second)</td></tr>
 <tr class="memdesc:a5581905b82a24eefd853a6ed055cde0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether <code>first</code> is less than (should be ordered before) <code>second</code>.  <a href="#a5581905b82a24eefd853a6ed055cde0f">More...</a><br /></td></tr>
 <tr class="separator:a5581905b82a24eefd853a6ed055cde0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,7 +127,7 @@ Public Attributes</h2></td></tr>
 <div class="textblock"><p>Represents an arbitrary value that can be associated with <a class="el" href="namespace_arbiter.html">Arbiter</a> data types and functionality. </p>
 <p>For example, ArbiterProjectIdentifiers are defined by providing an opaque user value. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00017">17</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00018">18</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="a24b7de90b02aa6e93e6ff39669022cb0"></a>
 <div class="memitem">
@@ -139,7 +143,7 @@ Public Attributes</h2></td></tr>
 <p>The returned value must be dynamically allocated and support being destroyed with free().</p>
 <p>This may be NULL. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00055">55</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00057">57</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -156,7 +160,7 @@ Public Attributes</h2></td></tr>
 <p>The underlying data object. </p>
 <p>This object should be considered to be owned by <a class="el" href="namespace_arbiter.html">Arbiter</a> as soon as the <a class="el" href="struct_arbiter_user_value.html" title="Represents an arbitrary value that can be associated with Arbiter data types and functionality. ">ArbiterUserValue</a> is passed into any API. It will eventually be cleaned up by the library through invocation of the provided <code>destructor</code>. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00026">26</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00027">27</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -173,7 +177,7 @@ Public Attributes</h2></td></tr>
 <p>A cleanup function to call when the <a class="el" href="struct_arbiter_user_value.html" title="Represents an arbitrary value that can be associated with Arbiter data types and functionality. ">ArbiterUserValue</a> is done being used. </p>
 <p>This may be NULL. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00047">47</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00064">64</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -190,7 +194,25 @@ Public Attributes</h2></td></tr>
 <p>An equality operation over two data objects. </p>
 <p>This must not be NULL. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00033">33</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00034">34</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0bbe1c09aa9b1d1ae8872d613576e6d5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t(* ArbiterUserValue::hash) (const void *first)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates a hash of the data object. </p>
+<p>The hash does not need to be cryptographically secure.</p>
+<p>This must not be NULL. </p>
+
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00049">49</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -207,7 +229,7 @@ Public Attributes</h2></td></tr>
 <p>Returns whether <code>first</code> is less than (should be ordered before) <code>second</code>. </p>
 <p>This must not be NULL. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00040">40</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_value_8h_source.html#l00041">41</a> of file <a class="el" href="include_2arbiter_2_value_8h_source.html">Value.h</a>.</p>
 
 </div>
 </div>
@@ -217,7 +239,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

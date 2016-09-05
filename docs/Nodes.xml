@@ -33,10 +33,6 @@
               <Name>Requirement</Name>
               <Path>namespace_arbiter_1_1_requirement.html</Path>
              </Node>
-             <Node>
-              <Name>Resolver</Name>
-              <Path>namespace_arbiter_1_1_resolver.html</Path>
-             </Node>
             </Subnodes>
            </Node>
           </Subnodes>
@@ -148,7 +144,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-                  <Anchor>af7f20fa6276c2c62a23c851aa5770816</Anchor>
+                  <Anchor>a88d33ff811589099c94663410c2d662e</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -168,12 +169,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-                  <Anchor>a3b16f09fcc1098a15db3360d0bb29ed5</Anchor>
+                  <Anchor>ab5c7f4498e17f492c5847f48eedf98e2</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -194,7 +195,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-                  <Anchor>ab4e8255cd4ed8eb3f908e5fc0f285cf7</Anchor>
+                  <Anchor>a4277b6fe9f280c157b19233c46ebea99</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -214,12 +220,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-                  <Anchor>a09d8f1afd4d7308a604c52b3e14c8c14</Anchor>
+                  <Anchor>ac7f2616a73cdb489d590584158d0d803</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -245,7 +251,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-                  <Anchor>a77a3bb1d31d0a64524c941a5c8c864ef</Anchor>
+                  <Anchor>aea861e920ed44c5944d2e8b43cbc7aa5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -265,12 +276,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-                  <Anchor>a7ddbcfbb67b3c3c4e041b7a96d6420ea</Anchor>
+                  <Anchor>ab14d8dd0731c30966efd10f6057991ce</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -301,7 +312,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-                  <Anchor>ac684a1bf851d2d5588e1c7c4eefa1a54</Anchor>
+                  <Anchor>acdf7cac9c211d738c9d1fdbfc6629bc0</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -321,12 +337,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-                  <Anchor>ad6e08e7cd1b68c41221d0d3e7c99104b</Anchor>
+                  <Anchor>a241cf2f8b67b8cf01aa057d5235e4b00</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -343,29 +359,33 @@
               </Subnodes>
              </Node>
              <Node>
-              <Name>Resolver</Name>
-              <Path>namespace_arbiter_1_1_resolver.html</Path>
+              <Name>Base</Name>
+              <Path>class_arbiter_1_1_base.html</Path>
               <Subnodes>
                <Node>
-                <Name>DependencyGraph</Name>
-                <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>addNode</Name>
-                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                  <Anchor>aa66315f94f0f117493f2ecfe839ff784</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>allNodes</Name>
-                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                  <Anchor>ab2631a0fd5a2c1a064406f1437eac923</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>describe</Name>
-                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                  <Anchor>a6175aa0dad35ebc4e1916dfa8e3d887e</Anchor>
-                 </Node>
-                </Subnodes>
+                <Name>~Base</Name>
+                <Path>class_arbiter_1_1_base.html</Path>
+                <Anchor>acf308cb34de270b459f02640270e52e3</Anchor>
+               </Node>
+               <Node>
+                <Name>clone</Name>
+                <Path>class_arbiter_1_1_base.html</Path>
+                <Anchor>a36499ee4dd9e6821f72b0af03b86b731</Anchor>
+               </Node>
+               <Node>
+                <Name>describe</Name>
+                <Path>class_arbiter_1_1_base.html</Path>
+                <Anchor>adbc261eb40b20d3a185e0355049f60a4</Anchor>
+               </Node>
+               <Node>
+                <Name>operator!=</Name>
+                <Path>class_arbiter_1_1_base.html</Path>
+                <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+               </Node>
+               <Node>
+                <Name>operator==</Name>
+                <Path>class_arbiter_1_1_base.html</Path>
+                <Anchor>a3dee918ed636c26db8c9367f4a504d96</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -628,6 +648,11 @@
                 <Anchor>a00f6ccc566bbebf60645a35126a4b4ea</Anchor>
                </Node>
                <Node>
+                <Name>hash</Name>
+                <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                <Anchor>a7c38e5dfc73c8752eb3a518d55df949c</Anchor>
+               </Node>
+               <Node>
                 <Name>operator!=</Name>
                 <Path>class_arbiter_1_1_shared_user_value.html</Path>
                 <Anchor>a66587d89a3eb3b90f2cd53418bb0a5c2</Anchor>
@@ -677,6 +702,17 @@
               </Subnodes>
              </Node>
              <Node>
+              <Name>hash&lt; Arbiter::SharedUserValue&lt; Owner &gt; &gt;</Name>
+              <Path>structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>operator()</Name>
+                <Path>structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html</Path>
+                <Anchor>a7c49216475b8c7ce30b68c5743627182</Anchor>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
               <Name>hash&lt; ArbiterDependency &gt;</Name>
               <Path>structstd_1_1hash_3_01_arbiter_dependency_01_4.html</Path>
               <Subnodes>
@@ -694,7 +730,7 @@
                <Node>
                 <Name>operator()</Name>
                 <Path>structstd_1_1hash_3_01_arbiter_project_identifier_01_4.html</Path>
-                <Anchor>a156c9bda8b50f2513d1ac43342346e35</Anchor>
+                <Anchor>a30677cd5340ce51b4d0547f0d8221c5b</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -759,6 +795,21 @@
               <Anchor>a5db242ea37875c7ad5db0658c1380b0b</Anchor>
              </Node>
              <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_dependency.html</Path>
+              <Anchor>a1dc45488b33c44ba617ccdee75ee8573</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_dependency.html</Path>
+              <Anchor>ad8b41b9bb8f0cfcb6a113615cc4b1d09</Anchor>
+             </Node>
+             <Node>
+              <Name>operator!=</Name>
+              <Path>struct_arbiter_dependency.html</Path>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+             </Node>
+             <Node>
               <Name>operator&lt;</Name>
               <Path>struct_arbiter_dependency.html</Path>
               <Anchor>ada15f6ccabbb37c903c5196eddd1df92</Anchor>
@@ -771,7 +822,7 @@
              <Node>
               <Name>operator==</Name>
               <Path>struct_arbiter_dependency.html</Path>
-              <Anchor>a8c87e4e2586752a40c2e600c02a2c09f</Anchor>
+              <Anchor>aea159dc9ac4ca032e31175cc81ce3300</Anchor>
              </Node>
              <Node>
               <Name>requirement</Name>
@@ -810,6 +861,21 @@
               <Anchor>a135f95801b2ab3f386ca5b62b130a94e</Anchor>
              </Node>
              <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>afe4e5476d4a53e1705f939cf076a091a</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>a6ffe91420c171d2dcc18dd616e8d4830</Anchor>
+             </Node>
+             <Node>
+              <Name>operator!=</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+             </Node>
+             <Node>
               <Name>operator=</Name>
               <Path>struct_arbiter_dependency_list.html</Path>
               <Anchor>abc68a72a017cfd8dab52adb4b505b01b</Anchor>
@@ -818,6 +884,11 @@
               <Name>operator=</Name>
               <Path>struct_arbiter_dependency_list.html</Path>
               <Anchor>a646b783bb794c037f21f988149cce5e6</Anchor>
+             </Node>
+             <Node>
+              <Name>operator==</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+              <Anchor>aa69a234f28b189e229b86242d84a17db</Anchor>
              </Node>
              <Node>
               <Name>_dependencies</Name>
@@ -846,9 +917,19 @@
               <Anchor>a8c28e3259150288a9be44d39a998cb79</Anchor>
              </Node>
              <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_project_identifier.html</Path>
+              <Anchor>aaaac2a46d6259325bf3b7ba096d6032e</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_project_identifier.html</Path>
+              <Anchor>aa2f1bb7f30002465c1a39e1553ed22dc</Anchor>
+             </Node>
+             <Node>
               <Name>operator!=</Name>
               <Path>struct_arbiter_project_identifier.html</Path>
-              <Anchor>af6441e0c2d5e2b5f12cc0525053ecac0</Anchor>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
              </Node>
              <Node>
               <Name>operator&lt;</Name>
@@ -858,7 +939,7 @@
              <Node>
               <Name>operator==</Name>
               <Path>struct_arbiter_project_identifier.html</Path>
-              <Anchor>a919c5e9749d14d53aac182a7b6db77ba</Anchor>
+              <Anchor>acac8eb2576226af678ef5804dad1334d</Anchor>
              </Node>
              <Node>
               <Name>_value</Name>
@@ -872,19 +953,19 @@
             <Path>struct_arbiter_requirement.html</Path>
             <Subnodes>
              <Node>
-              <Name>~ArbiterRequirement</Name>
-              <Path>struct_arbiter_requirement.html</Path>
-              <Anchor>a047d4a05356a389f581c635d7e8d9b2e</Anchor>
-             </Node>
-             <Node>
               <Name>clone</Name>
               <Path>struct_arbiter_requirement.html</Path>
-              <Anchor>aa0a4382f74c2ac504ab391b473f2b9de</Anchor>
+              <Anchor>a36499ee4dd9e6821f72b0af03b86b731</Anchor>
+             </Node>
+             <Node>
+              <Name>cloneRequirement</Name>
+              <Path>struct_arbiter_requirement.html</Path>
+              <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
              </Node>
              <Node>
               <Name>describe</Name>
               <Path>struct_arbiter_requirement.html</Path>
-              <Anchor>a14e6877e7bae9b4e477ab31fbf3dc3bc</Anchor>
+              <Anchor>adbc261eb40b20d3a185e0355049f60a4</Anchor>
              </Node>
              <Node>
               <Name>hash</Name>
@@ -899,27 +980,17 @@
              <Node>
               <Name>operator!=</Name>
               <Path>struct_arbiter_requirement.html</Path>
-              <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
              </Node>
              <Node>
               <Name>operator==</Name>
               <Path>struct_arbiter_requirement.html</Path>
-              <Anchor>a82161e1baaa12ed1206f8ea77e313864</Anchor>
+              <Anchor>a3dee918ed636c26db8c9367f4a504d96</Anchor>
              </Node>
              <Node>
               <Name>satisfiedBy</Name>
               <Path>struct_arbiter_requirement.html</Path>
               <Anchor>aec26c2d8f8ace95bcaebde074c93b50f</Anchor>
-             </Node>
-             <Node>
-              <Name>operator&lt;&lt;</Name>
-              <Path>struct_arbiter_requirement.html</Path>
-              <Anchor>aec822e69ff6e37dda6c67c24fc700f90</Anchor>
-             </Node>
-             <Node>
-              <Name>std::hash&lt; ArbiterRequirement &gt;</Name>
-              <Path>struct_arbiter_requirement.html</Path>
-              <Anchor>a8af04ca90bda22397f975444fde9ec73</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -933,14 +1004,24 @@
               <Anchor>a4f167e3c39287973c68c5c2a9db1e9f0</Anchor>
              </Node>
              <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+              <Anchor>a8ec3a664cf07b7f06c50d9a2cb233c01</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+              <Anchor>a0ca93b4d8aea63e44d9f09bc8826ea07</Anchor>
+             </Node>
+             <Node>
               <Name>operator!=</Name>
               <Path>struct_arbiter_resolved_dependency.html</Path>
-              <Anchor>a9e8ddecbfec5905b0eff57927f48e023</Anchor>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
              </Node>
              <Node>
               <Name>operator==</Name>
               <Path>struct_arbiter_resolved_dependency.html</Path>
-              <Anchor>a0b19374f51b35b3bd2ddda0b640bfd12</Anchor>
+              <Anchor>ae14fcc4d09e555d74759005f67d992bf</Anchor>
              </Node>
              <Node>
               <Name>_project</Name>
@@ -955,43 +1036,63 @@
             </Subnodes>
            </Node>
            <Node>
-            <Name>ArbiterResolvedDependencyList</Name>
-            <Path>struct_arbiter_resolved_dependency_list.html</Path>
+            <Name>ArbiterResolvedDependencyGraph</Name>
+            <Path>struct_arbiter_resolved_dependency_graph.html</Path>
             <Subnodes>
              <Node>
-              <Name>ArbiterResolvedDependencyList</Name>
-              <Path>struct_arbiter_resolved_dependency_list.html</Path>
-              <Anchor>a8f9db5c6503eccfe7b326b4f91c3a356</Anchor>
+              <Name>DepthSet</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>acdb142d459a494e66449e1b57366a614</Anchor>
              </Node>
              <Node>
-              <Name>ArbiterResolvedDependencyList</Name>
-              <Path>struct_arbiter_resolved_dependency_list.html</Path>
-              <Anchor>affe61dbe6fbca873c4c248dc5c832e9e</Anchor>
+              <Name>ArbiterResolvedDependencyGraph</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a8804467e485fe9e7266293c7fff456b1</Anchor>
              </Node>
              <Node>
-              <Name>ArbiterResolvedDependencyList</Name>
-              <Path>struct_arbiter_resolved_dependency_list.html</Path>
-              <Anchor>a5f3d9a1a307ae7c69af77591b0b0bf83</Anchor>
+              <Name>clone</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a48e9f194b51f78f25ec7d699e533d3fc</Anchor>
              </Node>
              <Node>
-              <Name>ArbiterResolvedDependencyList</Name>
-              <Path>struct_arbiter_resolved_dependency_list.html</Path>
-              <Anchor>a3060cc0ee1d17625562b337d9ff8669e</Anchor>
+              <Name>contains</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a022bdc7fc66f3a3f03a0fcacd4f5e8e2</Anchor>
              </Node>
              <Node>
-              <Name>operator=</Name>
-              <Path>struct_arbiter_resolved_dependency_list.html</Path>
-              <Anchor>a69df2d0423c138acceea418f11bdd069</Anchor>
+              <Name>count</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>aef421d2bb05ad6d4668ca3bc314ee66b</Anchor>
              </Node>
              <Node>
-              <Name>operator=</Name>
-              <Path>struct_arbiter_resolved_dependency_list.html</Path>
-              <Anchor>a4354f29851168c1a0208d90bc152853d</Anchor>
+              <Name>countAtDepth</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a8d3ca153338fbc0aac6f191b0cb69835</Anchor>
              </Node>
              <Node>
-              <Name>_dependencies</Name>
-              <Path>struct_arbiter_resolved_dependency_list.html</Path>
-              <Anchor>a19ceecabc8e893de9134fb887c90731b</Anchor>
+              <Name>depth</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>ade30737227051c1f0c71aea8da9a5efa</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a4a76e8cbee90995bb1ed284fc37cc958</Anchor>
+             </Node>
+             <Node>
+              <Name>operator!=</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+             </Node>
+             <Node>
+              <Name>operator==</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a7e3db4d797ad4e879197385917a9f514</Anchor>
+             </Node>
+             <Node>
+              <Name>_depths</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+              <Anchor>a29ea95e83612764507fa07247cfa6777</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -1005,9 +1106,24 @@
               <Anchor>a4db20c7b8839314114cd980b963f212e</Anchor>
              </Node>
              <Node>
+              <Name>ArbiterResolver</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>a73c3122e49679288bf62e5b6083ccd73</Anchor>
+             </Node>
+             <Node>
               <Name>availableVersionsSatisfying</Name>
               <Path>struct_arbiter_resolver.html</Path>
               <Anchor>aa86e4d0ed05739bd3ca8d3d62d99e769</Anchor>
+             </Node>
+             <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>a28e1d2d502abfbc8ecfe4a7881797339</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>a938812d347f4bb4a17166ba122e1176f</Anchor>
              </Node>
              <Node>
               <Name>fetchAvailableVersions</Name>
@@ -1020,9 +1136,24 @@
               <Anchor>a3e9ec2a7efe6a1c20d5c15efa189a362</Anchor>
              </Node>
              <Node>
+              <Name>operator!=</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+             </Node>
+             <Node>
+              <Name>operator=</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>acd7fba5859a07c6710a42182187f19f7</Anchor>
+             </Node>
+             <Node>
+              <Name>operator==</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+              <Anchor>a585e58622f45f1c72c3347e89d203a69</Anchor>
+             </Node>
+             <Node>
               <Name>resolve</Name>
               <Path>struct_arbiter_resolver.html</Path>
-              <Anchor>aecf6a39dc44552f9ecc7b3174a643b5d</Anchor>
+              <Anchor>aed77f5e43cd1fd0f56087a35aef4bf82</Anchor>
              </Node>
              <Node>
               <Name>_context</Name>
@@ -1038,12 +1169,12 @@
              <Node>
               <Name>createAvailableVersionsList</Name>
               <Path>struct_arbiter_resolver_behaviors.html</Path>
-              <Anchor>abb9023a56e27eb92c69a7f578199d8be</Anchor>
+              <Anchor>a5e58d671818c4ceb8dd4ba62d6fd42a9</Anchor>
              </Node>
              <Node>
               <Name>createDependencyList</Name>
               <Path>struct_arbiter_resolver_behaviors.html</Path>
-              <Anchor>a50916cf4567d3ba2fcc425d9ebe96a28</Anchor>
+              <Anchor>a8a53fd0268af2d9b9c4933ca9c87c271</Anchor>
              </Node>
             </Subnodes>
            </Node>
@@ -1062,9 +1193,19 @@
               <Anchor>aa0419ae1103f4277236ab6e8ef1d85c7</Anchor>
              </Node>
              <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_selected_version.html</Path>
+              <Anchor>a520f84d8692f89bcaaf5a63670742bbe</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_selected_version.html</Path>
+              <Anchor>a7e40bd24c8bc966ce300af7f0309fa8b</Anchor>
+             </Node>
+             <Node>
               <Name>operator!=</Name>
               <Path>struct_arbiter_selected_version.html</Path>
-              <Anchor>ad7166bafd063c07cf2eb2e2929651a03</Anchor>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
              </Node>
              <Node>
               <Name>operator&lt;</Name>
@@ -1079,7 +1220,7 @@
              <Node>
               <Name>operator==</Name>
               <Path>struct_arbiter_selected_version.html</Path>
-              <Anchor>ae1013b083003d44934e867c095f0fb61</Anchor>
+              <Anchor>abbe9cfc456727ab300d49b2b375af4a5</Anchor>
              </Node>
              <Node>
               <Name>operator&gt;</Name>
@@ -1118,6 +1259,26 @@
               <Anchor>aa5e441bd0d03ba5e2418ea6324015bdc</Anchor>
              </Node>
              <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+              <Anchor>a596b9d2ca1fe33360151fdae331bd8ff</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+              <Anchor>a366c03f9535d254b22afbbb0e10eb835</Anchor>
+             </Node>
+             <Node>
+              <Name>operator!=</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+             </Node>
+             <Node>
+              <Name>operator==</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+              <Anchor>ad0c8093543d93c9198e2c1fa2a64305c</Anchor>
+             </Node>
+             <Node>
               <Name>_versions</Name>
               <Path>struct_arbiter_selected_version_list.html</Path>
               <Anchor>ad273ed0c04d6356c8df1596bdd3b8bb2</Anchor>
@@ -1134,9 +1295,19 @@
               <Anchor>a0b46dd969de2b8b678d75bb6e355634a</Anchor>
              </Node>
              <Node>
+              <Name>clone</Name>
+              <Path>struct_arbiter_semantic_version.html</Path>
+              <Anchor>acdd9d60b9c5ad1c969c42983687e88b1</Anchor>
+             </Node>
+             <Node>
+              <Name>describe</Name>
+              <Path>struct_arbiter_semantic_version.html</Path>
+              <Anchor>a0865ba34bfce47255b2d70846690f612</Anchor>
+             </Node>
+             <Node>
               <Name>operator!=</Name>
               <Path>struct_arbiter_semantic_version.html</Path>
-              <Anchor>aec2e8ff2e29c040df88d7659568da41f</Anchor>
+              <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
              </Node>
              <Node>
               <Name>operator&lt;</Name>
@@ -1151,7 +1322,7 @@
              <Node>
               <Name>operator==</Name>
               <Path>struct_arbiter_semantic_version.html</Path>
-              <Anchor>af65327f600a0351a5fcdfc158a154377</Anchor>
+              <Anchor>a028ad1c27160639ae0c2c346682c7adb</Anchor>
              </Node>
              <Node>
               <Name>operator&gt;</Name>
@@ -1215,6 +1386,11 @@
               <Anchor>a58ad30575098fbeaba0cf57bf4fa80ac</Anchor>
              </Node>
              <Node>
+              <Name>hash</Name>
+              <Path>struct_arbiter_user_value.html</Path>
+              <Anchor>a0bbe1c09aa9b1d1ae8872d613576e6d5</Anchor>
+             </Node>
+             <Node>
               <Name>lessThan</Name>
               <Path>struct_arbiter_user_value.html</Path>
               <Anchor>a5581905b82a24eefd853a6ed055cde0f</Anchor>
@@ -1231,6 +1407,70 @@
           <Name>Class Hierarchy</Name>
           <Path>hierarchy.html</Path>
           <Subnodes>
+           <Node>
+            <Name>Arbiter::Base</Name>
+            <Path>class_arbiter_1_1_base.html</Path>
+            <Subnodes>
+             <Node>
+              <Name>ArbiterDependency</Name>
+              <Path>struct_arbiter_dependency.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterDependencyList</Name>
+              <Path>struct_arbiter_dependency_list.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterProjectIdentifier</Name>
+              <Path>struct_arbiter_project_identifier.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterRequirement</Name>
+              <Path>struct_arbiter_requirement.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>Arbiter::Requirement::Any</Name>
+                <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
+               </Node>
+               <Node>
+                <Name>Arbiter::Requirement::AtLeast</Name>
+                <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
+               </Node>
+               <Node>
+                <Name>Arbiter::Requirement::CompatibleWith</Name>
+                <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
+               </Node>
+               <Node>
+                <Name>Arbiter::Requirement::Exactly</Name>
+                <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
+              <Name>ArbiterResolvedDependency</Name>
+              <Path>struct_arbiter_resolved_dependency.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterResolvedDependencyGraph</Name>
+              <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterResolver</Name>
+              <Path>struct_arbiter_resolver.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterSelectedVersion</Name>
+              <Path>struct_arbiter_selected_version.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterSelectedVersionList</Name>
+              <Path>struct_arbiter_selected_version_list.html</Path>
+             </Node>
+             <Node>
+              <Name>ArbiterSemanticVersion</Name>
+              <Path>struct_arbiter_semantic_version.html</Path>
+             </Node>
+            </Subnodes>
+           </Node>
            <Node>
             <Name>Arbiter::IteratorRange&lt; It &gt;</Name>
             <Path>struct_arbiter_1_1_iterator_range.html</Path>
@@ -1249,74 +1489,12 @@
             <Path>struct_arbiter_1_1_optional.html</Path>
            </Node>
            <Node>
-            <Name>Arbiter::Resolver::DependencyGraph</Name>
-            <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-           </Node>
-           <Node>
             <Name>Arbiter::SharedUserValue&lt; Owner &gt;</Name>
             <Path>class_arbiter_1_1_shared_user_value.html</Path>
            </Node>
            <Node>
-            <Name>ArbiterDependency</Name>
-            <Path>struct_arbiter_dependency.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterDependencyList</Name>
-            <Path>struct_arbiter_dependency_list.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterProjectIdentifier</Name>
-            <Path>struct_arbiter_project_identifier.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterRequirement</Name>
-            <Path>struct_arbiter_requirement.html</Path>
-            <Subnodes>
-             <Node>
-              <Name>Arbiter::Requirement::Any</Name>
-              <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-             </Node>
-             <Node>
-              <Name>Arbiter::Requirement::AtLeast</Name>
-              <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-             </Node>
-             <Node>
-              <Name>Arbiter::Requirement::CompatibleWith</Name>
-              <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-             </Node>
-             <Node>
-              <Name>Arbiter::Requirement::Exactly</Name>
-              <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-             </Node>
-            </Subnodes>
-           </Node>
-           <Node>
-            <Name>ArbiterResolvedDependency</Name>
-            <Path>struct_arbiter_resolved_dependency.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterResolvedDependencyList</Name>
-            <Path>struct_arbiter_resolved_dependency_list.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterResolver</Name>
-            <Path>struct_arbiter_resolver.html</Path>
-           </Node>
-           <Node>
             <Name>ArbiterResolverBehaviors</Name>
             <Path>struct_arbiter_resolver_behaviors.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterSelectedVersion</Name>
-            <Path>struct_arbiter_selected_version.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterSelectedVersionList</Name>
-            <Path>struct_arbiter_selected_version_list.html</Path>
-           </Node>
-           <Node>
-            <Name>ArbiterSemanticVersion</Name>
-            <Path>struct_arbiter_semantic_version.html</Path>
            </Node>
            <Node>
             <Name>ArbiterUserValue</Name>
@@ -1367,6 +1545,10 @@
            <Node>
             <Name>std::hash&lt; Arbiter::Optional&lt; T &gt; &gt;</Name>
             <Path>structstd_1_1hash_3_01_arbiter_1_1_optional_3_01_t_01_4_01_4.html</Path>
+           </Node>
+           <Node>
+            <Name>std::hash&lt; Arbiter::SharedUserValue&lt; Owner &gt; &gt;</Name>
+            <Path>structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html</Path>
            </Node>
            <Node>
             <Name>std::hash&lt; ArbiterDependency &gt;</Name>
@@ -1424,10 +1606,6 @@
             <Name>Typedefs</Name>
             <Path>functions_type.html</Path>
            </Node>
-           <Node>
-            <Name>Related Functions</Name>
-            <Path>functions_rela.html</Path>
-           </Node>
           </Subnodes>
          </Node>
         </Subnodes>
@@ -1455,7 +1633,7 @@
                  <Node>
                   <Name>ArbiterCreateDependency</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>ae18220cbeb522a6c0344bf0c11140dfe</Anchor>
+                  <Anchor>a3bf17516554bec956745a5fc50b04ea8</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterCreateDependencyList</Name>
@@ -1470,12 +1648,7 @@
                  <Node>
                   <Name>ArbiterCreateResolvedDependency</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a1da4a1651859b463c36b273752854a66</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterCreateResolvedDependencyList</Name>
-                  <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>aaf18081cb6e76b17b1625c2f30e23279</Anchor>
+                  <Anchor>a2f90aa87b11cf22b3c32c2856d4128ad</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterDependencyProject</Name>
@@ -1485,32 +1658,7 @@
                  <Node>
                   <Name>ArbiterDependencyRequirement</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a267152a90840563ded5a4e8b9b88cad0</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeDependency</Name>
-                  <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a5f80f7b9dcc9aa5840d29ee2901696a1</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeDependencyList</Name>
-                  <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a28d8873e472d8960ac1e91b295a761cc</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeProjectIdentifier</Name>
-                  <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a5735a7ffdabaa994813567d5066a6b9f</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeResolvedDependency</Name>
-                  <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a0a22a55c58805e403de89033457b9f4b</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeResolvedDependencyList</Name>
-                  <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a011c6505116050ee973882f807052131</Anchor>
+                  <Anchor>a46b7999c6765fd1cd9d1489538d2947d</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterProjectIdentifierValue</Name>
@@ -1518,19 +1666,29 @@
                   <Anchor>ae9a49ddf74167ba7df7f03ce05df116a</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolvedDependencyListCount</Name>
+                  <Name>ArbiterResolvedDependencyGraphCount</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>af8f8246f8d8fbd6992042a6c20c148f3</Anchor>
+                  <Anchor>a4b570096c9694f0d6637b1dd84c0c0a5</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolvedDependencyListGetAll</Name>
+                  <Name>ArbiterResolvedDependencyGraphCountAtDepth</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>a1c941c6f8dbd3bc150feb6b0d26d5f3f</Anchor>
+                  <Anchor>a110ef41e76d4c9dcbb716354e9ae6d17</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolvedDependencyListGetIndex</Name>
+                  <Name>ArbiterResolvedDependencyGraphDepth</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>ad1e3828d40058e24d99bb7f75d9edba7</Anchor>
+                  <Anchor>ad883efe177417fcc485632fa1524d4c6</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyGraphGetAll</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>a1e68f3f23369b6b7e36c9b32b070880a</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterResolvedDependencyGraphGetAllAtDepth</Name>
+                  <Path>include_2arbiter_2_dependency_8h.html</Path>
+                  <Anchor>ac27f992aa67e46275b9b421deacdf464</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterResolvedDependencyProject</Name>
@@ -1540,7 +1698,7 @@
                  <Node>
                   <Name>ArbiterResolvedDependencyVersion</Name>
                   <Path>include_2arbiter_2_dependency_8h.html</Path>
-                  <Anchor>acf07101e6aa3d594bbd66b1799c8a8b7</Anchor>
+                  <Anchor>a633409a35c08cb6fed6db83eed6bf50d</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -1573,32 +1731,22 @@
                  <Node>
                   <Name>ArbiterCreateRequirementAtLeast</Name>
                   <Path>include_2arbiter_2_requirement_8h.html</Path>
-                  <Anchor>a164b5dbddf86d6d39aac3c21836a2f9a</Anchor>
+                  <Anchor>acae406bd4df23195003c8c9ca652aa2b</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterCreateRequirementCompatibleWith</Name>
                   <Path>include_2arbiter_2_requirement_8h.html</Path>
-                  <Anchor>acbf4c4b6206ff5f59a31a575f09c41e9</Anchor>
+                  <Anchor>a196744216b770334427efb73b264616f</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterCreateRequirementExactly</Name>
                   <Path>include_2arbiter_2_requirement_8h.html</Path>
-                  <Anchor>a3fb84244d1362d2b02e30a827166d409</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterEqualRequirements</Name>
-                  <Path>include_2arbiter_2_requirement_8h.html</Path>
-                  <Anchor>a6fba7539e9c02642fcdc79acdc031109</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeRequirement</Name>
-                  <Path>include_2arbiter_2_requirement_8h.html</Path>
-                  <Anchor>a53341511ab8c7fba76e7baa5b486df2d</Anchor>
+                  <Anchor>a567222f500e84283df815ec0ba4f1cfb</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterRequirementSatisfiedBy</Name>
                   <Path>include_2arbiter_2_requirement_8h.html</Path>
-                  <Anchor>ae491ecfe24f281bb34cfa742c6c76fe5</Anchor>
+                  <Anchor>a8e4ce8bcb901efe413c83785c02c049f</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -1613,24 +1761,19 @@
                    <Node>
                     <Name>createAvailableVersionsList</Name>
                     <Path>struct_arbiter_resolver_behaviors.html</Path>
-                    <Anchor>abb9023a56e27eb92c69a7f578199d8be</Anchor>
+                    <Anchor>a5e58d671818c4ceb8dd4ba62d6fd42a9</Anchor>
                    </Node>
                    <Node>
                     <Name>createDependencyList</Name>
                     <Path>struct_arbiter_resolver_behaviors.html</Path>
-                    <Anchor>a50916cf4567d3ba2fcc425d9ebe96a28</Anchor>
+                    <Anchor>a8a53fd0268af2d9b9c4933ca9c87c271</Anchor>
                    </Node>
                   </Subnodes>
                  </Node>
                  <Node>
                   <Name>ArbiterCreateResolver</Name>
                   <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>a0174dd8b9a5f33c398335c346bc30f98</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeResolver</Name>
-                  <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>a981b62a0d255b1cea4f3e689e0bdcb69</Anchor>
+                  <Anchor>a20607e85a4aaa0838293dd764bf38cdf</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterResolverContext</Name>
@@ -1638,9 +1781,35 @@
                   <Anchor>a75b6c5e452ea46b04c8c20571dd9498d</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolverCreateResolvedDependencyList</Name>
+                  <Name>ArbiterResolverCreateResolvedDependencyGraph</Name>
                   <Path>include_2arbiter_2_resolver_8h.html</Path>
-                  <Anchor>ad9d4604df5123414f984aac71e1063da</Anchor>
+                  <Anchor>a5efe4c91a22e7acd84d0cf20c78d513f</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>Types.h</Name>
+                <Path>include_2arbiter_2_types_8h.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>ArbiterCreateCopy</Name>
+                  <Path>include_2arbiter_2_types_8h.html</Path>
+                  <Anchor>a967537a5789b2134a33116a65260abd7</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterCreateDescription</Name>
+                  <Path>include_2arbiter_2_types_8h.html</Path>
+                  <Anchor>aa4d785bb08d81f4147ac1657860c8f5f</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterEqual</Name>
+                  <Path>include_2arbiter_2_types_8h.html</Path>
+                  <Anchor>aea8da7965ab8070d8c3c323f925ae050</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>ArbiterFree</Name>
+                  <Path>include_2arbiter_2_types_8h.html</Path>
+                  <Anchor>ab3baf6244ea94c955233d6715c00e8af</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -1671,6 +1840,11 @@
                     <Name>equalTo</Name>
                     <Path>struct_arbiter_user_value.html</Path>
                     <Anchor>a58ad30575098fbeaba0cf57bf4fa80ac</Anchor>
+                   </Node>
+                   <Node>
+                    <Name>hash</Name>
+                    <Path>struct_arbiter_user_value.html</Path>
+                    <Anchor>a0bbe1c09aa9b1d1ae8872d613576e6d5</Anchor>
                    </Node>
                    <Node>
                     <Name>lessThan</Name>
@@ -1709,31 +1883,6 @@
                   <Name>ArbiterCreateSemanticVersionFromString</Name>
                   <Path>include_2arbiter_2_version_8h.html</Path>
                   <Anchor>af4e5aa3f0b2f888377149a5bf67d28e2</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterEqualSelectedVersions</Name>
-                  <Path>include_2arbiter_2_version_8h.html</Path>
-                  <Anchor>a4739dd668feb854f63d8d99a9ad7a170</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterEqualVersions</Name>
-                  <Path>include_2arbiter_2_version_8h.html</Path>
-                  <Anchor>a076544fb41154ba974a54361343bd2fa</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeSelectedVersion</Name>
-                  <Path>include_2arbiter_2_version_8h.html</Path>
-                  <Anchor>a901dec118885ae6753bcab8464dd4f48</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeSelectedVersionList</Name>
-                  <Path>include_2arbiter_2_version_8h.html</Path>
-                  <Anchor>a1c9e6c2a919e3231ba367c1012ab3401</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>ArbiterFreeSemanticVersion</Name>
-                  <Path>include_2arbiter_2_version_8h.html</Path>
-                  <Anchor>adc727be4523308d364f369a0f005d4a8</Anchor>
                  </Node>
                  <Node>
                   <Name>ArbiterGetBuildMetadata</Name>
@@ -1815,6 +1964,21 @@
                   <Anchor>a5db242ea37875c7ad5db0658c1380b0b</Anchor>
                  </Node>
                  <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_dependency.html</Path>
+                  <Anchor>a1dc45488b33c44ba617ccdee75ee8573</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_dependency.html</Path>
+                  <Anchor>ad8b41b9bb8f0cfcb6a113615cc4b1d09</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator!=</Name>
+                  <Path>struct_arbiter_dependency.html</Path>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator&lt;</Name>
                   <Path>struct_arbiter_dependency.html</Path>
                   <Anchor>ada15f6ccabbb37c903c5196eddd1df92</Anchor>
@@ -1827,7 +1991,7 @@
                  <Node>
                   <Name>operator==</Name>
                   <Path>struct_arbiter_dependency.html</Path>
-                  <Anchor>a8c87e4e2586752a40c2e600c02a2c09f</Anchor>
+                  <Anchor>aea159dc9ac4ca032e31175cc81ce3300</Anchor>
                  </Node>
                  <Node>
                   <Name>requirement</Name>
@@ -1866,6 +2030,21 @@
                   <Anchor>a135f95801b2ab3f386ca5b62b130a94e</Anchor>
                  </Node>
                  <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>afe4e5476d4a53e1705f939cf076a091a</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>a6ffe91420c171d2dcc18dd616e8d4830</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator!=</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator=</Name>
                   <Path>struct_arbiter_dependency_list.html</Path>
                   <Anchor>abc68a72a017cfd8dab52adb4b505b01b</Anchor>
@@ -1874,6 +2053,11 @@
                   <Name>operator=</Name>
                   <Path>struct_arbiter_dependency_list.html</Path>
                   <Anchor>a646b783bb794c037f21f988149cce5e6</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator==</Name>
+                  <Path>struct_arbiter_dependency_list.html</Path>
+                  <Anchor>aa69a234f28b189e229b86242d84a17db</Anchor>
                  </Node>
                  <Node>
                   <Name>_dependencies</Name>
@@ -1902,9 +2086,19 @@
                   <Anchor>a8c28e3259150288a9be44d39a998cb79</Anchor>
                  </Node>
                  <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_project_identifier.html</Path>
+                  <Anchor>aaaac2a46d6259325bf3b7ba096d6032e</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_project_identifier.html</Path>
+                  <Anchor>aa2f1bb7f30002465c1a39e1553ed22dc</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator!=</Name>
                   <Path>struct_arbiter_project_identifier.html</Path>
-                  <Anchor>af6441e0c2d5e2b5f12cc0525053ecac0</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator&lt;</Name>
@@ -1914,7 +2108,7 @@
                  <Node>
                   <Name>operator==</Name>
                   <Path>struct_arbiter_project_identifier.html</Path>
-                  <Anchor>a919c5e9749d14d53aac182a7b6db77ba</Anchor>
+                  <Anchor>acac8eb2576226af678ef5804dad1334d</Anchor>
                  </Node>
                  <Node>
                   <Name>_value</Name>
@@ -1933,14 +2127,24 @@
                   <Anchor>a4f167e3c39287973c68c5c2a9db1e9f0</Anchor>
                  </Node>
                  <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_resolved_dependency.html</Path>
+                  <Anchor>a8ec3a664cf07b7f06c50d9a2cb233c01</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_resolved_dependency.html</Path>
+                  <Anchor>a0ca93b4d8aea63e44d9f09bc8826ea07</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator!=</Name>
                   <Path>struct_arbiter_resolved_dependency.html</Path>
-                  <Anchor>a9e8ddecbfec5905b0eff57927f48e023</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>struct_arbiter_resolved_dependency.html</Path>
-                  <Anchor>a0b19374f51b35b3bd2ddda0b640bfd12</Anchor>
+                  <Anchor>ae14fcc4d09e555d74759005f67d992bf</Anchor>
                  </Node>
                  <Node>
                   <Name>_project</Name>
@@ -1955,43 +2159,63 @@
                 </Subnodes>
                </Node>
                <Node>
-                <Name>ArbiterResolvedDependencyList</Name>
-                <Path>struct_arbiter_resolved_dependency_list.html</Path>
+                <Name>ArbiterResolvedDependencyGraph</Name>
+                <Path>struct_arbiter_resolved_dependency_graph.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>ArbiterResolvedDependencyList</Name>
-                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
-                  <Anchor>a8f9db5c6503eccfe7b326b4f91c3a356</Anchor>
+                  <Name>DepthSet</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>acdb142d459a494e66449e1b57366a614</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolvedDependencyList</Name>
-                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
-                  <Anchor>affe61dbe6fbca873c4c248dc5c832e9e</Anchor>
+                  <Name>ArbiterResolvedDependencyGraph</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a8804467e485fe9e7266293c7fff456b1</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolvedDependencyList</Name>
-                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
-                  <Anchor>a5f3d9a1a307ae7c69af77591b0b0bf83</Anchor>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a48e9f194b51f78f25ec7d699e533d3fc</Anchor>
                  </Node>
                  <Node>
-                  <Name>ArbiterResolvedDependencyList</Name>
-                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
-                  <Anchor>a3060cc0ee1d17625562b337d9ff8669e</Anchor>
+                  <Name>contains</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a022bdc7fc66f3a3f03a0fcacd4f5e8e2</Anchor>
                  </Node>
                  <Node>
-                  <Name>operator=</Name>
-                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
-                  <Anchor>a69df2d0423c138acceea418f11bdd069</Anchor>
+                  <Name>count</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>aef421d2bb05ad6d4668ca3bc314ee66b</Anchor>
                  </Node>
                  <Node>
-                  <Name>operator=</Name>
-                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
-                  <Anchor>a4354f29851168c1a0208d90bc152853d</Anchor>
+                  <Name>countAtDepth</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a8d3ca153338fbc0aac6f191b0cb69835</Anchor>
                  </Node>
                  <Node>
-                  <Name>_dependencies</Name>
-                  <Path>struct_arbiter_resolved_dependency_list.html</Path>
-                  <Anchor>a19ceecabc8e893de9134fb887c90731b</Anchor>
+                  <Name>depth</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>ade30737227051c1f0c71aea8da9a5efa</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a4a76e8cbee90995bb1ed284fc37cc958</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator!=</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator==</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a7e3db4d797ad4e879197385917a9f514</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>_depths</Name>
+                  <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+                  <Anchor>a29ea95e83612764507fa07247cfa6777</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -2013,7 +2237,7 @@
                  <Node>
                   <Name>operator()</Name>
                   <Path>structstd_1_1hash_3_01_arbiter_project_identifier_01_4.html</Path>
-                  <Anchor>a156c9bda8b50f2513d1ac43342346e35</Anchor>
+                  <Anchor>a30677cd5340ce51b4d0547f0d8221c5b</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -2027,26 +2251,6 @@
                   <Anchor>a84a5e582f8b330d9f63c06bd5d797423</Anchor>
                  </Node>
                 </Subnodes>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_dependency_8h.html</Path>
-                <Anchor>a506d6bc052044d7a86f4a79d2e61c886</Anchor>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_dependency_8h.html</Path>
-                <Anchor>af5662e0468189524987864d0ce47dd04</Anchor>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_dependency_8h.html</Path>
-                <Anchor>af2d0e8a943fb8d0bb8a67e6aa10ae004</Anchor>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_dependency_8h.html</Path>
-                <Anchor>ae15929fb900269c5c127e16415daa5da</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -2414,7 +2618,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-                  <Anchor>af7f20fa6276c2c62a23c851aa5770816</Anchor>
+                  <Anchor>a88d33ff811589099c94663410c2d662e</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -2434,12 +2643,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-                  <Anchor>a3b16f09fcc1098a15db3360d0bb29ed5</Anchor>
+                  <Anchor>ab5c7f4498e17f492c5847f48eedf98e2</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -2460,7 +2669,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-                  <Anchor>ab4e8255cd4ed8eb3f908e5fc0f285cf7</Anchor>
+                  <Anchor>a4277b6fe9f280c157b19233c46ebea99</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -2480,12 +2694,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-                  <Anchor>a09d8f1afd4d7308a604c52b3e14c8c14</Anchor>
+                  <Anchor>ac7f2616a73cdb489d590584158d0d803</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -2511,7 +2725,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-                  <Anchor>a77a3bb1d31d0a64524c941a5c8c864ef</Anchor>
+                  <Anchor>aea861e920ed44c5944d2e8b43cbc7aa5</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -2531,12 +2750,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-                  <Anchor>a7ddbcfbb67b3c3c4e041b7a96d6420ea</Anchor>
+                  <Anchor>ab14d8dd0731c30966efd10f6057991ce</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -2567,7 +2786,12 @@
                  <Node>
                   <Name>clone</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-                  <Anchor>ac684a1bf851d2d5588e1c7c4eefa1a54</Anchor>
+                  <Anchor>acdf7cac9c211d738c9d1fdbfc6629bc0</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
@@ -2587,12 +2811,12 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-                  <Anchor>ad6e08e7cd1b68c41221d0d3e7c99104b</Anchor>
+                  <Anchor>a241cf2f8b67b8cf01aa057d5235e4b00</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
@@ -2611,19 +2835,19 @@
                 <Path>struct_arbiter_requirement.html</Path>
                 <Subnodes>
                  <Node>
-                  <Name>~ArbiterRequirement</Name>
-                  <Path>struct_arbiter_requirement.html</Path>
-                  <Anchor>a047d4a05356a389f581c635d7e8d9b2e</Anchor>
-                 </Node>
-                 <Node>
                   <Name>clone</Name>
                   <Path>struct_arbiter_requirement.html</Path>
-                  <Anchor>aa0a4382f74c2ac504ab391b473f2b9de</Anchor>
+                  <Anchor>a36499ee4dd9e6821f72b0af03b86b731</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>cloneRequirement</Name>
+                  <Path>struct_arbiter_requirement.html</Path>
+                  <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
                  </Node>
                  <Node>
                   <Name>describe</Name>
                   <Path>struct_arbiter_requirement.html</Path>
-                  <Anchor>a14e6877e7bae9b4e477ab31fbf3dc3bc</Anchor>
+                  <Anchor>adbc261eb40b20d3a185e0355049f60a4</Anchor>
                  </Node>
                  <Node>
                   <Name>hash</Name>
@@ -2638,27 +2862,17 @@
                  <Node>
                   <Name>operator!=</Name>
                   <Path>struct_arbiter_requirement.html</Path>
-                  <Anchor>a817a41700a2eb366dee80ec5a462f34f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator==</Name>
                   <Path>struct_arbiter_requirement.html</Path>
-                  <Anchor>a82161e1baaa12ed1206f8ea77e313864</Anchor>
+                  <Anchor>a3dee918ed636c26db8c9367f4a504d96</Anchor>
                  </Node>
                  <Node>
                   <Name>satisfiedBy</Name>
                   <Path>struct_arbiter_requirement.html</Path>
                   <Anchor>aec26c2d8f8ace95bcaebde074c93b50f</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>operator&lt;&lt;</Name>
-                  <Path>struct_arbiter_requirement.html</Path>
-                  <Anchor>aec822e69ff6e37dda6c67c24fc700f90</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>std::hash&lt; ArbiterRequirement &gt;</Name>
-                  <Path>struct_arbiter_requirement.html</Path>
-                  <Anchor>a8af04ca90bda22397f975444fde9ec73</Anchor>
                  </Node>
                 </Subnodes>
                </Node>
@@ -2673,38 +2887,12 @@
                  </Node>
                 </Subnodes>
                </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_requirement_8h.html</Path>
-                <Anchor>aec822e69ff6e37dda6c67c24fc700f90</Anchor>
-               </Node>
               </Subnodes>
              </Node>
              <Node>
               <Name>Resolver.h</Name>
               <Path>src_2_resolver_8h.html</Path>
               <Subnodes>
-               <Node>
-                <Name>DependencyGraph</Name>
-                <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                <Subnodes>
-                 <Node>
-                  <Name>addNode</Name>
-                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                  <Anchor>aa66315f94f0f117493f2ecfe839ff784</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>allNodes</Name>
-                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                  <Anchor>ab2631a0fd5a2c1a064406f1437eac923</Anchor>
-                 </Node>
-                 <Node>
-                  <Name>describe</Name>
-                  <Path>class_arbiter_1_1_resolver_1_1_dependency_graph.html</Path>
-                  <Anchor>a6175aa0dad35ebc4e1916dfa8e3d887e</Anchor>
-                 </Node>
-                </Subnodes>
-               </Node>
                <Node>
                 <Name>ArbiterResolver</Name>
                 <Path>struct_arbiter_resolver.html</Path>
@@ -2715,9 +2903,24 @@
                   <Anchor>a4db20c7b8839314114cd980b963f212e</Anchor>
                  </Node>
                  <Node>
+                  <Name>ArbiterResolver</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>a73c3122e49679288bf62e5b6083ccd73</Anchor>
+                 </Node>
+                 <Node>
                   <Name>availableVersionsSatisfying</Name>
                   <Path>struct_arbiter_resolver.html</Path>
                   <Anchor>aa86e4d0ed05739bd3ca8d3d62d99e769</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>a28e1d2d502abfbc8ecfe4a7881797339</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>a938812d347f4bb4a17166ba122e1176f</Anchor>
                  </Node>
                  <Node>
                   <Name>fetchAvailableVersions</Name>
@@ -2730,9 +2933,24 @@
                   <Anchor>a3e9ec2a7efe6a1c20d5c15efa189a362</Anchor>
                  </Node>
                  <Node>
+                  <Name>operator!=</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator=</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>acd7fba5859a07c6710a42182187f19f7</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator==</Name>
+                  <Path>struct_arbiter_resolver.html</Path>
+                  <Anchor>a585e58622f45f1c72c3347e89d203a69</Anchor>
+                 </Node>
+                 <Node>
                   <Name>resolve</Name>
                   <Path>struct_arbiter_resolver.html</Path>
-                  <Anchor>aecf6a39dc44552f9ecc7b3174a643b5d</Anchor>
+                  <Anchor>aed77f5e43cd1fd0f56087a35aef4bf82</Anchor>
                  </Node>
                  <Node>
                   <Name>_context</Name>
@@ -2740,11 +2958,6 @@
                   <Anchor>a7b2c6fdaa22e0223d5807275a9ebd87a</Anchor>
                  </Node>
                 </Subnodes>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_resolver_8h.html</Path>
-                <Anchor>a80bbc86ad188fb0b927f9ef7e1a84587</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -2771,6 +2984,48 @@
                 <Name>acquireCString</Name>
                 <Path>_to_string_8h.html</Path>
                 <Anchor>acc4e6b2707595090e00a60bbb81f3f82</Anchor>
+               </Node>
+              </Subnodes>
+             </Node>
+             <Node>
+              <Name>Types.h</Name>
+              <Path>src_2_types_8h.html</Path>
+              <Subnodes>
+               <Node>
+                <Name>Base</Name>
+                <Path>class_arbiter_1_1_base.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>~Base</Name>
+                  <Path>class_arbiter_1_1_base.html</Path>
+                  <Anchor>acf308cb34de270b459f02640270e52e3</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>clone</Name>
+                  <Path>class_arbiter_1_1_base.html</Path>
+                  <Anchor>a36499ee4dd9e6821f72b0af03b86b731</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>class_arbiter_1_1_base.html</Path>
+                  <Anchor>adbc261eb40b20d3a185e0355049f60a4</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator!=</Name>
+                  <Path>class_arbiter_1_1_base.html</Path>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator==</Name>
+                  <Path>class_arbiter_1_1_base.html</Path>
+                  <Anchor>a3dee918ed636c26db8c9367f4a504d96</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
+                <Name>operator&lt;&lt;</Name>
+                <Path>src_2_types_8h.html</Path>
+                <Anchor>a241a529114bc559fd3dec66b5c562b44</Anchor>
                </Node>
               </Subnodes>
              </Node>
@@ -2808,6 +3063,11 @@
                   <Anchor>a00f6ccc566bbebf60645a35126a4b4ea</Anchor>
                  </Node>
                  <Node>
+                  <Name>hash</Name>
+                  <Path>class_arbiter_1_1_shared_user_value.html</Path>
+                  <Anchor>a7c38e5dfc73c8752eb3a518d55df949c</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator!=</Name>
                   <Path>class_arbiter_1_1_shared_user_value.html</Path>
                   <Anchor>a66587d89a3eb3b90f2cd53418bb0a5c2</Anchor>
@@ -2840,6 +3100,17 @@
                 </Subnodes>
                </Node>
                <Node>
+                <Name>hash&lt; Arbiter::SharedUserValue&lt; Owner &gt; &gt;</Name>
+                <Path>structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html</Path>
+                <Subnodes>
+                 <Node>
+                  <Name>operator()</Name>
+                  <Path>structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html</Path>
+                  <Anchor>a7c49216475b8c7ce30b68c5743627182</Anchor>
+                 </Node>
+                </Subnodes>
+               </Node>
+               <Node>
                 <Name>operator&lt;&lt;</Name>
                 <Path>src_2_value_8h.html</Path>
                 <Anchor>a0cbbba06d9a26b9b806a63c8ecb5bf0f</Anchor>
@@ -2865,9 +3136,19 @@
                   <Anchor>aa0419ae1103f4277236ab6e8ef1d85c7</Anchor>
                  </Node>
                  <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_selected_version.html</Path>
+                  <Anchor>a520f84d8692f89bcaaf5a63670742bbe</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_selected_version.html</Path>
+                  <Anchor>a7e40bd24c8bc966ce300af7f0309fa8b</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator!=</Name>
                   <Path>struct_arbiter_selected_version.html</Path>
-                  <Anchor>ad7166bafd063c07cf2eb2e2929651a03</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator&lt;</Name>
@@ -2882,7 +3163,7 @@
                  <Node>
                   <Name>operator==</Name>
                   <Path>struct_arbiter_selected_version.html</Path>
-                  <Anchor>ae1013b083003d44934e867c095f0fb61</Anchor>
+                  <Anchor>abbe9cfc456727ab300d49b2b375af4a5</Anchor>
                  </Node>
                  <Node>
                   <Name>operator&gt;</Name>
@@ -2921,6 +3202,26 @@
                   <Anchor>aa5e441bd0d03ba5e2418ea6324015bdc</Anchor>
                  </Node>
                  <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_selected_version_list.html</Path>
+                  <Anchor>a596b9d2ca1fe33360151fdae331bd8ff</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_selected_version_list.html</Path>
+                  <Anchor>a366c03f9535d254b22afbbb0e10eb835</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator!=</Name>
+                  <Path>struct_arbiter_selected_version_list.html</Path>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>operator==</Name>
+                  <Path>struct_arbiter_selected_version_list.html</Path>
+                  <Anchor>ad0c8093543d93c9198e2c1fa2a64305c</Anchor>
+                 </Node>
+                 <Node>
                   <Name>_versions</Name>
                   <Path>struct_arbiter_selected_version_list.html</Path>
                   <Anchor>ad273ed0c04d6356c8df1596bdd3b8bb2</Anchor>
@@ -2937,9 +3238,19 @@
                   <Anchor>a0b46dd969de2b8b678d75bb6e355634a</Anchor>
                  </Node>
                  <Node>
+                  <Name>clone</Name>
+                  <Path>struct_arbiter_semantic_version.html</Path>
+                  <Anchor>acdd9d60b9c5ad1c969c42983687e88b1</Anchor>
+                 </Node>
+                 <Node>
+                  <Name>describe</Name>
+                  <Path>struct_arbiter_semantic_version.html</Path>
+                  <Anchor>a0865ba34bfce47255b2d70846690f612</Anchor>
+                 </Node>
+                 <Node>
                   <Name>operator!=</Name>
                   <Path>struct_arbiter_semantic_version.html</Path>
-                  <Anchor>aec2e8ff2e29c040df88d7659568da41f</Anchor>
+                  <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
                  </Node>
                  <Node>
                   <Name>operator&lt;</Name>
@@ -2954,7 +3265,7 @@
                  <Node>
                   <Name>operator==</Name>
                   <Path>struct_arbiter_semantic_version.html</Path>
-                  <Anchor>af65327f600a0351a5fcdfc158a154377</Anchor>
+                  <Anchor>a028ad1c27160639ae0c2c346682c7adb</Anchor>
                  </Node>
                  <Node>
                   <Name>operator&gt;</Name>
@@ -3014,21 +3325,6 @@
                   <Anchor>a29e5dada823e852b3aae7808cddd6b8f</Anchor>
                  </Node>
                 </Subnodes>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_version_8h.html</Path>
-                <Anchor>a11d0d2c94442e91dbdc97db20bf361ab</Anchor>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_version_8h.html</Path>
-                <Anchor>a3ceb0abab8fc985a9f559c17a56eb9e6</Anchor>
-               </Node>
-               <Node>
-                <Name>operator&lt;&lt;</Name>
-                <Path>src_2_version_8h.html</Path>
-                <Anchor>aec376d1954fd09c259c83ca520602075</Anchor>
                </Node>
               </Subnodes>
              </Node>

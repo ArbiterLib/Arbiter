@@ -1,8 +1,9 @@
 <map id="ArbiterResolvedDependency" name="ArbiterResolvedDependency">
-<area shape="rect" id="node2" href="$struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. " alt="" coords="634,103,791,128"/>
-<area shape="rect" id="node3" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="307,47,467,72"/>
-<area shape="rect" id="node4" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="5,5,131,44"/>
-<area shape="rect" id="node6" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="297,96,477,135"/>
-<area shape="rect" id="node7" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="635,159,789,184"/>
-<area shape="rect" id="node8" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="299,159,475,197"/>
+<area shape="rect" id="node2" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="44,147,142,172"/>
+<area shape="rect" id="node3" href="$struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. " alt="" coords="684,176,841,201"/>
+<area shape="rect" id="node4" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="357,283,517,308"/>
+<area shape="rect" id="node8" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="360,28,514,53"/>
+<area shape="rect" id="node5" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="30,348,156,387"/>
+<area shape="rect" id="node7" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="347,140,527,179"/>
+<area shape="rect" id="node9" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="5,5,181,44"/>
 </map>

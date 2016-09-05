@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -98,17 +98,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a6f635c501dbec7602e1b092f0e3e724f">_patch</a></td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a4c9e7a3d6669b55029f98cef482f7726">_prereleaseVersion</a></td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a0b46dd969de2b8b678d75bb6e355634a">ArbiterSemanticVersion</a>(unsigned major, unsigned minor, unsigned patch, Arbiter::Optional&lt; std::string &gt; prereleaseVersion=Arbiter::Optional&lt; std::string &gt;(), Arbiter::Optional&lt; std::string &gt; buildMetadata=Arbiter::Optional&lt; std::string &gt;())</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#acdd9d60b9c5ad1c969c42983687e88b1">clone</a>() const  override</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a0865ba34bfce47255b2d70846690f612">describe</a>(std::ostream &amp;os) const  override</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a202eeeb164ea227fc869d17ef3b7d90e">fromString</a>(const std::string &amp;versionString)</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#aec2e8ff2e29c040df88d7659568da41f">operator!=</a>(const ArbiterSemanticVersion &amp;other) const  noexcept</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#a531914803ab5722a848f51b36a866d23">operator!=</a>(const Base &amp;other) const </td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a66a46414be289f85e85a57d7e2a57b5e">operator&lt;</a>(const ArbiterSemanticVersion &amp;other) const  noexcept</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a4658a1d84aaacc9c528405a609f2f441">operator&lt;=</a>(const ArbiterSemanticVersion &amp;other) const  noexcept</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#af65327f600a0351a5fcdfc158a154377">operator==</a>(const ArbiterSemanticVersion &amp;other) const  noexcept</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a028ad1c27160639ae0c2c346682c7adb">operator==</a>(const Arbiter::Base &amp;other) const  override</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#ad74a0b5391bd77aa4a5c32a8ad8dc7b8">operator&gt;</a>(const ArbiterSemanticVersion &amp;other) const  noexcept</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html#a9ccfd9dcb2b667e58cc9fac55932acf9">operator&gt;=</a>(const ArbiterSemanticVersion &amp;other) const  noexcept</td><td class="entry"><a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_arbiter_1_1_base.html#acf308cb34de270b459f02640270e52e3">~Base</a>() noexcept(false)</td><td class="entry"><a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

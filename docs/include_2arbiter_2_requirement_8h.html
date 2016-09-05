@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -110,24 +110,18 @@ Functions</h2></td></tr>
 <tr class="memitem:ab8fa853f54f8f3624acec0ed17695c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#ab8fa853f54f8f3624acec0ed17695c50">ArbiterCreateRequirementAny</a> (void)</td></tr>
 <tr class="memdesc:ab8fa853f54f8f3624acec0ed17695c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a requirement which will match any version.  <a href="#ab8fa853f54f8f3624acec0ed17695c50">More...</a><br /></td></tr>
 <tr class="separator:ab8fa853f54f8f3624acec0ed17695c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a164b5dbddf86d6d39aac3c21836a2f9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#a164b5dbddf86d6d39aac3c21836a2f9a">ArbiterCreateRequirementAtLeast</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
-<tr class="memdesc:a164b5dbddf86d6d39aac3c21836a2f9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a requirement which will match versions not less than the specified version.  <a href="#a164b5dbddf86d6d39aac3c21836a2f9a">More...</a><br /></td></tr>
-<tr class="separator:a164b5dbddf86d6d39aac3c21836a2f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbf4c4b6206ff5f59a31a575f09c41e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#acbf4c4b6206ff5f59a31a575f09c41e9">ArbiterCreateRequirementCompatibleWith</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version, <a class="el" href="include_2arbiter_2_requirement_8h.html#a11ce26a584153a37e54d73ed50088fe5">ArbiterRequirementStrictness</a> strictness)</td></tr>
-<tr class="memdesc:acbf4c4b6206ff5f59a31a575f09c41e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a requirement which will match versions that are "compatible with" the given version, according to Semantic Versioning rules about backwards compatibility.  <a href="#acbf4c4b6206ff5f59a31a575f09c41e9">More...</a><br /></td></tr>
-<tr class="separator:acbf4c4b6206ff5f59a31a575f09c41e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fb84244d1362d2b02e30a827166d409"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#a3fb84244d1362d2b02e30a827166d409">ArbiterCreateRequirementExactly</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
-<tr class="memdesc:a3fb84244d1362d2b02e30a827166d409"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a requirement which will only match the specified version, including any prerelease version and build metadata.  <a href="#a3fb84244d1362d2b02e30a827166d409">More...</a><br /></td></tr>
-<tr class="separator:a3fb84244d1362d2b02e30a827166d409"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fba7539e9c02642fcdc79acdc031109"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#a6fba7539e9c02642fcdc79acdc031109">ArbiterEqualRequirements</a> (const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *lhs, const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *rhs)</td></tr>
-<tr class="memdesc:a6fba7539e9c02642fcdc79acdc031109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether two requirements are equivalent.  <a href="#a6fba7539e9c02642fcdc79acdc031109">More...</a><br /></td></tr>
-<tr class="separator:a6fba7539e9c02642fcdc79acdc031109"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53341511ab8c7fba76e7baa5b486df2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#a53341511ab8c7fba76e7baa5b486df2d">ArbiterFreeRequirement</a> (<a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *requirement)</td></tr>
-<tr class="memdesc:a53341511ab8c7fba76e7baa5b486df2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the memory associated with a requirement object.  <a href="#a53341511ab8c7fba76e7baa5b486df2d">More...</a><br /></td></tr>
-<tr class="separator:a53341511ab8c7fba76e7baa5b486df2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae491ecfe24f281bb34cfa742c6c76fe5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#ae491ecfe24f281bb34cfa742c6c76fe5">ArbiterRequirementSatisfiedBy</a> (const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *requirement, const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
-<tr class="memdesc:ae491ecfe24f281bb34cfa742c6c76fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the given requirement is satisfied by the given version.  <a href="#ae491ecfe24f281bb34cfa742c6c76fe5">More...</a><br /></td></tr>
-<tr class="separator:ae491ecfe24f281bb34cfa742c6c76fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acae406bd4df23195003c8c9ca652aa2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#acae406bd4df23195003c8c9ca652aa2b">ArbiterCreateRequirementAtLeast</a> (const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
+<tr class="memdesc:acae406bd4df23195003c8c9ca652aa2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a requirement which will match versions not less than the specified version.  <a href="#acae406bd4df23195003c8c9ca652aa2b">More...</a><br /></td></tr>
+<tr class="separator:acae406bd4df23195003c8c9ca652aa2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a196744216b770334427efb73b264616f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#a196744216b770334427efb73b264616f">ArbiterCreateRequirementCompatibleWith</a> (const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version, <a class="el" href="include_2arbiter_2_requirement_8h.html#a11ce26a584153a37e54d73ed50088fe5">ArbiterRequirementStrictness</a> strictness)</td></tr>
+<tr class="memdesc:a196744216b770334427efb73b264616f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a requirement which will match versions that are "compatible with" the given version, according to Semantic Versioning rules about backwards compatibility.  <a href="#a196744216b770334427efb73b264616f">More...</a><br /></td></tr>
+<tr class="separator:a196744216b770334427efb73b264616f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a567222f500e84283df815ec0ba4f1cfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#a567222f500e84283df815ec0ba4f1cfb">ArbiterCreateRequirementExactly</a> (const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
+<tr class="memdesc:a567222f500e84283df815ec0ba4f1cfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a requirement which will only match the specified version, including any prerelease version and build metadata.  <a href="#a567222f500e84283df815ec0ba4f1cfb">More...</a><br /></td></tr>
+<tr class="separator:a567222f500e84283df815ec0ba4f1cfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e4ce8bcb901efe413c83785c02c049f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="include_2arbiter_2_requirement_8h.html#a8e4ce8bcb901efe413c83785c02c049f">ArbiterRequirementSatisfiedBy</a> (const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *requirement, const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *version)</td></tr>
+<tr class="memdesc:a8e4ce8bcb901efe413c83785c02c049f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the given requirement is satisfied by the given version.  <a href="#a8e4ce8bcb901efe413c83785c02c049f">More...</a><br /></td></tr>
+<tr class="separator:a8e4ce8bcb901efe413c83785c02c049f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a class="anchor" id="a11ce26a584153a37e54d73ed50088fe5"></a>
@@ -151,7 +145,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_requirement_8h_source.html#l00015">15</a> of file <a class="el" href="include_2arbiter_2_requirement_8h_source.html">Requirement.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_requirement_8h_source.html#l00016">16</a> of file <a class="el" href="include_2arbiter_2_requirement_8h_source.html">Requirement.h</a>.</p>
 
 </div>
 </div>
@@ -171,18 +165,18 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a requirement which will match any version. </p>
-<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_requirement_8h.html#a53341511ab8c7fba76e7baa5b486df2d" title="Releases the memory associated with a requirement object. ">ArbiterFreeRequirement()</a>. </p>
+<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a164b5dbddf86d6d39aac3c21836a2f9a"></a>
+<a class="anchor" id="acae406bd4df23195003c8c9ca652aa2b"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a>* ArbiterCreateRequirementAtLeast </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
           <td class="paramname"><em>version</em></td><td>)</td>
           <td></td>
         </tr>
@@ -190,18 +184,18 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a requirement which will match versions not less than the specified version. </p>
-<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_requirement_8h.html#a53341511ab8c7fba76e7baa5b486df2d" title="Releases the memory associated with a requirement object. ">ArbiterFreeRequirement()</a>. </p>
+<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="acbf4c4b6206ff5f59a31a575f09c41e9"></a>
+<a class="anchor" id="a196744216b770334427efb73b264616f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a>* ArbiterCreateRequirementCompatibleWith </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
           <td class="paramname"><em>version</em>, </td>
         </tr>
         <tr>
@@ -220,18 +214,18 @@ Functions</h2></td></tr>
 
 <p>Creates a requirement which will match versions that are "compatible with" the given version, according to Semantic Versioning rules about backwards compatibility. </p>
 <p>Exceptions to the SemVer rules can be applied by using a value other than <code>ArbiterRequirementStrictnessStrict</code> for <code>strictness</code>.</p>
-<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_requirement_8h.html#a53341511ab8c7fba76e7baa5b486df2d" title="Releases the memory associated with a requirement object. ">ArbiterFreeRequirement()</a>. </p>
+<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a3fb84244d1362d2b02e30a827166d409"></a>
+<a class="anchor" id="a567222f500e84283df815ec0ba4f1cfb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a>* ArbiterCreateRequirementExactly </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
           <td class="paramname"><em>version</em></td><td>)</td>
           <td></td>
         </tr>
@@ -239,57 +233,11 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Creates a requirement which will only match the specified version, including any prerelease version and build metadata. </p>
-<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_requirement_8h.html#a53341511ab8c7fba76e7baa5b486df2d" title="Releases the memory associated with a requirement object. ">ArbiterFreeRequirement()</a>. </p>
+<p>The returned requirement must be freed with <a class="el" href="include_2arbiter_2_types_8h.html#ab3baf6244ea94c955233d6715c00e8af" title="Frees an Arbiter object. ">ArbiterFree()</a>. </p>
 
 </div>
 </div>
-<a class="anchor" id="a6fba7539e9c02642fcdc79acdc031109"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool ArbiterEqualRequirements </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td>
-          <td class="paramname"><em>lhs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td>
-          <td class="paramname"><em>rhs</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks whether two requirements are equivalent. </p>
-
-</div>
-</div>
-<a class="anchor" id="a53341511ab8c7fba76e7baa5b486df2d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void ArbiterFreeRequirement </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> *&#160;</td>
-          <td class="paramname"><em>requirement</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Releases the memory associated with a requirement object. </p>
-
-</div>
-</div>
-<a class="anchor" id="ae491ecfe24f281bb34cfa742c6c76fe5"></a>
+<a class="anchor" id="a8e4ce8bcb901efe413c83785c02c049f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -302,7 +250,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
+          <td class="paramtype">const struct <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> *&#160;</td>
           <td class="paramname"><em>version</em>&#160;</td>
         </tr>
         <tr>
@@ -320,7 +268,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

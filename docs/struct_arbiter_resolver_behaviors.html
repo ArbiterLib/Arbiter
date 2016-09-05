@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -98,29 +98,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for ArbiterResolverBehaviors:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_resolver_behaviors__coll__graph.svg" width="1878" height="204"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_resolver_behaviors__coll__graph.svg" width="1878" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abb9023a56e27eb92c69a7f578199d8be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#abb9023a56e27eb92c69a7f578199d8be">createAvailableVersionsList</a> )(const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, char **error)</td></tr>
-<tr class="memdesc:abb9023a56e27eb92c69a7f578199d8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the list of versions available for a given project.  <a href="#abb9023a56e27eb92c69a7f578199d8be">More...</a><br /></td></tr>
-<tr class="separator:abb9023a56e27eb92c69a7f578199d8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50916cf4567d3ba2fcc425d9ebe96a28"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#a50916cf4567d3ba2fcc425d9ebe96a28">createDependencyList</a> )(const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *selectedVersion, char **error)</td></tr>
-<tr class="memdesc:a50916cf4567d3ba2fcc425d9ebe96a28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the list of dependencies needed by a specific version of a project.  <a href="#a50916cf4567d3ba2fcc425d9ebe96a28">More...</a><br /></td></tr>
-<tr class="separator:a50916cf4567d3ba2fcc425d9ebe96a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e58d671818c4ceb8dd4ba62d6fd42a9"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#a5e58d671818c4ceb8dd4ba62d6fd42a9">createAvailableVersionsList</a> )(const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const struct <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, char **error)</td></tr>
+<tr class="memdesc:a5e58d671818c4ceb8dd4ba62d6fd42a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the list of versions available for a given project.  <a href="#a5e58d671818c4ceb8dd4ba62d6fd42a9">More...</a><br /></td></tr>
+<tr class="separator:a5e58d671818c4ceb8dd4ba62d6fd42a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a53fd0268af2d9b9c4933ca9c87c271"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a> *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_resolver_behaviors.html#a8a53fd0268af2d9b9c4933ca9c87c271">createDependencyList</a> )(const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const struct <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const struct <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *selectedVersion, char **error)</td></tr>
+<tr class="memdesc:a8a53fd0268af2d9b9c4933ca9c87c271"><td class="mdescLeft">&#160;</td><td class="mdescRight">Requests the list of dependencies needed by a specific version of a project.  <a href="#a8a53fd0268af2d9b9c4933ca9c87c271">More...</a><br /></td></tr>
+<tr class="separator:a8a53fd0268af2d9b9c4933ca9c87c271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>User-provided behaviors for how dependency resolution should work. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00023">23</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00028">28</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="abb9023a56e27eb92c69a7f578199d8be"></a>
+<a class="anchor" id="a5e58d671818c4ceb8dd4ba62d6fd42a9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a>*(* ArbiterResolverBehaviors::createAvailableVersionsList) (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, char **error)</td>
+          <td class="memname">struct <a class="el" href="struct_arbiter_selected_version_list.html">ArbiterSelectedVersionList</a>*(* ArbiterResolverBehaviors::createAvailableVersionsList) (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const struct <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, char **error)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -128,16 +129,16 @@ Public Attributes</h2></td></tr>
 <p>Requests the list of versions available for a given project. </p>
 <p>Returns a version list, or NULL if an error occurs. <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the returned version list object. If returning NULL, <code>error</code> may be set to a string describing the error which occurred, in which case <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the string. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00044">44</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00049">49</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a50916cf4567d3ba2fcc425d9ebe96a28"></a>
+<a class="anchor" id="a8a53fd0268af2d9b9c4933ca9c87c271"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a>*(* ArbiterResolverBehaviors::createDependencyList) (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *selectedVersion, char **error)</td>
+          <td class="memname">struct <a class="el" href="struct_arbiter_dependency_list.html">ArbiterDependencyList</a>*(* ArbiterResolverBehaviors::createDependencyList) (const <a class="el" href="struct_arbiter_resolver.html">ArbiterResolver</a> *resolver, const struct <a class="el" href="struct_arbiter_project_identifier.html">ArbiterProjectIdentifier</a> *project, const struct <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> *selectedVersion, char **error)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -145,7 +146,7 @@ Public Attributes</h2></td></tr>
 <p>Requests the list of dependencies needed by a specific version of a project. </p>
 <p>Returns a dependency list, or NULL if an error occurs. <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the returned dependency list object. If returning NULL, <code>error</code> may be set to a string describing the error which occurred, in which case <a class="el" href="namespace_arbiter.html">Arbiter</a> will be responsible for freeing the string. </p>
 
-<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00034">34</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
+<p>Definition at line <a class="el" href="include_2arbiter_2_resolver_8h_source.html#l00039">39</a> of file <a class="el" href="include_2arbiter_2_resolver_8h_source.html">Resolver.h</a>.</p>
 
 </div>
 </div>
@@ -155,7 +156,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

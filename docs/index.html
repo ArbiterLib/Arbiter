@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -81,27 +81,34 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title"><a class="el" href="namespace_arbiter.html">Arbiter</a> </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="el" href="namespace_arbiter.html">Arbiter</a> is a C library which implements the basic behaviors needed by any decentralized dependency manager or package manager, without being coupled to any particular platform or purpose, so that more specific tools can be built on top.</p>
-<p>For example, <a class="el" href="namespace_arbiter.html">Arbiter</a> could be used to implement a package manager for:</p>
-<ul>
-<li><b>Development libraries</b>, similar to <a href="http://npmjs.com">npm</a>, <a href="https://cocoapods.org">CocoaPods</a>, <a href="https://github.com/rust-lang/cargo">Cargo</a>, etc.</li>
-<li><b>Installable tools</b>, similar to <a href="http://brew.sh">Homebrew</a></li>
-</ul>
+<div class="textblock"><p><a class="el" href="namespace_arbiter.html">Arbiter</a> is a cross-platform C library<sup>1</sup> which implements the basic behaviors needed by any decentralized dependency manager or package manager, without being coupled to any particular use case, so that many more specific tools can be built on top.</p>
+<p>In other words, **Arbiter does not prescribe any one user experience**—it just tries to solve those backend concerns which are common to all dependency managers.</p>
+<p>_<sup>1</sup> Note that <a class="el" href="namespace_arbiter.html">Arbiter</a> is actually implemented in C++14, but currently only exposes a plain C API to minimize surface area and maximize interoperability._</p>
 <h2>Functionality</h2>
-<p>Functionality that should be provided by <a class="el" href="namespace_arbiter.html">Arbiter</a> includes:</p>
-<ul>
-<li><b>Dependency resolution</b>, without needing any centralized list of available dependencies (similar to the <a href="https://github.com/Carthage/Carthage">Carthage</a> model)</li>
-<li>GitHub integration?</li>
-<li>VCS integration?</li>
-<li>???</li>
-</ul>
+<p>Some major features of <a class="el" href="namespace_arbiter.html">Arbiter</a> include:</p>
+<h3>Compliance with Semantic Versioning</h3>
+<p><a href="http://semver.org">Semantic Versioning</a>, or SemVer, is a specification for what software version numbers <em>mean</em>, and how they should be used to convey compatibility (and the lack thereof).</p>
+<p><a class="el" href="namespace_arbiter.html">Arbiter</a> implements SemVer and incorporates it into its <a href="#lazy-decentralized-dependency-resolution">dependency resolution algorithm</a>, so that complex versioning and compatibility logic does not have to be reinvented from scratch for each new tool.</p>
+<h3>Lazy, decentralized dependency resolution</h3>
+<p>Most package managers require a centralized server which has knowledge of all packages and versions in the system.</p>
+<p>However, <a class="el" href="namespace_arbiter.html">Arbiter</a> resolves individual dependencies <em>on demand</em>, allowing them to be loaded from anywhere—even different places for different versions! This doesn’t preclude using a centralized server, but means that it is not a requirement.</p>
+<h3>… and more to come</h3>
+<p>For a full list of planned features, check out our <a href="https://github.com/jspahrsummers/Arbiter/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement+sort%3Acreated-desc">backlog</a>. If you’d be interested in making any of these a reality, please consider <a class="el" href="md_CONTRIBUTING.html">contributing</a>!</p>
+<h2>Documentation</h2>
+<p>The <a class="el" href="namespace_arbiter.html">Arbiter</a> API is extensively documented in header comments, from which we periodically generate <a href="http://jspahrsummers.com/Arbiter/">Doxygen pages</a>. For the public C API, look at headers under <a href="include/arbiter/"><code>include/arbiter/</code></a> in the <a href="http://jspahrsummers.com/Arbiter/files.html">file list of the documentation</a>.</p>
+<h2>Examples</h2>
+<p>This repository contains not-production-strength <a href="examples/">examples</a> for demonstrating how the <a class="el" href="namespace_arbiter.html">Arbiter</a> API can be used to build different functionality. Of course, there are almost certainly other possible uses that we assuredly haven’t thought of or implemented, so this shouldn’t be taken as an exhaustive showcase.</p>
+<p>For more information about individual examples, see the README in each folder.</p>
+<h2>Bindings</h2>
+<p>Because the functionality of <a class="el" href="namespace_arbiter.html">Arbiter</a> is exposed in a C interface, it’s easy to build bindings into other languages.</p>
+<p>Currently, <a class="el" href="namespace_arbiter.html">Arbiter</a> already has <a href="bindings/swift/">Swift bindings</a>, with more planned! If you’d like to implement your own bindings, please let us know about them <a href="https://github.com/jspahrsummers/Arbiter/issues/new">in a GitHub issue</a>, and we can include a link here in the README.</p>
 <h2>License</h2>
 <p><a class="el" href="namespace_arbiter.html">Arbiter</a> is released under the <a class="el" href="md_LICENSE.html">MIT license</a>.</p>
 <p>I am providing code in this repository to you under an open source license. Because this is my personal repository, the license you receive to my code is from me and not from my employer (Facebook). </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

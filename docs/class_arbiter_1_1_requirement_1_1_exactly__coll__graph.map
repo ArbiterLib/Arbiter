@@ -1,5 +1,6 @@
 <map id="Arbiter::Requirement::Exactly" name="Arbiter::Requirement::Exactly">
 <area shape="rect" id="node2" href="$struct_arbiter_requirement.html" title="Represents a requirement for a specific version or set of versions. " alt="" coords="5,132,142,157"/>
-<area shape="rect" id="node3" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="167,132,327,157"/>
-<area shape="rect" id="node4" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="110,5,235,44"/>
+<area shape="rect" id="node3" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="53,12,151,37"/>
+<area shape="rect" id="node4" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="167,132,327,157"/>
+<area shape="rect" id="node5" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="179,5,305,44"/>
 </map>

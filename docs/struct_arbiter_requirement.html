@@ -25,7 +25,7 @@
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Arbiter
    </div>
-   <div id="projectbrief">Decentralized dependency management as a library</div>
+   <div id="projectbrief">Dependency manager library that supports decentralization</div>
   </td>
  </tr>
  </tbody>
@@ -87,8 +87,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="struct_arbiter_requirement-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ArbiterRequirement Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
@@ -97,44 +95,40 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p>Represents a requirement for a specific version or set of versions.  
  <a href="struct_arbiter_requirement.html#details">More...</a></p>
+<div class="dynheader">
+Collaboration diagram for ArbiterRequirement:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="struct_arbiter_requirement__coll__graph.svg" width="148" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a047d4a05356a389f581c635d7e8d9b2e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a047d4a05356a389f581c635d7e8d9b2e">~ArbiterRequirement</a> ()=default</td></tr>
-<tr class="separator:a047d4a05356a389f581c635d7e8d9b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0a4382f74c2ac504ab391b473f2b9de"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#aa0a4382f74c2ac504ab391b473f2b9de">clone</a> () const  =0</td></tr>
-<tr class="memdesc:aa0a4382f74c2ac504ab391b473f2b9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a copy of this requirement (including its dynamic type).  <a href="#aa0a4382f74c2ac504ab391b473f2b9de">More...</a><br /></td></tr>
-<tr class="separator:aa0a4382f74c2ac504ab391b473f2b9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36499ee4dd9e6821f72b0af03b86b731"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; Base &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_base.html#a36499ee4dd9e6821f72b0af03b86b731">clone</a> () const  =0</td></tr>
+<tr class="separator:a36499ee4dd9e6821f72b0af03b86b731"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1231089736b96e5dab43d90a08bbfb2d"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a1231089736b96e5dab43d90a08bbfb2d">cloneRequirement</a> () const </td></tr>
+<tr class="separator:a1231089736b96e5dab43d90a08bbfb2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbc261eb40b20d3a185e0355049f60a4"><td class="memItemLeft" align="right" valign="top">virtual std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_base.html#adbc261eb40b20d3a185e0355049f60a4">describe</a> (std::ostream &amp;os) const  =0</td></tr>
+<tr class="separator:adbc261eb40b20d3a185e0355049f60a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d9d40e896f8eccf73a8b33d4839b877"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a5d9d40e896f8eccf73a8b33d4839b877">hash</a> () const  noexcept=0</td></tr>
+<tr class="separator:a5d9d40e896f8eccf73a8b33d4839b877"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a154df9eef873c0cdb2c1470f8ac9eb8b"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a154df9eef873c0cdb2c1470f8ac9eb8b">intersect</a> (const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &amp;rhs) const  =0</td></tr>
 <tr class="memdesc:a154df9eef873c0cdb2c1470f8ac9eb8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to create a requirement which expresses the intersection of this requirement and the given one.  <a href="#a154df9eef873c0cdb2c1470f8ac9eb8b">More...</a><br /></td></tr>
 <tr class="separator:a154df9eef873c0cdb2c1470f8ac9eb8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a817a41700a2eb366dee80ec5a462f34f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a817a41700a2eb366dee80ec5a462f34f">operator!=</a> (const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &amp;other) const  noexcept</td></tr>
-<tr class="separator:a817a41700a2eb366dee80ec5a462f34f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82161e1baaa12ed1206f8ea77e313864"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a82161e1baaa12ed1206f8ea77e313864">operator==</a> (const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &amp;other) const  noexcept=0</td></tr>
-<tr class="memdesc:a82161e1baaa12ed1206f8ea77e313864"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this requirement is equivalent to the given one.  <a href="#a82161e1baaa12ed1206f8ea77e313864">More...</a><br /></td></tr>
-<tr class="separator:a82161e1baaa12ed1206f8ea77e313864"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a531914803ab5722a848f51b36a866d23"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_base.html#a531914803ab5722a848f51b36a866d23">operator!=</a> (const Base &amp;other) const </td></tr>
+<tr class="separator:a531914803ab5722a848f51b36a866d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dee918ed636c26db8c9367f4a504d96"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_base.html#a3dee918ed636c26db8c9367f4a504d96">operator==</a> (const Base &amp;other) const  =0</td></tr>
+<tr class="separator:a3dee918ed636c26db8c9367f4a504d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec26c2d8f8ace95bcaebde074c93b50f"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#aec26c2d8f8ace95bcaebde074c93b50f">satisfiedBy</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> &amp;version) const  noexcept=0</td></tr>
 <tr class="memdesc:aec26c2d8f8ace95bcaebde074c93b50f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this requirement would be satisfied by using the given version.  <a href="#aec26c2d8f8ace95bcaebde074c93b50f">More...</a><br /></td></tr>
 <tr class="separator:aec26c2d8f8ace95bcaebde074c93b50f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a14e6877e7bae9b4e477ab31fbf3dc3bc"><td class="memItemLeft" align="right" valign="top">virtual std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a14e6877e7bae9b4e477ab31fbf3dc3bc">describe</a> (std::ostream &amp;os) const  =0</td></tr>
-<tr class="separator:a14e6877e7bae9b4e477ab31fbf3dc3bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d9d40e896f8eccf73a8b33d4839b877"><td class="memItemLeft" align="right" valign="top">virtual size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#a5d9d40e896f8eccf73a8b33d4839b877">hash</a> () const  noexcept=0</td></tr>
-<tr class="separator:a5d9d40e896f8eccf73a8b33d4839b877"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:aec822e69ff6e37dda6c67c24fc700f90"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_arbiter_requirement.html#aec822e69ff6e37dda6c67c24fc700f90">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &amp;requirement)</td></tr>
-<tr class="separator:aec822e69ff6e37dda6c67c24fc700f90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a requirement for a specific version or set of versions. </p>
 
-<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00014">14</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a047d4a05356a389f581c635d7e8d9b2e"></a>
+<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00015">15</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a36499ee4dd9e6821f72b0af03b86b731"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -142,31 +136,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual ArbiterRequirement::~ArbiterRequirement </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aa0a4382f74c2ac504ab391b473f2b9de"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual std::unique_ptr&lt;<a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a>&gt; ArbiterRequirement::clone </td>
+          <td class="memname">virtual std::unique_ptr&lt;Base&gt; Arbiter::Base::clone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -174,18 +144,31 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a copy of this requirement (including its dynamic type). </p>
-
-<p>Implemented in <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#ac684a1bf851d2d5588e1c7c4eefa1a54">Arbiter::Requirement::Exactly</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a77a3bb1d31d0a64524c941a5c8c864ef">Arbiter::Requirement::CompatibleWith</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#ab4e8255cd4ed8eb3f908e5fc0f285cf7">Arbiter::Requirement::AtLeast</a>, and <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#af7f20fa6276c2c62a23c851aa5770816">Arbiter::Requirement::Any</a>.</p>
+<p>Implemented in <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#acdf7cac9c211d738c9d1fdbfc6629bc0">Arbiter::Requirement::Exactly</a>, <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a48e9f194b51f78f25ec7d699e533d3fc">ArbiterResolvedDependencyGraph</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#aea861e920ed44c5944d2e8b43cbc7aa5">Arbiter::Requirement::CompatibleWith</a>, <a class="el" href="struct_arbiter_selected_version_list.html#a596b9d2ca1fe33360151fdae331bd8ff">ArbiterSelectedVersionList</a>, <a class="el" href="struct_arbiter_resolved_dependency.html#a8ec3a664cf07b7f06c50d9a2cb233c01">ArbiterResolvedDependency</a>, <a class="el" href="struct_arbiter_dependency_list.html#afe4e5476d4a53e1705f939cf076a091a">ArbiterDependencyList</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#a4277b6fe9f280c157b19233c46ebea99">Arbiter::Requirement::AtLeast</a>, <a class="el" href="struct_arbiter_selected_version.html#a520f84d8692f89bcaaf5a63670742bbe">ArbiterSelectedVersion</a>, <a class="el" href="struct_arbiter_dependency.html#a1dc45488b33c44ba617ccdee75ee8573">ArbiterDependency</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a88d33ff811589099c94663410c2d662e">Arbiter::Requirement::Any</a>, <a class="el" href="struct_arbiter_resolver.html#a28e1d2d502abfbc8ecfe4a7881797339">ArbiterResolver</a>, <a class="el" href="struct_arbiter_semantic_version.html#acdd9d60b9c5ad1c969c42983687e88b1">ArbiterSemanticVersion</a>, and <a class="el" href="struct_arbiter_project_identifier.html#aaaac2a46d6259325bf3b7ba096d6032e">ArbiterProjectIdentifier</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a14e6877e7bae9b4e477ab31fbf3dc3bc"></a>
+<a class="anchor" id="a1231089736b96e5dab43d90a08bbfb2d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a>&gt; ArbiterRequirement::cloneRequirement </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adbc261eb40b20d3a185e0355049f60a4"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -193,7 +176,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::ostream&amp; ArbiterRequirement::describe </td>
+          <td class="memname">virtual std::ostream&amp; Arbiter::Base::describe </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
           <td class="paramname"><em>os</em></td><td>)</td>
@@ -202,12 +185,12 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#a25ce37c745539db525ba7036f70dc858">Arbiter::Requirement::Exactly</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a0451138e83193de099bcbeb08fa8fbd0">Arbiter::Requirement::CompatibleWith</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#afaca70c755039939a96663c89a9af3f6">Arbiter::Requirement::AtLeast</a>, and <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a48d99887052d9f43255729e13bb86382">Arbiter::Requirement::Any</a>.</p>
+<p>Implemented in <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#a25ce37c745539db525ba7036f70dc858">Arbiter::Requirement::Exactly</a>, <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a4a76e8cbee90995bb1ed284fc37cc958">ArbiterResolvedDependencyGraph</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a0451138e83193de099bcbeb08fa8fbd0">Arbiter::Requirement::CompatibleWith</a>, <a class="el" href="struct_arbiter_selected_version_list.html#a366c03f9535d254b22afbbb0e10eb835">ArbiterSelectedVersionList</a>, <a class="el" href="struct_arbiter_resolved_dependency.html#a0ca93b4d8aea63e44d9f09bc8826ea07">ArbiterResolvedDependency</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#afaca70c755039939a96663c89a9af3f6">Arbiter::Requirement::AtLeast</a>, <a class="el" href="struct_arbiter_dependency_list.html#a6ffe91420c171d2dcc18dd616e8d4830">ArbiterDependencyList</a>, <a class="el" href="struct_arbiter_selected_version.html#a7e40bd24c8bc966ce300af7f0309fa8b">ArbiterSelectedVersion</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a48d99887052d9f43255729e13bb86382">Arbiter::Requirement::Any</a>, <a class="el" href="struct_arbiter_dependency.html#ad8b41b9bb8f0cfcb6a113615cc4b1d09">ArbiterDependency</a>, <a class="el" href="struct_arbiter_resolver.html#a938812d347f4bb4a17166ba122e1176f">ArbiterResolver</a>, <a class="el" href="struct_arbiter_semantic_version.html#a0865ba34bfce47255b2d70846690f612">ArbiterSemanticVersion</a>, and <a class="el" href="struct_arbiter_project_identifier.html#aa2f1bb7f30002465c1a39e1553ed22dc">ArbiterProjectIdentifier</a>.</p>
 
 </div>
 </div>
@@ -227,7 +210,7 @@ Friends</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -266,7 +249,7 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a817a41700a2eb366dee80ec5a462f34f"></a>
+<a class="anchor" id="a531914803ab5722a848f51b36a866d23"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -274,25 +257,25 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ArbiterRequirement::operator!= </td>
+          <td class="memname">bool Arbiter::Base::operator!= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_arbiter_1_1_base.html">Base</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00030">30</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_types_8h_source.html#l00028">28</a> of file <a class="el" href="src_2_types_8h_source.html">Types.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a82161e1baaa12ed1206f8ea77e313864"></a>
+<a class="anchor" id="a3dee918ed636c26db8c9367f4a504d96"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -300,23 +283,21 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool ArbiterRequirement::operator== </td>
+          <td class="memname">virtual bool Arbiter::Base::operator== </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="class_arbiter_1_1_base.html">Base</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns whether this requirement is equivalent to the given one. </p>
-
-<p>Implemented in <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#ad6e08e7cd1b68c41221d0d3e7c99104b">Arbiter::Requirement::Exactly</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a7ddbcfbb67b3c3c4e041b7a96d6420ea">Arbiter::Requirement::CompatibleWith</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#a09d8f1afd4d7308a604c52b3e14c8c14">Arbiter::Requirement::AtLeast</a>, and <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#a3b16f09fcc1098a15db3360d0bb29ed5">Arbiter::Requirement::Any</a>.</p>
+<p>Implemented in <a class="el" href="class_arbiter_1_1_requirement_1_1_exactly.html#a241cf2f8b67b8cf01aa057d5235e4b00">Arbiter::Requirement::Exactly</a>, <a class="el" href="struct_arbiter_resolved_dependency_graph.html#a7e3db4d797ad4e879197385917a9f514">ArbiterResolvedDependencyGraph</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#ab14d8dd0731c30966efd10f6057991ce">Arbiter::Requirement::CompatibleWith</a>, <a class="el" href="struct_arbiter_selected_version_list.html#ad0c8093543d93c9198e2c1fa2a64305c">ArbiterSelectedVersionList</a>, <a class="el" href="struct_arbiter_resolved_dependency.html#ae14fcc4d09e555d74759005f67d992bf">ArbiterResolvedDependency</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_at_least.html#ac7f2616a73cdb489d590584158d0d803">Arbiter::Requirement::AtLeast</a>, <a class="el" href="struct_arbiter_dependency_list.html#aa69a234f28b189e229b86242d84a17db">ArbiterDependencyList</a>, <a class="el" href="struct_arbiter_selected_version.html#abbe9cfc456727ab300d49b2b375af4a5">ArbiterSelectedVersion</a>, <a class="el" href="struct_arbiter_dependency.html#aea159dc9ac4ca032e31175cc81ce3300">ArbiterDependency</a>, <a class="el" href="struct_arbiter_resolver.html#a585e58622f45f1c72c3347e89d203a69">ArbiterResolver</a>, <a class="el" href="class_arbiter_1_1_requirement_1_1_any.html#ab5c7f4498e17f492c5847f48eedf98e2">Arbiter::Requirement::Any</a>, <a class="el" href="struct_arbiter_semantic_version.html#a028ad1c27160639ae0c2c346682c7adb">ArbiterSemanticVersion</a>, and <a class="el" href="struct_arbiter_project_identifier.html#acac8eb2576226af678ef5804dad1334d">ArbiterProjectIdentifier</a>.</p>
 
 </div>
 </div>
@@ -348,48 +329,13 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a class="anchor" id="aec822e69ff6e37dda6c67c24fc700f90"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::ostream&amp; operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="struct_arbiter_requirement.html">ArbiterRequirement</a> &amp;&#160;</td>
-          <td class="paramname"><em>requirement</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Aug 29 2016 14:38:10 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
