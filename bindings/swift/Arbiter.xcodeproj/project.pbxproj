@@ -70,6 +70,7 @@
 				D0DB8C041D74937A003657D3 /* Arbiter */,
 				D0DB8C031D74937A003657D3 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
 		};
 		D0DB8C031D74937A003657D3 /* Products */ = {
