@@ -3,8 +3,8 @@ CXX ?= clang++
 CXXFLAGS += -std=c++14 -pedantic -Wall -Wextra -Iinclude/
 CC ?= clang
 CFLAGS += -std=c99 -lc++ -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
-LIBTOOL ?= libtool
-LIBTOOLFLAGS ?= -static
+AR ?= ar
+RANLIB ?= ranlib
 XCODEBUILD ?= xcodebuild
 
 SOURCES = $(shell find src -name '*.cpp')
@@ -46,7 +46,8 @@ examples/library_folders/library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS)
 	$(CC) $(CFLAGS) $(EXAMPLE_LIBRARY_FOLDERS) $(LIBRARY) -o $@
 
 $(LIBRARY): $(OBJECTS)
-	$(LIBTOOL) $(LIBTOOLFLAGS) $(OBJECTS) -o $@
+	$(AR) cru $@ $(OBJECTS)
+	$(RANLIB) $@
 
 $(TEST_RUNNER): $(TEST_SOURCES) $(LIBRARY)
 	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIBRARY) -pthread $(TEST_INCLUDES) -o $@
