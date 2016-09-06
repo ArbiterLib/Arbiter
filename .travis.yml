@@ -12,8 +12,9 @@ matrix:
 addons:
  apt:
    packages:
-   - gcc
-   - g++
+   - gcc-5
+   - g++-5
+   - clang-3.9
 
 script: make && make check
 
