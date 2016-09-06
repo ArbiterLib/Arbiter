@@ -47,7 +47,7 @@ examples/library_folders/library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS_O
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(LIBRARY): $(OBJECTS)
-	$(AR) cru $@ $^
+	$(AR) rcs $@ $^
 	$(RANLIB) $@
 
 $(TEST_RUNNER): $(TEST_SOURCES) $(LIBRARY)
