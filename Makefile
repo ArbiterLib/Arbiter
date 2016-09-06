@@ -1,9 +1,8 @@
 GTEST_DIR ?= external/googletest/googletest
 CXX ?= clang++
 CXXFLAGS += -std=c++14 -pedantic -Wall -Wextra -Iinclude/
-CXXLIB ?= -lc++
 CC ?= clang
-CFLAGS += -std=c99 $(CXXLIB) -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
+CFLAGS += -std=c99 -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 AR ?= ar
 RANLIB ?= ranlib
 XCODEBUILD ?= xcodebuild
@@ -18,6 +17,7 @@ TEST_INCLUDES = -isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -Isrc/
 
 EXAMPLES = examples/library_folders/library_folders
 EXAMPLE_LIBRARY_FOLDERS = $(shell find examples/library_folders -name '*.c')
+EXAMPLE_LIBRARY_FOLDERS_OBJECTS = $(EXAMPLE_LIBRARY_FOLDERS:.c=.o)
 
 .PHONY: bindings/swift check docs
 
@@ -43,11 +43,11 @@ docs:
 
 examples: $(EXAMPLES)
 
-examples/library_folders/library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS)
-	$(CC) $(CFLAGS) $(EXAMPLE_LIBRARY_FOLDERS) $(LIBRARY) -o $@
+examples/library_folders/library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS_OBJECTS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(LIBRARY): $(OBJECTS)
-	$(AR) cru $@ $(OBJECTS)
+	$(AR) cru $@ $^
 	$(RANLIB) $@
 
 $(TEST_RUNNER): $(TEST_SOURCES) $(LIBRARY)
