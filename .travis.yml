@@ -6,13 +6,13 @@ matrix:
   include:
     - os: linux
       compiler: gcc
-      env: CFLAGS=-lstdc++
+      env: CXXLIB=-static-libstdc++
     - os: linux
       compiler: clang
-      env: CFLAGS=-lstdc++
+      env: CXXLIB=-lstdc++
     - os: osx
       compiler: clang
-      env: CFLAGS=-lc++
+      env: CXXLIB=-lc++
 
 addons:
   apt:

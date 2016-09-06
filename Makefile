@@ -1,8 +1,9 @@
 GTEST_DIR ?= external/googletest/googletest
 CXX ?= clang++
 CXXFLAGS += -std=c++14 -pedantic -Wall -Wextra -Iinclude/
+CXXLIB ?= -lc++
 CC ?= clang
-CFLAGS += -std=c99 -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
+CFLAGS += -std=c99 $(CXXLIB) -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 AR ?= ar
 RANLIB ?= ranlib
 XCODEBUILD ?= xcodebuild
