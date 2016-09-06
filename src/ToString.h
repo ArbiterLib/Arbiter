@@ -5,6 +5,7 @@
 #endif
 
 #include <cstdlib>
+#include <memory>
 #include <sstream>
 #include <string>
 
