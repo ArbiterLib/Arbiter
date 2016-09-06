@@ -1,0 +1,22 @@
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+    - os: linux
+      compiler: clang
+    - os: osx
+      compiler: clang
+
+addons:
+ apt:
+   packages:
+   - gcc
+   - g++
+
+script: make && make check
+
+osx_image: xcode7.3
+notifications:
+  email: false
