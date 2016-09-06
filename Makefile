@@ -43,7 +43,7 @@ docs:
 
 examples: $(EXAMPLES)
 
-examples/library_folders/library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS_OBJECTS)
+examples/library_folders/library_folders: $(EXAMPLE_LIBRARY_FOLDERS_OBJECTS) $(LIBRARY)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(LIBRARY): $(OBJECTS)
