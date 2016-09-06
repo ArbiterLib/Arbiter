@@ -195,14 +195,13 @@ ArbiterSelectedVersionList *create_available_versions_list (const ArbiterResolve
   struct dirent *dp;
   while ((dp = readdir(dir))) {
     const char *name = dp->d_name;
-    size_t len = dp->d_namlen;
 
     ArbiterSemanticVersion *semanticVersion = ArbiterCreateSemanticVersionFromString(name);
     if (!semanticVersion) {
       continue;
     }
 
-    ArbiterUserValue versionValue = string_value_from_string(name, len);
+    ArbiterUserValue versionValue = string_value_from_string(name, strlen(name));
     ArbiterSelectedVersion *selectedVersion = ArbiterCreateSelectedVersion(semanticVersion, versionValue);
 
     ArbiterFree(semanticVersion);
