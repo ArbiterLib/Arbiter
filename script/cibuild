@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+make -j
+make -j examples
+
+if [ "$TRAVIS_OS_NAME" = "osx" ]
+then
+  make bindings
+fi
+
+make -j check

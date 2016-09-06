@@ -1,6 +1,7 @@
 #include "ToString.h"
 
 #include <cassert>
+#include <cstring>
 
 using namespace Arbiter;
 

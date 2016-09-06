@@ -299,7 +299,7 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
     }
   }
 
-  rethrow_exception(lastException);
+  std::rethrow_exception(lastException);
 }
 
 } // namespace

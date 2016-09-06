@@ -74,7 +74,7 @@ int main (int argc, const char **argv)
     for (size_t i = 0; i < count; i++) {
       const ArbiterProjectIdentifier *project = ArbiterResolvedDependencyProject(resolved[i]);
       const ArbiterSelectedVersion *version = ArbiterResolvedDependencyVersion(resolved[i]);
-      printf("%s @ %s", ArbiterProjectIdentifierValue(project), ArbiterSelectedVersionMetadata(version));
+      printf("%s @ %s", (const char *)ArbiterProjectIdentifierValue(project), (const char *)ArbiterSelectedVersionMetadata(version));
       
       if (i + 1 < count) {
         printf(", ");

@@ -49,6 +49,8 @@ ArbiterRequirementStrictness strictestStrictness (ArbiterRequirementStrictness l
     case ArbiterRequirementStrictnessAllowVersionZeroPatches:
       return right;
   }
+
+  __builtin_unreachable();
 }
 
 template<typename Left, typename Right>

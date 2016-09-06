@@ -1,4 +1,4 @@
-# Arbiter
+# Arbiter [![Build Status](https://travis-ci.org/jspahrsummers/Arbiter.svg?branch=master)](https://travis-ci.org/jspahrsummers/Arbiter)
 
 Arbiter is a cross-platform C library<sup>1</sup> which implements the basic behaviors needed by any decentralized dependency manager or package manager, without being coupled to any particular use case, so that many more specific tools can be built on top.
 

@@ -1,21 +1,23 @@
-SOURCES=$(shell find src -name '*.cpp')
-OBJECTS=$(SOURCES:.cpp=.o)
-LIBRARY=libArbiter.a
+GTEST_DIR ?= external/googletest/googletest
+CXX ?= clang++
+CXXFLAGS += -std=c++14 -pedantic -Wall -Wextra -Iinclude/
+CC ?= clang
+CFLAGS += -std=c99 -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
+AR ?= ar
+RANLIB ?= ranlib
+XCODEBUILD ?= xcodebuild
 
-GTEST_DIR=external/googletest/googletest
+SOURCES = $(shell find src -name '*.cpp')
+OBJECTS = $(SOURCES:.cpp=.o)
+LIBRARY = libArbiter.a
 
-TEST_SOURCES=$(shell find test -name '*.cpp') $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
-TEST_RUNNER=test/main
-TEST_INCLUDES=-isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -Isrc/
+TEST_SOURCES = $(shell find test -name '*.cpp') $(GTEST_DIR)/src/gtest-all.cc $(GTEST_DIR)/src/gtest_main.cc
+TEST_RUNNER = test/main
+TEST_INCLUDES = -isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -Isrc/
 
-EXAMPLES=examples/library_folders/library_folders
-EXAMPLE_LIBRARY_FOLDERS=$(shell find examples/library_folders -name '*.c')
-
-CXX=clang++
-CXXFLAGS=-std=c++14 -pedantic -Wall -Wextra -Iinclude/
-CC=clang
-CFLAGS=-std=c99 -lc++ -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
-LIBTOOL=libtool
+EXAMPLES = examples/library_folders/library_folders
+EXAMPLE_LIBRARY_FOLDERS = $(shell find examples/library_folders -name '*.c')
+EXAMPLE_LIBRARY_FOLDERS_OBJECTS = $(EXAMPLE_LIBRARY_FOLDERS:.c=.o)
 
 .PHONY: bindings/swift check docs
 
@@ -28,7 +30,7 @@ bindings/swift:
 
 build: $(LIBRARY)
 
-check: $(TEST_RUNNER) examples bindings
+check: $(TEST_RUNNER)
 	$(TEST_RUNNER)
 
 clean:
@@ -41,11 +43,12 @@ docs:
 
 examples: $(EXAMPLES)
 
-examples/library_folders/library_folders: $(LIBRARY) $(EXAMPLE_LIBRARY_FOLDERS)
-	$(CC) $(CFLAGS) $(EXAMPLE_LIBRARY_FOLDERS) $(LIBRARY) -o $@
+examples/library_folders/library_folders: $(EXAMPLE_LIBRARY_FOLDERS_OBJECTS) $(LIBRARY)
+	$(CXX) $(CXXFLAGS) $^ -o $@
 
 $(LIBRARY): $(OBJECTS)
-	$(LIBTOOL) $(OBJECTS) -o $@
+	$(AR) rcs $@ $^
+	$(RANLIB) $@
 
 $(TEST_RUNNER): $(TEST_SOURCES) $(LIBRARY)
 	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIBRARY) -pthread $(TEST_INCLUDES) -o $@
