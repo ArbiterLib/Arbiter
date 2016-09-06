@@ -6,8 +6,10 @@ matrix:
   include:
     - os: linux
       compiler: gcc
+      env: LIBTOOLFLAGS="--mode=link"
     - os: linux
       compiler: clang
+      env: LIBTOOLFLAGS="--mode=link"
     - os: osx
       compiler: clang
 
