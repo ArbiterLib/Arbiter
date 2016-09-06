@@ -70,6 +70,7 @@
 				D0DB8C041D74937A003657D3 /* Arbiter */,
 				D0DB8C031D74937A003657D3 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
 		};
 		D0DB8C031D74937A003657D3 /* Products */ = {
@@ -193,6 +194,7 @@
 				TargetAttributes = {
 					D0DB8C011D74937A003657D3 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					D0F65B361D74942100DD582F = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -361,6 +363,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 			};
 			name = Debug;
 		};
@@ -380,6 +383,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.jspahrsummers.Arbiter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
 			};
 			name = Release;
 		};
