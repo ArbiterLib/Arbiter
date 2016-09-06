@@ -4,6 +4,7 @@ CXXFLAGS += -std=c++14 -pedantic -Wall -Wextra -Iinclude/
 CC ?= clang
 CFLAGS += -std=c99 -lc++ -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 LIBTOOL ?= libtool
+XCODEBUILD ?= xcodebuild
 
 SOURCES = $(shell find src -name '*.cpp')
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -27,7 +28,7 @@ bindings/swift:
 
 build: $(LIBRARY)
 
-check: $(TEST_RUNNER) examples bindings
+check: $(TEST_RUNNER)
 	$(TEST_RUNNER)
 
 clean:
