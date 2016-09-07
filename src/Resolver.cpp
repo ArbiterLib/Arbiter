@@ -39,7 +39,7 @@ class DependencyGraph final
      */
     void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Optional<ArbiterProjectIdentifier> &dependent) noexcept(false)
     {
-      assert(initialRequirement.satisfiedBy(node._version._semanticVersion));
+      assert(initialRequirement.satisfiedBy(node._version));
 
       const NodeKey &key = node._project;
 
@@ -49,7 +49,7 @@ class DependencyGraph final
 
         // We need to unify our input with what was already there.
         if (auto newRequirement = initialRequirement.intersect(value.requirement())) {
-          if (!newRequirement->satisfiedBy(value._version._semanticVersion)) {
+          if (!newRequirement->satisfiedBy(value._version)) {
             throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*newRequirement) + " with " + toString(value._version));
           }
 
@@ -176,7 +176,7 @@ class DependencyGraph final
 
         void setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
         {
-          assert(requirement->satisfiedBy(_version._semanticVersion));
+          assert(requirement->satisfiedBy(_version));
           _requirement = std::move(requirement);
         }
 
@@ -407,7 +407,7 @@ std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying
   std::vector<ArbiterSelectedVersion> versions = fetchAvailableVersions(project)._versions;
 
   auto removeStart = std::remove_if(versions.begin(), versions.end(), [&requirement](const ArbiterSelectedVersion &version) {
-    return !requirement.satisfiedBy(version._semanticVersion);
+    return !requirement.satisfiedBy(version);
   });
 
   versions.erase(removeStart, versions.end());

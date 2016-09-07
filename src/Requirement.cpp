@@ -37,7 +37,7 @@ ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement *
   return new Arbiter::Requirement::Compound(std::move(vec));
 }
 
-bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSemanticVersion *version)
+bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)
 {
   return requirement->satisfiedBy(*version);
 }
@@ -135,12 +135,27 @@ struct Intersect<CompatibleWith, CompatibleWith> final
   }
 };
 
-template<typename Other>
-struct Intersect<Exactly, Other> final
+template<>
+struct Intersect<Exactly, AtLeast> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
-  Result operator() (const Exactly &exactly, const Other &other) const
+  Result operator() (const Exactly &exactly, const AtLeast &other) const
+  {
+    if (other.satisfiedBy(exactly._version)) {
+      return exactly.cloneRequirement();
+    } else {
+      return nullptr;
+    }
+  }
+};
+
+template<>
+struct Intersect<Exactly, CompatibleWith> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Exactly &exactly, const CompatibleWith &other) const
   {
     if (other.satisfiedBy(exactly._version)) {
       return exactly.cloneRequirement();
@@ -222,6 +237,11 @@ std::ostream &Any::describe (std::ostream &os) const
   return os << "(any version)";
 }
 
+bool AtLeast::satisfiedBy (const ArbiterSemanticVersion &version) const noexcept
+{
+  return version >= _minimumVersion;
+}
+
 bool AtLeast::operator== (const Base &other) const
 {
   if (auto *ptr = dynamic_cast<const AtLeast *>(&other)) {
@@ -293,6 +313,11 @@ std::ostream &CompatibleWith::describe (std::ostream &os) const
   return os << "~>" << _baseVersion;
 }
 
+bool Exactly::satisfiedBy (const ArbiterSemanticVersion &version) const noexcept
+{
+  return version == _version;
+}
+
 bool Exactly::operator== (const Base &other) const
 {
   if (auto *ptr = dynamic_cast<const Exactly *>(&other)) {
@@ -312,10 +337,10 @@ std::ostream &Exactly::describe (std::ostream &os) const
   return os << "==" << _version;
 }
 
-bool Compound::satisfiedBy (const ArbiterSemanticVersion &version) const noexcept
+bool Compound::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
 {
   for (const auto &requirement : _requirements) {
-    if (!requirement->satisfiedBy(version)) {
+    if (!requirement->satisfiedBy(selectedVersion)) {
       return false;
     }
   }
