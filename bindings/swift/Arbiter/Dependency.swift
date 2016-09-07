@@ -114,8 +114,6 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
 	ArbiterResolvedDependencyGraphGetAllAtDepth(pointer, depthIndex, buffer)
   }
 
-  // TODO: Memoize the collection and/or generate its elements lazily (so the
-  // count can be read without doing all this work).
   public var allDependencies: [ResolvedDependency<ProjectValue, VersionMetadata>] {
     let buffer = UnsafeMutablePointer<COpaquePointer>.alloc(count)
 	getAll(buffer)
@@ -130,8 +128,6 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
     return array
   }
 
-  // TODO: Memoize the collection and/or generate its elements lazily (so the
-  // count can be read without doing all this work).
   public var depthOrderedDependencies: [[ResolvedDependency<ProjectValue, VersionMetadata>]] {
 
     var depths: [[ResolvedDependency<ProjectValue, VersionMetadata>]] = []
