@@ -155,6 +155,27 @@ class Exactly final : public ArbiterRequirement
     size_t hash () const noexcept override;
 };
 
+class Compound final : public ArbiterRequirement
+{
+  public:
+    std::vector<std::shared_ptr<ArbiterRequirement>> _requirements;
+
+    explicit Compound (std::vector<std::shared_ptr<ArbiterRequirement>> requirements)
+      : _requirements(std::move(requirements))
+    {}
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Compound>(*this);
+    }
+
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
+};
+
 } // namespace Requirement
 } // namespace Arbiter
 

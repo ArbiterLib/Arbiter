@@ -6,6 +6,7 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
+#include <stddef.h>
 
 // forward declarations
 struct ArbiterSemanticVersion;
@@ -70,6 +71,17 @@ ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const struct Arbiter
  * The returned requirement must be freed with ArbiterFree().
  */
 ArbiterRequirement *ArbiterCreateRequirementExactly (const struct ArbiterSemanticVersion *version);
+
+/**
+ * Creates a compound requirement that evaluates each of a list of requirements.
+ * All of the requirements must be satisfied for the compound requirement to be
+ * satisfied.
+ *
+ * The objects in the C array can be safely freed after calling this function.
+ *
+ * The returned requirement must be freed with ArbiterFree().
+ */
+ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement * const *requirements, size_t count);
 
 /**
  * Determines whether the given requirement is satisfied by the given version.
