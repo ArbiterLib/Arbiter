@@ -9,6 +9,7 @@
 #include "Types.h"
 #include "Version.h"
 
+#include <cassert>
 #include <memory>
 #include <ostream>
 
@@ -158,6 +159,36 @@ class Exactly final : public ArbiterRequirement
     bool operator== (const Arbiter::Base &other) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
     size_t hash () const noexcept override;
+};
+
+class Custom final : public ArbiterRequirement
+{
+  public:
+    explicit Custom (ArbiterRequirementPredicate predicate, const void *context)
+      : _predicate(std::move(predicate))
+      , _context(context)
+    {
+      assert(_predicate);
+    }
+
+    std::ostream &describe (std::ostream &os) const override
+    {
+      return os << "(custom predicate)";
+    }
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Custom>(*this);
+    }
+
+    ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
+
+  private:
+    ArbiterRequirementPredicate _predicate;
+    const void *_context;
 };
 
 class Compound final : public ArbiterRequirement
