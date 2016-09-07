@@ -9,6 +9,7 @@ extern "C" {
 
 // forward declarations
 struct ArbiterSemanticVersion;
+struct ArbiterSelectedVersion;
 
 /**
  * Represents a requirement for a specific version or set of versions.
@@ -101,9 +102,9 @@ ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const struct Arbiter
 ArbiterRequirement *ArbiterCreateRequirementExactly (const struct ArbiterSemanticVersion *version);
 
 /**
- * Determines whether the given requirement is satisfied by the given version.
+ * Determines how well the given requirement is satisfied by the given version.
  */
-bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSemanticVersion *version);
+ArbiterRequirementSuitability ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSelectedVersion *version);
 
 #ifdef __cplusplus
 }

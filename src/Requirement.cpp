@@ -25,18 +25,9 @@ ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersio
   return new Arbiter::Requirement::Exactly(*version);
 }
 
-bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSemanticVersion *version)
+ArbiterRequirementSuitability ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)
 {
   return requirement->satisfiedBy(*version);
-}
-
-ArbiterRequirementSuitability ArbiterRequirement::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
-{
-  if (satisfiedBy(selectedVersion._semanticVersion)) {
-    return ArbiterRequirementSuitabilitySuitable;
-  } else {
-    return ArbiterRequirementSuitabilityUnsuitable;
-  }
 }
 
 std::unique_ptr<ArbiterRequirement> ArbiterRequirement::cloneRequirement () const
@@ -132,12 +123,27 @@ struct Intersect<CompatibleWith, CompatibleWith> final
   }
 };
 
-template<typename Other>
-struct Intersect<Exactly, Other> final
+template<>
+struct Intersect<Exactly, AtLeast> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
 
-  Result operator() (const Exactly &exactly, const Other &other) const
+  Result operator() (const Exactly &exactly, const AtLeast &other) const
+  {
+    if (other.satisfiedBy(exactly._version)) {
+      return exactly.cloneRequirement();
+    } else {
+      return nullptr;
+    }
+  }
+};
+
+template<>
+struct Intersect<Exactly, CompatibleWith> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Exactly &exactly, const CompatibleWith &other) const
   {
     if (other.satisfiedBy(exactly._version)) {
       return exactly.cloneRequirement();
@@ -188,6 +194,15 @@ std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const Arbite
 std::ostream &Any::describe (std::ostream &os) const
 {
   return os << "(any version)";
+}
+
+ArbiterRequirementSuitability AtLeast::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  if (satisfiedBy(selectedVersion._semanticVersion)) {
+    return ArbiterRequirementSuitabilitySuitable;
+  } else {
+    return ArbiterRequirementSuitabilityUnsuitable;
+  }
 }
 
 bool AtLeast::operator== (const Base &other) const
@@ -242,6 +257,15 @@ bool CompatibleWith::satisfiedBy (const ArbiterSemanticVersion &version) const n
   return version >= _baseVersion;
 }
 
+ArbiterRequirementSuitability CompatibleWith::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  if (satisfiedBy(selectedVersion._semanticVersion)) {
+    return ArbiterRequirementSuitabilitySuitable;
+  } else {
+    return ArbiterRequirementSuitabilityUnsuitable;
+  }
+}
+
 bool CompatibleWith::operator== (const Base &other) const
 {
   if (auto *ptr = dynamic_cast<const CompatibleWith *>(&other)) {
@@ -259,6 +283,15 @@ size_t CompatibleWith::hash () const noexcept
 std::ostream &CompatibleWith::describe (std::ostream &os) const
 {
   return os << "~>" << _baseVersion;
+}
+
+ArbiterRequirementSuitability Exactly::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  if (satisfiedBy(selectedVersion._semanticVersion)) {
+    return ArbiterRequirementSuitabilitySuitable;
+  } else {
+    return ArbiterRequirementSuitabilityUnsuitable;
+  }
 }
 
 bool Exactly::operator== (const Base &other) const

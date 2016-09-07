@@ -17,22 +17,9 @@ struct ArbiterRequirement : public Arbiter::Base
   public:
     /**
      * Returns whether this requirement would be satisfied by using the given
-     * semantic version.
-     *
-     * Some requirements may only be satisfied by certain _selected_ versions,
-     * and so may fail this check regardless of the semantic version provided
-     * here.
-     */
-    virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
-
-    /**
-     * Returns whether this requirement would be satisfied by using the given
      * selected version.
-     *
-     * The default behavior is that any selected version whose semantic version
-     * passes satisfiedBy() results in ArbiterRequirementSuitabilitySuitable.
      */
-    virtual ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const;
+    virtual ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const = 0;
 
     /**
      * Attempts to create a requirement which expresses the intersection of this
@@ -60,11 +47,6 @@ namespace Requirement {
 class Any final : public ArbiterRequirement
 {
   public:
-    bool satisfiedBy (const ArbiterSemanticVersion &) const noexcept override
-    {
-      return true;
-    }
-
     ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &) const override
     {
       return ArbiterRequirementSuitabilitySuitable;
@@ -102,10 +84,12 @@ class AtLeast final : public ArbiterRequirement
       : _minimumVersion(std::move(version))
     {}
 
-    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept
     {
       return version >= _minimumVersion;
     }
+
+    ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
 
     std::unique_ptr<Base> clone () const override
     {
@@ -138,7 +122,8 @@ class CompatibleWith final : public ArbiterRequirement
       return std::make_unique<CompatibleWith>(*this);
     }
 
-    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override;
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept;
+    ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
@@ -146,7 +131,7 @@ class CompatibleWith final : public ArbiterRequirement
 };
 
 /**
- * A requirement satisfied only by one exact version.
+ * A requirement satisfied only by one particular semantic version.
  */
 class Exactly final : public ArbiterRequirement
 {
@@ -157,10 +142,12 @@ class Exactly final : public ArbiterRequirement
       : _version(std::move(version))
     {}
 
-    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept
     {
       return version == _version;
     }
+
+    ArbiterRequirementSuitability satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
 
     std::unique_ptr<Base> clone () const override
     {
