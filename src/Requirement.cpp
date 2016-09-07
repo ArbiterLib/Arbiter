@@ -25,6 +25,18 @@ ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersio
   return new Arbiter::Requirement::Exactly(*version);
 }
 
+ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement * const *requirements, size_t count)
+{
+  std::vector<std::shared_ptr<ArbiterRequirement>> vec;
+  vec.reserve(count);
+
+  for (size_t i = 0; i < count; i++) {
+    vec.emplace_back(requirements[i]->cloneRequirement());
+  }
+
+  return new Arbiter::Requirement::Compound(std::move(vec));
+}
+
 ArbiterRequirementSuitability ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)
 {
   return requirement->satisfiedBy(*version);
@@ -168,10 +180,37 @@ struct Intersect<Exactly, Exactly> final
   }
 };
 
+template<>
+struct Intersect<Compound, Compound> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Compound &compound, const Compound &other) const
+  {
+    std::vector<std::shared_ptr<ArbiterRequirement>> requirements = compound._requirements;
+    requirements.insert(requirements.end(), other._requirements.begin(), other._requirements.end());
+    return std::make_unique<Compound>(std::move(requirements));
+  }
+};
+
+template<typename Other>
+struct Intersect<Compound, Other> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Compound &compound, const Other &other) const
+  {
+    std::vector<std::shared_ptr<ArbiterRequirement>> requirements = compound._requirements;
+    requirements.emplace_back(other.cloneRequirement());
+    return std::make_unique<Compound>(std::move(requirements));
+  }
+};
+
 const std::type_info &any = typeid(Any);
 const std::type_info &atLeast = typeid(AtLeast);
 const std::type_info &compatibleWith = typeid(CompatibleWith);
 const std::type_info &exactly = typeid(Exactly);
+const std::type_info &compound = typeid(Compound);
 
 template<typename Left>
 std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const ArbiterRequirement &rhs)
@@ -184,6 +223,8 @@ std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const Arbite
     return Intersect<Left, CompatibleWith>()(lhs, dynamic_cast<const CompatibleWith &>(rhs));
   } else if (typeid(rhs) == exactly) {
     return Intersect<Left, Exactly>()(lhs, dynamic_cast<const Exactly &>(rhs));
+  } else if (typeid(rhs) == compound) {
+    return Intersect<Left, Compound>()(lhs, dynamic_cast<const Compound &>(rhs));
   } else {
     throw std::invalid_argument("Unrecognized type for requirement: " + toString(rhs));
   }
@@ -313,6 +354,63 @@ std::ostream &Exactly::describe (std::ostream &os) const
   return os << "==" << _version;
 }
 
+ArbiterRequirementSuitability Compound::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  ArbiterRequirementSuitability result = ArbiterRequirementSuitabilitySuitable;
+
+  for (const auto &requirement : _requirements) {
+    ArbiterRequirementSuitability suitability = requirement->satisfiedBy(selectedVersion);
+    switch (suitability) {
+      case ArbiterRequirementSuitabilityUnsuitable:
+        return ArbiterRequirementSuitabilityUnsuitable;
+
+      case ArbiterRequirementSuitabilityBestPossibleChoice:
+        result = ArbiterRequirementSuitabilityBestPossibleChoice;
+        break;
+
+      case ArbiterRequirementSuitabilitySuitable:
+        break;
+    }
+  }
+
+  return result;
+}
+
+std::ostream &Compound::describe (std::ostream &os) const
+{
+  os << "{ ";
+
+  for (auto it = _requirements.begin(); it != _requirements.end(); ++it) {
+    if (it == _requirements.begin()) {
+      os << " && ";
+    }
+
+    os << it->get();
+  }
+
+  return os << " }";
+}
+
+bool Compound::operator== (const Arbiter::Base &other) const
+{
+  if (auto *ptr = dynamic_cast<const Compound *>(&other)) {
+    return _requirements == ptr->_requirements;
+  } else {
+    return false;
+  }
+}
+
+size_t Compound::hash () const noexcept
+{
+  size_t value = 0;
+
+  for (const auto &requirement : _requirements) {
+    value ^= hashOf(*requirement);
+  }
+
+  return value;
+}
+
 std::unique_ptr<ArbiterRequirement> Any::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Any>(*this, rhs);
@@ -331,6 +429,11 @@ std::unique_ptr<ArbiterRequirement> CompatibleWith::intersect (const ArbiterRequ
 std::unique_ptr<ArbiterRequirement> Exactly::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Exactly>(*this, rhs);
+}
+
+std::unique_ptr<ArbiterRequirement> Compound::intersect (const ArbiterRequirement &rhs) const
+{
+  return intersectRight<Compound>(*this, rhs);
 }
 
 } // namespace Requirement

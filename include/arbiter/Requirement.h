@@ -102,6 +102,17 @@ ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const struct Arbiter
 ArbiterRequirement *ArbiterCreateRequirementExactly (const struct ArbiterSemanticVersion *version);
 
 /**
+ * Creates a compound requirement that evaluates each of a list of requirements.
+ * All of the requirements must be satisfied for the compound requirement to be
+ * satisfied.
+ *
+ * The objects in the C array can be safely freed after calling this function.
+ *
+ * The returned requirement must be freed with ArbiterFree().
+ */
+ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement * const *requirements, size_t count);
+
+/**
  * Determines how well the given requirement is satisfied by the given version.
  */
 ArbiterRequirementSuitability ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSelectedVersion *version);
