@@ -5,142 +5,17 @@
 #include "ToString.h"
 #include "Value.h"
 
+#include "TestValue.h"
+
 #include "gtest/gtest.h"
 
 #include <algorithm>
 #include <stdexcept>
 
 using namespace Arbiter;
+using namespace Testing;
 
 namespace {
-
-/**
- * A C++ object capable of being an ArbiterUserValue.
- */
-class TestValue
-{
-  public:
-    virtual ~TestValue () = default;
-
-    virtual bool operator== (const TestValue &) const = 0;
-    virtual bool operator< (const TestValue &) const = 0;
-    virtual std::ostream &describe (std::ostream &os) const = 0;
-    virtual size_t hash () const = 0;
-
-    static ArbiterUserValue convertToUserValue (std::unique_ptr<TestValue> testValue)
-    {
-      ArbiterUserValue userValue;
-      userValue.data = testValue.release();
-      userValue.equalTo = &equalTo;
-      userValue.lessThan = &lessThan;
-      userValue.hash = &hash;
-      userValue.destructor = &destructor;
-      userValue.createDescription = &createDescription;
-      return userValue;
-    }
-
-  private:
-    static bool equalTo (const void *first, const void *second)
-    {
-      return *static_cast<const TestValue *>(first) == *static_cast<const TestValue *>(second);
-    }
-
-    static bool lessThan (const void *first, const void *second)
-    {
-      return *static_cast<const TestValue *>(first) < *static_cast<const TestValue *>(second);
-    }
-
-    static size_t hash (const void *data)
-    {
-      return static_cast<const TestValue *>(data)->hash();
-    }
-
-    static void destructor (void *data)
-    {
-      delete static_cast<TestValue *>(data);
-    }
-
-    static char *createDescription (const void *data)
-    {
-      return copyCString(toString(*static_cast<const TestValue *>(data))).release();
-    }
-};
-
-std::ostream &operator<< (std::ostream &os, const TestValue &value)
-{
-  return value.describe(os);
-}
-
-class EmptyTestValue final : public TestValue
-{
-  public:
-    EmptyTestValue () = default;
-
-    bool operator== (const TestValue &other) const override
-    {
-      return dynamic_cast<const EmptyTestValue *>(&other);
-    }
-
-    bool operator< (const TestValue &other) const override
-    {
-      return !(*this == other);
-    }
-
-    size_t hash () const override
-    {
-      return 4;
-    }
-
-    std::ostream &describe (std::ostream &os) const override
-    {
-      return os << "EmptyTestValue";
-    }
-};
-
-struct StringTestValue final : public TestValue
-{
-  public:
-    explicit StringTestValue (std::string str)
-      : _str(std::move(str))
-    {}
-
-    bool operator== (const TestValue &other) const override
-    {
-      if (auto ptr = dynamic_cast<const StringTestValue *>(&other)) {
-        return _str == ptr->_str;
-      } else {
-        return true;
-      }
-    }
-
-    bool operator< (const TestValue &other) const override
-    {
-      if (auto ptr = dynamic_cast<const StringTestValue *>(&other)) {
-        return _str < ptr->_str;
-      } else {
-        return true;
-      }
-    }
-
-    size_t hash () const override
-    {
-      return hashOf(_str);
-    }
-
-    std::ostream &describe (std::ostream &os) const override
-    {
-      return os << _str;
-    }
-
-  private:
-    std::string _str;
-};
-
-template<typename Owner, typename Value, typename... Args>
-SharedUserValue<Owner> makeSharedUserValue (Args &&...args)
-{
-  return SharedUserValue<Owner>(TestValue::convertToUserValue(std::make_unique<Value>(std::forward<Args>(args)...)));
-}
 
 ArbiterDependencyList *createEmptyDependencyList (const ArbiterResolver *, const ArbiterProjectIdentifier *, const ArbiterSelectedVersion *, char **)
 {
