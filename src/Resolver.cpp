@@ -49,9 +49,20 @@ class DependencyGraph final
 
         // We need to unify our input with what was already there.
         if (auto newRequirement = initialRequirement.intersect(value.requirement())) {
-          // TODO: Handle ArbiterRequirementSuitabilityBestPossibleChoice
-          if (newRequirement->satisfiedBy(value._version) != ArbiterRequirementSuitabilityUnsuitable) {
+          ArbiterRequirementSuitability newSuitability = newRequirement->satisfiedBy(value._version);
+
+          if (newSuitability == ArbiterRequirementSuitabilityUnsuitable) {
             throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*newRequirement) + " with " + toString(value._version));
+          } else if (newSuitability != ArbiterRequirementSuitabilityBestPossibleChoice) {
+            // Let's see if the version of the provided node might be better.
+            ArbiterRequirementSuitability suitabilityWithGivenVersion = newRequirement->satisfiedBy(node._version);
+
+            if (suitabilityWithGivenVersion == ArbiterRequirementSuitabilityUnsuitable) {
+              throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*newRequirement) + " with " + toString(node._version));
+            } else if (suitabilityWithGivenVersion == ArbiterRequirementSuitabilityBestPossibleChoice) {
+              // Yep, it's wood. http://knowyourmeme.com/memes/identifying-wood
+              value._version = node._version;
+            }
           }
 
           value.setRequirement(std::move(newRequirement));
@@ -157,7 +168,7 @@ class DependencyGraph final
     struct NodeValue final
     {
       public:
-        const ArbiterSelectedVersion _version;
+        ArbiterSelectedVersion _version;
 
         NodeValue (ArbiterSelectedVersion version, const ArbiterRequirement &requirement)
           : _version(std::move(version))
@@ -406,10 +417,27 @@ bool ArbiterResolver::operator== (const Arbiter::Base &other) const
 std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) noexcept(false)
 {
   std::vector<ArbiterSelectedVersion> versions = fetchAvailableVersions(project)._versions;
+  std::vector<ArbiterSelectedVersion> bestPossible;
 
-  auto removeStart = std::remove_if(versions.begin(), versions.end(), [&requirement](const ArbiterSelectedVersion &version) {
-    return requirement.satisfiedBy(version) != ArbiterRequirementSuitabilityUnsuitable;
+  auto removeStart = std::remove_if(versions.begin(), versions.end(), [&requirement, &bestPossible](const ArbiterSelectedVersion &version) {
+    switch (requirement.satisfiedBy(version)) {
+      case ArbiterRequirementSuitabilityUnsuitable:
+        return true;
+
+      case ArbiterRequirementSuitabilitySuitable:
+        return false;
+
+      case ArbiterRequirementSuitabilityBestPossibleChoice:
+        bestPossible.emplace_back(version);
+        return false;
+    }
   });
+
+  if (!bestPossible.empty()) {
+    // Throw away versions which, although they may satisfy the requirement,
+    // aren't as good.
+    return bestPossible;
+  }
 
   versions.erase(removeStart, versions.end());
   return versions;

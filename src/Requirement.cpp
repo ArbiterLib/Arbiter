@@ -399,24 +399,26 @@ size_t Custom::hash () const noexcept
 
 ArbiterRequirementSuitability Compound::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
 {
-  ArbiterRequirementSuitability result = ArbiterRequirementSuitabilitySuitable;
+  bool suitable = true;
 
   for (const auto &requirement : _requirements) {
     ArbiterRequirementSuitability suitability = requirement->satisfiedBy(selectedVersion);
+
     switch (suitability) {
       case ArbiterRequirementSuitabilityUnsuitable:
-        return ArbiterRequirementSuitabilityUnsuitable;
+        suitable = false;
+        break;
 
       case ArbiterRequirementSuitabilityBestPossibleChoice:
-        result = ArbiterRequirementSuitabilityBestPossibleChoice;
-        break;
+        // Takes precedence over unsuitable versions.
+        return ArbiterRequirementSuitabilityBestPossibleChoice;
 
       case ArbiterRequirementSuitabilitySuitable:
         break;
     }
   }
 
-  return result;
+  return (suitable ? ArbiterRequirementSuitabilitySuitable : ArbiterRequirementSuitabilityUnsuitable);
 }
 
 std::ostream &Compound::describe (std::ostream &os) const
