@@ -84,6 +84,15 @@ ArbiterDependencyList *createTransitiveDependencyList (const ArbiterResolver *, 
   return new ArbiterDependencyList(std::move(dependencies));
 }
 
+ArbiterRequirementSuitability preferInitialDevelopmentVersionPredicate (const ArbiterSelectedVersion *version, const void *)
+{
+  if (version->_semanticVersion._major < 1) {
+    return ArbiterRequirementSuitabilityBestPossibleChoice;
+  } else {
+    return ArbiterRequirementSuitabilitySuitable;
+  }
+}
+
 const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyGraph &graph, size_t depthIndex, const std::string &name)
 {
   ArbiterProjectIdentifier identifier = makeProjectIdentifier(name);
@@ -174,6 +183,30 @@ TEST(ResolverTest, ResolvesTransitiveDependencies)
   EXPECT_EQ(findResolved(resolved, 0, "leaf")._version._semanticVersion, ArbiterSemanticVersion(0, 2, 3));
   EXPECT_EQ(findResolved(resolved, 0, "leaf_majors_only")._version._semanticVersion, ArbiterSemanticVersion(2, 0, 0));
   EXPECT_EQ(findResolved(resolved, 0, "leaf_dailybuild")._version._semanticVersion, ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild")));
+}
+
+TEST(ResolverTest, PrefersBestPossibleVersions)
+{
+  ArbiterResolverBehaviors behaviors;
+  behaviors.createDependencyList = &createTransitiveDependencyList;
+  behaviors.createAvailableVersionsList = &createVariedVersionsList;
+
+  std::vector<ArbiterDependency> dependencies;
+  dependencies.emplace_back(makeProjectIdentifier("ancestor"), Requirement::Exactly(ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha"))));
+  dependencies.emplace_back(makeProjectIdentifier("middle"), Requirement::Custom(&preferInitialDevelopmentVersionPredicate, nullptr));
+
+  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
+
+  ArbiterResolvedDependencyGraph resolved = resolver.resolve();
+  ASSERT_EQ(resolved.depth(), 3);
+  EXPECT_EQ(resolved.count(), 5);
+  EXPECT_EQ(findResolved(resolved, 2, "ancestor")._version._semanticVersion, ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha")));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf")._version._semanticVersion, ArbiterSemanticVersion(0, 2, 3));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf_majors_only")._version._semanticVersion, ArbiterSemanticVersion(2, 0, 0));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf_dailybuild")._version._semanticVersion, ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild")));
+
+  // Should have clobbered the ~> 1.0.1 requirement
+  EXPECT_EQ(findResolved(resolved, 1, "middle")._version._semanticVersion, ArbiterSemanticVersion(0, 2, 3));
 }
 
 #if 0
