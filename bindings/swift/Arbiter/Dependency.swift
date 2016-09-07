@@ -94,13 +94,13 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
     super.init(pointer, shouldCopy: shouldCopy)
   }
 	
-  public var count: Int {
-	return ArbiterResolvedDependencyGraphCount(pointer)
-  }
+  lazy var count: Int = {
+	return ArbiterResolvedDependencyGraphCount(self.pointer)
+  }()
 	
-  public var depth: Int {
-	return ArbiterResolvedDependencyGraphDepth(pointer)
-  }
+  lazy var depth: Int = {
+	return ArbiterResolvedDependencyGraphDepth(self.pointer)
+  }()
 	
   public func countAtDepth(depthIndex: Int) -> Int {
 	return ArbiterResolvedDependencyGraphCountAtDepth(pointer, depthIndex)
