@@ -3,13 +3,13 @@ var indexSectionsWithContent =
   0: "_abcdefhilmnoprstuv~",
   1: "abcehimnopsu",
   2: "a",
-  3: "acdehilortv",
+  3: "acdehiortv",
   4: "abcdefhimoprstuv~",
   5: "_acdehl",
-  6: "dimv",
+  6: "adimv",
   7: "a",
   8: "a",
-  9: "acl"
+  9: "ac"
 };
 
 var indexSectionNames =

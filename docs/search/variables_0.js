@@ -15,6 +15,7 @@ var searchData=
   ['_5fprereleaseversion',['_prereleaseVersion',['../struct_arbiter_semantic_version.html#a4c9e7a3d6669b55029f98cef482f7726',1,'ArbiterSemanticVersion']]],
   ['_5fproject',['_project',['../struct_arbiter_resolved_dependency.html#a2f3abc0c734ca77e89630294451609de',1,'ArbiterResolvedDependency']]],
   ['_5fprojectidentifier',['_projectIdentifier',['../struct_arbiter_dependency.html#a6d689040e0aad5aa5f77c956de9123e0',1,'ArbiterDependency']]],
+  ['_5frequirements',['_requirements',['../class_arbiter_1_1_requirement_1_1_compound.html#afc5a3f5ad265e2163026ad7a0a256aa0',1,'Arbiter::Requirement::Compound']]],
   ['_5fsemanticversion',['_semanticVersion',['../struct_arbiter_selected_version.html#a7440b93a72fd6d0646c3df0709936ea8',1,'ArbiterSelectedVersion']]],
   ['_5fstrictness',['_strictness',['../class_arbiter_1_1_requirement_1_1_compatible_with.html#aeebab6823ceef5aaa58b5d5ec5805d94',1,'Arbiter::Requirement::CompatibleWith']]],
   ['_5fvalue',['_value',['../struct_arbiter_project_identifier.html#a86429cc4755c14bc209df117bc0e2a2e',1,'ArbiterProjectIdentifier']]],

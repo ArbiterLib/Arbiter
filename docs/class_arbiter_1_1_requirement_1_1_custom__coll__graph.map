@@ -1,0 +1,4 @@
+<map id="Arbiter::Requirement::Custom" name="Arbiter::Requirement::Custom">
+<area shape="rect" id="node2" href="$struct_arbiter_requirement.html" title="Represents a requirement for a specific version or set of versions. " alt="" coords="9,79,146,104"/>
+<area shape="rect" id="node3" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="28,5,127,31"/>
+</map>

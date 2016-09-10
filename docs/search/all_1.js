@@ -13,6 +13,8 @@ var searchData=
   ['arbitercreaterequirementany',['ArbiterCreateRequirementAny',['../include_2arbiter_2_requirement_8h.html#ab8fa853f54f8f3624acec0ed17695c50',1,'Requirement.h']]],
   ['arbitercreaterequirementatleast',['ArbiterCreateRequirementAtLeast',['../include_2arbiter_2_requirement_8h.html#acae406bd4df23195003c8c9ca652aa2b',1,'Requirement.h']]],
   ['arbitercreaterequirementcompatiblewith',['ArbiterCreateRequirementCompatibleWith',['../include_2arbiter_2_requirement_8h.html#a196744216b770334427efb73b264616f',1,'Requirement.h']]],
+  ['arbitercreaterequirementcompound',['ArbiterCreateRequirementCompound',['../include_2arbiter_2_requirement_8h.html#a1f5970c738eb2253fb1e6a9af2831719',1,'Requirement.h']]],
+  ['arbitercreaterequirementcustom',['ArbiterCreateRequirementCustom',['../include_2arbiter_2_requirement_8h.html#af0cf9c0c5df81763d0c6249e7fe6a40d',1,'Requirement.h']]],
   ['arbitercreaterequirementexactly',['ArbiterCreateRequirementExactly',['../include_2arbiter_2_requirement_8h.html#a567222f500e84283df815ec0ba4f1cfb',1,'Requirement.h']]],
   ['arbitercreateresolveddependency',['ArbiterCreateResolvedDependency',['../include_2arbiter_2_dependency_8h.html#a2f90aa87b11cf22b3c32c2856d4128ad',1,'Dependency.h']]],
   ['arbitercreateresolver',['ArbiterCreateResolver',['../include_2arbiter_2_resolver_8h.html#a20607e85a4aaa0838293dd764bf38cdf',1,'Resolver.h']]],
@@ -34,7 +36,8 @@ var searchData=
   ['arbiterprojectidentifier',['ArbiterProjectIdentifier',['../struct_arbiter_project_identifier.html',1,'ArbiterProjectIdentifier'],['../struct_arbiter_project_identifier.html#aae2ae2fdf64117cb99a0190f578703a3',1,'ArbiterProjectIdentifier::ArbiterProjectIdentifier()'],['../struct_arbiter_project_identifier.html#a8c28e3259150288a9be44d39a998cb79',1,'ArbiterProjectIdentifier::ArbiterProjectIdentifier(Value value)']]],
   ['arbiterprojectidentifiervalue',['ArbiterProjectIdentifierValue',['../include_2arbiter_2_dependency_8h.html#ae9a49ddf74167ba7df7f03ce05df116a',1,'Dependency.h']]],
   ['arbiterrequirement',['ArbiterRequirement',['../struct_arbiter_requirement.html',1,'']]],
-  ['arbiterrequirementsatisfiedby',['ArbiterRequirementSatisfiedBy',['../include_2arbiter_2_requirement_8h.html#a8e4ce8bcb901efe413c83785c02c049f',1,'Requirement.h']]],
+  ['arbiterrequirementpredicate',['ArbiterRequirementPredicate',['../include_2arbiter_2_requirement_8h.html#afa81b24c28ce073667df8c844b700cd6',1,'Requirement.h']]],
+  ['arbiterrequirementsatisfiedby',['ArbiterRequirementSatisfiedBy',['../include_2arbiter_2_requirement_8h.html#ae6a0b05f1993df00f77bbe5f6b19b1f1',1,'Requirement.h']]],
   ['arbiterrequirementstrictness',['ArbiterRequirementStrictness',['../include_2arbiter_2_requirement_8h.html#a11ce26a584153a37e54d73ed50088fe5',1,'Requirement.h']]],
   ['arbiterrequirementstrictnessallowversionzeropatches',['ArbiterRequirementStrictnessAllowVersionZeroPatches',['../include_2arbiter_2_requirement_8h.html#a11ce26a584153a37e54d73ed50088fe5ad264b77b9ac0379e76d14b6d56570199',1,'Requirement.h']]],
   ['arbiterrequirementstrictnessstrict',['ArbiterRequirementStrictnessStrict',['../include_2arbiter_2_requirement_8h.html#a11ce26a584153a37e54d73ed50088fe5ae9aebd3157b7010f3b6e438a9f022c27',1,'Requirement.h']]],
@@ -61,6 +64,6 @@ var searchData=
   ['atleast',['AtLeast',['../class_arbiter_1_1_requirement_1_1_at_least.html#a73c21686e5e593b532b8c61328f71ba1',1,'Arbiter::Requirement::AtLeast']]],
   ['availableversionssatisfying',['availableVersionsSatisfying',['../struct_arbiter_resolver.html#aa86e4d0ed05739bd3ca8d3d62d99e769',1,'ArbiterResolver']]],
   ['exception',['Exception',['../namespace_arbiter_1_1_exception.html',1,'Arbiter']]],
-  ['arbiter',['Arbiter',['../index.html',1,'']]],
+  ['arbiter_20_5b_21_5bbuild_20status_5d_28https_3a_2f_2ftravis_2dci_2eorg_2fjspahrsummers_2farbiter_2esvg_3fbranch_3dmaster_29_5d_28https_3a_2f_2ftravis_2dci_2eorg_2fjspahrsummers_2farbiter_29',['Arbiter [![Build Status](https://travis-ci.org/jspahrsummers/Arbiter.svg?branch=master)](https://travis-ci.org/jspahrsummers/Arbiter)',['../index.html',1,'']]],
   ['requirement',['Requirement',['../namespace_arbiter_1_1_requirement.html',1,'Arbiter']]]
 ];

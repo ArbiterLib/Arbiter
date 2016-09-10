@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['license',['LICENSE',['../md_LICENSE.html',1,'']]]
+  ['swift_20bindings',['Swift bindings',['../index.html',1,'']]]
 ];

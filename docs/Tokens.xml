@@ -156,6 +156,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>ArbiterRequirementPredicate</Name>
+      <APILanguage>c</APILanguage>
+      <Type>tdef</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_requirement_8h.html</Path>
+    <Anchor>afa81b24c28ce073667df8c844b700cd6</Anchor>
+    <Abstract>A predicate used to determine whether the given version suitably satisfies the requirement. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterCreateRequirementAny</Name>
       <APILanguage>c</APILanguage>
       <Type>func</Type>
@@ -189,6 +200,28 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>ArbiterCreateRequirementCompound</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_requirement_8h.html</Path>
+    <Anchor>a1f5970c738eb2253fb1e6a9af2831719</Anchor>
+    <Abstract>Creates a compound requirement that evaluates each of a list of requirements. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterCreateRequirementCustom</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_requirement_8h.html</Path>
+    <Anchor>af0cf9c0c5df81763d0c6249e7fe6a40d</Anchor>
+    <Abstract>Creates a requirement which will evaluate a custom predicate whenever a specific version is checked a...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterCreateRequirementExactly</Name>
       <APILanguage>c</APILanguage>
       <Type>func</Type>
@@ -205,7 +238,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>include_2arbiter_2_requirement_8h.html</Path>
-    <Anchor>a8e4ce8bcb901efe413c83785c02c049f</Anchor>
+    <Anchor>ae6a0b05f1993df00f77bbe5f6b19b1f1</Anchor>
     <Abstract>Determines whether the given requirement is satisfied by the given version. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -619,13 +652,6 @@
       <APILanguage>markdown</APILanguage>
     </TokenIdentifier>
     <Path>md_CONTRIBUTING.html</Path>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>md_LICENSE</Name>
-      <APILanguage>markdown</APILanguage>
-    </TokenIdentifier>
-    <Path>md_LICENSE.html</Path>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1083,8 +1109,8 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>aec26c2d8f8ace95bcaebde074c93b50f</Anchor>
-    <Abstract>Returns whether this requirement would be satisfied by using the given version. </Abstract>
+    <Anchor>a28f4d9ff44f8e741b0665905fcba3db5</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3039,8 +3065,19 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>a2bfb9b5f16f6d0cea148015daa662fbf</Anchor>
-    <Abstract>Returns whether this requirement would be satisfied by using the given version. </Abstract>
+    <Anchor>a89919e2e8d6126a4b3d163ff12b29ca3</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Any</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
+    <Anchor>a8328430fa3dad5e3f872cc11b1788ee4</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3151,8 +3188,19 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>ae5deff9851d560548803cbc2b7dd1c7c</Anchor>
-    <Abstract>Returns whether this requirement would be satisfied by using the given version. </Abstract>
+    <Anchor>ae550935a0343eec16282413de82a1f45</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::AtLeast</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
+    <Anchor>a3973c2f64e0ce6acb8d8263861b81f1f</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3273,8 +3321,19 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>ae2f335aa8f68d6ae87d498f643f12cea</Anchor>
-    <Abstract>Returns whether this requirement would be satisfied by using the given version. </Abstract>
+    <Anchor>a153927c3dde08508d8e62816dee8bf0f</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::CompatibleWith</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
+    <Anchor>af5e7b6058c7f3602379a95126066b5c7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3299,13 +3358,245 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Arbiter::Requirement::Compound</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Compound</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>ac378b888c578ffac68b0f26afc28fdc8</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clone</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>ae568ecaebab12a5b78fbea9476a60000</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>cloneRequirement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>describe</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>a87afe6c1adbf67c54c3bfd49a29c2d3b</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>hash</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>a97d54d3bc88ac054a6c1147ec6293a5a</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>intersect</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>a3ff5866b9c0dd8b0acc166c3f835bac2</Anchor>
+    <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator!=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Base</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_base.html</Path>
+    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <DeclaredIn>Types.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>a47ea96009174d1dd125b97311b381c1d</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>a8b724f58419e45d7469a00c683af063f</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>_requirements</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>afc5a3f5ad265e2163026ad7a0a256aa0</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Arbiter::Requirement::Custom</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Custom</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <Anchor>a86495a3962b2f3d6aa3134b172a23823</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clone</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <Anchor>a578a93d94bb73c8ed3d9974ff09a91f4</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>cloneRequirement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>describe</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <Anchor>a1ec62b6b6e77d9527847474ec616715f</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>hash</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <Anchor>a6d6c98cf1f40e906cd9108f39d702a8c</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>intersect</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <Anchor>a7a4d4db633b995055403fbffbfedb946</Anchor>
+    <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator!=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Base</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_base.html</Path>
+    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <DeclaredIn>Types.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <Anchor>a67aa9e0b735364f13fa7932bea78db76</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Custom</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
+    <Anchor>ab9ed988583b26f951969cdbadb3f7229</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>Arbiter::Requirement::Exactly</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Abstract>A requirement satisfied only by one exact version. </Abstract>
+    <Abstract>A requirement satisfied only by one particular semantic version. </Abstract>
     <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3405,8 +3696,19 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>ae8edbb1d836966b7b5f1264a135c7ad3</Anchor>
-    <Abstract>Returns whether this requirement would be satisfied by using the given version. </Abstract>
+    <Anchor>a14846d1058a6d5d01dc27fbc21a6f66e</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Exactly</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
+    <Anchor>a6d62046d0fc031218ee055e85d84e135</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>

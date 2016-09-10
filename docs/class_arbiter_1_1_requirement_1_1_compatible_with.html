@@ -103,8 +103,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Collaboration diagram for Arbiter::Requirement::CompatibleWith:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_arbiter_1_1_requirement_1_1_compatible_with__coll__graph.svg" width="554" height="263"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_arbiter_1_1_requirement_1_1_compatible_with__coll__graph.svg" width="554" height="263"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -126,9 +125,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a531914803ab5722a848f51b36a866d23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab14d8dd0731c30966efd10f6057991ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#ab14d8dd0731c30966efd10f6057991ce">operator==</a> (const <a class="el" href="class_arbiter_1_1_base.html">Arbiter::Base</a> &amp;other) const  override</td></tr>
 <tr class="separator:ab14d8dd0731c30966efd10f6057991ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2f335aa8f68d6ae87d498f643f12cea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#ae2f335aa8f68d6ae87d498f643f12cea">satisfiedBy</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> &amp;version) const  noexcept override</td></tr>
-<tr class="memdesc:ae2f335aa8f68d6ae87d498f643f12cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this requirement would be satisfied by using the given version.  <a href="#ae2f335aa8f68d6ae87d498f643f12cea">More...</a><br /></td></tr>
-<tr class="separator:ae2f335aa8f68d6ae87d498f643f12cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a153927c3dde08508d8e62816dee8bf0f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#a153927c3dde08508d8e62816dee8bf0f">satisfiedBy</a> (const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> &amp;selectedVersion) const  override</td></tr>
+<tr class="memdesc:a153927c3dde08508d8e62816dee8bf0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether this requirement would be satisfied by using the given selected version.  <a href="#a153927c3dde08508d8e62816dee8bf0f">More...</a><br /></td></tr>
+<tr class="separator:a153927c3dde08508d8e62816dee8bf0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5e7b6058c7f3602379a95126066b5c7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_arbiter_1_1_requirement_1_1_compatible_with.html#af5e7b6058c7f3602379a95126066b5c7">satisfiedBy</a> (const <a class="el" href="struct_arbiter_semantic_version.html">ArbiterSemanticVersion</a> &amp;version) const  noexcept</td></tr>
+<tr class="separator:af5e7b6058c7f3602379a95126066b5c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -140,7 +141,7 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A requirement satisfied only by versions which are "compatible with" the specified one, as defined by SemVer. </p>
 
-<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00107">107</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00114">114</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a02bfcf4d29d86c926d75179a35e9959b"></a>
 <div class="memitem">
@@ -174,7 +175,7 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00113">113</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00120">120</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
 
 </div>
 </div>
@@ -202,7 +203,7 @@ Public Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_arbiter_1_1_base.html#a36499ee4dd9e6821f72b0af03b86b731">Arbiter::Base</a>.</p>
 
-<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00118">118</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00130">130</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
 
 </div>
 </div>
@@ -362,7 +363,37 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae2f335aa8f68d6ae87d498f643f12cea"></a>
+<a class="anchor" id="a153927c3dde08508d8e62816dee8bf0f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Arbiter::Requirement::CompatibleWith::satisfiedBy </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct_arbiter_selected_version.html">ArbiterSelectedVersion</a> &amp;&#160;</td>
+          <td class="paramname"><em>selectedVersion</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether this requirement would be satisfied by using the given selected version. </p>
+
+<p>Implements <a class="el" href="struct_arbiter_requirement.html#a28f4d9ff44f8e741b0665905fcba3db5">ArbiterRequirement</a>.</p>
+
+<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00125">125</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af5e7b6058c7f3602379a95126066b5c7"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -379,14 +410,10 @@ Public Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Returns whether this requirement would be satisfied by using the given version. </p>
-
-<p>Implements <a class="el" href="struct_arbiter_requirement.html#aec26c2d8f8ace95bcaebde074c93b50f">ArbiterRequirement</a>.</p>
 
 </div>
 </div>
@@ -401,7 +428,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00110">110</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00117">117</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
 
 </div>
 </div>
@@ -415,7 +442,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00111">111</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
+<p>Definition at line <a class="el" href="src_2_requirement_8h_source.html#l00118">118</a> of file <a class="el" href="src_2_requirement_8h_source.html">Requirement.h</a>.</p>
 
 </div>
 </div>
@@ -425,7 +452,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Sep 5 2016 23:09:22 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 10 2016 17:20:27 for Arbiter by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
