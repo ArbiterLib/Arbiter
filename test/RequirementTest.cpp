@@ -1,9 +1,12 @@
 #include "Requirement.h"
 
+#include "TestValue.h"
+
 #include "gtest/gtest.h"
 
 using namespace Arbiter;
 using namespace Requirement;
+using namespace Testing;
 
 TEST(RequirementTest, AnyRequirement) {
   Any req;
@@ -11,10 +14,10 @@ TEST(RequirementTest, AnyRequirement) {
   EXPECT_EQ(req, Any());
   EXPECT_NE(req, AtLeast(ArbiterSemanticVersion(1, 2, 3)));
 
-  EXPECT_TRUE(req.satisfiedBy(ArbiterSemanticVersion(0, 0, 0)));
-  EXPECT_TRUE(req.satisfiedBy(ArbiterSemanticVersion(1, 2, 3)));
-  EXPECT_TRUE(req.satisfiedBy(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"))));
-  EXPECT_TRUE(req.satisfiedBy(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild"))));
+  EXPECT_TRUE(req.satisfiedBy(ArbiterSelectedVersion(ArbiterSemanticVersion(0, 0, 0), makeSharedUserValue<ArbiterSelectedVersion, EmptyTestValue>())));
+  EXPECT_TRUE(req.satisfiedBy(ArbiterSelectedVersion(ArbiterSemanticVersion(1, 2, 3), makeSharedUserValue<ArbiterSelectedVersion, EmptyTestValue>())));
+  EXPECT_TRUE(req.satisfiedBy(ArbiterSelectedVersion(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1")), makeSharedUserValue<ArbiterSelectedVersion, EmptyTestValue>())));
+  EXPECT_TRUE(req.satisfiedBy(ArbiterSelectedVersion(ArbiterSemanticVersion(1, 2, 3, makeOptional("alpha.1"), makeOptional("dailybuild")), makeSharedUserValue<ArbiterSelectedVersion, EmptyTestValue>())));
 }
 
 TEST(RequirementTest, AtLeastRequirement) {

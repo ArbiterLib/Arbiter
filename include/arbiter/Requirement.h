@@ -6,9 +6,11 @@ extern "C" {
 #endif
 
 #include <stdbool.h>
+#include <stddef.h>
 
 // forward declarations
 struct ArbiterSemanticVersion;
+struct ArbiterSelectedVersion;
 
 /**
  * How strict to be in matching compatible versions.
@@ -35,6 +37,12 @@ typedef enum
  * Represents a requirement for a specific version or set of versions.
  */
 typedef struct ArbiterRequirement ArbiterRequirement;
+
+/**
+ * A predicate used to determine whether the given version suitably satisfies
+ * the requirement.
+ */
+typedef bool (*ArbiterRequirementPredicate)(const struct ArbiterSelectedVersion *version, const void *context);
 
 /**
  * Creates a requirement which will match any version.
@@ -72,9 +80,32 @@ ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const struct Arbiter
 ArbiterRequirement *ArbiterCreateRequirementExactly (const struct ArbiterSemanticVersion *version);
 
 /**
+ * Creates a requirement which will evaluate a custom predicate whenever
+ * a specific version is checked against it.
+ *
+ * The predicate may be invoked many times during dependency resolution, so it
+ * should not take a long time to complete.
+ *
+ * The returned requirement must be freed with ArbiterFree().
+ */
+// TODO: `context` may need memory management
+ArbiterRequirement *ArbiterCreateRequirementCustom (ArbiterRequirementPredicate predicate, const void *context);
+
+/**
+ * Creates a compound requirement that evaluates each of a list of requirements.
+ * All of the requirements must be satisfied for the compound requirement to be
+ * satisfied.
+ *
+ * The objects in the C array can be safely freed after calling this function.
+ *
+ * The returned requirement must be freed with ArbiterFree().
+ */
+ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement * const *requirements, size_t count);
+
+/**
  * Determines whether the given requirement is satisfied by the given version.
  */
-bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSemanticVersion *version);
+bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSelectedVersion *version);
 
 #ifdef __cplusplus
 }

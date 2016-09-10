@@ -9,6 +9,7 @@
 #include "Types.h"
 #include "Version.h"
 
+#include <cassert>
 #include <memory>
 #include <ostream>
 
@@ -17,9 +18,9 @@ struct ArbiterRequirement : public Arbiter::Base
   public:
     /**
      * Returns whether this requirement would be satisfied by using the given
-     * version.
+     * selected version.
      */
-    virtual bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept = 0;
+    virtual bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const = 0;
 
     /**
      * Attempts to create a requirement which expresses the intersection of this
@@ -47,7 +48,12 @@ namespace Requirement {
 class Any final : public ArbiterRequirement
 {
   public:
-    bool satisfiedBy (const ArbiterSemanticVersion &) const noexcept override
+    bool satisfiedBy (const ArbiterSemanticVersion &) const noexcept
+    {
+      return true;
+    }
+
+    bool satisfiedBy (const ArbiterSelectedVersion &) const override
     {
       return true;
     }
@@ -84,9 +90,9 @@ class AtLeast final : public ArbiterRequirement
       : _minimumVersion(std::move(version))
     {}
 
-    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return version >= _minimumVersion;
+      return satisfiedBy(selectedVersion._semanticVersion);
     }
 
     std::unique_ptr<Base> clone () const override
@@ -94,6 +100,7 @@ class AtLeast final : public ArbiterRequirement
       return std::make_unique<AtLeast>(*this);
     }
 
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
@@ -115,12 +122,17 @@ class CompatibleWith final : public ArbiterRequirement
       , _strictness(strictness)
     {}
 
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
+    {
+      return satisfiedBy(selectedVersion._semanticVersion);
+    }
+
     std::unique_ptr<Base> clone () const override
     {
       return std::make_unique<CompatibleWith>(*this);
     }
 
-    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override;
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
@@ -128,7 +140,7 @@ class CompatibleWith final : public ArbiterRequirement
 };
 
 /**
- * A requirement satisfied only by one exact version.
+ * A requirement satisfied only by one particular semantic version.
  */
 class Exactly final : public ArbiterRequirement
 {
@@ -139,9 +151,9 @@ class Exactly final : public ArbiterRequirement
       : _version(std::move(version))
     {}
 
-    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept override
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return version == _version;
+      return satisfiedBy(selectedVersion._semanticVersion);
     }
 
     std::unique_ptr<Base> clone () const override
@@ -149,9 +161,61 @@ class Exactly final : public ArbiterRequirement
       return std::make_unique<Exactly>(*this);
     }
 
+    bool satisfiedBy (const ArbiterSemanticVersion &version) const noexcept;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    size_t hash () const noexcept override;
+};
+
+class Custom final : public ArbiterRequirement
+{
+  public:
+    explicit Custom (ArbiterRequirementPredicate predicate, const void *context)
+      : _predicate(std::move(predicate))
+      , _context(context)
+    {
+      assert(_predicate);
+    }
+
+    std::ostream &describe (std::ostream &os) const override
+    {
+      return os << "(custom predicate)";
+    }
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Custom>(*this);
+    }
+
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
+
+  private:
+    ArbiterRequirementPredicate _predicate;
+    const void *_context;
+};
+
+class Compound final : public ArbiterRequirement
+{
+  public:
+    std::vector<std::shared_ptr<ArbiterRequirement>> _requirements;
+
+    explicit Compound (std::vector<std::shared_ptr<ArbiterRequirement>> requirements)
+      : _requirements(std::move(requirements))
+    {}
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Compound>(*this);
+    }
+
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
     size_t hash () const noexcept override;
 };
 
