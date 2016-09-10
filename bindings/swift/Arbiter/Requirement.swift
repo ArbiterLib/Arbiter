@@ -4,6 +4,8 @@ public enum Specifier
   case AtLeast(SemanticVersion)
   case CompatibleWith(SemanticVersion, ArbiterRequirementStrictness)
   case Exactly(SemanticVersion)
+  indirect case Compound([Specifier])
+  // TODO: Custom
 }
 
 public final class Requirement : CObject
@@ -24,6 +26,14 @@ public final class Requirement : CObject
 
     case let .Exactly(version):
       ptr = ArbiterCreateRequirementExactly(version.pointer)
+
+    case let .Compound(specifiers):
+      let requirements = specifiers.map { s in Requirement(s) }
+      let requirementPtrs = requirements.map { $0.pointer }
+
+      ptr = requirementPtrs.withUnsafeBufferPointer { buffer in
+        return ArbiterCreateRequirementCompound(buffer.baseAddress, buffer.count)
+      }
     }
 
     self.init(ptr, shouldCopy: false)
