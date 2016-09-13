@@ -92,7 +92,11 @@ class AtLeast final : public ArbiterRequirement
 
     bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return satisfiedBy(selectedVersion._semanticVersion);
+      if (selectedVersion._semanticVersion) {
+        return satisfiedBy(*selectedVersion._semanticVersion);
+      } else {
+        return false;
+      }
     }
 
     std::unique_ptr<Base> clone () const override
@@ -124,7 +128,11 @@ class CompatibleWith final : public ArbiterRequirement
 
     bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return satisfiedBy(selectedVersion._semanticVersion);
+      if (selectedVersion._semanticVersion) {
+        return satisfiedBy(*selectedVersion._semanticVersion);
+      } else {
+        return false;
+      }
     }
 
     std::unique_ptr<Base> clone () const override
@@ -153,7 +161,11 @@ class Exactly final : public ArbiterRequirement
 
     bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return satisfiedBy(selectedVersion._semanticVersion);
+      if (selectedVersion._semanticVersion) {
+        return satisfiedBy(*selectedVersion._semanticVersion);
+      } else {
+        return false;
+      }
     }
 
     std::unique_ptr<Base> clone () const override

@@ -65,10 +65,10 @@ struct ArbiterSelectedVersion final : public Arbiter::Base
   public:
     using Metadata = Arbiter::SharedUserValue<ArbiterSelectedVersion>;
 
-    ArbiterSemanticVersion _semanticVersion;
+    Arbiter::Optional<ArbiterSemanticVersion> _semanticVersion;
     Metadata _metadata;
 
-    ArbiterSelectedVersion (ArbiterSemanticVersion semanticVersion, Metadata metadata)
+    ArbiterSelectedVersion (Arbiter::Optional<ArbiterSemanticVersion> semanticVersion, Metadata metadata)
       : _semanticVersion(std::move(semanticVersion))
       , _metadata(std::move(metadata))
     {}
@@ -77,24 +77,21 @@ struct ArbiterSelectedVersion final : public Arbiter::Base
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
 
-    bool operator< (const ArbiterSelectedVersion &other) const
+    bool operator< (const ArbiterSelectedVersion &other) const;
+
+    bool operator> (const ArbiterSelectedVersion &other) const
     {
-      return _semanticVersion < other._semanticVersion;
+      return other < *this;
     }
 
     bool operator<= (const ArbiterSelectedVersion &other) const
     {
-      return _semanticVersion <= other._semanticVersion;
-    }
-
-    bool operator> (const ArbiterSelectedVersion &other) const
-    {
-      return _semanticVersion > other._semanticVersion;
+      return !(other < *this);
     }
 
     bool operator>= (const ArbiterSelectedVersion &other) const
     {
-      return _semanticVersion >= other._semanticVersion;
+      return !(*this < other);
     }
 };
 
