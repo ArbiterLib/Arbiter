@@ -47,6 +47,11 @@ ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement *
   return new Arbiter::Requirement::Compound(std::move(vec));
 }
 
+ArbiterRequirement *ArbiterCreateRequirementPrioritized (const ArbiterRequirement *baseRequirement, int priorityIndex)
+{
+  return new Arbiter::Requirement::Prioritized(baseRequirement->cloneRequirement(), priorityIndex);
+}
+
 bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)
 {
   return requirement->satisfiedBy(*version);
@@ -253,6 +258,40 @@ struct Intersect<Compound, Other> final
   }
 };
 
+template<>
+struct Intersect<Prioritized, Prioritized> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Prioritized &lhs, const Prioritized &rhs) const
+  {
+    if (lhs._priority < rhs._priority) {
+      return lhs.cloneRequirement();
+    } else if (lhs._priority > rhs._priority) {
+      return rhs.cloneRequirement();
+    } else {
+      return lhs._requirement->intersect(*rhs._requirement);
+    }
+  }
+};
+
+template<typename Other>
+struct Intersect<Prioritized, Other> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Prioritized &prioritized, const Other &other) const
+  {
+    if (prioritized._priority < 0) {
+      return prioritized.cloneRequirement();
+    } else if (prioritized._priority > 0) {
+      return other.cloneRequirement();
+    } else {
+      return prioritized._requirement->intersect(other);
+    }
+  }
+};
+
 const std::type_info &any = typeid(Any);
 const std::type_info &atLeast = typeid(AtLeast);
 const std::type_info &compatibleWith = typeid(CompatibleWith);
@@ -260,6 +299,7 @@ const std::type_info &exactly = typeid(Exactly);
 const std::type_info &unversioned = typeid(Unversioned);
 const std::type_info &custom = typeid(Custom);
 const std::type_info &compound = typeid(Compound);
+const std::type_info &prioritized = typeid(Prioritized);
 
 template<typename Left>
 std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const ArbiterRequirement &rhs)
@@ -278,6 +318,8 @@ std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const Arbite
     return Intersect<Left, Custom>()(lhs, dynamic_cast<const Custom &>(rhs));
   } else if (typeid(rhs) == compound) {
     return Intersect<Left, Compound>()(lhs, dynamic_cast<const Compound &>(rhs));
+  } else if (typeid(rhs) == prioritized) {
+    return Intersect<Left, Prioritized>()(lhs, dynamic_cast<const Prioritized &>(rhs));
   } else {
     throw std::invalid_argument("Unrecognized type for requirement: " + toString(rhs));
   }
@@ -488,6 +530,36 @@ void Compound::visit (Visitor &visitor) const
   }
 }
 
+bool Prioritized::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  return _requirement->satisfiedBy(selectedVersion);
+}
+
+std::ostream &Prioritized::describe (std::ostream &os) const
+{
+  return os << *_requirement << " (priority " << _priority << ")";
+}
+
+bool Prioritized::operator== (const Arbiter::Base &other) const
+{
+  if (auto *ptr = dynamic_cast<const Prioritized *>(&other)) {
+    return *_requirement == *ptr->_requirement && _priority == ptr->_priority;
+  } else {
+    return false;
+  }
+}
+
+size_t Prioritized::hash () const noexcept
+{
+  return hashOf(*_requirement) ^ hashOf(_priority);
+}
+
+void Prioritized::visit (Visitor &visitor) const
+{
+  ArbiterRequirement::visit(visitor);
+  _requirement->visit(visitor);
+}
+
 std::unique_ptr<ArbiterRequirement> Any::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Any>(*this, rhs);
@@ -521,6 +593,11 @@ std::unique_ptr<ArbiterRequirement> Custom::intersect (const ArbiterRequirement 
 std::unique_ptr<ArbiterRequirement> Compound::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Compound>(*this, rhs);
+}
+
+std::unique_ptr<ArbiterRequirement> Prioritized::intersect (const ArbiterRequirement &rhs) const
+{
+  return intersectRight<Prioritized>(*this, rhs);
 }
 
 } // namespace Requirement

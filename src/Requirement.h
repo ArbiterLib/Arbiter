@@ -284,6 +284,30 @@ class Compound final : public ArbiterRequirement
     void visit (Visitor &visitor) const override;
 };
 
+class Prioritized final : public ArbiterRequirement
+{
+  public:
+    std::shared_ptr<ArbiterRequirement> _requirement;
+    int _priority;
+
+    explicit Prioritized (std::shared_ptr<ArbiterRequirement> requirement, int priority)
+      : _requirement(std::move(requirement))
+      , _priority(priority)
+    {}
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Prioritized>(*this);
+    }
+
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
+    void visit (Visitor &visitor) const override;
+};
+
 } // namespace Requirement
 } // namespace Arbiter
 
