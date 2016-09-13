@@ -192,7 +192,7 @@ TEST(ResolverTest, ResolvesPrioritizedUnversionedRequirements)
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(makeProjectIdentifier("ancestor"), makeUnversionedRequirement("ancestor-branch"));
   dependencies.emplace_back(makeProjectIdentifier("middle"), makePrioritizedRequirement(makeUnversionedRequirement("middle-branch"), -1));
-  dependencies.emplace_back(makeProjectIdentifier("leaf"), makePrioritizedRequirement(makeUnversionedRequirement("this-will-be-discarded"), 1));
+  dependencies.emplace_back(makeProjectIdentifier("parent"), makePrioritizedRequirement(Requirement::CompatibleWith(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessStrict), 1));
 
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
