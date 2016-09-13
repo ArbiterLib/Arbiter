@@ -45,6 +45,13 @@ struct ArbiterResolver final : public Arbiter::Base
     ArbiterSelectedVersionList fetchAvailableVersions (const ArbiterProjectIdentifier &project) noexcept(false);
 
     /**
+     * Fetches a selected version for the given metadata string.
+     *
+     * Returns the selected version if found, or else None.
+     */
+    Arbiter::Optional<ArbiterSelectedVersion> fetchSelectedVersionForMetadata (const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata);
+
+    /**
      * Computes a list of available versions for the specified project which
      * satisfy the given requirement.
      */

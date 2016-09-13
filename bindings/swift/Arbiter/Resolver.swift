@@ -13,12 +13,18 @@ public class ResolverBase: CObject {
   {
     preconditionFailure("Must be overridden by subclasses")
   }
+
+  private func createSelectedVersionForMetadata (metadata: UnsafePointer<Void>) -> COpaquePointer
+  {
+    preconditionFailure("Must be overridden by subclasses")
+  }
 }
 
 public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: ArbiterValue> : ResolverBase
 {
   public typealias ListDependencies = (Resolver, ProjectIdentifier<ProjectValue>, SelectedVersion<VersionMetadata>) throws -> DependencyList<ProjectValue>
   public typealias ListAvailableVersions = (Resolver, ProjectIdentifier<ProjectValue>) throws -> SelectedVersionList<VersionMetadata>
+  public typealias SelectedVersionForMetadata = VersionMetadata -> SelectedVersion<VersionMetadata>?
 
   public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
   {
@@ -28,7 +34,7 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (dependencies: DependencyList<ProjectValue>, listDependencies: ListDependencies, listAvailableVersions: ListAvailableVersions)
+  public convenience init (dependencies: DependencyList<ProjectValue>, listDependencies: ListDependencies, listAvailableVersions: ListAvailableVersions, selectedVersionForMetadata: SelectedVersionForMetadata? = nil)
   {
     // This has to be initialized in two steps, because we need a reference to
     // `self` in order to create the ArbiterResolver pointer.
@@ -36,7 +42,8 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
 
     let behaviors = ArbiterResolverBehaviors(
       createDependencyList: createDependencyListBehavior,
-      createAvailableVersionsList: createAvailableVersionsListBehavior)
+      createAvailableVersionsList: createAvailableVersionsListBehavior,
+      createSelectedVersionForMetadata: createSelectedVersionForMetadataBehavior)
 
     let context = Unmanaged.passUnretained(self).toOpaque()
     _pointer = ArbiterCreateResolver(behaviors, dependencies.pointer, UnsafePointer<Void>(context))
@@ -70,8 +77,22 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
     }
   }
 
+  private override func createSelectedVersionForMetadata (metadata: UnsafePointer<Void>) -> COpaquePointer
+  {
+    guard let selectedVersionForMetadata = selectedVersionForMetadata else {
+      return nil
+    }
+
+    if let version = selectedVersionForMetadata(VersionMetadata.fromUserValue(metadata)) {
+      return version.takeOwnership()
+    } else {
+      return nil
+    }
+  }
+
   private let listDependencies: ListDependencies! = nil
   private let listAvailableVersions: ListAvailableVersions! = nil
+  private let selectedVersionForMetadata: SelectedVersionForMetadata? = nil
 }
 
 private func createDependencyListBehavior (resolver: COpaquePointer, project: COpaquePointer, selectedVersion: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
@@ -84,4 +105,10 @@ private func createAvailableVersionsListBehavior (resolver: COpaquePointer, proj
 {
   let context = COpaquePointer(ArbiterResolverContext(resolver))
   return Unmanaged<ResolverBase>.fromOpaque(context).takeUnretainedValue().createAvailableVersionsList(project, error: error)
+}
+
+private func createSelectedVersionForMetadataBehavior (resolver: COpaquePointer, metadata: UnsafePointer<Void>) -> COpaquePointer
+{
+  let context = COpaquePointer(ArbiterResolverContext(resolver))
+  return Unmanaged<ResolverBase>.fromOpaque(context).takeUnretainedValue().createSelectedVersionForMetadata(metadata)
 }

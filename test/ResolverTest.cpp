@@ -103,9 +103,7 @@ const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyGr
 } // namespace
 
 TEST(ResolverTest, ResolvesEmptyDependencies) {
-  ArbiterResolverBehaviors behaviors;
-  behaviors.createDependencyList = &createEmptyDependencyList;
-  behaviors.createAvailableVersionsList = &createEmptyAvailableVersionsList;
+  ArbiterResolverBehaviors behaviors{&createEmptyDependencyList, &createEmptyAvailableVersionsList, nullptr};
 
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(), nullptr);
 
@@ -116,9 +114,7 @@ TEST(ResolverTest, ResolvesEmptyDependencies) {
 }
 
 TEST(ResolverTest, ResolvesOneDependency) {
-  ArbiterResolverBehaviors behaviors;
-  behaviors.createDependencyList = &createEmptyDependencyList;
-  behaviors.createAvailableVersionsList = &createMajorVersionsList;
+  ArbiterResolverBehaviors behaviors{&createEmptyDependencyList, &createMajorVersionsList, nullptr};
 
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(emptyProjectIdentifier(), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 0)));
@@ -134,9 +130,7 @@ TEST(ResolverTest, ResolvesOneDependency) {
 
 TEST(ResolverTest, ResolvesMultipleDependencies)
 {
-  ArbiterResolverBehaviors behaviors;
-  behaviors.createDependencyList = &createEmptyDependencyList;
-  behaviors.createAvailableVersionsList = &createMajorVersionsList;
+  ArbiterResolverBehaviors behaviors{&createEmptyDependencyList, &createMajorVersionsList, nullptr};
 
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(makeProjectIdentifier("B"), Requirement::CompatibleWith(ArbiterSemanticVersion(2, 0, 0), ArbiterRequirementStrictnessStrict));
@@ -155,9 +149,7 @@ TEST(ResolverTest, ResolvesMultipleDependencies)
 
 TEST(ResolverTest, ResolvesTransitiveDependencies)
 {
-  ArbiterResolverBehaviors behaviors;
-  behaviors.createDependencyList = &createTransitiveDependencyList;
-  behaviors.createAvailableVersionsList = &createVariedVersionsList;
+  ArbiterResolverBehaviors behaviors{&createTransitiveDependencyList, &createVariedVersionsList, nullptr};
 
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(makeProjectIdentifier("ancestor"), Requirement::Exactly(ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha"))));
