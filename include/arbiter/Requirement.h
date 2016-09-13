@@ -132,6 +132,12 @@ ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement *
  * which case it makes sense to disable some semantic version requirements in
  * the dependency graph.
  *
+ * _Note:_ prioritized requirements may be used to filter the list of available
+ * versions, even if they are lower priority than the default and may get
+ * discarded. This means that requirements should avoid rejecting valid versions
+ * for the project being considered, or else an unsatisfiable constraints error
+ * may result.
+ *
  * baseRequirement - A requirement specifying which versions will satisfy the
  *                   new requirement. Must not be NULL.
  * priorityIndex   - A "priority index" for the new requirement. Lower numbers
