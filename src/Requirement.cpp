@@ -57,6 +57,11 @@ std::unique_ptr<ArbiterRequirement> ArbiterRequirement::cloneRequirement () cons
   return std::unique_ptr<ArbiterRequirement>(dynamic_cast<ArbiterRequirement *>(clone().release()));
 }
 
+void ArbiterRequirement::visit (Arbiter::Requirement::Visitor &visitor) const
+{
+  visitor(*this);
+}
+
 namespace Arbiter {
 namespace Requirement {
 
@@ -472,6 +477,15 @@ size_t Compound::hash () const noexcept
   }
 
   return value;
+}
+
+void Compound::visit (Visitor &visitor) const
+{
+  ArbiterRequirement::visit(visitor);
+
+  for (const auto &requirement : _requirements) {
+    requirement->visit(visitor);
+  }
 }
 
 std::unique_ptr<ArbiterRequirement> Any::intersect (const ArbiterRequirement &rhs) const

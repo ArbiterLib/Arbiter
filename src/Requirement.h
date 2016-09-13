@@ -13,6 +13,14 @@
 #include <memory>
 #include <ostream>
 
+namespace Arbiter {
+namespace Requirement {
+
+class Visitor;
+
+} // namespace Requirement
+} // namespace Arbiter
+
 struct ArbiterRequirement : public Arbiter::Base
 {
   public:
@@ -35,12 +43,30 @@ struct ArbiterRequirement : public Arbiter::Base
      */
     virtual std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const = 0;
 
+    /**
+     * Visits the requirement, then any child requirements.
+     *
+     * The default implementation simply visits this requirement.
+     */
+    virtual void visit (Arbiter::Requirement::Visitor &visitor) const;
+
     std::unique_ptr<ArbiterRequirement> cloneRequirement () const;
     virtual size_t hash () const noexcept = 0;
 };
 
 namespace Arbiter {
 namespace Requirement {
+
+/**
+ * Base class for objects that want to visit requirements.
+ */
+class Visitor
+{
+  public:
+    virtual ~Visitor () = default;
+
+    virtual void operator() (const ArbiterRequirement &requirement) = 0;
+};
 
 /**
  * A requirement satisfied by any version.
@@ -255,6 +281,7 @@ class Compound final : public ArbiterRequirement
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
     size_t hash () const noexcept override;
+    void visit (Visitor &visitor) const override;
 };
 
 } // namespace Requirement
