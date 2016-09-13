@@ -48,6 +48,17 @@ ArbiterProjectIdentifier makeProjectIdentifier (std::string name)
   return ArbiterProjectIdentifier(makeSharedUserValue<ArbiterProjectIdentifier, StringTestValue>(std::move(name)));
 }
 
+Requirement::Unversioned makeUnversionedRequirement (std::string name)
+{
+  return Requirement::Unversioned(makeSharedUserValue<ArbiterSelectedVersion, StringTestValue>(std::move(name)));
+}
+
+template<typename Req>
+Requirement::Prioritized makePrioritizedRequirement (const Req &innerRequirement, int priority)
+{
+  return Requirement::Prioritized(innerRequirement.cloneRequirement(), priority);
+}
+
 ArbiterSelectedVersionList *createVariedVersionsList (const ArbiterResolver *resolver, const ArbiterProjectIdentifier *project, char **error)
 {
   if (*project == makeProjectIdentifier("leaf_majors_only")) {
@@ -82,6 +93,12 @@ ArbiterDependencyList *createTransitiveDependencyList (const ArbiterResolver *, 
   }
 
   return new ArbiterDependencyList(std::move(dependencies));
+}
+
+ArbiterSelectedVersion *createSelectedVersionForMetadata (const ArbiterResolver *, const void *metadata)
+{
+  const auto &testValue = fromUserValue<StringTestValue>(metadata);
+  return new ArbiterSelectedVersion(None(), makeSharedUserValue<ArbiterSelectedVersion, StringTestValue>(testValue._str));
 }
 
 const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyGraph &graph, size_t depthIndex, const std::string &name)
@@ -162,6 +179,28 @@ TEST(ResolverTest, ResolvesTransitiveDependencies)
   EXPECT_EQ(resolved.count(), 6);
   EXPECT_EQ(findResolved(resolved, 2, "ancestor")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha"))));
   EXPECT_EQ(findResolved(resolved, 1, "middle")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 3, 0)));
+  EXPECT_EQ(findResolved(resolved, 1, "parent")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 3, 0)));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(0, 2, 3)));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf_majors_only")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 0, 0)));
+  EXPECT_EQ(findResolved(resolved, 0, "leaf_dailybuild")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild"))));
+}
+
+TEST(ResolverTest, ResolvesPrioritizedUnversionedRequirements)
+{
+  ArbiterResolverBehaviors behaviors{&createTransitiveDependencyList, &createVariedVersionsList, &createSelectedVersionForMetadata};
+
+  std::vector<ArbiterDependency> dependencies;
+  dependencies.emplace_back(makeProjectIdentifier("ancestor"), makeUnversionedRequirement("ancestor-branch"));
+  dependencies.emplace_back(makeProjectIdentifier("middle"), makePrioritizedRequirement(makeUnversionedRequirement("middle-branch"), -1));
+  dependencies.emplace_back(makeProjectIdentifier("leaf"), makePrioritizedRequirement(makeUnversionedRequirement("this-will-be-discarded"), 1));
+
+  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
+
+  ArbiterResolvedDependencyGraph resolved = resolver.resolve();
+  ASSERT_EQ(resolved.depth(), 3);
+  EXPECT_EQ(resolved.count(), 6);
+  EXPECT_EQ(findResolved(resolved, 2, "ancestor")._version, ArbiterSelectedVersion(None(), makeSharedUserValue<ArbiterSelectedVersion, StringTestValue>("ancestor-branch")));
+  EXPECT_EQ(findResolved(resolved, 1, "middle")._version, ArbiterSelectedVersion(None(), makeSharedUserValue<ArbiterSelectedVersion, StringTestValue>("middle-branch")));
   EXPECT_EQ(findResolved(resolved, 1, "parent")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 3, 0)));
   EXPECT_EQ(findResolved(resolved, 0, "leaf")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(0, 2, 3)));
   EXPECT_EQ(findResolved(resolved, 0, "leaf_majors_only")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 0, 0)));
