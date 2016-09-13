@@ -180,6 +180,32 @@ class Exactly final : public ArbiterRequirement
     size_t hash () const noexcept override;
 };
 
+class Unversioned final : public ArbiterRequirement
+{
+  public:
+    // This metadata is not really part of the requirement type; it is
+    // associated with the selected version.
+    using Metadata = Arbiter::SharedUserValue<ArbiterSelectedVersion>;
+
+    Metadata _metadata;
+
+    explicit Unversioned (Metadata metadata)
+      : _metadata(std::move(metadata))
+    {}
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Unversioned>(*this);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
+
+};
+
 class Custom final : public ArbiterRequirement
 {
   public:

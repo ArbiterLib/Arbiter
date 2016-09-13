@@ -25,6 +25,11 @@ ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersio
   return new Arbiter::Requirement::Exactly(*version);
 }
 
+ArbiterRequirement *ArbiterCreateRequirementUnversioned (ArbiterUserValue metadata)
+{
+  return new Arbiter::Requirement::Unversioned(Arbiter::Requirement::Unversioned::Metadata(metadata));
+}
+
 ArbiterRequirement *ArbiterCreateRequirementCustom (ArbiterRequirementPredicate predicate, const void *context)
 {
   return new Arbiter::Requirement::Custom(std::move(predicate), context);
@@ -186,6 +191,22 @@ struct Intersect<Exactly, Exactly> final
 };
 
 template<typename Other>
+struct Intersect<Unversioned, Other> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Unversioned &unversioned, const Other &other) const
+  {
+    std::vector<std::shared_ptr<ArbiterRequirement>> requirements = {
+      std::shared_ptr<ArbiterRequirement>(other.cloneRequirement()),
+      std::shared_ptr<ArbiterRequirement>(unversioned.cloneRequirement())
+    };
+
+    return std::make_unique<Compound>(std::move(requirements));
+  }
+};
+
+template<typename Other>
 struct Intersect<Custom, Other> final
 {
   using Result = std::unique_ptr<ArbiterRequirement>;
@@ -231,6 +252,7 @@ const std::type_info &any = typeid(Any);
 const std::type_info &atLeast = typeid(AtLeast);
 const std::type_info &compatibleWith = typeid(CompatibleWith);
 const std::type_info &exactly = typeid(Exactly);
+const std::type_info &unversioned = typeid(Unversioned);
 const std::type_info &custom = typeid(Custom);
 const std::type_info &compound = typeid(Compound);
 
@@ -245,6 +267,8 @@ std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const Arbite
     return Intersect<Left, CompatibleWith>()(lhs, dynamic_cast<const CompatibleWith &>(rhs));
   } else if (typeid(rhs) == exactly) {
     return Intersect<Left, Exactly>()(lhs, dynamic_cast<const Exactly &>(rhs));
+  } else if (typeid(rhs) == unversioned) {
+    return Intersect<Left, Unversioned>()(lhs, dynamic_cast<const Unversioned &>(rhs));
   } else if (typeid(rhs) == custom) {
     return Intersect<Left, Custom>()(lhs, dynamic_cast<const Custom &>(rhs));
   } else if (typeid(rhs) == compound) {
@@ -361,6 +385,30 @@ std::ostream &Exactly::describe (std::ostream &os) const
   return os << "==" << _version;
 }
 
+std::ostream &Unversioned::describe (std::ostream &os) const
+{
+  return os << "unversioned (" << _metadata << ")";
+}
+
+bool Unversioned::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  return selectedVersion._metadata == _metadata;
+}
+
+bool Unversioned::operator== (const Arbiter::Base &other) const
+{
+  if (auto *ptr = dynamic_cast<const Unversioned *>(&other)) {
+    return _metadata == ptr->_metadata;
+  } else {
+    return false;
+  }
+}
+
+size_t Unversioned::hash () const noexcept
+{
+  return hashOf(_metadata);
+}
+
 bool Custom::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
 {
   return _predicate(&selectedVersion, _context);
@@ -444,6 +492,11 @@ std::unique_ptr<ArbiterRequirement> CompatibleWith::intersect (const ArbiterRequ
 std::unique_ptr<ArbiterRequirement> Exactly::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Exactly>(*this, rhs);
+}
+
+std::unique_ptr<ArbiterRequirement> Unversioned::intersect (const ArbiterRequirement &rhs) const
+{
+  return intersectRight<Unversioned>(*this, rhs);
 }
 
 std::unique_ptr<ArbiterRequirement> Custom::intersect (const ArbiterRequirement &rhs) const
