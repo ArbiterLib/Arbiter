@@ -3,6 +3,8 @@
 #include "Hash.h"
 #include "ToString.h"
 
+#include <algorithm>
+#include <limits>
 #include <typeinfo>
 
 ArbiterRequirement *ArbiterCreateRequirementAny (void)
@@ -55,6 +57,11 @@ ArbiterRequirement *ArbiterCreateRequirementPrioritized (const ArbiterRequiremen
 bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)
 {
   return requirement->satisfiedBy(*version);
+}
+
+int ArbiterRequirementPriority (const ArbiterRequirement *requirement)
+{
+  return requirement->priority();
 }
 
 std::unique_ptr<ArbiterRequirement> ArbiterRequirement::cloneRequirement () const
@@ -252,26 +259,13 @@ struct Intersect<Compound, Other> final
 
   Result operator() (const Compound &compound, const Other &other) const
   {
+    if (other.priority() < compound.priority()) {
+      return other.cloneRequirement();
+    }
+
     std::vector<std::shared_ptr<ArbiterRequirement>> requirements = compound._requirements;
     requirements.emplace_back(other.cloneRequirement());
     return std::make_unique<Compound>(std::move(requirements));
-  }
-};
-
-template<>
-struct Intersect<Prioritized, Prioritized> final
-{
-  using Result = std::unique_ptr<ArbiterRequirement>;
-
-  Result operator() (const Prioritized &lhs, const Prioritized &rhs) const
-  {
-    if (lhs._priority < rhs._priority) {
-      return lhs.cloneRequirement();
-    } else if (lhs._priority > rhs._priority) {
-      return rhs.cloneRequirement();
-    } else {
-      return lhs._requirement->intersect(*rhs._requirement);
-    }
   }
 };
 
@@ -282,9 +276,9 @@ struct Intersect<Prioritized, Other> final
 
   Result operator() (const Prioritized &prioritized, const Other &other) const
   {
-    if (prioritized._priority < 0) {
+    if (prioritized.priority() < other.priority()) {
       return prioritized.cloneRequirement();
-    } else if (prioritized._priority > 0) {
+    } else if (prioritized.priority() > other.priority()) {
       return other.cloneRequirement();
     } else {
       return prioritized._requirement->intersect(other);
@@ -477,7 +471,16 @@ size_t Custom::hash () const noexcept
 
 bool Compound::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
 {
+  int minimumPriority = priority();
+
   for (const auto &requirement : _requirements) {
+    // Ignore any requirements which have a higher priority index (i.e., lower
+    // priority) than the minimum, because they would normally get discarded
+    // during intersection.
+    if (requirement->priority() > minimumPriority) {
+      continue;
+    }
+
     if (!requirement->satisfiedBy(selectedVersion)) {
       return false;
     }
@@ -528,6 +531,17 @@ void Compound::visit (Visitor &visitor) const
   for (const auto &requirement : _requirements) {
     requirement->visit(visitor);
   }
+}
+
+int Compound::priority () const noexcept
+{
+  int minimum = std::numeric_limits<int>::max();
+
+  for (const auto &requirement : _requirements) {
+    minimum = std::min(minimum, requirement->priority());
+  }
+  
+  return minimum;
 }
 
 bool Prioritized::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const

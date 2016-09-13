@@ -150,6 +150,12 @@ ArbiterRequirement *ArbiterCreateRequirementPrioritized (const ArbiterRequiremen
  */
 bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSelectedVersion *version);
 
+/**
+ * Returns the priority of the given requirement. See
+ * ArbiterCreateRequirementPrioritized() for more information.
+ */
+int ArbiterRequirementPriority (const ArbiterRequirement *requirement);
+
 #ifdef __cplusplus
 }
 #endif
