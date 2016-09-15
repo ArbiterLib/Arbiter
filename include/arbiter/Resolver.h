@@ -47,6 +47,23 @@ typedef struct
    * in which case Arbiter will be responsible for freeing the string.
    */
   struct ArbiterSelectedVersionList *(*createAvailableVersionsList)(const ArbiterResolver *resolver, const struct ArbiterProjectIdentifier *project, char **error);
+
+  /**
+   * Requests the selected version which corresponds to the given metadata.
+   *
+   * This behavior can be used to implement lookup of versions which are not
+   * known in advance (i.e., those which would not appear in the result of
+   * `createAvailableVersionsList`). For example, it is impractical to list all
+   * commit hashes from a version control system, but they could be looked up by
+   * hash here.
+   *
+   * This behavior is optional, and may be set to NULL if unsupported or
+   * unnecessary.
+   *
+   * Returns a selected version, or NULL if one corresponding to the metadata
+   * could not be found.
+   */
+  struct ArbiterSelectedVersion *(*createSelectedVersionForMetadata)(const ArbiterResolver *resolver, const void *metadata);
 } ArbiterResolverBehaviors;
 
 /**

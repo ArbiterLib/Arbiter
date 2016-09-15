@@ -4,8 +4,9 @@ public enum Specifier
   case AtLeast(SemanticVersion)
   case CompatibleWith(SemanticVersion, ArbiterRequirementStrictness)
   case Exactly(SemanticVersion)
-  indirect case Compound([Specifier])
+  case Unversioned(ArbiterUserValue)
   // TODO: Custom
+  indirect case Compound([Specifier])
 }
 
 public final class Requirement : CObject
@@ -26,6 +27,9 @@ public final class Requirement : CObject
 
     case let .Exactly(version):
       ptr = ArbiterCreateRequirementExactly(version.pointer)
+
+    case let .Unversioned(metadata):
+      ptr = ArbiterCreateRequirementUnversioned(metadata)
 
     case let .Compound(specifiers):
       let requirements = specifiers.map { s in Requirement(s) }

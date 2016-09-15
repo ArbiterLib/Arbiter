@@ -131,6 +131,18 @@ struct Optional final
     }
 
     /**
+     * Creates an Optional from a pointer which may or may not be null.
+     */
+    static Optional fromPointer (const T *pointer) noexcept(std::is_nothrow_copy_constructible<T>::value)
+    {
+      if (pointer) {
+        return Optional(*pointer);
+      } else {
+        return Optional();
+      }
+    }
+
+    /**
      * Returns true if this Optional contains a value, or false if it is empty.
      */
     explicit operator bool () const noexcept

@@ -87,12 +87,17 @@ typedef struct ArbiterSelectedVersion ArbiterSelectedVersion;
 /**
  * Creates a selected version which corresponds to the given semantic version.
  *
+ * `semanticVersion` may be NULL to represent a selected version that has
+ * metadata but no semantic version component; for example, to use with
+ * ArbiterCreateRequirementUnversioned().
+ *
  * The returned version must be freed with ArbiterFree().
  */
 ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata);
 
 /**
- * Returns the semantic version which corresponds to the given selected version.
+ * Returns the semantic version which corresponds to the given selected version,
+ * or NULL if there is no semantic version component.
  *
  * The returned pointer is only guaranteed to remain valid for the current
  * scope.

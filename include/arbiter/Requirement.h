@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#include <arbiter/Value.h>
+
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -78,6 +80,14 @@ ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const struct Arbiter
  * The returned requirement must be freed with ArbiterFree().
  */
 ArbiterRequirement *ArbiterCreateRequirementExactly (const struct ArbiterSemanticVersion *version);
+
+/**
+ * Creates a requirement which only matches against `ArbiterSelectedVersion`s
+ * that have metadata equal to `metadata`.
+ *
+ * The returned requirement must be freed with ArbiterFree().
+ */
+ArbiterRequirement *ArbiterCreateRequirementUnversioned (ArbiterUserValue metadata);
 
 /**
  * Creates a requirement which will evaluate a custom predicate whenever

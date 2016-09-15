@@ -13,6 +13,14 @@
 #include <memory>
 #include <ostream>
 
+namespace Arbiter {
+namespace Requirement {
+
+class Visitor;
+
+} // namespace Requirement
+} // namespace Arbiter
+
 struct ArbiterRequirement : public Arbiter::Base
 {
   public:
@@ -35,12 +43,30 @@ struct ArbiterRequirement : public Arbiter::Base
      */
     virtual std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const = 0;
 
+    /**
+     * Visits the requirement, then any child requirements.
+     *
+     * The default implementation simply visits this requirement.
+     */
+    virtual void visit (Arbiter::Requirement::Visitor &visitor) const;
+
     std::unique_ptr<ArbiterRequirement> cloneRequirement () const;
     virtual size_t hash () const noexcept = 0;
 };
 
 namespace Arbiter {
 namespace Requirement {
+
+/**
+ * Base class for objects that want to visit requirements.
+ */
+class Visitor
+{
+  public:
+    virtual ~Visitor () = default;
+
+    virtual void operator() (const ArbiterRequirement &requirement) = 0;
+};
 
 /**
  * A requirement satisfied by any version.
@@ -92,7 +118,11 @@ class AtLeast final : public ArbiterRequirement
 
     bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return satisfiedBy(selectedVersion._semanticVersion);
+      if (selectedVersion._semanticVersion) {
+        return satisfiedBy(*selectedVersion._semanticVersion);
+      } else {
+        return false;
+      }
     }
 
     std::unique_ptr<Base> clone () const override
@@ -124,7 +154,11 @@ class CompatibleWith final : public ArbiterRequirement
 
     bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return satisfiedBy(selectedVersion._semanticVersion);
+      if (selectedVersion._semanticVersion) {
+        return satisfiedBy(*selectedVersion._semanticVersion);
+      } else {
+        return false;
+      }
     }
 
     std::unique_ptr<Base> clone () const override
@@ -153,7 +187,11 @@ class Exactly final : public ArbiterRequirement
 
     bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override
     {
-      return satisfiedBy(selectedVersion._semanticVersion);
+      if (selectedVersion._semanticVersion) {
+        return satisfiedBy(*selectedVersion._semanticVersion);
+      } else {
+        return false;
+      }
     }
 
     std::unique_ptr<Base> clone () const override
@@ -166,6 +204,32 @@ class Exactly final : public ArbiterRequirement
     bool operator== (const Arbiter::Base &other) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
     size_t hash () const noexcept override;
+};
+
+class Unversioned final : public ArbiterRequirement
+{
+  public:
+    // This metadata is not really part of the requirement type; it is
+    // associated with the selected version.
+    using Metadata = Arbiter::SharedUserValue<ArbiterSelectedVersion>;
+
+    Metadata _metadata;
+
+    explicit Unversioned (Metadata metadata)
+      : _metadata(std::move(metadata))
+    {}
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Unversioned>(*this);
+    }
+
+    std::ostream &describe (std::ostream &os) const override;
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
+
 };
 
 class Custom final : public ArbiterRequirement
@@ -217,6 +281,7 @@ class Compound final : public ArbiterRequirement
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
     size_t hash () const noexcept override;
+    void visit (Visitor &visitor) const override;
 };
 
 } // namespace Requirement

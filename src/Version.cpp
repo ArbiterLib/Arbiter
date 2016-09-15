@@ -188,7 +188,13 @@ std::unique_ptr<Arbiter::Base> ArbiterSelectedVersion::clone () const
 
 std::ostream &ArbiterSelectedVersion::describe (std::ostream &os) const
 {
-  return os << _semanticVersion << " (" << _metadata << ")";
+  if (_semanticVersion) {
+    os << *_semanticVersion;
+  } else {
+    os << "metadata only";
+  }
+
+  return os << " (" << _metadata << ")";
 }
 
 bool ArbiterSelectedVersion::operator== (const Arbiter::Base &other) const
@@ -199,6 +205,25 @@ bool ArbiterSelectedVersion::operator== (const Arbiter::Base &other) const
   }
 
   return _semanticVersion == ptr->_semanticVersion && _metadata == ptr->_metadata;
+}
+
+bool ArbiterSelectedVersion::operator< (const ArbiterSelectedVersion &other) const
+{
+  if (_semanticVersion) {
+    if (other._semanticVersion) {
+      if (*_semanticVersion < *other._semanticVersion) {
+        return true;
+      }
+    } else {
+      // Versions with a semantic version component should have higher
+      // precedence.
+      return false;
+    }
+  } else if (other._semanticVersion) {
+    return true;
+  }
+
+  return _metadata < other._metadata;
 }
 
 std::unique_ptr<Arbiter::Base> ArbiterSelectedVersionList::clone () const
@@ -305,12 +330,12 @@ int ArbiterCompareVersionOrdering (const ArbiterSemanticVersion *lhs, const Arbi
 
 ArbiterSelectedVersion *ArbiterCreateSelectedVersion (const ArbiterSemanticVersion *semanticVersion, ArbiterUserValue metadata)
 {
-  return new ArbiterSelectedVersion(*semanticVersion, ArbiterSelectedVersion::Metadata(metadata));
+  return new ArbiterSelectedVersion(Optional<ArbiterSemanticVersion>::fromPointer(semanticVersion), ArbiterSelectedVersion::Metadata(metadata));
 }
 
 const ArbiterSemanticVersion *ArbiterSelectedVersionSemanticVersion (const ArbiterSelectedVersion *version)
 {
-  return &version->_semanticVersion;
+  return version->_semanticVersion.pointer();
 }
 
 const void *ArbiterSelectedVersionMetadata (const ArbiterSelectedVersion *version)

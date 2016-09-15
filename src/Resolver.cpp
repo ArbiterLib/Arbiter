@@ -302,6 +302,19 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
   std::rethrow_exception(lastException);
 }
 
+class UnversionedRequirementVisitor final : public Requirement::Visitor
+{
+  public:
+    std::vector<Requirement::Unversioned::Metadata> _allMetadata;
+
+    void operator() (const ArbiterRequirement &requirement) override
+    {
+      if (const auto *ptr = dynamic_cast<const Requirement::Unversioned *>(&requirement)) {
+        _allMetadata.emplace_back(ptr->_metadata);
+      }
+    }
+};
+
 } // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, const void *context)
@@ -379,6 +392,21 @@ ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const Arbite
   }
 }
 
+Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadata (const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata)
+{
+  const auto behavior = _behaviors.createSelectedVersionForMetadata;
+  if (!behavior) {
+    return None();
+  }
+
+  std::unique_ptr<ArbiterSelectedVersion> version(behavior(this, metadata.data()));
+  if (version) {
+    return makeOptional(std::move(*version));
+  } else {
+    return None();
+  }
+}
+
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
   std::set<ArbiterDependency> dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
@@ -404,7 +432,22 @@ bool ArbiterResolver::operator== (const Arbiter::Base &other) const
 
 std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) noexcept(false)
 {
-  std::vector<ArbiterSelectedVersion> versions = fetchAvailableVersions(project)._versions;
+  std::vector<ArbiterSelectedVersion> versions;
+
+  if (_behaviors.createSelectedVersionForMetadata) {
+    UnversionedRequirementVisitor visitor;
+    requirement.visit(visitor);
+
+    for (const auto &metadata : visitor._allMetadata) {
+      Optional<ArbiterSelectedVersion> version = fetchSelectedVersionForMetadata(metadata);
+      if (version) {
+        versions.emplace_back(std::move(*version));
+      }
+    }
+  }
+
+  std::vector<ArbiterSelectedVersion> fetchedVersions = fetchAvailableVersions(project)._versions;
+  versions.insert(versions.end(), std::make_move_iterator(fetchedVersions.begin()), std::make_move_iterator(fetchedVersions.end()));
 
   auto removeStart = std::remove_if(versions.begin(), versions.end(), [&requirement](const ArbiterSelectedVersion &version) {
     return !requirement.satisfiedBy(version);
