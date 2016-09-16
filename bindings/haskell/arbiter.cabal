@@ -9,7 +9,7 @@ author:              Author name here
 maintainer:          example@example.com
 copyright:           2016 Author name here
 category:            Web
-build-type:          Simple
+build-type:          Custom
 -- extra-source-files:
 cabal-version:       >=1.10
 
