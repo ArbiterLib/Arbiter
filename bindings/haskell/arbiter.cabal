@@ -19,14 +19,6 @@ library
   build-depends:       base >= 4.7 && < 5
   default-language:    Haskell2010
 
-executable arbiter-exe
-  hs-source-dirs:      app
-  main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
-  build-depends:       base
-                     , arbiter
-  default-language:    Haskell2010
-
 test-suite arbiter-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
