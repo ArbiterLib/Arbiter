@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -pedantic -Wall -Wextra")
 
 set(ARBITER_TARGET Arbiter)
 add_subdirectory(src)
+add_subdirectory(examples/library_folders)
 
 include(CTest)
 if(BUILD_TESTING)
