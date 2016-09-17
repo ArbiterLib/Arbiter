@@ -45,8 +45,7 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
       createAvailableVersionsList: createAvailableVersionsListBehavior,
       createSelectedVersionForMetadata: createSelectedVersionForMetadataBehavior)
 
-    let context = Unmanaged.passUnretained(self).toOpaque()
-    _pointer = ArbiterCreateResolver(behaviors, dependencies.pointer, UnsafePointer<Void>(context))
+    _pointer = ArbiterCreateResolver(behaviors, dependencies.pointer, toUserContext(self))
   }
 
   private override func createDependencyList (project: COpaquePointer, selectedVersion: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
@@ -97,18 +96,18 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
 
 private func createDependencyListBehavior (resolver: COpaquePointer, project: COpaquePointer, selectedVersion: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
 {
-  let context = COpaquePointer(ArbiterResolverContext(resolver))
-  return Unmanaged<ResolverBase>.fromOpaque(context).takeUnretainedValue().createDependencyList(project, selectedVersion: selectedVersion, error: error)
+  let resolver: ResolverBase = fromUserContext(ArbiterResolverContext(resolver))
+  return resolver.createDependencyList(project, selectedVersion: selectedVersion, error: error)
 }
 
 private func createAvailableVersionsListBehavior (resolver: COpaquePointer, project: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
 {
-  let context = COpaquePointer(ArbiterResolverContext(resolver))
-  return Unmanaged<ResolverBase>.fromOpaque(context).takeUnretainedValue().createAvailableVersionsList(project, error: error)
+  let resolver: ResolverBase = fromUserContext(ArbiterResolverContext(resolver))
+  return resolver.createAvailableVersionsList(project, error: error)
 }
 
 private func createSelectedVersionForMetadataBehavior (resolver: COpaquePointer, metadata: UnsafePointer<Void>) -> COpaquePointer
 {
-  let context = COpaquePointer(ArbiterResolverContext(resolver))
-  return Unmanaged<ResolverBase>.fromOpaque(context).takeUnretainedValue().createSelectedVersionForMetadata(metadata)
+  let resolver: ResolverBase = fromUserContext(ArbiterResolverContext(resolver))
+  return resolver.createSelectedVersionForMetadata(metadata)
 }
