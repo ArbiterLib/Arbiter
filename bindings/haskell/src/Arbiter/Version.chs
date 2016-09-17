@@ -4,7 +4,7 @@ module Arbiter.Version where
 
 #include "arbiter/Version.h"
 
-type SemanticVersion = {#type ArbiterSemanticVersion#}
+{#pointer *ArbiterSemanticVersion as SemanticVersion newtype#}
 
 {#fun pure ArbiterCreateSemanticVersion as ^
-  { `Int', `Int', `Int', `String', `String' } -> `()' #}
+  { `Int', `Int', `Int', `String', `String' } -> `SemanticVersion' #}
