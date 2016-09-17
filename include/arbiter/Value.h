@@ -9,11 +9,11 @@ extern "C" {
 #include <stddef.h>
 
 /**
- * Represents an arbitrary value that can be associated with Arbiter data types
- * and functionality.
+ * Represents an arbitrary value type that can be associated with Arbiter data
+ * types and functionality.
  *
- * For example, ArbiterProjectIdentifiers are defined by providing an opaque
- * user value.
+ * For example, ArbiterProjectIdentifiers are defined by providing a user value
+ * type.
  */
 typedef struct
 {
@@ -63,6 +63,31 @@ typedef struct
    */
   void (*destructor)(void *data);
 } ArbiterUserValue;
+
+/**
+ * Represents opaque data that can be passed to Arbiter data types and
+ * functionality, then later retrieved.
+ *
+ * This type is used instead of raw pointers to make memory management safer.
+ */
+typedef struct
+{
+  /**
+   * The underlying data pointer.
+   *
+   * This pointer should be considered to be owned by Arbiter as soon as the
+   * ArbiterUserContext is passed into any API. It will eventually be cleaned up
+   * by the library through invocation of the provided `destructor`.
+   */
+  void *data;
+
+  /**
+   * A cleanup function to call when the ArbiterUserContext is done being used.
+   *
+   * This may be NULL.
+   */
+  void (*destructor)(void *data);
+} ArbiterUserContext;
 
 #ifdef __cplusplus
 }

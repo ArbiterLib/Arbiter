@@ -10,13 +10,14 @@
 
 #include <cassert>
 #include <functional>
+#include <memory>
 #include <ostream>
 
 namespace Arbiter {
 
 /**
- * Expresses shared ownership of opaque user-provided data, which was originally
- * described in an ArbiterUserValue.
+ * Expresses shared ownership of an opaque user-provided value type, which was
+ * originally described in an ArbiterUserValue.
  *
  * `Owner` is a phantom type used to associate the SharedUserValue with its
  * usage in a particular class. This helps prevent two SharedUserValue instances
@@ -27,8 +28,7 @@ template<typename Owner>
 class SharedUserValue final
 {
   public:
-    SharedUserValue ()
-    {}
+    SharedUserValue () = default;
 
     explicit SharedUserValue (ArbiterUserValue value)
       : _data(std::shared_ptr<void>(value.data, (value.destructor ? value.destructor : &noOpDestructor)))
@@ -108,6 +108,12 @@ class SharedUserValue final
     static void noOpDestructor (void *)
     {}
 };
+
+/**
+ * Converts an ArbiterUserContext into a shared pointer, automatically invoking
+ * its destructor when the last shared pointer is destructed.
+ */
+std::shared_ptr<void> shareUserContext (ArbiterUserContext context);
 
 } // namespace Arbiter
 
