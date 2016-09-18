@@ -5,6 +5,8 @@
 #include <arbiter/Types.h>
 #include <arbiter/Version.h>
 
+static VALUE cDependency;
+
 static bool value_equal(const void *first, const void *second) {
   VALUE a = (VALUE)first, b = (VALUE)second;
   return rb_equal(a, b) == Qtrue;
@@ -47,6 +49,11 @@ static VALUE project_identifier_initialize(VALUE self, VALUE value) {
   DATA_PTR(self) = ArbiterCreateProjectIdentifier(user_value);
 
   return self;
+}
+
+static VALUE project_identifier_create_dependency(VALUE klass, VALUE requirement) {
+  ArbiterDependency *dependency = ArbiterCreateDependency(DATA_PTR(klass), DATA_PTR(requirement));
+  return Data_Wrap_Struct(cDependency, NULL, ArbiterFree, dependency);
 }
 
 static VALUE semantic_version_allocate(VALUE klass) {
@@ -121,6 +128,7 @@ void Init_arbiter() {
   VALUE cProjectIdentifier = rb_define_class_under(mArbiter, "ProjectIdentifier", rb_cObject);
   rb_define_alloc_func(cProjectIdentifier, project_identifier_allocate);
   rb_define_method(cProjectIdentifier, "initialize", project_identifier_initialize, 1);
+  rb_define_method(cProjectIdentifier, "create_dependency", project_identifier_create_dependency, 1);
 
   VALUE cSemanticVersion = rb_define_class_under(mArbiter, "SemanticVersion", rb_cObject);
   rb_define_alloc_func(cSemanticVersion, semantic_version_allocate);
@@ -131,4 +139,6 @@ void Init_arbiter() {
   rb_define_singleton_method(cRequirement, "at_least", requirement_at_least, 1);
   rb_define_singleton_method(cRequirement, "compatible_with", requirement_compatible_with, 1);
   rb_define_singleton_method(cRequirement, "exactly", requirement_compatible_with, 1);
+
+  cDependency = rb_define_class_under(mArbiter, "Dependency", rb_cObject);
 }
