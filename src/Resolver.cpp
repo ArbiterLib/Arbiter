@@ -88,8 +88,6 @@ class DependencyGraph final
 
       if (dependent) {
         _edges[*dependent].insert(key);
-      } else {
-        _roots.insert(key);
       }
     }
 
@@ -164,8 +162,11 @@ class DependencyGraph final
     std::ostream &describe (std::ostream &os) const
     {
       os << "Roots:";
-      for (const NodeKey &key : _roots) {
-        os << "\n\t" << resolveNode(key);
+      for (const auto &pair : _nodeMap) {
+        const NodeKey &key = pair.first;
+        if (_edges.find(key) == _edges.end()) {
+          os << "\n\t" << resolveNode(key, pair.second);
+        }
       }
 
       os << "\n\nEdges";
@@ -227,7 +228,6 @@ class DependencyGraph final
 
     // TODO: Should these be unordered, with ordering instead applied in
     // resolvedGraph?
-    std::set<NodeKey> _roots;
     std::unordered_map<NodeKey, std::set<NodeKey>> _edges;
     std::unordered_map<NodeKey, NodeValue> _nodeMap;
 };
