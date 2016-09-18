@@ -7,6 +7,7 @@
 #include "Requirement.h"
 #include "ToString.h"
 
+#include <algorithm>
 #include <cassert>
 #include <exception>
 #include <map>
@@ -76,7 +77,7 @@ class DependencyGraph final
       }
 
       // Contains edges which still need to be added to the resolved graph.
-      std::unordered_map<NodeKey, std::unordered_set<NodeKey>> remainingEdges;
+      std::unordered_map<NodeKey, std::vector<NodeKey>> remainingEdges;
 
       // Contains dependencies without any dependencies themselves.
       ArbiterResolvedDependencyGraph::DepthSet leaves;
@@ -88,7 +89,13 @@ class DependencyGraph final
         if (it == _edges.end()) {
           leaves.emplace(resolveNode(key));
         } else {
-          remainingEdges[key] = it->second;
+          std::vector<NodeKey> dependencies(it->second.begin(), it->second.end());
+          remainingEdges[key] = dependencies;
+
+          dependencies.shrink_to_fit();
+          assert(std::is_sorted(dependencies.begin(), dependencies.end()));
+
+          resolved._edges.emplace(std::make_pair(key, std::move(dependencies)));
         }
       }
 
@@ -197,8 +204,7 @@ class DependencyGraph final
     // TODO: Should these be unordered, with ordering instead applied in
     // resolvedGraph?
     std::set<NodeKey> _roots;
-    // TODO: This should probably be a multimap.
-    std::map<NodeKey, std::unordered_set<NodeKey>> _edges;
+    std::unordered_map<NodeKey, std::set<NodeKey>> _edges;
     std::unordered_map<NodeKey, NodeValue> _nodeMap;
 };
 

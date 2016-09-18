@@ -86,8 +86,30 @@ size_t ArbiterResolvedDependencyGraphCountAtDepth (const ArbiterResolvedDependen
 void ArbiterResolvedDependencyGraphGetAllAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex, const ArbiterResolvedDependency **buffer)
 {
   const auto &depth = graph->_depths.at(depthIndex);
-  for (const auto &dependency : depth) {
+  for (const ArbiterResolvedDependency &dependency : depth) {
     *(buffer++) = &dependency;
+  }
+}
+
+size_t ArbiterResolvedDependencyGraphCountDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project)
+{
+  auto it = graph->_edges.find(*project);
+  if (it == graph->_edges.end()) {
+    return 0;
+  } else {
+    return it->second.size();
+  }
+}
+
+void ArbiterResolvedDependencyGraphGetAllDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project, const ArbiterProjectIdentifier **buffer)
+{
+  auto it = graph->_edges.find(*project);
+  if (it == graph->_edges.end()) {
+    return;
+  }
+
+  for (const ArbiterProjectIdentifier &project : it->second) {
+    *(buffer++) = &project;
   }
 }
 
