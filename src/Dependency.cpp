@@ -215,6 +215,11 @@ bool ArbiterResolvedDependency::operator== (const Arbiter::Base &other) const
   return _project == ptr->_project && _version == ptr->_version;
 }
 
+bool ArbiterResolvedDependency::operator< (const ArbiterResolvedDependency &other) const
+{
+  return _project < other._project;
+}
+
 size_t ArbiterResolvedDependencyGraph::count () const
 {
   size_t accum = 0;

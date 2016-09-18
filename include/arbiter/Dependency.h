@@ -163,7 +163,8 @@ size_t ArbiterResolvedDependencyGraphCountAtDepth (const ArbiterResolvedDependen
  * zero-based "depth index," into the C array `buffer`, which must have enough
  * space to contain ArbiterResolvedDependencyGraphCountAtDepth() elements.
  *
- * This operation does not guarantee a specific ordering to the copied items.
+ * This operation guarantees that resolved dependencies will appear in the
+ * buffer in ascending order of their project identifiers.
  *
  * The copied pointers are guaranteed to remain valid until the
  * ArbiterResolvedDependencyGraph they were obtained from is freed.

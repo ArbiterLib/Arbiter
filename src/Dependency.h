@@ -13,8 +13,8 @@
 #include <functional>
 #include <memory>
 #include <ostream>
+#include <set>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 struct ArbiterRequirement;
@@ -110,6 +110,8 @@ struct ArbiterResolvedDependency final : public Arbiter::Base
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
+
+    bool operator< (const ArbiterResolvedDependency &other) const;
 };
 
 namespace std {
@@ -127,9 +129,7 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 {
   public:
     using SortedEdgesMap = std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>>;
-
-    // TODO: Should this be ordered?
-    using DepthSet = std::unordered_set<ArbiterResolvedDependency>;
+    using DepthSet = std::set<ArbiterResolvedDependency>;
 
     std::vector<DepthSet> _depths;
     SortedEdgesMap _edges;
