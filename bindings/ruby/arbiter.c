@@ -1,5 +1,7 @@
 #include <ruby.h>
+
 #include <arbiter/Dependency.h>
+#include <arbiter/Requirement.h>
 #include <arbiter/Types.h>
 #include <arbiter/Version.h>
 
@@ -90,6 +92,29 @@ static VALUE semantic_version_initialize(int argc, VALUE *argv, VALUE self) {
   return self;
 }
 
+static VALUE requirement_any(VALUE klass) {
+  ArbiterRequirement *requirement = ArbiterCreateRequirementAny();
+  return Data_Wrap_Struct(klass, NULL, ArbiterFree, requirement);
+}
+
+static VALUE requirement_at_least(VALUE klass, VALUE version) {
+  ArbiterSemanticVersion *semantic_version = DATA_PTR(version);
+  ArbiterRequirement *requirement = ArbiterCreateRequirementAtLeast(semantic_version);
+  return Data_Wrap_Struct(klass, NULL, ArbiterFree, requirement);
+}
+
+static VALUE requirement_compatible_with(VALUE klass, VALUE version) {
+  ArbiterSemanticVersion *semantic_version = DATA_PTR(version);
+  ArbiterRequirement *requirement = ArbiterCreateRequirementCompatibleWith(semantic_version, ArbiterRequirementStrictnessAllowVersionZeroPatches);
+  return Data_Wrap_Struct(klass, NULL, ArbiterFree, requirement);
+}
+
+static VALUE requirement_exactly(VALUE klass, VALUE version) {
+  ArbiterSemanticVersion *semantic_version = DATA_PTR(version);
+  ArbiterRequirement *requirement = ArbiterCreateRequirementExactly(semantic_version);
+  return Data_Wrap_Struct(klass, NULL, ArbiterFree, requirement);
+}
+
 void Init_arbiter() {
   VALUE mArbiter = rb_define_module("Arbiter");
 
@@ -100,4 +125,10 @@ void Init_arbiter() {
   VALUE cSemanticVersion = rb_define_class_under(mArbiter, "SemanticVersion", rb_cObject);
   rb_define_alloc_func(cSemanticVersion, semantic_version_allocate);
   rb_define_method(cSemanticVersion, "initialize", semantic_version_initialize, -1);
+
+  VALUE cRequirement = rb_define_class_under(mArbiter, "Requirement", rb_cObject);
+  rb_define_singleton_method(cRequirement, "any", requirement_any, 0);
+  rb_define_singleton_method(cRequirement, "at_least", requirement_at_least, 1);
+  rb_define_singleton_method(cRequirement, "compatible_with", requirement_compatible_with, 1);
+  rb_define_singleton_method(cRequirement, "exactly", requirement_compatible_with, 1);
 }
