@@ -294,7 +294,7 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
           dependentsByTransitive[transitive._projectIdentifier] = dependency._project;
         }
 
-        collectedTransitives.insert(transitives.begin(), transitives.end());
+        collectedTransitives.insert(std::make_move_iterator(transitives.begin()), std::make_move_iterator(transitives.end()));
       }
 
       reset(choices);
