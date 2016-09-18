@@ -235,7 +235,10 @@ struct Intersect<Compound, Compound> final
   Result operator() (const Compound &compound, const Compound &other) const
   {
     std::vector<std::shared_ptr<ArbiterRequirement>> requirements = compound._requirements;
+
+    requirements.reserve(requirements.size() + other._requirements.size());
     requirements.insert(requirements.end(), other._requirements.begin(), other._requirements.end());
+
     return std::make_unique<Compound>(std::move(requirements));
   }
 };
@@ -248,7 +251,10 @@ struct Intersect<Compound, Other> final
   Result operator() (const Compound &compound, const Other &other) const
   {
     std::vector<std::shared_ptr<ArbiterRequirement>> requirements = compound._requirements;
+
+    requirements.reserve(requirements.size() + 1);
     requirements.emplace_back(other.cloneRequirement());
+
     return std::make_unique<Compound>(std::move(requirements));
   }
 };

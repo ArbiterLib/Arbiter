@@ -18,6 +18,30 @@ using namespace Arbiter;
 
 namespace {
 
+struct UniqueDependencyHash final
+{
+  public:
+    size_t operator() (const ArbiterDependency &dependency) const
+    {
+      return hashOf(dependency._projectIdentifier);
+    }
+};
+
+struct UniqueDependencyEqualTo final
+{
+  public:
+    bool operator() (const ArbiterDependency &lhs, const ArbiterDependency &rhs) const
+    {
+      return lhs._projectIdentifier == rhs._projectIdentifier;
+    }
+};
+
+/**
+ * Contains dependencies in a set where project identifier alone determines
+ * uniqueness (i.e., any requirement is ignored).
+ */
+using UniqueDependencySet = std::unordered_set<ArbiterDependency, UniqueDependencyHash, UniqueDependencyEqualTo>;
+
 /**
  * Represents an acyclic dependency graph in which each project appears at most
  * once.
@@ -64,8 +88,6 @@ class DependencyGraph final
 
       if (dependent) {
         _edges[*dependent].insert(key);
-      } else {
-        _roots.insert(key);
       }
     }
 
@@ -77,7 +99,8 @@ class DependencyGraph final
       }
 
       // Contains edges which still need to be added to the resolved graph.
-      std::unordered_map<NodeKey, std::vector<NodeKey>> remainingEdges;
+      std::unordered_map<NodeKey, std::unordered_set<NodeKey>> remainingEdges;
+      remainingEdges.reserve(_edges.size());
 
       // Contains dependencies without any dependencies themselves.
       ArbiterResolvedDependencyGraph::DepthSet leaves;
@@ -89,13 +112,14 @@ class DependencyGraph final
         if (it == _edges.end()) {
           leaves.emplace(resolveNode(key));
         } else {
-          std::vector<NodeKey> dependencies(it->second.begin(), it->second.end());
-          remainingEdges[key] = dependencies;
+          const std::unordered_set<NodeKey> &dependencySet = it->second;
 
-          dependencies.shrink_to_fit();
-          assert(std::is_sorted(dependencies.begin(), dependencies.end()));
+          remainingEdges[key] = dependencySet;
 
-          resolved._edges.emplace(std::make_pair(key, std::move(dependencies)));
+          std::vector<NodeKey> dependencyList(dependencySet.begin(), dependencySet.end());
+          std::sort(dependencyList.begin(), dependencyList.end());
+
+          resolved._edges.emplace(std::make_pair(key, std::move(dependencyList)));
         }
       }
 
@@ -140,8 +164,11 @@ class DependencyGraph final
     std::ostream &describe (std::ostream &os) const
     {
       os << "Roots:";
-      for (const NodeKey &key : _roots) {
-        os << "\n\t" << resolveNode(key);
+      for (const auto &pair : _nodeMap) {
+        const NodeKey &key = pair.first;
+        if (_edges.find(key) == _edges.end()) {
+          os << "\n\t" << resolveNode(key, pair.second);
+        }
       }
 
       os << "\n\nEdges";
@@ -201,14 +228,11 @@ class DependencyGraph final
       return resolveNode(key, _nodeMap.at(key));
     }
 
-    // TODO: Should these be unordered, with ordering instead applied in
-    // resolvedGraph?
-    std::set<NodeKey> _roots;
-    std::unordered_map<NodeKey, std::set<NodeKey>> _edges;
+    std::unordered_map<NodeKey, std::unordered_set<NodeKey>> _edges;
     std::unordered_map<NodeKey, NodeValue> _nodeMap;
 };
 
-DependencyGraph resolveDependencies (ArbiterResolver &resolver, const DependencyGraph &baseGraph, std::set<ArbiterDependency> dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
+DependencyGraph resolveDependencies (ArbiterResolver &resolver, const DependencyGraph &baseGraph, UniqueDependencySet dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
 {
   if (dependencySet.empty()) {
     return baseGraph;
@@ -216,7 +240,8 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
 
   // This collection is reused when actually building the new dependency graph
   // below.
-  std::map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
+  std::unordered_map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
+  requirementsByProject.reserve(dependencySet.size());
 
   for (const ArbiterDependency &dependency : dependencySet) {
     requirementsByProject[dependency._projectIdentifier] = dependency.requirement().cloneRequirement();
@@ -228,6 +253,9 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
   reset(dependencySet);
 
   // This collection needs to exist for as long as the permuted iterators do below.
+  //
+  // It's important that this collection is ordered deterministically, since it
+  // affects which permutations we try first.
   std::map<ArbiterProjectIdentifier, std::vector<ArbiterResolvedDependency>> possibilities;
 
   for (const auto &pair : requirementsByProject) {
@@ -284,17 +312,18 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
       // Collect immediate children for the next phase of dependency resolution,
       // so we can permute their versions as a group (for something
       // approximating breadth-first search).
-      std::set<ArbiterDependency> collectedTransitives;
+      UniqueDependencySet collectedTransitives;
       std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> dependentsByTransitive;
 
       for (ArbiterResolvedDependency &dependency : choices) {
         std::vector<ArbiterDependency> transitives = resolver.fetchDependencies(dependency._project, dependency._version)._dependencies;
 
+        dependentsByTransitive.reserve(dependentsByTransitive.size() + transitives.size());
         for (const ArbiterDependency &transitive : transitives) {
           dependentsByTransitive[transitive._projectIdentifier] = dependency._project;
         }
 
-        collectedTransitives.insert(transitives.begin(), transitives.end());
+        collectedTransitives.insert(std::make_move_iterator(transitives.begin()), std::make_move_iterator(transitives.end()));
       }
 
       reset(choices);
@@ -415,7 +444,7 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
-  std::set<ArbiterDependency> dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
+  UniqueDependencySet dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
 
   DependencyGraph graph = resolveDependencies(*this, DependencyGraph(), std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
   return graph.resolvedGraph();
