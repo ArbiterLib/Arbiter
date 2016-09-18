@@ -100,6 +100,7 @@ class DependencyGraph final
 
       // Contains edges which still need to be added to the resolved graph.
       std::unordered_map<NodeKey, std::unordered_set<NodeKey>> remainingEdges;
+      remainingEdges.reserve(_edges.size());
 
       // Contains dependencies without any dependencies themselves.
       ArbiterResolvedDependencyGraph::DepthSet leaves;
@@ -240,6 +241,7 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
   // This collection is reused when actually building the new dependency graph
   // below.
   std::unordered_map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
+  requirementsByProject.reserve(dependencySet.size());
 
   for (const ArbiterDependency &dependency : dependencySet) {
     requirementsByProject[dependency._projectIdentifier] = dependency.requirement().cloneRequirement();
@@ -316,6 +318,7 @@ DependencyGraph resolveDependencies (ArbiterResolver &resolver, const Dependency
       for (ArbiterResolvedDependency &dependency : choices) {
         std::vector<ArbiterDependency> transitives = resolver.fetchDependencies(dependency._project, dependency._version)._dependencies;
 
+        dependentsByTransitive.reserve(dependentsByTransitive.size() + transitives.size());
         for (const ArbiterDependency &transitive : transitives) {
           dependentsByTransitive[transitive._projectIdentifier] = dependency._project;
         }
