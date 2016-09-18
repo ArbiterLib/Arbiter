@@ -140,4 +140,23 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
 
     return depths
   }
+
+  public func dependenciesOf (project: ProjectIdentifier<ProjectValue>) -> OnDemandCollection<[ProjectIdentifier<ProjectValue>]>
+  {
+    let count = ArbiterResolvedDependencyGraphCountDependencies(pointer, project.pointer)
+
+    return OnDemandCollection(startIndex: 0, endIndex: count) {
+      let buffer = UnsafeMutablePointer<COpaquePointer>.alloc(count)
+      ArbiterResolvedDependencyGraphGetAllDependencies(self.pointer, project.pointer, buffer)
+
+      let array = UnsafeBufferPointer(start: buffer, count: count).map { ptr in
+        return ProjectIdentifier<ProjectValue>(ptr)
+      }
+
+      buffer.destroy(count)
+      buffer.dealloc(count)
+
+      return array
+    }
+  }
 }

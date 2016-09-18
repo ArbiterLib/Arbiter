@@ -13,6 +13,7 @@
 #include <functional>
 #include <memory>
 #include <ostream>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -111,13 +112,27 @@ struct ArbiterResolvedDependency final : public Arbiter::Base
     bool operator== (const Arbiter::Base &other) const override;
 };
 
+namespace std {
+
+template<>
+struct hash<ArbiterProjectIdentifier> final
+{
+  public:
+    size_t operator() (const ArbiterProjectIdentifier &project) const;
+};
+
+} // namespace std
+
 struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 {
   public:
+    using SortedEdgesMap = std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>>;
+
     // TODO: Should this be ordered?
     using DepthSet = std::unordered_set<ArbiterResolvedDependency>;
 
     std::vector<DepthSet> _depths;
+    SortedEdgesMap _edges;
 
     ArbiterResolvedDependencyGraph () = default;
 
@@ -134,13 +149,6 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 };
 
 namespace std {
-
-template<>
-struct hash<ArbiterProjectIdentifier> final
-{
-  public:
-    size_t operator() (const ArbiterProjectIdentifier &project) const;
-};
 
 template<>
 struct hash<ArbiterDependency> final

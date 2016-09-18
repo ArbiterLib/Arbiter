@@ -170,6 +170,24 @@ size_t ArbiterResolvedDependencyGraphCountAtDepth (const ArbiterResolvedDependen
  */
 void ArbiterResolvedDependencyGraphGetAllAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex, const ArbiterResolvedDependency **buffer);
 
+/**
+ * Counts the number of dependencies that the given project has in the graph.
+ */
+size_t ArbiterResolvedDependencyGraphCountDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project);
+
+/**
+ * Copies pointers to the projects representing the given project's dependencies
+ * into the C array `buffer`, which must have enough space to contain
+ * ArbiterResolvedDependencyGraphCountDependencies() elements.
+ *
+ * This operation guarantees that project identifiers will appear in the buffer
+ * in ascending order.
+ *
+ * The copied pointers are guaranteed to remain valid until the
+ * ArbiterResolvedDependencyGraph they were obtained from is freed.
+ */
+void ArbiterResolvedDependencyGraphGetAllDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project, const ArbiterProjectIdentifier **buffer);
+
 #ifdef __cplusplus
 }
 #endif
