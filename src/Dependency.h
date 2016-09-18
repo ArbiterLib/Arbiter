@@ -6,6 +6,8 @@
 
 #include <arbiter/Dependency.h>
 
+#include "Optional.h"
+#include "Requirement.h"
 #include "Types.h"
 #include "Value.h"
 #include "Version.h"
@@ -14,10 +16,9 @@
 #include <memory>
 #include <ostream>
 #include <set>
+#include <unordered_set>
 #include <unordered_map>
 #include <vector>
-
-struct ArbiterRequirement;
 
 struct ArbiterProjectIdentifier final : public Arbiter::Base
 {
@@ -122,33 +123,6 @@ struct hash<ArbiterProjectIdentifier> final
   public:
     size_t operator() (const ArbiterProjectIdentifier &project) const;
 };
-
-} // namespace std
-
-struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
-{
-  public:
-    using SortedEdgesMap = std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>>;
-    using DepthSet = std::set<ArbiterResolvedDependency>;
-
-    std::vector<DepthSet> _depths;
-    SortedEdgesMap _edges;
-
-    ArbiterResolvedDependencyGraph () = default;
-
-    size_t count () const;
-
-    size_t depth () const noexcept;
-    size_t countAtDepth (size_t depthIndex) const;
-
-    bool contains (const ArbiterResolvedDependency &node) const;
-
-    std::unique_ptr<Arbiter::Base> clone () const override;
-    std::ostream &describe (std::ostream &os) const override;
-    bool operator== (const Arbiter::Base &other) const override;
-};
-
-namespace std {
 
 template<>
 struct hash<ArbiterDependency> final

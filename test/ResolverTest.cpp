@@ -84,16 +84,16 @@ ArbiterDependencyList *createTransitiveDependencyList (const ArbiterResolver *, 
   return new ArbiterDependencyList(std::move(dependencies));
 }
 
-const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyGraph &graph, size_t depthIndex, const std::string &name)
+const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyInstaller &installer, size_t phaseIndex, const std::string &name)
 {
   ArbiterProjectIdentifier identifier = makeProjectIdentifier(name);
 
-  const auto &depth = graph._depths.at(depthIndex);
-  auto it = std::find_if(depth.begin(), depth.end(), [&identifier](const ArbiterResolvedDependency &dependency) {
+  const auto &phase = installer._phases.at(phaseIndex);
+  auto it = std::find_if(phase.begin(), phase.end(), [&identifier](const ArbiterResolvedDependency &dependency) {
     return dependency._project == identifier;
   });
 
-  if (it == depth.end()) {
+  if (it == phase.end()) {
     throw std::out_of_range("Dependency " + name + " not found in resolved graph");
   }
 
@@ -108,9 +108,10 @@ TEST(ResolverTest, ResolvesEmptyDependencies) {
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
-  EXPECT_TRUE(resolved._depths.empty());
-  EXPECT_EQ(resolved.depth(), 0);
-  EXPECT_EQ(resolved.count(), 0);
+  EXPECT_EQ(resolved.nodes().size(), 0);
+
+  ArbiterResolvedDependencyInstaller installer = resolved.createInstaller();
+  EXPECT_TRUE(installer._phases.empty());
 }
 
 TEST(ResolverTest, ResolvesOneDependency) {
@@ -122,10 +123,12 @@ TEST(ResolverTest, ResolvesOneDependency) {
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
-  ASSERT_EQ(resolved.depth(), 1);
-  EXPECT_EQ(resolved.count(), 1);
-  EXPECT_EQ(resolved._depths.front().begin()->_project, emptyProjectIdentifier());
-  EXPECT_EQ(resolved._depths.front().begin()->_version._semanticVersion, makeOptional(ArbiterSemanticVersion(3, 0, 0)));
+  EXPECT_EQ(resolved.nodes().size(), 1);
+
+  ArbiterResolvedDependencyInstaller installer = resolved.createInstaller();
+  EXPECT_EQ(installer._phases.size(), 1);
+  EXPECT_EQ(installer._phases.front().begin()->_project, emptyProjectIdentifier());
+  EXPECT_EQ(installer._phases.front().begin()->_version._semanticVersion, makeOptional(ArbiterSemanticVersion(3, 0, 0)));
 }
 
 TEST(ResolverTest, ResolvesMultipleDependencies)
@@ -140,11 +143,13 @@ TEST(ResolverTest, ResolvesMultipleDependencies)
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
-  ASSERT_EQ(resolved.depth(), 1);
-  EXPECT_EQ(resolved.count(), 3);
-  EXPECT_EQ(findResolved(resolved, 0, "A")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(3, 0, 0)));
-  EXPECT_EQ(findResolved(resolved, 0, "B")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 0, 0)));
-  EXPECT_EQ(findResolved(resolved, 0, "C")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 0, 0)));
+  EXPECT_EQ(resolved.nodes().size(), 3);
+
+  ArbiterResolvedDependencyInstaller installer = resolved.createInstaller();
+  EXPECT_EQ(installer._phases.size(), 1);
+  EXPECT_EQ(findResolved(installer, 0, "A")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(3, 0, 0)));
+  EXPECT_EQ(findResolved(installer, 0, "B")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 0, 0)));
+  EXPECT_EQ(findResolved(installer, 0, "C")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 0, 0)));
 }
 
 TEST(ResolverTest, ResolvesTransitiveDependencies)
@@ -158,14 +163,16 @@ TEST(ResolverTest, ResolvesTransitiveDependencies)
   ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
-  ASSERT_EQ(resolved.depth(), 3);
-  EXPECT_EQ(resolved.count(), 6);
-  EXPECT_EQ(findResolved(resolved, 2, "ancestor")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha"))));
-  EXPECT_EQ(findResolved(resolved, 1, "middle")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 3, 0)));
-  EXPECT_EQ(findResolved(resolved, 1, "parent")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 3, 0)));
-  EXPECT_EQ(findResolved(resolved, 0, "leaf")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(0, 2, 3)));
-  EXPECT_EQ(findResolved(resolved, 0, "leaf_majors_only")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 0, 0)));
-  EXPECT_EQ(findResolved(resolved, 0, "leaf_dailybuild")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild"))));
+  EXPECT_EQ(resolved.nodes().size(), 6);
+
+  ArbiterResolvedDependencyInstaller installer = resolved.createInstaller();
+  EXPECT_EQ(installer._phases.size(), 3);
+  EXPECT_EQ(findResolved(installer, 2, "ancestor")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha"))));
+  EXPECT_EQ(findResolved(installer, 1, "middle")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 3, 0)));
+  EXPECT_EQ(findResolved(installer, 1, "parent")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 3, 0)));
+  EXPECT_EQ(findResolved(installer, 0, "leaf")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(0, 2, 3)));
+  EXPECT_EQ(findResolved(installer, 0, "leaf_majors_only")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 0, 0)));
+  EXPECT_EQ(findResolved(installer, 0, "leaf_dailybuild")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild"))));
 }
 
 #if 0

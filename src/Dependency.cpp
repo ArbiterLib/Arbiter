@@ -59,60 +59,6 @@ const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterRes
   return &dependency->_version;
 }
 
-size_t ArbiterResolvedDependencyGraphCount (const ArbiterResolvedDependencyGraph *graph)
-{
-  return graph->count();
-}
-
-void ArbiterResolvedDependencyGraphGetAll (const ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency **buffer)
-{
-  for (const auto &depth : graph->_depths) {
-    for (const auto &dependency : depth) {
-      *(buffer++) = &dependency;
-    }
-  }
-}
-
-size_t ArbiterResolvedDependencyGraphDepth (const ArbiterResolvedDependencyGraph *graph)
-{
-  return graph->depth();
-}
-
-size_t ArbiterResolvedDependencyGraphCountAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex)
-{
-  return graph->countAtDepth(depthIndex);
-}
-
-void ArbiterResolvedDependencyGraphGetAllAtDepth (const ArbiterResolvedDependencyGraph *graph, size_t depthIndex, const ArbiterResolvedDependency **buffer)
-{
-  const auto &depth = graph->_depths.at(depthIndex);
-  for (const ArbiterResolvedDependency &dependency : depth) {
-    *(buffer++) = &dependency;
-  }
-}
-
-size_t ArbiterResolvedDependencyGraphCountDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project)
-{
-  auto it = graph->_edges.find(*project);
-  if (it == graph->_edges.end()) {
-    return 0;
-  } else {
-    return it->second.size();
-  }
-}
-
-void ArbiterResolvedDependencyGraphGetAllDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project, const ArbiterProjectIdentifier **buffer)
-{
-  auto it = graph->_edges.find(*project);
-  if (it == graph->_edges.end()) {
-    return;
-  }
-
-  for (const ArbiterProjectIdentifier &project : it->second) {
-    *(buffer++) = &project;
-  }
-}
-
 std::unique_ptr<Base> ArbiterProjectIdentifier::clone () const
 {
   return std::make_unique<ArbiterProjectIdentifier>(*this);
@@ -218,65 +164,6 @@ bool ArbiterResolvedDependency::operator== (const Arbiter::Base &other) const
 bool ArbiterResolvedDependency::operator< (const ArbiterResolvedDependency &other) const
 {
   return _project < other._project;
-}
-
-size_t ArbiterResolvedDependencyGraph::count () const
-{
-  size_t accum = 0;
-  for (size_t i = 0; i < depth(); ++i) {
-    accum += countAtDepth(i);
-  }
-
-  return accum;
-}
-
-size_t ArbiterResolvedDependencyGraph::depth () const noexcept
-{
-  return _depths.size();
-}
-
-size_t ArbiterResolvedDependencyGraph::countAtDepth (size_t depthIndex) const
-{
-  return _depths.at(depthIndex).size();
-}
-
-bool ArbiterResolvedDependencyGraph::contains (const ArbiterResolvedDependency &node) const
-{
-  for (const DepthSet &depth : _depths) {
-    if (depth.find(node) != depth.end()) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-std::unique_ptr<Arbiter::Base> ArbiterResolvedDependencyGraph::clone () const
-{
-  return std::make_unique<ArbiterResolvedDependencyGraph>(*this);
-}
-
-std::ostream &ArbiterResolvedDependencyGraph::describe (std::ostream &os) const
-{
-  os << "Resolved dependency graph:";
-
-  for (const auto &depth : _depths) {
-    for (const auto &dependency : depth) {
-      os << "\n" << dependency;
-    }
-  }
-
-  return os;
-}
-
-bool ArbiterResolvedDependencyGraph::operator== (const Arbiter::Base &other) const
-{
-  auto ptr = dynamic_cast<const ArbiterResolvedDependencyGraph *>(&other);
-  if (!ptr) {
-    return false;
-  }
-
-  return _depths == ptr->_depths;
 }
 
 size_t std::hash<ArbiterProjectIdentifier>::operator() (const ArbiterProjectIdentifier &project) const

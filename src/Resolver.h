@@ -7,6 +7,7 @@
 #include <arbiter/Resolver.h>
 
 #include "Dependency.h"
+#include "Graph.h"
 #include "Types.h"
 #include "Version.h"
 
