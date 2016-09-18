@@ -5,63 +5,6 @@
 
 #include <typeinfo>
 
-ArbiterRequirement *ArbiterCreateRequirementAny (void)
-{
-  return new Arbiter::Requirement::Any;
-}
-
-ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersion *version)
-{
-  return new Arbiter::Requirement::AtLeast(*version);
-}
-
-ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanticVersion *version, ArbiterRequirementStrictness strictness)
-{
-  return new Arbiter::Requirement::CompatibleWith(*version, strictness);
-}
-
-ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersion *version)
-{
-  return new Arbiter::Requirement::Exactly(*version);
-}
-
-ArbiterRequirement *ArbiterCreateRequirementUnversioned (ArbiterUserValue metadata)
-{
-  return new Arbiter::Requirement::Unversioned(Arbiter::Requirement::Unversioned::Metadata(metadata));
-}
-
-ArbiterRequirement *ArbiterCreateRequirementCustom (ArbiterRequirementPredicate predicate, const void *context)
-{
-  return new Arbiter::Requirement::Custom(std::move(predicate), context);
-}
-
-ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement * const *requirements, size_t count)
-{
-  std::vector<std::shared_ptr<ArbiterRequirement>> vec;
-  vec.reserve(count);
-
-  for (size_t i = 0; i < count; i++) {
-    vec.emplace_back(requirements[i]->cloneRequirement());
-  }
-
-  return new Arbiter::Requirement::Compound(std::move(vec));
-}
-
-bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)
-{
-  return requirement->satisfiedBy(*version);
-}
-
-std::unique_ptr<ArbiterRequirement> ArbiterRequirement::cloneRequirement () const
-{
-  return std::unique_ptr<ArbiterRequirement>(dynamic_cast<ArbiterRequirement *>(clone().release()));
-}
-
-void ArbiterRequirement::visit (Arbiter::Requirement::Visitor &visitor) const
-{
-  visitor(*this);
-}
-
 namespace Arbiter {
 namespace Requirement {
 
@@ -406,7 +349,7 @@ bool Unversioned::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) co
   return selectedVersion._metadata == _metadata;
 }
 
-bool Unversioned::operator== (const Arbiter::Base &other) const
+bool Unversioned::operator== (const Base &other) const
 {
   if (auto *ptr = dynamic_cast<const Unversioned *>(&other)) {
     return _metadata == ptr->_metadata;
@@ -422,10 +365,10 @@ size_t Unversioned::hash () const noexcept
 
 bool Custom::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
 {
-  return _predicate(&selectedVersion, _context);
+  return _predicate(&selectedVersion, _context.get());
 }
 
-bool Custom::operator== (const Arbiter::Base &other) const
+bool Custom::operator== (const Base &other) const
 {
   if (auto *ptr = dynamic_cast<const Custom *>(&other)) {
     return _predicate == ptr->_predicate && _context == ptr->_context;
@@ -465,7 +408,7 @@ std::ostream &Compound::describe (std::ostream &os) const
   return os << " }";
 }
 
-bool Compound::operator== (const Arbiter::Base &other) const
+bool Compound::operator== (const Base &other) const
 {
   if (auto *ptr = dynamic_cast<const Compound *>(&other)) {
     return _requirements == ptr->_requirements;
@@ -531,3 +474,62 @@ std::unique_ptr<ArbiterRequirement> Compound::intersect (const ArbiterRequiremen
 
 } // namespace Requirement
 } // namespace Arbiter
+
+using namespace Arbiter;
+
+ArbiterRequirement *ArbiterCreateRequirementAny (void)
+{
+  return new Requirement::Any;
+}
+
+ArbiterRequirement *ArbiterCreateRequirementAtLeast (const ArbiterSemanticVersion *version)
+{
+  return new Requirement::AtLeast(*version);
+}
+
+ArbiterRequirement *ArbiterCreateRequirementCompatibleWith (const ArbiterSemanticVersion *version, ArbiterRequirementStrictness strictness)
+{
+  return new Requirement::CompatibleWith(*version, strictness);
+}
+
+ArbiterRequirement *ArbiterCreateRequirementExactly (const ArbiterSemanticVersion *version)
+{
+  return new Requirement::Exactly(*version);
+}
+
+ArbiterRequirement *ArbiterCreateRequirementUnversioned (ArbiterUserValue metadata)
+{
+  return new Requirement::Unversioned(Requirement::Unversioned::Metadata(metadata));
+}
+
+ArbiterRequirement *ArbiterCreateRequirementCustom (ArbiterRequirementPredicate predicate, ArbiterUserContext context)
+{
+  return new Requirement::Custom(std::move(predicate), shareUserContext(context));
+}
+
+ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement * const *requirements, size_t count)
+{
+  std::vector<std::shared_ptr<ArbiterRequirement>> vec;
+  vec.reserve(count);
+
+  for (size_t i = 0; i < count; i++) {
+    vec.emplace_back(requirements[i]->cloneRequirement());
+  }
+
+  return new Requirement::Compound(std::move(vec));
+}
+
+bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)
+{
+  return requirement->satisfiedBy(*version);
+}
+
+std::unique_ptr<ArbiterRequirement> ArbiterRequirement::cloneRequirement () const
+{
+  return std::unique_ptr<ArbiterRequirement>(dynamic_cast<ArbiterRequirement *>(clone().release()));
+}
+
+void ArbiterRequirement::visit (Requirement::Visitor &visitor) const
+{
+  visitor(*this);
+}

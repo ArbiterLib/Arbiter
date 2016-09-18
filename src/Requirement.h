@@ -235,9 +235,9 @@ class Unversioned final : public ArbiterRequirement
 class Custom final : public ArbiterRequirement
 {
   public:
-    explicit Custom (ArbiterRequirementPredicate predicate, const void *context)
+    explicit Custom (ArbiterRequirementPredicate predicate, std::shared_ptr<const void> context)
       : _predicate(std::move(predicate))
-      , _context(context)
+      , _context(std::move(context))
     {
       assert(_predicate);
     }
@@ -259,7 +259,7 @@ class Custom final : public ArbiterRequirement
 
   private:
     ArbiterRequirementPredicate _predicate;
-    const void *_context;
+    std::shared_ptr<const void> _context;
 };
 
 class Compound final : public ArbiterRequirement

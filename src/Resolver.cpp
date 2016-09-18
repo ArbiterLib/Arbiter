@@ -352,14 +352,14 @@ class UnversionedRequirementVisitor final : public Requirement::Visitor
 
 } // namespace
 
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, const void *context)
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserContext context)
 {
-  return new ArbiterResolver(std::move(behaviors), *dependencyList, context);
+  return new ArbiterResolver(std::move(behaviors), *dependencyList, shareUserContext(context));
 }
 
 const void *ArbiterResolverContext (const ArbiterResolver *resolver)
 {
-  return resolver->_context;
+  return resolver->_context.get();
 }
 
 ArbiterResolvedDependencyGraph *ArbiterResolverCreateResolvedDependencyGraph (ArbiterResolver *resolver, char **error)
