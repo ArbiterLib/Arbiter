@@ -13,7 +13,8 @@
 #include <functional>
 #include <memory>
 #include <ostream>
-#include <unordered_set>
+#include <set>
+#include <unordered_map>
 #include <vector>
 
 struct ArbiterRequirement;
@@ -109,15 +110,29 @@ struct ArbiterResolvedDependency final : public Arbiter::Base
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
+
+    bool operator< (const ArbiterResolvedDependency &other) const;
 };
+
+namespace std {
+
+template<>
+struct hash<ArbiterProjectIdentifier> final
+{
+  public:
+    size_t operator() (const ArbiterProjectIdentifier &project) const;
+};
+
+} // namespace std
 
 struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 {
   public:
-    // TODO: Should this be ordered?
-    using DepthSet = std::unordered_set<ArbiterResolvedDependency>;
+    using SortedEdgesMap = std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>>;
+    using DepthSet = std::set<ArbiterResolvedDependency>;
 
     std::vector<DepthSet> _depths;
+    SortedEdgesMap _edges;
 
     ArbiterResolvedDependencyGraph () = default;
 
@@ -134,13 +149,6 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 };
 
 namespace std {
-
-template<>
-struct hash<ArbiterProjectIdentifier> final
-{
-  public:
-    size_t operator() (const ArbiterProjectIdentifier &project) const;
-};
 
 template<>
 struct hash<ArbiterDependency> final

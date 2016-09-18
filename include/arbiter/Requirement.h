@@ -98,8 +98,7 @@ ArbiterRequirement *ArbiterCreateRequirementUnversioned (ArbiterUserValue metada
  *
  * The returned requirement must be freed with ArbiterFree().
  */
-// TODO: `context` may need memory management
-ArbiterRequirement *ArbiterCreateRequirementCustom (ArbiterRequirementPredicate predicate, const void *context);
+ArbiterRequirement *ArbiterCreateRequirementCustom (ArbiterRequirementPredicate predicate, ArbiterUserContext context);
 
 /**
  * Creates a compound requirement that evaluates each of a list of requirements.

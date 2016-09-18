@@ -73,7 +73,7 @@ typedef struct
  *
  * The returned dependency resolver must be freed with ArbiterFree().
  */
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterDependencyList *dependencyList, const void *context);
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterDependencyList *dependencyList, ArbiterUserContext context);
 
 /**
  * Returns any context data which was provided to ArbiterCreateResolver().

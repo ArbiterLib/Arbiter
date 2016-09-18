@@ -10,16 +10,17 @@
 #include "Types.h"
 #include "Version.h"
 
+#include <memory>
 #include <unordered_map>
 #include <vector>
 
 struct ArbiterResolver final : public Arbiter::Base
 {
   public:
-    const void *_context;
+    std::shared_ptr<const void> _context;
 
-    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, const void *context)
-      : _context(context)
+    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, std::shared_ptr<const void> context)
+      : _context(std::move(context))
       , _behaviors(std::move(behaviors))
       , _dependencyList(std::move(dependencyList))
     {

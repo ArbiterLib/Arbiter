@@ -5,7 +5,7 @@ public enum Specifier
   case CompatibleWith(SemanticVersion, ArbiterRequirementStrictness)
   case Exactly(SemanticVersion)
   case Unversioned(ArbiterUserValue)
-  // TODO: Custom
+  case Custom(RequirementPredicateBase)
   indirect case Compound([Specifier])
   indirect case Prioritized(Specifier, Int)
 }
@@ -32,6 +32,12 @@ public final class Requirement : CObject
     case let .Unversioned(metadata):
       ptr = ArbiterCreateRequirementUnversioned(metadata)
 
+    case let .Custom(predicate):
+      ptr = ArbiterCreateRequirementCustom({ selectedVersion, context in
+        let predicate: RequirementPredicateBase = fromUserContext(context)
+        return predicate.satisfiedBy(selectedVersion)
+      }, toUserContext(predicate))
+
     case let .Compound(specifiers):
       let requirements = specifiers.map { s in Requirement(s) }
       let requirementPtrs = requirements.map { $0.pointer }
@@ -51,5 +57,33 @@ public final class Requirement : CObject
   public func satisfiedBy (version: SemanticVersion) -> Bool
   {
     return ArbiterRequirementSatisfiedBy(pointer, version.pointer)
+  }
+}
+
+public class RequirementPredicateBase
+{
+  private init ()
+  {}
+
+  private func satisfiedBy (selectedVersion: COpaquePointer) -> Bool
+  {
+    preconditionFailure("Must be overridden by subclasses")
+  }
+}
+
+public final class RequirementPredicate<VersionMetadata: ArbiterValue> : RequirementPredicateBase
+{
+  public typealias Predicate = SelectedVersion<VersionMetadata> -> Bool
+
+  private let closure: Predicate
+
+  public init (_ closure: Predicate)
+  {
+    self.closure = closure
+  }
+
+  private override func satisfiedBy (selectedVersion: COpaquePointer) -> Bool
+  {
+    return closure(SelectedVersion<VersionMetadata>(selectedVersion))
   }
 }

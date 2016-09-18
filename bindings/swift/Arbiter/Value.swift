@@ -129,3 +129,52 @@ private func < (lhs: UserValueWrapper, rhs: UserValueWrapper) -> Bool
 {
   return lhs.lessThan(UnsafePointer(lhs.data), UnsafePointer(rhs.data))
 }
+
+/**
+ * Creates a C structure representation of this object.
+ *
+ * This creates an unbalanced retain on the object, with the expectation that
+ * the structure will be passed to an Arbiter API which invokes the
+ * destructor. Failure to hand over the structure to Arbiter will result in
+ * a memory leak.
+ */
+public func toUserContext<T: AnyObject> (object: T) -> ArbiterUserContext
+{
+  let wrapper = UserContextWrapper(
+    data: UnsafeMutablePointer(Unmanaged.passRetained(object).toOpaque()),
+    destructor: { ptr in
+      Unmanaged<T>.fromOpaque(COpaquePointer(ptr)).release()
+    })
+
+  return ArbiterUserContext(
+    data: UnsafeMutablePointer(Unmanaged.passRetained(wrapper).toOpaque()),
+    destructor: { ptr in
+      let wrapper = Unmanaged<UserContextWrapper>.fromOpaque(COpaquePointer(ptr)).takeRetainedValue()
+      wrapper.destructor(wrapper.data)
+    })
+}
+
+/**
+ * Reads an object of this type from a C pointer.
+ *
+ * This method cannot perform any typechecking, so the pointed-to data must
+ * correspond to an ArbiterUserContext created with toUserContext() over an
+ * object of type T.
+ */
+public func fromUserContext<T: AnyObject> (ptr: UnsafePointer<Void>) -> T
+{
+  let wrapper = Unmanaged<UserContextWrapper>.fromOpaque(COpaquePointer(ptr)).takeUnretainedValue()
+  return Unmanaged<T>.fromOpaque(COpaquePointer(wrapper.data)).takeUnretainedValue()
+}
+
+private class UserContextWrapper
+{
+  let data: UnsafeMutablePointer<Void>
+  let destructor: (UnsafeMutablePointer<Void> -> Void)
+
+  init (data: UnsafeMutablePointer<Void>, destructor: (UnsafeMutablePointer<Void> -> Void))
+  {
+    self.data = data
+    self.destructor = destructor
+  }
+}

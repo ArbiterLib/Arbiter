@@ -53,7 +53,7 @@ int main (int argc, const char **argv)
     .createAvailableVersionsList = &create_available_versions_list,
   };
 
-  ArbiterResolver *resolver = ArbiterCreateResolver(behaviors, dependencyList, NULL);
+  ArbiterResolver *resolver = ArbiterCreateResolver(behaviors, dependencyList, (ArbiterUserContext){ .data = NULL });
   ArbiterFree(dependencyList);
 
   ArbiterResolvedDependencyGraph *resolvedGraph = ArbiterResolverCreateResolvedDependencyGraph(resolver, &error);
