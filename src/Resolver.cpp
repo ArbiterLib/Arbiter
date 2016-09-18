@@ -99,7 +99,7 @@ class DependencyGraph final
       }
 
       // Contains edges which still need to be added to the resolved graph.
-      std::unordered_map<NodeKey, std::vector<NodeKey>> remainingEdges;
+      std::unordered_map<NodeKey, std::unordered_set<NodeKey>> remainingEdges;
 
       // Contains dependencies without any dependencies themselves.
       ArbiterResolvedDependencyGraph::DepthSet leaves;
@@ -111,13 +111,14 @@ class DependencyGraph final
         if (it == _edges.end()) {
           leaves.emplace(resolveNode(key));
         } else {
-          std::vector<NodeKey> dependencies(it->second.begin(), it->second.end());
-          remainingEdges[key] = dependencies;
+          const std::unordered_set<NodeKey> &dependencySet = it->second;
 
-          dependencies.shrink_to_fit();
-          assert(std::is_sorted(dependencies.begin(), dependencies.end()));
+          remainingEdges[key] = dependencySet;
 
-          resolved._edges.emplace(std::make_pair(key, std::move(dependencies)));
+          std::vector<NodeKey> dependencyList(dependencySet.begin(), dependencySet.end());
+          std::sort(dependencyList.begin(), dependencyList.end());
+
+          resolved._edges.emplace(std::make_pair(key, std::move(dependencyList)));
         }
       }
 
@@ -226,9 +227,7 @@ class DependencyGraph final
       return resolveNode(key, _nodeMap.at(key));
     }
 
-    // TODO: Should these be unordered, with ordering instead applied in
-    // resolvedGraph?
-    std::unordered_map<NodeKey, std::set<NodeKey>> _edges;
+    std::unordered_map<NodeKey, std::unordered_set<NodeKey>> _edges;
     std::unordered_map<NodeKey, NodeValue> _nodeMap;
 };
 
