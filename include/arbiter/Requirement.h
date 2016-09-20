@@ -112,9 +112,54 @@ ArbiterRequirement *ArbiterCreateRequirementCustom (ArbiterRequirementPredicate 
 ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement * const *requirements, size_t count);
 
 /**
+ * Creates a requirement with a custom priority, changing how the base
+ * requirement intersects with other requirements in the dependency graph.
+ *
+ * Normally, if two requirements A and B are found for the same project in the
+ * graph, they are intersected to create a requirement which satisfies both
+ * A and B. If no intersection is possible, dependency resolution fails.
+ *
+ * Priorities short-circuit this intersection process. If requirement A has
+ * a lower _priority index_ (meaning that it is higher priority) than
+ * requirement B: requirement A will be used, requirement B will be discarded,
+ * and no intersection will be performed.
+ *
+ * **This can lead to surprising behavior that violates users' expectations**,
+ * but is nonetheless occasionally useful. For example, users sometimes want to
+ * be able to specify a particular version to use which lies outside of any
+ * semantic versioning scheme (e.g., an arbitrary branch or local checkout), in
+ * which case it makes sense to disable some semantic version requirements in
+ * the dependency graph.
+ *
+ * _Note:_ prioritized requirements may be used to filter the list of available
+ * versions, even if they are lower priority than the default and may get
+ * discarded. This means that requirements should avoid rejecting valid versions
+ * for the project being considered, or else an unsatisfiable constraints error
+ * may result.
+ *
+ * baseRequirement - A requirement specifying which versions will satisfy the
+ *                   new requirement. Must not be NULL.
+ * priorityIndex   - A "priority index" for the new requirement. Lower numbers
+ *                   indicate higher priority (just like setpriority() on Unix).
+ *                   Requirements without an explicit priority set are assumed
+ *                   to have priority index 0, meaning negative priorities will
+ *                   override the default and positive priorities will _be
+ *                   overridden_ by the default.
+ *
+ * The returned requirement must be freed with ArbiterFree().
+ */
+ArbiterRequirement *ArbiterCreateRequirementPrioritized (const ArbiterRequirement *baseRequirement, int priorityIndex);
+
+/**
  * Determines whether the given requirement is satisfied by the given version.
  */
 bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const struct ArbiterSelectedVersion *version);
+
+/**
+ * Returns the priority of the given requirement. See
+ * ArbiterCreateRequirementPrioritized() for more information.
+ */
+int ArbiterRequirementPriority (const ArbiterRequirement *requirement);
 
 #ifdef __cplusplus
 }

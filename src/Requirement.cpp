@@ -3,6 +3,8 @@
 #include "Hash.h"
 #include "ToString.h"
 
+#include <algorithm>
+#include <limits>
 #include <typeinfo>
 
 namespace Arbiter {
@@ -193,12 +195,33 @@ struct Intersect<Compound, Other> final
 
   Result operator() (const Compound &compound, const Other &other) const
   {
+    if (other.priority() < compound.priority()) {
+      return other.cloneRequirement();
+    }
+
     std::vector<std::shared_ptr<ArbiterRequirement>> requirements = compound._requirements;
 
     requirements.reserve(requirements.size() + 1);
     requirements.emplace_back(other.cloneRequirement());
 
     return std::make_unique<Compound>(std::move(requirements));
+  }
+};
+
+template<typename Other>
+struct Intersect<Prioritized, Other> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const Prioritized &prioritized, const Other &other) const
+  {
+    if (prioritized.priority() < other.priority()) {
+      return prioritized.cloneRequirement();
+    } else if (prioritized.priority() > other.priority()) {
+      return other.cloneRequirement();
+    } else {
+      return prioritized._requirement->intersect(other);
+    }
   }
 };
 
@@ -209,6 +232,7 @@ const std::type_info &exactly = typeid(Exactly);
 const std::type_info &unversioned = typeid(Unversioned);
 const std::type_info &custom = typeid(Custom);
 const std::type_info &compound = typeid(Compound);
+const std::type_info &prioritized = typeid(Prioritized);
 
 template<typename Left>
 std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const ArbiterRequirement &rhs)
@@ -227,6 +251,8 @@ std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const Arbite
     return Intersect<Left, Custom>()(lhs, dynamic_cast<const Custom &>(rhs));
   } else if (typeid(rhs) == compound) {
     return Intersect<Left, Compound>()(lhs, dynamic_cast<const Compound &>(rhs));
+  } else if (typeid(rhs) == prioritized) {
+    return Intersect<Left, Prioritized>()(lhs, dynamic_cast<const Prioritized &>(rhs));
   } else {
     throw std::invalid_argument("Unrecognized type for requirement: " + toString(rhs));
   }
@@ -384,7 +410,16 @@ size_t Custom::hash () const noexcept
 
 bool Compound::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
 {
+  int minimumPriority = priority();
+
   for (const auto &requirement : _requirements) {
+    // Ignore any requirements which have a higher priority index (i.e., lower
+    // priority) than the minimum, because they would normally get discarded
+    // during intersection.
+    if (requirement->priority() > minimumPriority) {
+      continue;
+    }
+
     if (!requirement->satisfiedBy(selectedVersion)) {
       return false;
     }
@@ -437,6 +472,47 @@ void Compound::visit (Visitor &visitor) const
   }
 }
 
+int Compound::priority () const noexcept
+{
+  int minimum = std::numeric_limits<int>::max();
+
+  for (const auto &requirement : _requirements) {
+    minimum = std::min(minimum, requirement->priority());
+  }
+  
+  return minimum;
+}
+
+bool Prioritized::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  return _requirement->satisfiedBy(selectedVersion);
+}
+
+std::ostream &Prioritized::describe (std::ostream &os) const
+{
+  return os << *_requirement << " (priority " << _priority << ")";
+}
+
+bool Prioritized::operator== (const Arbiter::Base &other) const
+{
+  if (auto *ptr = dynamic_cast<const Prioritized *>(&other)) {
+    return *_requirement == *ptr->_requirement && _priority == ptr->_priority;
+  } else {
+    return false;
+  }
+}
+
+size_t Prioritized::hash () const noexcept
+{
+  return hashOf(*_requirement) ^ hashOf(_priority);
+}
+
+void Prioritized::visit (Visitor &visitor) const
+{
+  ArbiterRequirement::visit(visitor);
+  _requirement->visit(visitor);
+}
+
 std::unique_ptr<ArbiterRequirement> Any::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Any>(*this, rhs);
@@ -470,6 +546,11 @@ std::unique_ptr<ArbiterRequirement> Custom::intersect (const ArbiterRequirement 
 std::unique_ptr<ArbiterRequirement> Compound::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Compound>(*this, rhs);
+}
+
+std::unique_ptr<ArbiterRequirement> Prioritized::intersect (const ArbiterRequirement &rhs) const
+{
+  return intersectRight<Prioritized>(*this, rhs);
 }
 
 } // namespace Requirement
@@ -517,6 +598,11 @@ ArbiterRequirement *ArbiterCreateRequirementCompound (const ArbiterRequirement *
   }
 
   return new Requirement::Compound(std::move(vec));
+}
+
+ArbiterRequirement *ArbiterCreateRequirementPrioritized (const ArbiterRequirement *baseRequirement, int priorityIndex)
+{
+  return new Arbiter::Requirement::Prioritized(baseRequirement->cloneRequirement(), priorityIndex);
 }
 
 bool ArbiterRequirementSatisfiedBy (const ArbiterRequirement *requirement, const ArbiterSelectedVersion *version)

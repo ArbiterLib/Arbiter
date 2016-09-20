@@ -4,6 +4,7 @@
 #error "This file must be compiled as C++."
 #endif
 
+#include "Optional.h"
 #include "Value.h"
 
 #include <memory>
@@ -45,6 +46,8 @@ class EmptyTestValue final : public TestValue
 struct StringTestValue final : public TestValue
 {
   public:
+    std::string _str;
+
     explicit StringTestValue (std::string str)
       : _str(std::move(str))
     {}
@@ -53,15 +56,19 @@ struct StringTestValue final : public TestValue
     bool operator< (const TestValue &other) const override;
     size_t hash () const override;
     std::ostream &describe (std::ostream &os) const override;
-
-  private:
-    std::string _str;
 };
 
 template<typename Owner, typename Value, typename... Args>
 SharedUserValue<Owner> makeSharedUserValue (Args &&...args)
 {
   return SharedUserValue<Owner>(TestValue::convertToUserValue(std::make_unique<Value>(std::forward<Args>(args)...)));
+}
+
+template<typename Value>
+const Value &fromUserValue (const void *pointer) noexcept(false)
+{
+  const auto &value = *static_cast<const TestValue *>(pointer);
+  return dynamic_cast<const Value &>(value);
 }
 
 } // namespace Testing

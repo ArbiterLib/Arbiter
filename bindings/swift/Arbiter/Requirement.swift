@@ -7,6 +7,7 @@ public enum Specifier
   case Unversioned(ArbiterUserValue)
   case Custom(RequirementPredicateBase)
   indirect case Compound([Specifier])
+  indirect case Prioritized(Specifier, Int)
 }
 
 public final class Requirement : CObject
@@ -44,6 +45,10 @@ public final class Requirement : CObject
       ptr = requirementPtrs.withUnsafeBufferPointer { buffer in
         return ArbiterCreateRequirementCompound(buffer.baseAddress, buffer.count)
       }
+
+    case let .Prioritized(specifier, priority):
+      let inner = Requirement(specifier)
+      ptr = ArbiterCreateRequirementPrioritized(inner.pointer, Int32(priority))
     }
 
     self.init(ptr, shouldCopy: false)

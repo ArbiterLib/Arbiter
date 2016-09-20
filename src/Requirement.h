@@ -31,6 +31,14 @@ struct ArbiterRequirement : public Arbiter::Base
     virtual bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const = 0;
 
     /**
+     * Returns the priority of this requirement.
+     */
+    virtual int priority () const noexcept
+    {
+      return 0;
+    }
+
+    /**
      * Attempts to create a requirement which expresses the intersection of this
      * requirement and the given one
      *
@@ -229,7 +237,6 @@ class Unversioned final : public ArbiterRequirement
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
     bool operator== (const Arbiter::Base &other) const override;
     size_t hash () const noexcept override;
-
 };
 
 class Custom final : public ArbiterRequirement
@@ -276,12 +283,49 @@ class Compound final : public ArbiterRequirement
       return std::make_unique<Compound>(*this);
     }
 
+    /**
+     * Returns the minimum priority index of all the requirements held by this
+     * compound requirement.
+     */
+    int priority () const noexcept override;
+
     bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
     std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
     size_t hash () const noexcept override;
     void visit (Visitor &visitor) const override;
+};
+
+class Prioritized final : public ArbiterRequirement
+{
+  public:
+    std::shared_ptr<ArbiterRequirement> _requirement;
+
+    explicit Prioritized (std::shared_ptr<ArbiterRequirement> requirement, int priority)
+      : _requirement(std::move(requirement))
+      , _priority(priority)
+    {}
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<Prioritized>(*this);
+    }
+
+    int priority () const noexcept override
+    {
+      return _priority;
+    }
+
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
+    void visit (Visitor &visitor) const override;
+
+  private:
+    int _priority;
 };
 
 } // namespace Requirement
