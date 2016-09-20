@@ -1,26 +1,18 @@
 {
-  "private": true,
-  "dependencies": {
-    "bindings": "^1.2.1",
-    "node-gyp": "^3.4.0"
-  },
+  "name": "arbiter-node-bindings",
+  "version": "0.1.0",
+  "description": "Node.js bindings for Arbiter",
+  "repository": "https://github.com/jspahrsummers/Arbiter/tree/master/bindings/node",
+  "license": "MIT",
+  "main": "index.js",
   "scripts": {
-    "build": "npm run build:node && npm run build:js",
-    "prebuild:js": "npm run lint",
-    "build:js": "babel src -d lib",
-    "prebuild:node": "npm run configure",
-    "build:node": "node-gyp build",
+    "prebuild": "npm run configure",
+    "build": "node-gyp build",
     "configure": "node-gyp configure",
-    "lint": "eslint src test",
-    "pretest": "npm run build",
-    "test": "jest"
+    "prepublish": "build"
   },
   "devDependencies": {
-    "babel-cli": "^6.14.0",
-    "babel-eslint": "^6.1.2",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "eslint": "^3.5.0",
-    "jest": "^15.1.1"
+    "bindings": "^1.2.1",
+    "node-gyp": "^3.4.0"
   }
 }

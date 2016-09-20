@@ -1,5 +1,4 @@
-import bindings from 'bindings';
-const addon = bindings('addon');
+import addon from 'arbiter-node-bindings';
 
 const hello = () => {
   return addon.hello();
