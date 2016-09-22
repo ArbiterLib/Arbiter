@@ -6,10 +6,11 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "prebuild": "npm run configure",
+    "prebuild": "npm run make && npm run configure",
     "build": "node-gyp build",
     "configure": "node-gyp configure",
-    "prepublish": "build"
+    "prepublish": "build",
+    "make": "env make build --directory=../.."
   },
   "devDependencies": {
     "bindings": "^1.2.1",
