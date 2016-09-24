@@ -216,6 +216,32 @@ TEST(ResolverTest, ResolvesPrioritizedUnversionedRequirements)
   EXPECT_EQ(findResolved(installer, 0, "leaf_dailybuild")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 1, 0, None(), makeOptional("dailybuild"))));
 }
 
+TEST(ResolverTest, ResolvesIncrementallyFromInitialGraph)
+{
+  // Purposely selecting a version which isn't available in the list, as we
+  // shouldn't be inspecting A during resolution at all.
+  auto resolvedA = ArbiterResolvedDependency(makeProjectIdentifier("A"), ArbiterSelectedVersion(ArbiterSemanticVersion(2, 3, 4), makeSharedUserValue<ArbiterSelectedVersion, EmptyTestValue>()));
+
+  ArbiterResolvedDependencyGraph initialGraph;
+  initialGraph.addNode(std::move(resolvedA), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 1)), None());
+
+  std::vector<ArbiterDependency> dependencies;
+  dependencies.emplace_back(makeProjectIdentifier("B"), Requirement::CompatibleWith(ArbiterSemanticVersion(2, 0, 0), ArbiterRequirementStrictnessStrict));
+  dependencies.emplace_back(makeProjectIdentifier("C"), Requirement::Exactly(ArbiterSemanticVersion(1, 0, 0)));
+
+  ArbiterResolverBehaviors behaviors{&createEmptyDependencyList, &createMajorVersionsList, nullptr};
+  ArbiterResolver resolver(behaviors, std::move(initialGraph), ArbiterDependencyList(std::move(dependencies)), nullptr);
+
+  ArbiterResolvedDependencyGraph resolved = resolver.resolve();
+  EXPECT_EQ(resolved.nodes().size(), 3);
+
+  ArbiterResolvedDependencyInstaller installer = resolved.createInstaller();
+  EXPECT_EQ(installer._phases.size(), 1);
+  EXPECT_EQ(findResolved(installer, 0, "A")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 3, 4)));
+  EXPECT_EQ(findResolved(installer, 0, "B")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(2, 0, 0)));
+  EXPECT_EQ(findResolved(installer, 0, "C")._version._semanticVersion, makeOptional(ArbiterSemanticVersion(1, 0, 0)));
+}
+
 #if 0
 TEST(ResolverTest, FailsWhenNoAvailableVersions)
 {}
