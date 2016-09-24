@@ -92,3 +92,44 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
     }
   }
 }
+
+public final class ResolvedDependencyInstaller<ProjectValue: ArbiterValue, VersionMetadata: ArbiterValue> : CObject
+{
+  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
+  {
+    super.init(pointer, shouldCopy: shouldCopy)
+  }
+
+  public convenience init (graph: ResolvedDependencyGraph<ProjectValue, VersionMetadata>)
+  {
+    self.init(ArbiterResolvedDependencyInstallerCreate(graph.pointer), shouldCopy: false)
+  }
+
+  public var phases: [OnDemandCollection<[ResolvedDependency<ProjectValue, VersionMetadata>]>]
+  {
+    let phaseCount = ArbiterResolvedDependencyInstallerPhaseCount(pointer)
+
+    var phases: [OnDemandCollection<[ResolvedDependency<ProjectValue, VersionMetadata>]>] = []
+    phases.reserveCapacity(phaseCount)
+
+    for phaseIndex in 0..<phaseCount {
+      let count = ArbiterResolvedDependencyInstallerCountInPhase(pointer, phaseIndex)
+
+      phases.append(OnDemandCollection(startIndex: 0, endIndex: count) {
+        let buffer = UnsafeMutablePointer<COpaquePointer>.alloc(count)
+        ArbiterResolvedDependencyInstallerGetAllInPhase(self.pointer, phaseIndex, buffer)
+
+        let array = UnsafeBufferPointer(start: buffer, count: count).map { ptr in
+          return ResolvedDependency<ProjectValue, VersionMetadata>(ptr)
+        }
+
+        buffer.destroy(count)
+        buffer.dealloc(count)
+
+        return array
+      })
+    }
+
+    return phases
+  }
+}
