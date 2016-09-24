@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351C4E5D1D96619600905E1F /* Graph.h in Headers */ = {isa = PBXBuildFile; fileRef = 351C4E5C1D96619600905E1F /* Graph.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		351C4E5F1D96619F00905E1F /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C4E5E1D96619F00905E1F /* Graph.swift */; };
+		351C4E611D9662A300905E1F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C4E601D9662A300905E1F /* Errors.swift */; };
 		357FB07F1D75AF6A0040691B /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357FB07E1D75AF6A0040691B /* Resolver.swift */; };
 		D09B693A1D84600E00BDD4A4 /* OnDemandCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B69391D84600E00BDD4A4 /* OnDemandCollection.swift */; };
 		D0DB8C061D74937A003657D3 /* Arbiter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0DB8C051D74937A003657D3 /* Arbiter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -35,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		351C4E5C1D96619600905E1F /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Graph.h; path = ../../../include/arbiter/Graph.h; sourceTree = "<group>"; };
+		351C4E5E1D96619F00905E1F /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
+		351C4E601D9662A300905E1F /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		357FB07E1D75AF6A0040691B /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
 		D09B69391D84600E00BDD4A4 /* OnDemandCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandCollection.swift; sourceTree = "<group>"; };
 		D0DB8C021D74937A003657D3 /* Arbiter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arbiter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +104,7 @@
 			children = (
 				D0DB8C051D74937A003657D3 /* Arbiter.h */,
 				D0F65B441D7496AE00DD582F /* Dependency.h */,
+				351C4E5C1D96619600905E1F /* Graph.h */,
 				D0F65B451D7496AE00DD582F /* Requirement.h */,
 				D0F65B461D7496AE00DD582F /* Resolver.h */,
 				D0F8619D1D74DFA1009BD4C6 /* Types.h */,
@@ -111,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				D0F861A31D74E9B7009BD4C6 /* Dependency.swift */,
+				351C4E601D9662A300905E1F /* Errors.swift */,
+				351C4E5E1D96619F00905E1F /* Graph.swift */,
 				D09B69391D84600E00BDD4A4 /* OnDemandCollection.swift */,
 				D0F861A51D74EBB2009BD4C6 /* Requirement.swift */,
 				357FB07E1D75AF6A0040691B /* Resolver.swift */,
@@ -144,6 +153,7 @@
 				D0F8619E1D74DFA1009BD4C6 /* Types.h in Headers */,
 				D0F65B4C1D7496AE00DD582F /* Value.h in Headers */,
 				D0F65B4D1D7496AE00DD582F /* Version.h in Headers */,
+				351C4E5D1D96619600905E1F /* Graph.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,12 +247,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				351C4E5F1D96619F00905E1F /* Graph.swift in Sources */,
 				D0F65B341D7493E800DD582F /* Version.swift in Sources */,
 				D0F861A61D74EBB2009BD4C6 /* Requirement.swift in Sources */,
 				D0F861A01D74E0D9009BD4C6 /* Types.swift in Sources */,
 				D09B693A1D84600E00BDD4A4 /* OnDemandCollection.swift in Sources */,
 				357FB07F1D75AF6A0040691B /* Resolver.swift in Sources */,
 				D0F861A41D74E9B7009BD4C6 /* Dependency.swift in Sources */,
+				351C4E611D9662A300905E1F /* Errors.swift in Sources */,
 				D0F861A21D74E183009BD4C6 /* Value.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

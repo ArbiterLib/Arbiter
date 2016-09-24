@@ -7,6 +7,7 @@ FOUNDATION_EXPORT double ArbiterVersionNumber;
 FOUNDATION_EXPORT const unsigned char ArbiterVersionString[];
 
 #import <Arbiter/Dependency.h>
+#import <Arbiter/Graph.h>
 #import <Arbiter/Requirement.h>
 #import <Arbiter/Resolver.h>
 #import <Arbiter/Types.h>
