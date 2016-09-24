@@ -122,7 +122,7 @@ const ArbiterResolvedDependency &findResolved (const ArbiterResolvedDependencyIn
 TEST(ResolverTest, ResolvesEmptyDependencies) {
   ArbiterResolverBehaviors behaviors{&createEmptyDependencyList, &createEmptyAvailableVersionsList, nullptr};
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(), nullptr);
+  ArbiterResolver resolver(behaviors, ArbiterResolvedDependencyGraph(), ArbiterDependencyList(), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
   EXPECT_EQ(resolved.nodes().size(), 0);
@@ -137,7 +137,7 @@ TEST(ResolverTest, ResolvesOneDependency) {
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(emptyProjectIdentifier(), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 0)));
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
+  ArbiterResolver resolver(behaviors, ArbiterResolvedDependencyGraph(), ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
   EXPECT_EQ(resolved.nodes().size(), 1);
@@ -153,11 +153,11 @@ TEST(ResolverTest, ResolvesMultipleDependencies)
   ArbiterResolverBehaviors behaviors{&createEmptyDependencyList, &createMajorVersionsList, nullptr};
 
   std::vector<ArbiterDependency> dependencies;
-  dependencies.emplace_back(makeProjectIdentifier("B"), Requirement::CompatibleWith(ArbiterSemanticVersion(2, 0, 0), ArbiterRequirementStrictnessStrict));
   dependencies.emplace_back(makeProjectIdentifier("A"), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 1)));
+  dependencies.emplace_back(makeProjectIdentifier("B"), Requirement::CompatibleWith(ArbiterSemanticVersion(2, 0, 0), ArbiterRequirementStrictnessStrict));
   dependencies.emplace_back(makeProjectIdentifier("C"), Requirement::Exactly(ArbiterSemanticVersion(1, 0, 0)));
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
+  ArbiterResolver resolver(behaviors, ArbiterResolvedDependencyGraph(), ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
   EXPECT_EQ(resolved.nodes().size(), 3);
@@ -177,7 +177,7 @@ TEST(ResolverTest, ResolvesTransitiveDependencies)
   dependencies.emplace_back(makeProjectIdentifier("ancestor"), Requirement::Exactly(ArbiterSemanticVersion(1, 0, 1, makeOptional("alpha"))));
   dependencies.emplace_back(makeProjectIdentifier("parent"), Requirement::CompatibleWith(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessStrict));
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
+  ArbiterResolver resolver(behaviors, ArbiterResolvedDependencyGraph(), ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
   EXPECT_EQ(resolved.nodes().size(), 6);
@@ -201,7 +201,7 @@ TEST(ResolverTest, ResolvesPrioritizedUnversionedRequirements)
   dependencies.emplace_back(makeProjectIdentifier("middle"), makePrioritizedRequirement(makeUnversionedRequirement("middle-branch"), -1));
   dependencies.emplace_back(makeProjectIdentifier("parent"), makePrioritizedRequirement(Requirement::CompatibleWith(ArbiterSemanticVersion(1, 2, 3), ArbiterRequirementStrictnessStrict), 1));
 
-  ArbiterResolver resolver(behaviors, ArbiterDependencyList(std::move(dependencies)), nullptr);
+  ArbiterResolver resolver(behaviors, ArbiterResolvedDependencyGraph(), ArbiterDependencyList(std::move(dependencies)), nullptr);
 
   ArbiterResolvedDependencyGraph resolved = resolver.resolve();
   EXPECT_EQ(resolved.nodes().size(), 6);

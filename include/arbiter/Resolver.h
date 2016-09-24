@@ -68,12 +68,22 @@ typedef struct
 
 /**
  * Creates a dependency resolver, implemented using the given behaviors, which
- * will attempt to pick compatible versions of all dependencies in
- * `dependencyList` and transitive dependencies thereof.
+ * will attempt to add compatible versions of all dependencies in
+ * `dependenciesToResolve` into the `initialGraph`.
+ *
+ * If `initialGraph` is NULL or empty, this is like creating a new graph which
+ * is populated with everything in `dependenciesToResolve` and all transitive
+ * dependencies thereof.
+ *
+ * Otherwise, the listed dependencies are _unified_ with whatever is already in
+ * the graph. Projects in and transitive dependencies of `dependenciesToResolve`
+ * which are not already in the graph will be added. For any dependency which
+ * _is_ already in the graph, the version from the graph must be satisfied by
+ * the updated dependency's requirement, or else resolution will fail.
  *
  * The returned dependency resolver must be freed with ArbiterFree().
  */
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterDependencyList *dependencyList, ArbiterUserContext context);
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context);
 
 /**
  * Returns any context data which was provided to ArbiterCreateResolver().

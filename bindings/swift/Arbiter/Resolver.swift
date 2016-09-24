@@ -34,7 +34,7 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (dependencies: DependencyList<ProjectValue>, listDependencies: ListDependencies, listAvailableVersions: ListAvailableVersions, selectedVersionForMetadata: SelectedVersionForMetadata? = nil)
+  public convenience init (initialGraph: ResolvedDependencyGraph<ProjectValue, VersionMetadata>?, dependenciesToResolve: DependencyList<ProjectValue>, listDependencies: ListDependencies, listAvailableVersions: ListAvailableVersions, selectedVersionForMetadata: SelectedVersionForMetadata? = nil)
   {
     // This has to be initialized in two steps, because we need a reference to
     // `self` in order to create the ArbiterResolver pointer.
@@ -45,7 +45,7 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
       createAvailableVersionsList: createAvailableVersionsListBehavior,
       createSelectedVersionForMetadata: createSelectedVersionForMetadataBehavior)
 
-    _pointer = ArbiterCreateResolver(behaviors, dependencies.pointer, toUserContext(self))
+    _pointer = ArbiterCreateResolver(behaviors, initialGraph?.pointer ?? nil, dependenciesToResolve.pointer, toUserContext(self))
   }
 
   private override func createDependencyList (project: COpaquePointer, selectedVersion: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
