@@ -1,5 +1,7 @@
 #include "Graph.h"
 
+#include <algorithm>
+
 #include "Exception.h"
 
 using namespace Arbiter;
