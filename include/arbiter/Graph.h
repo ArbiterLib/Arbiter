@@ -23,9 +23,26 @@ typedef struct ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph;
 /**
  * Creates an empty resolved dependency graph.
  *
- * The returned identifier must be freed with ArbiterFree().
+ * The returned graph must be freed with ArbiterFree().
  */
 ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCreate (void);
+
+/**
+ * Creates a resolved dependency graph based upon `baseGraph`, but excluding any
+ * nodes and edges which are not reachable from `roots`.
+ *
+ * In other words, this creates a new sub-graph which is rooted at `roots`. The
+ * new roots do not necessarily have to be siblings in `baseGraph`.
+ *
+ * This operation is mostly useful to create a filtered graph which can then be
+ * passed as the `initialGraph` to ArbiterCreateResolver(). For example, if an
+ * end user only wants to upgrade a specific set of projects, this function
+ * could be used to filter out those projects from an existing graph, and
+ * then resolve only those specific projects from scratch.
+ *
+ * The returned graph must be freed with ArbiterFree().
+ */
+ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (const ArbiterResolvedDependencyGraph *baseGraph, const struct ArbiterProjectIdentifier * const *roots, size_t rootCount);
 
 /**
  * Attempts to add a root node into the dependency graph, without making it

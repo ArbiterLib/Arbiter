@@ -54,7 +54,7 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
      *
      * Throws an exception if this addition would make the graph inconsistent.
      */
-    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<ArbiterProjectIdentifier> &dependent) noexcept(false);
+    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<NodeKey> &dependent) noexcept(false);
 
     const NodeMap &nodes () const
     {
@@ -71,6 +71,14 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 
     ArbiterResolvedDependencyInstaller createInstaller () const;
 
+    /**
+     * Creates a new dependency graph that contains only nodes and edges which
+     * are reachable from the nodes referenced by `roots`.
+     *
+     * It is an error to include a node here which doesn't appear in the graph.
+     */
+    ArbiterResolvedDependencyGraph graphWithNewRoots (const std::vector<NodeKey> &roots) const;
+
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
@@ -78,6 +86,8 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
   private:
     EdgeMap _edges;
     NodeMap _nodes;
+
+    void walkNodeAndCopyInto (ArbiterResolvedDependencyGraph &newGraph, const NodeKey &key, const Arbiter::Optional<NodeKey> &dependent) const;
 };
 
 struct ArbiterResolvedDependencyInstaller final : public Arbiter::Base

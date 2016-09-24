@@ -11,6 +11,18 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCreate (void)
   return new ArbiterResolvedDependencyGraph;
 }
 
+ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (const ArbiterResolvedDependencyGraph *baseGraph, const struct ArbiterProjectIdentifier * const *roots, size_t rootCount)
+{
+  std::vector<ArbiterProjectIdentifier> vec;
+  vec.reserve(rootCount);
+
+  for (size_t i = 0; i < rootCount; i++) {
+    vec.emplace_back(*roots[i]);
+  }
+
+  return new ArbiterResolvedDependencyGraph(baseGraph->graphWithNewRoots(std::move(vec)));
+}
+
 bool ArbiterResolvedDependencyGraphAddRoot (ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency *node, const ArbiterRequirement *requirement, char **error)
 {
   try {
@@ -138,7 +150,7 @@ void ArbiterResolvedDependencyGraph::NodeValue::setRequirement (std::unique_ptr<
   _requirement = std::move(requirement);
 }
 
-void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<ArbiterProjectIdentifier> &dependent) noexcept(false)
+void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<NodeKey> &dependent) noexcept(false)
 {
   assert(initialRequirement.satisfiedBy(node._version));
 
@@ -164,6 +176,32 @@ void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, co
 
   if (dependent) {
     _edges[*dependent].insert(key);
+  }
+}
+
+ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph::graphWithNewRoots (const std::vector<NodeKey> &roots) const
+{
+  ArbiterResolvedDependencyGraph graph;
+
+  for (const NodeKey &root : roots) {
+    walkNodeAndCopyInto(graph, root, None());
+  }
+
+  return graph;
+}
+
+void ArbiterResolvedDependencyGraph::walkNodeAndCopyInto (ArbiterResolvedDependencyGraph &newGraph, const NodeKey &key, const Arbiter::Optional<NodeKey> &dependent) const
+{
+  newGraph.addNode(resolveNode(key), _nodes.at(key).requirement(), dependent);
+
+  const auto it = _edges.find(key);
+  if (it == _edges.end()) {
+    return;
+  }
+
+  const auto &dependencies = it->second;
+  for (const NodeKey &dependency : dependencies) {
+    walkNodeAndCopyInto(newGraph, dependency, makeOptional(key));
   }
 }
 
