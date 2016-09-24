@@ -28,8 +28,9 @@ static char *value_create_description(const void *data) {
   return strdup(description);
 }
 
-static void project_identifier_mark(ArbiterUserValue *user_value) {
-  rb_gc_mark((VALUE)user_value->data);
+static void project_identifier_mark(ArbiterProjectIdentifier *project_identifier) {
+  VALUE value = (VALUE)ArbiterProjectIdentifierValue(project_identifier);
+  rb_gc_mark(value);
 }
 
 static VALUE project_identifier_allocate(VALUE klass) {
