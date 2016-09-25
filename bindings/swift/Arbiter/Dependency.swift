@@ -48,7 +48,7 @@ public final class DependencyList<ProjectValue: ArbiterValue> : CObject
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (_ dependencies: [Dependency<ProjectValue>])
+  public convenience init<S: SequenceType where S.Generator.Element == Dependency<ProjectValue>> (_ dependencies: S)
   {
     var pointers: [COpaquePointer] = []
     for dependency in dependencies {
