@@ -1,9 +1,9 @@
-project(Arbiter C CXX)
+cmake_minimum_required(VERSION 3.6.2)
 
-cmake_minimum_required(VERSION 3.0)
+project(Arbiter)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99 -pedantic -Wall -Wextra")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -pedantic -Wall -Wextra")
+string(APPEND CMAKE_C_FLAGS " -std=c99 -pedantic -Wall -Wextra")
+string(APPEND CMAKE_CXX_FLAGS " -std=c++14 -pedantic -Wall -Wextra")
 
 set(ARBITER_TARGET Arbiter)
 add_subdirectory(src)

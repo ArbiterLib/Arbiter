@@ -1,14 +1,14 @@
-build := build
-cmake := cmake
-make := make
+BUILD := build
+CMAKE := cmake
+MAKE := make
 
 all:
-	mkdir -p $(build)
-	$(cmake) -B$(build) -H. -G "Unix Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-	$(make) -C $(build)
+	mkdir -p $(BUILD)
+	$(CMAKE) -B$(BUILD) -H. -G "Unix Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
+	$(MAKE) -C $(BUILD)
 
 check: all
-	set -e; for test in `find $(build) -name "*Test" -type f -perm +111`; do echo; echo "$$test"; ./$$test; done
+	set -e; for test in `find $(BUILD) -name "*Test" -type f -perm +111`; do echo; echo "$$test"; ./$$test; done
 
 bindings: bindings/swift
 
@@ -19,5 +19,5 @@ docs:
 	doxygen Doxyfile
 
 clean:
-	rm -rf $(build)
+	rm -rf $(BUILD)
 

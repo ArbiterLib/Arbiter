@@ -6,6 +6,7 @@ function(add_googletest test_source)
   target_link_libraries("${test_name}"
     PRIVATE "${ARBITER_TARGET}" gtest gtest_main)
   target_include_directories("${test_name}"
+    SYSTEM
     PRIVATE
       "${CMAKE_SOURCE_DIR}/external/googletest/googletest/include"
       "${PROJECT_SOURCE_DIR}/src")
