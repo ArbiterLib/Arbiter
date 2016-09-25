@@ -1,5 +1,4 @@
-// import { SemanticVersion } from "../";
-const { SemanticVersion } = require("../");
+import { SemanticVersion } from "../";
 
 test("Version", () => {
   const major = 1;
