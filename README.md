@@ -22,6 +22,12 @@ Most package managers require a centralized server which has knowledge of all pa
 
 However, Arbiter resolves individual dependencies _on demand_, allowing them to be loaded from anywhere—even different places for different versions! This doesn’t preclude using a centralized server, but means that it is not a requirement.
 
+### Parallelizable dependency installation
+
+Arbiter does not itself determine what “installing” a package means, but can provide information to the package manager about the installation process.
+
+Specifically, Arbiter understands when one package must be installed before another, and conversely when certain packages have no implicit relationship to each other. The package manager can use this information to download and install multiple packages concurrently, potentially reducing wait times for the end user.
+
 ### … and more to come
 
 For a full list of planned features, check out our [backlog](https://github.com/jspahrsummers/Arbiter/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement+sort%3Acreated-desc). If you’d be interested in making any of these a reality, please consider [contributing](CONTRIBUTING.md)!
