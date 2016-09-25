@@ -2,10 +2,12 @@ BUILD := build
 CMAKE := cmake
 MAKE := make
 
-all:
+all: cmake
+	$(MAKE) -C $(BUILD)
+
+cmake:
 	mkdir -p $(BUILD)
 	$(CMAKE) -B$(BUILD) -H. -G "Unix Makefiles" -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
-	$(MAKE) -C $(BUILD)
 
 check: all
 	set -e; for test in `find $(BUILD) -name "*Test" -type f -perm +111`; do echo; echo "$$test"; ./$$test; done
@@ -17,6 +19,9 @@ bindings/swift:
 
 docs:
 	doxygen Doxyfile
+
+examples: cmake
+	$(MAKE) -C $(BUILD) library_folders
 
 clean:
 	rm -rf $(BUILD)

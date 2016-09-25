@@ -54,7 +54,7 @@ The Arbiter API is extensively documented in header comments, from which we peri
 
 This repository contains not-production-strength [examples](examples/) for demonstrating how the Arbiter API can be used to build different functionality.
 
-To compile all included examples, run `make`.
+To compile all included examples, run `make examples`.
 
 For more information about individual examples, see the README in each folder. Of course, there are almost certainly other possible uses that we assuredly haven’t thought of or implemented, so this shouldn’t be taken as an exhaustive showcase!
 
