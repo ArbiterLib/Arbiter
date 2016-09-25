@@ -18,7 +18,7 @@ There are also some baseline features that we believe any dependency manager sho
 * **Automatic conflict resolution.** If two projects in the dependency graph specify mutually exclusive requirements for a shared dependency, the dependency resolver should still be able to back up (e.g., to different versions of the two projects) and try another configuration that might result in success.
 * **Safe uninstallation.** The tool should understand when uninstalling one package would break another, and surface this information to the user.
 
-Since there are many dependency managers and package managers which do not meet all of the above criteria, we hope that a project like Arbiter could help fill in the gaps.
+Since there are many dependency managers and package managers which do not meet all of the above criteria, a generic library like Arbiter could be used to fill in the gaps.
 
 ## Functionality
 
