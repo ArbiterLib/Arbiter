@@ -1,12 +1,11 @@
 <map id="ArbiterResolverBehaviors" name="ArbiterResolverBehaviors">
-<area shape="rect" id="node2" href="$struct_arbiter_selected_version_list.html" title="Represents a list of selected versions. " alt="" coords="1308,208,1485,233"/>
-<area shape="rect" id="node3" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="44,183,142,208"/>
-<area shape="rect" id="node5" href="$struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. " alt="" coords="684,315,841,340"/>
-<area shape="rect" id="node6" href="$struct_arbiter_semantic_version.html" title="Represents a semantic version, as defined by semver.org. " alt="" coords="357,391,517,416"/>
-<area shape="rect" id="node10" href="$struct_arbiter_dependency_list.html" title="Represents a list of dependencies. " alt="" coords="1319,157,1475,183"/>
-<area shape="rect" id="node12" href="$struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme..." alt="" coords="694,107,830,132"/>
-<area shape="rect" id="node13" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="360,107,514,132"/>
-<area shape="rect" id="node7" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l std::string \&gt;" alt="" coords="30,396,156,435"/>
-<area shape="rect" id="node9" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="347,259,527,297"/>
-<area shape="rect" id="node14" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="5,5,181,44"/>
+<area shape="rect" id="node2" href="$struct_arbiter_selected_version.html" title="Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. " alt="" coords="342,75,498,100"/>
+<area shape="rect" id="node3" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="46,203,144,228"/>
+<area shape="rect" id="node6" href="$struct_arbiter_selected_version_list.html" title="Represents a list of selected versions. " alt="" coords="963,147,1141,172"/>
+<area shape="rect" id="node8" href="$struct_arbiter_dependency_list.html" title="Represents a list of dependencies. " alt="" coords="1309,227,1465,252"/>
+<area shape="rect" id="node10" href="$struct_arbiter_dependency.html" title="Represents a dependency specification, which consists of a project identifier and a version requireme..." alt="" coords="673,227,809,252"/>
+<area shape="rect" id="node11" href="$struct_arbiter_project_identifier.html" title="An opaque value which identifies a project participating in dependency resolution. " alt="" coords="343,253,497,279"/>
+<area shape="rect" id="node4" href="$struct_arbiter_1_1_optional.html" title="Arbiter::Optional\&lt;\l ArbiterSemanticVersion \&gt;" alt="" coords="7,5,183,44"/>
+<area shape="rect" id="node5" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="5,68,185,107"/>
+<area shape="rect" id="node12" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;" alt="" coords="7,331,183,369"/>
 </map>

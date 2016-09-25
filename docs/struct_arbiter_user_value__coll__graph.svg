@@ -9,67 +9,67 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 211)">
 <title>ArbiterUserValue</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-211 313.025,-211 313.025,4 -4,4"/>
-<!-- Node1 -->
-<g id="node1" class="node"><title>Node1</title>
+<!-- Node0 -->
+<g id="node1" class="node"><title>Node0</title>
 <polygon fill="#bfbfbf" stroke="black" points="217.62,-94.5 217.62,-112.5 309.025,-112.5 309.025,-94.5 217.62,-94.5"/>
 <text text-anchor="middle" x="263.323" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">ArbiterUserValue</text>
 </g>
-<!-- Node2 -->
-<g id="node2" class="node"><title>Node2</title>
+<!-- Node1 -->
+<g id="node2" class="node"><title>Node1</title>
 <polygon fill="white" stroke="#bfbfbf" points="0,-178.5 0,-206.5 101.029,-206.5 101.029,-178.5 0,-178.5"/>
 <text text-anchor="start" x="8" y="-194.5" font-family="Helvetica,sans-Serif" font-size="10.00">char *(*)(const void</text>
 <text text-anchor="middle" x="50.5146" y="-184.5" font-family="Helvetica,sans-Serif" font-size="10.00"> *data)</text>
 </g>
-<!-- Node2&#45;&gt;Node1 -->
-<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
+<!-- Node1&#45;&gt;Node0 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M111.209,-178.361C138.846,-170.715 171.673,-160.039 199.62,-146.5 219.102,-137.062 239.356,-122.069 251.397,-112.512"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="110.023,-175.055 101.28,-181.04 111.846,-181.814 110.023,-175.055"/>
 <text text-anchor="middle" x="159.325" y="-177.5" font-family="Helvetica,sans-Serif" font-size="10.00"> createDescription</text>
 </g>
-<!-- Node3 -->
-<g id="node3" class="node"><title>Node3</title>
+<!-- Node2 -->
+<g id="node3" class="node"><title>Node2</title>
 <polygon fill="white" stroke="#bfbfbf" points="0,-131.5 0,-159.5 101.029,-159.5 101.029,-131.5 0,-131.5"/>
 <text text-anchor="start" x="8" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">size_t(*)(const void</text>
 <text text-anchor="middle" x="50.5146" y="-137.5" font-family="Helvetica,sans-Serif" font-size="10.00"> *first)</text>
 </g>
-<!-- Node3&#45;&gt;Node1 -->
-<g id="edge2" class="edge"><title>Node3&#45;&gt;Node1</title>
+<!-- Node2&#45;&gt;Node0 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M111.374,-134.645C138.376,-129.63 170.644,-123.472 199.62,-117.5 207.158,-115.946 215.187,-114.213 222.896,-112.51"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="110.498,-131.248 101.301,-136.509 111.771,-138.131 110.498,-131.248"/>
 <text text-anchor="middle" x="159.325" y="-134.5" font-family="Helvetica,sans-Serif" font-size="10.00"> hash</text>
 </g>
-<!-- Node4 -->
-<g id="node4" class="node"><title>Node4</title>
+<!-- Node3 -->
+<g id="node4" class="node"><title>Node3</title>
 <polygon fill="white" stroke="#bfbfbf" points="2.49756,-94.5 2.49756,-112.5 98.5317,-112.5 98.5317,-94.5 2.49756,-94.5"/>
 <text text-anchor="middle" x="50.5146" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">void(*)(void *data)</text>
 </g>
-<!-- Node4&#45;&gt;Node1 -->
-<g id="edge3" class="edge"><title>Node4&#45;&gt;Node1</title>
+<!-- Node3&#45;&gt;Node0 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M108.881,-103.5C143.09,-103.5 185.887,-103.5 217.585,-103.5"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="108.562,-100 98.5617,-103.5 108.562,-107 108.562,-100"/>
 <text text-anchor="middle" x="159.325" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00"> destructor</text>
 </g>
-<!-- Node5 -->
-<g id="node5" class="node"><title>Node5</title>
+<!-- Node4 -->
+<g id="node5" class="node"><title>Node4</title>
 <polygon fill="white" stroke="#bfbfbf" points="3.6084,-37.5 3.6084,-75.5 97.4209,-75.5 97.4209,-37.5 3.6084,-37.5"/>
 <text text-anchor="start" x="11.6084" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">bool(*)(const void</text>
 <text text-anchor="start" x="11.6084" y="-53.5" font-family="Helvetica,sans-Serif" font-size="10.00"> *first, const void</text>
 <text text-anchor="middle" x="50.5146" y="-43.5" font-family="Helvetica,sans-Serif" font-size="10.00"> *second)</text>
 </g>
-<!-- Node5&#45;&gt;Node1 -->
-<g id="edge4" class="edge"><title>Node5&#45;&gt;Node1</title>
+<!-- Node4&#45;&gt;Node0 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M107.725,-62.3856C135.646,-66.0255 169.72,-71.552 199.62,-79.5 214.152,-83.3628 229.96,-89.4267 242.068,-94.4926"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="108.094,-58.9046 97.7356,-61.129 107.221,-65.8499 108.094,-58.9046"/>
 <text text-anchor="middle" x="159.325" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00"> lessThan</text>
 <text text-anchor="middle" x="159.325" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">equalTo</text>
 </g>
-<!-- Node6 -->
-<g id="node6" class="node"><title>Node6</title>
+<!-- Node5 -->
+<g id="node6" class="node"><title>Node5</title>
 <polygon fill="white" stroke="#bfbfbf" points="30.0073,-0.5 30.0073,-18.5 71.022,-18.5 71.022,-0.5 30.0073,-0.5"/>
 <text text-anchor="middle" x="50.5146" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">void *</text>
 </g>
-<!-- Node6&#45;&gt;Node1 -->
-<g id="edge5" class="edge"><title>Node6&#45;&gt;Node1</title>
+<!-- Node5&#45;&gt;Node0 -->
+<g id="edge5" class="edge"><title>Node5&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M81.3874,-13.5542C112.369,-18.6549 161.518,-29.3051 199.62,-49.5 221.961,-61.3411 243.22,-82.4241 254.325,-94.4447"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="81.6536,-10.0536 71.2344,-11.9749 80.5776,-16.9704 81.6536,-10.0536"/>
 <text text-anchor="middle" x="159.325" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00"> data</text>
