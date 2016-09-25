@@ -29,6 +29,20 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
     }
   }
 
+  public func graphWithNewRoots<S: SequenceType where S.Generator.Element == ProjectIdentifier<ProjectValue>> (projects: S) -> ResolvedDependencyGraph
+  {
+    var pointers: [COpaquePointer] = []
+    for project in projects {
+      pointers.append(project.pointer)
+    }
+
+    let ptr = pointers.withUnsafeBufferPointer { bufferPtr in
+      return ArbiterResolvedDependencyGraphCopyWithNewRoots(self.pointer, bufferPtr.baseAddress, bufferPtr.count)
+    }
+
+    return ResolvedDependencyGraph(ptr, shouldCopy: false)
+  }
+
   public func addRoot (node: ResolvedDependency<ProjectValue, VersionMetadata>, requirement: Requirement) throws
   {
     var cStr: UnsafeMutablePointer<CChar> = nil
