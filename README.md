@@ -1,10 +1,24 @@
 # Arbiter [![Build Status](https://travis-ci.org/jspahrsummers/Arbiter.svg?branch=master)](https://travis-ci.org/jspahrsummers/Arbiter)
 
-Arbiter is a cross-platform C library<sup>1</sup> which implements the basic behaviors needed by any decentralized dependency manager or package manager, without being coupled to any particular use case, so that many more specific tools can be built on top.
+Arbiter is a cross-platform C library<sup>1</sup> which implements the baseline functionality that should be expected of any dependency manager or package manager, without being coupled to any particular use case, so that many more specific tools can be built on top.
 
 In other words, **Arbiter does not prescribe any one user experience**—it just tries to solve those backend concerns which are common to all dependency managers.
 
 _<sup>1</sup> Note that Arbiter is actually implemented in C++14, but currently only exposes a plain C API to minimize surface area and maximize interoperability._
+
+## Motivation
+
+Arbiter’s main contributors originally built [Carthage](https://github.com/Carthage/Carthage), a dependency manager for iOS and OS X frameworks. Carthage introduced some novel ideas which aren’t commonly found in other dependency managers, like a focus on [decentralization](#lazy-decentralized-dependency-resolution). Unfortunately, Carthage is fairly coupled to Apple’s development tools and process.
+
+Arbiter was conceived, in part, to **generalize the best of Carthage’s features** for use by _any_ dependency manager, on a variety of platforms.
+
+There are also some baseline features that we believe any dependency manager should support in order to be taken seriously, including:
+
+* **Dependency “freezing.”** Different tools have different names for this concept, but the basic idea is the same: once dependencies have been resolved, _all projects and the versions selected for each_ should be saved to disk so that anyone else collaborating on the parent project can reproduce the dependency checkouts exactly.
+* **Automatic conflict resolution.** If two projects in the dependency graph specify mutually exclusive requirements for a shared dependency, the dependency resolver should still be able to back up (e.g., to different versions of the two projects) and try another configuration that might result in success.
+* **Safe uninstallation.** The tool should understand when uninstalling one package would break another, and surface this information to the user.
+
+Since there are many dependency managers and package managers which do not meet all of the above criteria, we hope that a project like Arbiter could help fill in the gaps.
 
 ## Functionality
 
