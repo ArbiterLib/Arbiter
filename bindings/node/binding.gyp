@@ -1,11 +1,11 @@
 {
   "targets": [
     {
-      "target_name": "addon",
-      "sources": [ "src/hello.cc" ]
-    },
-    {
       "target_name": "arbiter-node-bindings",
+      "sources": [
+        "src/Arbiter.cpp",
+        "src/Version.cpp"
+      ],
       "include_dirs": [
         "../../include"
       ],

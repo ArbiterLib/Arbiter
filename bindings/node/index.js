@@ -1,1 +1,1 @@
-module.exports = require("bindings")("addon");
+module.exports = require("bindings")("arbiter-node-bindings");
