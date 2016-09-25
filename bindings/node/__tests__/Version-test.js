@@ -1,7 +1,7 @@
 // import { SemanticVersion } from "../";
 const { SemanticVersion } = require("../");
 
-test('Version', () => {
+test("Version", () => {
   const major = 1;
   const minor = 2;
   const patch = 3;
