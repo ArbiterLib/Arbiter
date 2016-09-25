@@ -8,7 +8,7 @@ _<sup>1</sup> Note that Arbiter is actually implemented in C++14, but currently 
 
 ## Motivation
 
-Arbiter’s main contributors originally built [Carthage](https://github.com/Carthage/Carthage), a dependency manager for iOS and OS X frameworks. Carthage introduced some novel ideas which aren’t commonly found in other dependency managers, like a focus on [decentralization](#lazy-decentralized-dependency-resolution). Unfortunately, Carthage is fairly coupled to Apple’s development tools and process.
+Arbiter’s main contributors originally built [Carthage](https://github.com/Carthage/Carthage), a dependency manager for iOS and macOS frameworks. Carthage introduced some novel ideas which aren’t commonly found in other dependency managers, like a focus on [decentralization](#lazy-decentralized-dependency-resolution). Unfortunately, Carthage is fairly coupled to Apple’s development tools and process.
 
 Arbiter was conceived, in part, to **generalize the best of Carthage’s features** for use by _any_ dependency manager, on a variety of platforms.
 
