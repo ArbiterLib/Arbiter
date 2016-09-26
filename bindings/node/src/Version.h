@@ -7,12 +7,14 @@
 
 namespace ArbiterNodeBindings {
 
+using v8::Maybe;
+
 class SemanticVersion : public node::ObjectWrap {
   public:
     static void Init(v8::Local<v8::Object> exports);
 
   private:
-    explicit SemanticVersion(unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata);
+    explicit SemanticVersion(unsigned major, unsigned minor, unsigned patch, Maybe<char *> prereleaseVersion, Maybe<char *> buildMetadata);
     ~SemanticVersion();
 
     static void New(const v8::FunctionCallbackInfo<v8::Value>& args);

@@ -8,7 +8,10 @@ using v8::Function;
 using v8::FunctionCallbackInfo;
 using v8::FunctionTemplate;
 using v8::Isolate;
+using v8::Just;
 using v8::Local;
+using v8::Maybe;
+using v8::Nothing;
 using v8::Number;
 using v8::Object;
 using v8::Persistent;
@@ -17,8 +20,14 @@ using v8::Value;
 
 Persistent<Function> SemanticVersion::constructor;
 
-SemanticVersion::SemanticVersion(unsigned major, unsigned minor, unsigned patch, const char *prereleaseVersion, const char *buildMetadata) {
-  _semanticVersion = ArbiterCreateSemanticVersion(major, minor, patch, prereleaseVersion, buildMetadata);
+  SemanticVersion::SemanticVersion(unsigned major, unsigned minor, unsigned patch, Maybe<char *> prereleaseVersion, Maybe<char *> buildMetadata) {
+  _semanticVersion = ArbiterCreateSemanticVersion(
+    major,
+    minor,
+    patch,
+    (prereleaseVersion.IsJust() ? prereleaseVersion.FromJust() : NULL),
+    (buildMetadata.IsJust() ? buildMetadata.FromJust() : NULL)
+  );
 }
 
 SemanticVersion::~SemanticVersion() {
@@ -52,8 +61,8 @@ void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
     unsigned major = args[0]->Uint32Value();
     unsigned minor = args[1]->Uint32Value();
     unsigned patch = args[2]->Uint32Value();
-    const char *prereleaseVersion = *String::Utf8Value(args[3]->ToString());
-    const char *buildMetadata = *String::Utf8Value(args[4]->ToString());
+    Maybe<char *> prereleaseVersion = (args[3]->IsNull() || args[3]->IsUndefined()) ? Nothing<char *>() : Just(*String::Utf8Value(args[3]->ToString()));
+    Maybe<char *> buildMetadata = (args[4]->IsNull() || args[4]->IsUndefined()) ? Nothing<char *>() : Just(*String::Utf8Value(args[4]->ToString()));
     SemanticVersion *obj = new SemanticVersion(major, minor, patch, prereleaseVersion, buildMetadata);
     obj->Wrap(args.This());
     args.GetReturnValue().Set(args.This());
@@ -93,14 +102,24 @@ void SemanticVersion::GetPrereleaseVersion(const FunctionCallbackInfo<Value>& ar
   Isolate *isolate = args.GetIsolate();
   SemanticVersion *obj = ObjectWrap::Unwrap<SemanticVersion>(args.Holder());
   const char *prereleaseVersion = ArbiterGetPrereleaseVersion(obj->_semanticVersion);
-  args.GetReturnValue().Set(String::NewFromUtf8(isolate, prereleaseVersion));
+
+  if (prereleaseVersion == NULL) {
+    args.GetReturnValue().Set(Null(isolate));
+  } else {
+    args.GetReturnValue().Set(String::NewFromUtf8(isolate, prereleaseVersion));
+  }
 }
 
 void SemanticVersion::GetBuildMetadata(const FunctionCallbackInfo<Value>& args) {
   Isolate *isolate = args.GetIsolate();
   SemanticVersion *obj = ObjectWrap::Unwrap<SemanticVersion>(args.Holder());
   const char *buildMetadata = ArbiterGetBuildMetadata(obj->_semanticVersion);
-  args.GetReturnValue().Set(String::NewFromUtf8(isolate, buildMetadata));
+
+  if (buildMetadata == NULL) {
+    args.GetReturnValue().Set(Null(isolate));
+  } else {
+    args.GetReturnValue().Set(String::NewFromUtf8(isolate, buildMetadata));
+  }
 }
 
 } // namespace ArbiterNodeBindings
