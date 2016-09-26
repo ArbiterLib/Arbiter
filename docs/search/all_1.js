@@ -78,6 +78,6 @@ var searchData=
   ['atleast',['AtLeast',['../class_arbiter_1_1_requirement_1_1_at_least.html#a73c21686e5e593b532b8c61328f71ba1',1,'Arbiter::Requirement::AtLeast']]],
   ['availableversionssatisfying',['availableVersionsSatisfying',['../struct_arbiter_resolver.html#aa86e4d0ed05739bd3ca8d3d62d99e769',1,'ArbiterResolver']]],
   ['exception',['Exception',['../namespace_arbiter_1_1_exception.html',1,'Arbiter']]],
-  ['arbiter_20_5b_21_5bbuild_20status_5d_28https_3a_2f_2ftravis_2dci_2eorg_2fjspahrsummers_2farbiter_2esvg_3fbranch_3dmaster_29_5d_28https_3a_2f_2ftravis_2dci_2eorg_2fjspahrsummers_2farbiter_29',['Arbiter [![Build Status](https://travis-ci.org/jspahrsummers/Arbiter.svg?branch=master)](https://travis-ci.org/jspahrsummers/Arbiter)',['../index.html',1,'']]],
+  ['arbiter_20_5b_21_5bbuild_20status_5d_28https_3a_2f_2ftravis_2dci_2eorg_2farbiterlib_2farbiter_2esvg_3fbranch_3dmaster_29_5d_28https_3a_2f_2ftravis_2dci_2eorg_2farbiterlib_2farbiter_29',['Arbiter [![Build Status](https://travis-ci.org/ArbiterLib/Arbiter.svg?branch=master)](https://travis-ci.org/ArbiterLib/Arbiter)',['../index.html',1,'']]],
   ['requirement',['Requirement',['../namespace_arbiter_1_1_requirement.html',1,'Arbiter']]]
 ];
