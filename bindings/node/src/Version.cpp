@@ -20,7 +20,7 @@ using v8::Value;
 
 Persistent<Function> SemanticVersion::constructor;
 
-  SemanticVersion::SemanticVersion(unsigned major, unsigned minor, unsigned patch, Maybe<char *> prereleaseVersion, Maybe<char *> buildMetadata) {
+SemanticVersion::SemanticVersion(unsigned major, unsigned minor, unsigned patch, Maybe<char *> prereleaseVersion, Maybe<char *> buildMetadata) {
   _semanticVersion = ArbiterCreateSemanticVersion(
     major,
     minor,
