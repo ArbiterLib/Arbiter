@@ -68,8 +68,8 @@ void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
     args.GetReturnValue().Set(args.This());
   } else {
     // Invoked as plain function `SemanticVersion(...)`, turn into construct call.
-    const int argc = 1;
-    Local<Value> argv[argc] = { args[0] };
+    const int argc = 5;
+    Local<Value> argv[argc] = { args[0], args[1], args[2], args[3], args[4] };
     Local<Context> context = isolate->GetCurrentContext();
     Local<Function> cons = Local<Function>::New(isolate, constructor);
     Local<Object> result = cons->NewInstance(context, argc, argv).ToLocalChecked();
