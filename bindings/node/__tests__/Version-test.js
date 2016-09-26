@@ -11,51 +11,47 @@ const maybe = (type) => {
 
 // Test for arbitrary input values of `undefined`
 // but account for their return values being `null`.
-const isEquivalent = ({ arb, val }) => {
-  return arb === undefined ? val === null : val === arb;
+const isEquivalent = (actual, expected) => {
+  return expected === undefined ? actual === null : actual === expected;
 };
 
-// Allows a custom failure message when comparing boolean values.
-const expectToBe = (actual, expected, because) => expect(() => {
-  try {
-    expect(actual).toBe(expected);
-  } catch(error) {
-    throw new Error(because);
-  }
-}).not.toThrow();
+// Allows for a custom failure message.
+const expectToBe = (assertion) => (actual, expected, description) => {
+  return expect(() => {
+    try {
+      assertion(actual, expected);
+    } catch(error) {
+      const message = !description ? error.message : `
+${description}
+  actual:   ${actual}
+  expected: ${expected}
 
-const checkGetters = (arbMajor, arbMinor, arbPatch, arbPrereleaseVersion, arbBuildMetadata) => {
-  const version = new SemanticVersion(arbMajor, arbMinor, arbPatch, arbPrereleaseVersion, arbBuildMetadata);
-
-  const major = version.getMajorVersion();
-  const minor = version.getMinorVersion();
-  const patch = version.getPatchVersion();
-  const prereleaseVersion = version.getPrereleaseVersion();
-  const buildMetadata = version.getBuildMetadata();
-
-  const prereleaseVersionIsEquivalent = isEquivalent({
-    arb: arbPrereleaseVersion,
-    val: prereleaseVersion
-  });
-
-  const buildMetadataIsEquivalent = isEquivalent({
-    arb: arbBuildMetadata,
-    val: buildMetadata
-  });
-
-  expect(major).toBe(arbMajor);
-  expect(minor).toBe(arbMinor);
-  expect(patch).toBe(arbPatch);
-  expectToBe(prereleaseVersionIsEquivalent, true, `${prereleaseVersion} !== ${arbPrereleaseVersion}`);
-  expectToBe(buildMetadataIsEquivalent, true, `${buildMetadata} !== ${arbBuildMetadata}`);
-
-  return major === arbMajor
-    && minor === arbMinor
-    && patch === arbPatch
-    && prereleaseVersionIsEquivalent
-    && buildMetadataIsEquivalent;
+${error.message}
+`;
+      throw new Error(message);
+    }
+  }).not.toThrow();
 };
 
-test("Version getters return correct values", () => {
-  jsc.assert(forall(uint32, uint32, uint32, maybe(asciinestring), maybe(asciinestring), checkGetters));
+const expectToBeEqual = expectToBe((actual, expected) => {
+  return expect(actual).toBe(expected);
+});
+
+const expectToBeEquivalent = expectToBe((actual, expected) => {
+  return expect(isEquivalent(actual, expected)).toBe(true);
+});
+
+describe("Version", () => {
+  it("returns correct values from getter methods", () => {
+    jsc.assert(forall(uint32, uint32, uint32, maybe(asciinestring), maybe(asciinestring), (...args) => {
+      const [major, minor, patch, prereleaseVersion, buildMetadata] = args;
+      const version = new SemanticVersion(...args);
+      expectToBeEqual(version.getMajorVersion(), major, "Major version");
+      expectToBeEqual(version.getMinorVersion() , minor, "Minor version");
+      expectToBeEqual(version.getPatchVersion(), patch, "Patch version");
+      expectToBeEquivalent(version.getPrereleaseVersion(), prereleaseVersion, "Prerelease version");
+      expectToBeEquivalent(version.getBuildMetadata(), buildMetadata, "Build metadata");
+      return true;
+    }));
+  });
 });
