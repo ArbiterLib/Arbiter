@@ -3,11 +3,19 @@
 
 namespace ArbiterNodeBindings {
 
+using v8::FunctionCallbackInfo;
+using v8::Isolate;
 using v8::Local;
 using v8::Object;
+using v8::Value;
 
-void InitAll(Local<Object> exports) {
-  SemanticVersion::Init(exports);
+void CreateSemanticVersion(const FunctionCallbackInfo<Value>& args) {
+  SemanticVersion::NewInstance(args);
+}
+
+void InitAll(Local<Object> exports, Local<Object> module) {
+  SemanticVersion::Init(exports->GetIsolate());
+  NODE_SET_METHOD(exports, "createSemanticVersion", CreateSemanticVersion);
 }
 
 NODE_MODULE(arbiter, InitAll)

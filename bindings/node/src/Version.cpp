@@ -33,9 +33,7 @@ SemanticVersion::SemanticVersion(unsigned major, unsigned minor, unsigned patch,
 SemanticVersion::~SemanticVersion() {
 }
 
-void SemanticVersion::Init(Local<Object> exports) {
-  Isolate *isolate = exports->GetIsolate();
-
+void SemanticVersion::Init(Isolate* isolate) {
   // Prepare constructor template
   Local<FunctionTemplate> tpl = FunctionTemplate::New(isolate, New);
   tpl->SetClassName(String::NewFromUtf8(isolate, "SemanticVersion"));
@@ -49,8 +47,6 @@ void SemanticVersion::Init(Local<Object> exports) {
   NODE_SET_PROTOTYPE_METHOD(tpl, "getBuildMetadata", GetBuildMetadata);
 
   constructor.Reset(isolate, tpl->GetFunction());
-  exports->Set(String::NewFromUtf8(isolate, "SemanticVersion"),
-               tpl->GetFunction());
 }
 
 void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
@@ -75,6 +71,16 @@ void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
     Local<Object> result = cons->NewInstance(context, argc, argv).ToLocalChecked();
     args.GetReturnValue().Set(result);
   }
+}
+
+void SemanticVersion::NewInstance(const FunctionCallbackInfo<Value>& args) {
+  Isolate *isolate = args.GetIsolate();
+  const unsigned argc = 5;
+  Local<Value> argv[argc] = { args[0], args[1], args[2], args[3], args[4] };
+  Local<Context> context = isolate->GetCurrentContext();
+  Local<Function> cons = Local<Function>::New(isolate, constructor);
+  Local<Object> instance = cons->NewInstance(context, argc, argv).ToLocalChecked();
+  args.GetReturnValue().Set(instance);
 }
 
 void SemanticVersion::GetMajorVersion(const FunctionCallbackInfo<Value>& args) {

@@ -1,4 +1,4 @@
-import { SemanticVersion } from "../";
+import { createSemanticVersion } from "../";
 import jsc, { asciinestring, constant, forall, oneof, uint32 } from "jsverify";
 
 const maybe = (type) => {
@@ -44,8 +44,8 @@ const expectToBeEquivalent = expectToBe((actual, expected) => {
 const itBehavesLikeASemanticVersion = (factory) => {
   it("returns correct values from getter methods", () => {
     jsc.assert(forall(uint32, uint32, uint32, maybe(asciinestring), maybe(asciinestring), (...args) => {
-      const [major, minor, patch, prereleaseVersion, buildMetadata] = args;
       const version = factory(...args);
+      const [major, minor, patch, prereleaseVersion, buildMetadata] = args;
       expectToBeEqual(version.getMajorVersion(), major, "Major version");
       expectToBeEqual(version.getMinorVersion() , minor, "Minor version");
       expectToBeEqual(version.getPatchVersion(), patch, "Patch version");
@@ -57,11 +57,7 @@ const itBehavesLikeASemanticVersion = (factory) => {
 };
 
 describe("Version", () => {
-  describe("when called with new", () => {
-    itBehavesLikeASemanticVersion((...args) => new SemanticVersion(...args));
-  });
-
-  describe("when called without new", () => {
-    itBehavesLikeASemanticVersion(SemanticVersion);
+  describe("createSemanticVersion", () => {
+    itBehavesLikeASemanticVersion((...args) => createSemanticVersion(...args));
   });
 });

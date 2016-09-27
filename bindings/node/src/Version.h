@@ -11,7 +11,8 @@ using v8::Maybe;
 
 class SemanticVersion : public node::ObjectWrap {
   public:
-    static void Init(v8::Local<v8::Object> exports);
+    static void Init(v8::Isolate* isolate);
+    static void NewInstance(const v8::FunctionCallbackInfo<v8::Value>& args);
 
   private:
     explicit SemanticVersion(unsigned major, unsigned minor, unsigned patch, Maybe<char *> prereleaseVersion, Maybe<char *> buildMetadata);
