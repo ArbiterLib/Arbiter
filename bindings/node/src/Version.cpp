@@ -54,7 +54,6 @@ void SemanticVersion::Init(Isolate* isolate) {
 }
 
 void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
-  Isolate *isolate = args.GetIsolate();
   SemanticVersion *obj;
 
   if (args.Length() > 1) {
