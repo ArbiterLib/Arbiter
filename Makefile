@@ -1,9 +1,8 @@
 BUILD := build
 CMAKE := cmake
-MAKE := make
 
 all: cmake
-	$(MAKE) -C $(BUILD)
+	$(CMAKE) --build $(BUILD)
 
 cmake:
 	mkdir -p $(BUILD)
@@ -21,7 +20,7 @@ docs:
 	doxygen Doxyfile
 
 examples: cmake
-	$(MAKE) -C $(BUILD) library_folders
+	$(CMAKE) --build $(BUILD) --target library_folders
 
 clean:
 	rm -rf $(BUILD)
