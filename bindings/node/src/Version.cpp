@@ -73,7 +73,7 @@ void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
   }
 }
 
-void SemanticVersion::NewInstance(const FunctionCallbackInfo<Value>& args) {
+void SemanticVersion::Create(const FunctionCallbackInfo<Value>& args) {
   Isolate *isolate = args.GetIsolate();
   const unsigned argc = 5;
   Local<Value> argv[argc] = { args[0], args[1], args[2], args[3], args[4] };

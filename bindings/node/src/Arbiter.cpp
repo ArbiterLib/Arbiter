@@ -10,7 +10,7 @@ using v8::Object;
 using v8::Value;
 
 void CreateSemanticVersion(const FunctionCallbackInfo<Value>& args) {
-  SemanticVersion::NewInstance(args);
+  SemanticVersion::Create(args);
 }
 
 void InitAll(Local<Object> exports, Local<Object> module) {
