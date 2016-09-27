@@ -30,6 +30,10 @@ SemanticVersion::SemanticVersion(unsigned major, unsigned minor, unsigned patch,
   );
 }
 
+SemanticVersion::SemanticVersion(const char *string) {
+  _semanticVersion = ArbiterCreateSemanticVersionFromString(string);
+}
+
 SemanticVersion::~SemanticVersion() {
 }
 
@@ -51,32 +55,38 @@ void SemanticVersion::Init(Isolate* isolate) {
 
 void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
   Isolate *isolate = args.GetIsolate();
+  SemanticVersion *obj;
 
-  if (args.IsConstructCall()) {
-    // Invoked as constructor: `new SemanticVersion(...)`
+  if (args.Length() > 1) {
     unsigned major = args[0]->Uint32Value();
     unsigned minor = args[1]->Uint32Value();
     unsigned patch = args[2]->Uint32Value();
     Maybe<char *> prereleaseVersion = (args[3]->IsNull() || args[3]->IsUndefined()) ? Nothing<char *>() : Just(*String::Utf8Value(args[3]->ToString()));
     Maybe<char *> buildMetadata = (args[4]->IsNull() || args[4]->IsUndefined()) ? Nothing<char *>() : Just(*String::Utf8Value(args[4]->ToString()));
-    SemanticVersion *obj = new SemanticVersion(major, minor, patch, prereleaseVersion, buildMetadata);
-    obj->Wrap(args.This());
-    args.GetReturnValue().Set(args.This());
+    obj = new SemanticVersion(major, minor, patch, prereleaseVersion, buildMetadata);
   } else {
-    // Invoked as plain function `SemanticVersion(...)`, turn into construct call.
-    const int argc = 5;
-    Local<Value> argv[argc] = { args[0], args[1], args[2], args[3], args[4] };
-    Local<Context> context = isolate->GetCurrentContext();
-    Local<Function> cons = Local<Function>::New(isolate, constructor);
-    Local<Object> result = cons->NewInstance(context, argc, argv).ToLocalChecked();
-    args.GetReturnValue().Set(result);
+    const char *string = *String::Utf8Value(args[0]->ToString());
+    obj = new SemanticVersion(string);
   }
+
+  obj->Wrap(args.This());
+  args.GetReturnValue().Set(args.This());
 }
 
 void SemanticVersion::Create(const FunctionCallbackInfo<Value>& args) {
   Isolate *isolate = args.GetIsolate();
   const unsigned argc = 5;
   Local<Value> argv[argc] = { args[0], args[1], args[2], args[3], args[4] };
+  Local<Context> context = isolate->GetCurrentContext();
+  Local<Function> cons = Local<Function>::New(isolate, constructor);
+  Local<Object> instance = cons->NewInstance(context, argc, argv).ToLocalChecked();
+  args.GetReturnValue().Set(instance);
+}
+
+void SemanticVersion::CreateFromString(const FunctionCallbackInfo<Value>& args) {
+  Isolate *isolate = args.GetIsolate();
+  const unsigned argc = 1;
+  Local<Value> argv[argc] = { args[0] };
   Local<Context> context = isolate->GetCurrentContext();
   Local<Function> cons = Local<Function>::New(isolate, constructor);
   Local<Object> instance = cons->NewInstance(context, argc, argv).ToLocalChecked();

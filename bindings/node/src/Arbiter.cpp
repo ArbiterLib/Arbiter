@@ -13,9 +13,14 @@ void CreateSemanticVersion(const FunctionCallbackInfo<Value>& args) {
   SemanticVersion::Create(args);
 }
 
+void CreateSemanticVersionFromString(const FunctionCallbackInfo<Value>& args) {
+  SemanticVersion::CreateFromString(args);
+}
+
 void InitAll(Local<Object> exports, Local<Object> module) {
   SemanticVersion::Init(exports->GetIsolate());
   NODE_SET_METHOD(exports, "createSemanticVersion", CreateSemanticVersion);
+  NODE_SET_METHOD(exports, "createSemanticVersionFromString", CreateSemanticVersionFromString);
 }
 
 NODE_MODULE(arbiter, InitAll)

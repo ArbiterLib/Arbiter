@@ -1,5 +1,9 @@
-import { createSemanticVersion } from "../";
 import jsc, { asciinestring, constant, forall, oneof, uint32 } from "jsverify";
+
+import {
+  createSemanticVersion,
+  createSemanticVersionFromString
+} from "../";
 
 const maybe = (type) => {
   return oneof([
@@ -59,5 +63,15 @@ const itBehavesLikeASemanticVersion = (factory) => {
 describe("Version", () => {
   describe("createSemanticVersion", () => {
     itBehavesLikeASemanticVersion((...args) => createSemanticVersion(...args));
+  });
+
+  describe("createSemanticVersionFromString", () => {
+    itBehavesLikeASemanticVersion((...args) => {
+      const [major, minor, patch] = args;
+      const prereleaseVersion = args[3] ? `-${args[3]}` : "";
+      const buildMetadata = args[4] ? `+${args[4]}` : "";
+      const version = `${major}.${minor}.${patch}${prereleaseVersion}${buildMetadata}`;
+      return createSemanticVersionFromString(version);
+    });
   });
 });
