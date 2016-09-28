@@ -68,12 +68,43 @@ typedef struct
 
 /**
  * Creates a dependency resolver, implemented using the given behaviors, which
- * will attempt to pick compatible versions of all dependencies in
- * `dependencyList` and transitive dependencies thereof.
+ * will attempt to add compatible versions of all dependencies in
+ * `dependenciesToResolve` into the `initialGraph`.
+ *
+ * If `initialGraph` is NULL or empty, this is like creating a new graph which
+ * is populated with everything in `dependenciesToResolve` and all transitive
+ * dependencies thereof.
+ *
+ * Otherwise, the listed dependencies are _unified_ with whatever is already in
+ * the graph. Projects in and transitive dependencies of `dependenciesToResolve`
+ * which are not already in the graph will be added. For any dependency which
+ * _is_ already in the graph, the version from the graph must be satisfied by
+ * the updated dependency's requirement, or else resolution will fail.
  *
  * The returned dependency resolver must be freed with ArbiterFree().
+ *
+ * To understand how to use the parameters to this function, let's look at a few
+ * use cases:
+ *
+ *  1. **Resolving dependencies for the first time.** In this circumstance,
+ *     simply provide an `initialGraph` of `NULL`, and list all dependencies in
+ *     `dependenciesToResolve`. The result will be a fully-resolved graph for
+ *     all of those dependencies.
+ *  2. **Adding a new project to an already-resolved graph.** Simply pass the
+ *     existing graph in as the `initialGraph`, then list _only_ the project(s)
+ *     to be added in `dependenciesToResolve`. When resolution has completed,
+ *     the versions of existing projects in the graph will be unchanged, but the
+ *     new project and its new transitive dependencies will have been added.
+ *  3. **Upgrading a project in an already-resolved graph.** First, use
+ *     ArbiterResolvedDependencyGraphCopyWithNewRoots() to copy all root
+ *     projects that should remain _the same_ (i.e., those which should not be
+ *     upgraded). Then, provide the projects which _should_ be updated as
+ *     `dependenciesToResolve`. When resolution has completed, the
+ *     `dependenciesToResolve` will be in the graph at the highest possible
+ *     version, and the versions of the other, "pinned" projects will remain the
+ *     same.
  */
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterDependencyList *dependencyList, ArbiterUserContext context);
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context);
 
 /**
  * Returns any context data which was provided to ArbiterCreateResolver().

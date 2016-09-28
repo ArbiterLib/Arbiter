@@ -162,9 +162,9 @@ class UnversionedRequirementVisitor final : public Requirement::Visitor
 
 } // namespace
 
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserContext context)
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context)
 {
-  return new ArbiterResolver(std::move(behaviors), *dependencyList, shareUserContext(context));
+  return new ArbiterResolver(std::move(behaviors), (initialGraph ? *initialGraph : ArbiterResolvedDependencyGraph()), *dependenciesToResolve, shareUserContext(context));
 }
 
 const void *ArbiterResolverContext (const ArbiterResolver *resolver)
@@ -254,18 +254,18 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
-  UniqueDependencySet dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
-  return resolveDependencies(*this, ArbiterResolvedDependencyGraph(), std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
+  UniqueDependencySet dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
+  return resolveDependencies(*this, _initialGraph, std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
 }
 
 std::unique_ptr<Arbiter::Base> ArbiterResolver::clone () const
 {
-  return std::make_unique<ArbiterResolver>(_behaviors, _dependencyList, _context);
+  return std::make_unique<ArbiterResolver>(_behaviors, _initialGraph, _dependenciesToResolve, _context);
 }
 
 std::ostream &ArbiterResolver::describe (std::ostream &os) const
 {
-  return os << "ArbiterResolver: " << _dependencyList;
+  return os << "ArbiterResolver: " << _dependenciesToResolve;
 }
 
 bool ArbiterResolver::operator== (const Arbiter::Base &other) const

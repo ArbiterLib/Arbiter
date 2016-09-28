@@ -95,7 +95,7 @@ public final class SelectedVersionList<Metadata: ArbiterValue> : CObject
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (_ versions: [SelectedVersion<Metadata>])
+  public convenience init<S: SequenceType where S.Generator.Element == SelectedVersion<Metadata>> (_ versions: S)
   {
     var pointers: [COpaquePointer] = []
     for version in versions {

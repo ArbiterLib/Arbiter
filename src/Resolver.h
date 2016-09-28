@@ -20,10 +20,11 @@ struct ArbiterResolver final : public Arbiter::Base
   public:
     std::shared_ptr<const void> _context;
 
-    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, std::shared_ptr<const void> context)
+    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterResolvedDependencyGraph initialGraph, ArbiterDependencyList dependenciesToResolve, std::shared_ptr<const void> context)
       : _context(std::move(context))
       , _behaviors(std::move(behaviors))
-      , _dependencyList(std::move(dependencyList))
+      , _initialGraph(std::move(initialGraph))
+      , _dependenciesToResolve(std::move(dependenciesToResolve))
     {
       assert(_behaviors.createDependencyList);
       assert(_behaviors.createAvailableVersionsList);
@@ -70,7 +71,8 @@ struct ArbiterResolver final : public Arbiter::Base
 
   private:
     const ArbiterResolverBehaviors _behaviors;
-    const ArbiterDependencyList _dependencyList;
+    const ArbiterResolvedDependencyGraph _initialGraph;
+    const ArbiterDependencyList _dependenciesToResolve;
 
     std::unordered_map<ArbiterResolvedDependency, ArbiterDependencyList> _cachedDependencies;
     std::unordered_map<ArbiterProjectIdentifier, ArbiterSelectedVersionList> _cachedAvailableVersions;
