@@ -82,6 +82,27 @@ typedef struct
  * the updated dependency's requirement, or else resolution will fail.
  *
  * The returned dependency resolver must be freed with ArbiterFree().
+ *
+ * To understand how to use the parameters to this function, let's look at a few
+ * use cases:
+ *
+ *  1. **Resolving dependencies for the first time.** In this circumstance,
+ *     simply provide an `initialGraph` of `NULL`, and list all dependencies in
+ *     `dependenciesToResolve`. The result will be a fully-resolved graph for
+ *     all of those dependencies.
+ *  2. **Adding a new project to an already-resolved graph.** Simply pass the
+ *     existing graph in as the `initialGraph`, then list _only_ the project(s)
+ *     to be added in `dependenciesToResolve`. When resolution has completed,
+ *     the versions of existing projects in the graph will be unchanged, but the
+ *     new project and its new transitive dependencies will have been added.
+ *  3. **Upgrading a project in an already-resolved graph.** First, use
+ *     ArbiterResolvedDependencyGraphCopyWithNewRoots() to copy all root
+ *     projects that should remain _the same_ (i.e., those which should not be
+ *     upgraded). Then, provide the projects which _should_ be updated as
+ *     `dependenciesToResolve`. When resolution has completed, the
+ *     `dependenciesToResolve` will be in the graph at the highest possible
+ *     version, and the versions of the other, "pinned" projects will remain the
+ *     same.
  */
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context);
 
