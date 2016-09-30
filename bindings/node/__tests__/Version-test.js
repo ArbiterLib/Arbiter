@@ -64,7 +64,7 @@ describe("Version", () => {
   describe("createSemanticVersion", () => {
     itBehavesLikeASemanticVersion((...args) => createSemanticVersion(...args));
 
-    it("throws an error with the incorrect number of arguments", () => {
+    it("throws an error when passed an incorrect number of arguments", () => {
       const message = "Incorrect number of arguments";
       expect(() => createSemanticVersion()).toThrowError(message);
       expect(() => createSemanticVersion("1")).toThrowError(message);
@@ -84,7 +84,7 @@ describe("Version", () => {
       return createSemanticVersionFromString(version);
     });
 
-    it("throws an error with the incorrect number of arguments", () => {
+    it("throws an error when passed an incorrect number of arguments", () => {
       const message = "Incorrect number of arguments";
       expect(() => createSemanticVersionFromString()).toThrowError(message);
       expect(() => createSemanticVersionFromString("1.2.3")).not.toThrow();
