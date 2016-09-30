@@ -63,6 +63,16 @@ const itBehavesLikeASemanticVersion = (factory) => {
 describe("Version", () => {
   describe("createSemanticVersion", () => {
     itBehavesLikeASemanticVersion((...args) => createSemanticVersion(...args));
+
+    it("throws an error with the incorrect number of arguments", () => {
+      const message = "Incorrect number of arguments";
+      expect(() => createSemanticVersion()).toThrowError(message);
+      expect(() => createSemanticVersion("1")).toThrowError(message);
+      expect(() => createSemanticVersion("1", "2")).toThrowError(message);
+      expect(() => createSemanticVersion("1", "2", "3")).not.toThrow();
+      expect(() => createSemanticVersion("1", "2", "3", "alpha.0")).not.toThrow();
+      expect(() => createSemanticVersion("1", "2", "3", "alpha.0", "dailybuild")).not.toThrow();
+    });
   });
 
   describe("createSemanticVersionFromString", () => {
@@ -72,6 +82,13 @@ describe("Version", () => {
       const buildMetadata = args[4] ? `+${args[4]}` : "";
       const version = `${major}.${minor}.${patch}${prereleaseVersion}${buildMetadata}`;
       return createSemanticVersionFromString(version);
+    });
+
+    it("throws an error with the incorrect number of arguments", () => {
+      const message = "Incorrect number of arguments";
+      expect(() => createSemanticVersionFromString()).toThrowError(message);
+      expect(() => createSemanticVersionFromString("1.2.3")).not.toThrow();
+      expect(() => createSemanticVersionFromString("1.2.3", "alpha.0")).toThrowError(message);
     });
   });
 });

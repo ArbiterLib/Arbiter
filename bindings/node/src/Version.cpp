@@ -5,6 +5,7 @@
 namespace ArbiterNodeBindings {
 
 using v8::Context;
+using v8::Exception;
 using v8::Function;
 using v8::FunctionCallbackInfo;
 using v8::FunctionTemplate;
@@ -76,6 +77,14 @@ void SemanticVersion::New(const FunctionCallbackInfo<Value>& args) {
 
 void SemanticVersion::Create(const FunctionCallbackInfo<Value>& args) {
   Isolate *isolate = args.GetIsolate();
+
+  if (args.Length() < 3) {
+    Local<String> message = String::NewFromUtf8(isolate, "Incorrect number of arguments");
+    Local<Value> exception = Exception::Error(message);
+    isolate->ThrowException(exception);
+    return;
+  }
+
   const unsigned argc = 5;
   Local<Value> argv[argc] = { args[0], args[1], args[2], args[3], args[4] };
   Local<Context> context = isolate->GetCurrentContext();
@@ -86,6 +95,14 @@ void SemanticVersion::Create(const FunctionCallbackInfo<Value>& args) {
 
 void SemanticVersion::CreateFromString(const FunctionCallbackInfo<Value>& args) {
   Isolate *isolate = args.GetIsolate();
+
+  if (args.Length() != 1) {
+    Local<String> message = String::NewFromUtf8(isolate, "Incorrect number of arguments");
+    Local<Value> exception = Exception::Error(message);
+    isolate->ThrowException(exception);
+    return;
+  }
+
   const unsigned argc = 1;
   Local<Value> argv[argc] = { args[0] };
   Local<Context> context = isolate->GetCurrentContext();
