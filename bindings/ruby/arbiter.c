@@ -8,52 +8,73 @@
 static VALUE cDependency;
 
 static bool value_equal(const void *first, const void *second) {
-  VALUE a = (VALUE)first, b = (VALUE)second;
+  VALUE a = *(VALUE *)first, b = *(VALUE *)second;
   return rb_equal(a, b) == Qtrue;
 }
 
 static bool value_less_than(const void *first, const void *second) {
-  VALUE a = (VALUE)first, b = (VALUE)second;
+  VALUE a = *(VALUE *)first, b = *(VALUE *)second;
   return rb_funcall(a, rb_intern("<"), 1, b) == Qtrue;
 }
 
 static size_t value_hash(const void *data) {
-  VALUE hash = rb_funcall((VALUE)data, rb_intern("hash"), 0);
+  VALUE value = *(VALUE *)data;
+  VALUE hash = rb_funcall(value, rb_intern("hash"), 0);
   return FIX2ULONG(hash);
 }
 
 static char *value_create_description(const void *data) {
-  VALUE value = (VALUE)data;
+  VALUE value = *(VALUE *)data;
   char *description = StringValueCStr(value);
   return strdup(description);
 }
 
-static void project_identifier_mark(ArbiterProjectIdentifier *project_identifier) {
-  VALUE value = (VALUE)ArbiterProjectIdentifierValue(project_identifier);
-  rb_gc_mark(value);
+static void value_free(void *data) {
+  VALUE *ptr = (VALUE *)data;
+  *ptr = Qnil;
+}
+
+typedef struct {
+  VALUE user_value;
+  ArbiterProjectIdentifier *project_identifier;
+} ProjectIdentifierData;
+
+static void project_identifier_gc_mark(ProjectIdentifierData *data) {
+  rb_gc_mark(data->user_value);
+}
+
+static void project_identifier_free(ProjectIdentifierData *data) {
+  ArbiterFree(data->project_identifier);
+  data->user_value = Qnil;
 }
 
 static VALUE project_identifier_allocate(VALUE klass) {
-  return Data_Wrap_Struct(klass, project_identifier_mark, ArbiterFree, NULL);
+  ProjectIdentifierData *data;
+  return Data_Make_Struct(klass, ProjectIdentifierData, project_identifier_gc_mark, project_identifier_free, data);
 }
 
 static VALUE project_identifier_initialize(VALUE self, VALUE value) {
-  ArbiterUserValue user_value = {
-    .data = (void *)value,
+  ProjectIdentifierData *data;
+  Data_Get_Struct(self, ProjectIdentifierData, data);
+
+  data->user_value = value;
+  data->project_identifier = ArbiterCreateProjectIdentifier((ArbiterUserValue){
+    .data = (void *)&data->user_value,
     .equalTo = value_equal,
     .lessThan = value_less_than,
     .hash = value_hash,
     .createDescription = value_create_description,
-    .destructor = NULL,
-  };
-
-  DATA_PTR(self) = ArbiterCreateProjectIdentifier(user_value);
+    .destructor = value_free,
+  });
 
   return self;
 }
 
-static VALUE project_identifier_create_dependency(VALUE klass, VALUE requirement) {
-  ArbiterDependency *dependency = ArbiterCreateDependency(DATA_PTR(klass), DATA_PTR(requirement));
+static VALUE project_identifier_create_dependency(VALUE self, VALUE requirement) {
+  ProjectIdentifierData *data;
+  Data_Get_Struct(self, ProjectIdentifierData, data);
+
+  ArbiterDependency *dependency = ArbiterCreateDependency(data->project_identifier, DATA_PTR(requirement));
   return Data_Wrap_Struct(cDependency, NULL, ArbiterFree, dependency);
 }
 
