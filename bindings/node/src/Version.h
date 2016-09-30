@@ -27,7 +27,7 @@ class SemanticVersion : public node::ObjectWrap {
     static void GetPrereleaseVersion(const v8::FunctionCallbackInfo<v8::Value>& args);
     static void GetBuildMetadata(const v8::FunctionCallbackInfo<v8::Value>& args);
     static v8::Persistent<v8::Function> constructor;
-    const ArbiterSemanticVersion *_semanticVersion;
+    ArbiterSemanticVersion *_semanticVersion;
 };
 
 } // namespace ArbiterNodeBindings

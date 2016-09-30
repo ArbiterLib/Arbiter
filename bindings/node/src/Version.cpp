@@ -1,3 +1,4 @@
+#include <arbiter/Types.h>
 #include <arbiter/Version.h>
 #include "Version.h"
 
@@ -35,6 +36,7 @@ SemanticVersion::SemanticVersion(const char *string) {
 }
 
 SemanticVersion::~SemanticVersion() {
+  ArbiterFree(_semanticVersion);
 }
 
 void SemanticVersion::Init(Isolate* isolate) {
