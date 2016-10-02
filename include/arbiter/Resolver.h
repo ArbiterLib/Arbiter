@@ -49,7 +49,8 @@ typedef struct
   struct ArbiterSelectedVersionList *(*createAvailableVersionsList)(const ArbiterResolver *resolver, const struct ArbiterProjectIdentifier *project, char **error);
 
   /**
-   * Requests the selected version which corresponds to the given metadata.
+   * Requests the selected version which corresponds to the given metadata, in
+   * the context of the given project.
    *
    * This behavior can be used to implement lookup of versions which are not
    * known in advance (i.e., those which would not appear in the result of
@@ -63,7 +64,7 @@ typedef struct
    * Returns a selected version, or NULL if one corresponding to the metadata
    * could not be found.
    */
-  struct ArbiterSelectedVersion *(*createSelectedVersionForMetadata)(const ArbiterResolver *resolver, const void *metadata);
+  struct ArbiterSelectedVersion *(*createSelectedVersionForMetadata)(const ArbiterResolver *resolver, const struct ArbiterProjectIdentifier *project, const void *metadata);
 } ArbiterResolverBehaviors;
 
 /**

@@ -14,7 +14,7 @@ public class ResolverBase: CObject {
     preconditionFailure("Must be overridden by subclasses")
   }
 
-  private func createSelectedVersionForMetadata (metadata: UnsafePointer<Void>) -> COpaquePointer
+  private func createSelectedVersionForMetadata (project: COpaquePointer, metadata: UnsafePointer<Void>) -> COpaquePointer
   {
     preconditionFailure("Must be overridden by subclasses")
   }
@@ -24,7 +24,7 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
 {
   public typealias ListDependencies = (Resolver, ProjectIdentifier<ProjectValue>, SelectedVersion<VersionMetadata>) throws -> DependencyList<ProjectValue>
   public typealias ListAvailableVersions = (Resolver, ProjectIdentifier<ProjectValue>) throws -> SelectedVersionList<VersionMetadata>
-  public typealias SelectedVersionForMetadata = VersionMetadata -> SelectedVersion<VersionMetadata>?
+  public typealias SelectedVersionForMetadata = (Resolver, ProjectIdentifier<ProjectValue>, VersionMetadata) -> SelectedVersion<VersionMetadata>?
 
   public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
   {
@@ -95,13 +95,13 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
     }
   }
 
-  private override func createSelectedVersionForMetadata (metadata: UnsafePointer<Void>) -> COpaquePointer
+  private override func createSelectedVersionForMetadata (project: COpaquePointer, metadata: UnsafePointer<Void>) -> COpaquePointer
   {
     guard let selectedVersionForMetadata = selectedVersionForMetadata else {
       return nil
     }
 
-    if let version = selectedVersionForMetadata(VersionMetadata.fromUserValue(metadata)) {
+    if let version = selectedVersionForMetadata(self, ProjectIdentifier<ProjectValue>(project), VersionMetadata.fromUserValue(metadata)) {
       return version.takeOwnership()
     } else {
       return nil
@@ -125,8 +125,8 @@ private func createAvailableVersionsListBehavior (resolver: COpaquePointer, proj
   return resolver.createAvailableVersionsList(project, error: error)
 }
 
-private func createSelectedVersionForMetadataBehavior (resolver: COpaquePointer, metadata: UnsafePointer<Void>) -> COpaquePointer
+private func createSelectedVersionForMetadataBehavior (resolver: COpaquePointer, project: COpaquePointer, metadata: UnsafePointer<Void>) -> COpaquePointer
 {
   let resolver: ResolverBase = fromUserContext(ArbiterResolverContext(resolver))
-  return resolver.createSelectedVersionForMetadata(metadata)
+  return resolver.createSelectedVersionForMetadata(project, metadata: metadata)
 }
