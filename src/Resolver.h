@@ -52,7 +52,7 @@ struct ArbiterResolver final : public Arbiter::Base
      *
      * Returns the selected version if found, or else None.
      */
-    Arbiter::Optional<ArbiterSelectedVersion> fetchSelectedVersionForMetadata (const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata);
+    Arbiter::Optional<ArbiterSelectedVersion> fetchSelectedVersionForMetadata (const ArbiterProjectIdentifier &project, const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata);
 
     /**
      * Computes a list of available versions for the specified project which

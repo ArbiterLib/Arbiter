@@ -237,14 +237,14 @@ ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const Arbite
   }
 }
 
-Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadata (const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata)
+Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadata (const ArbiterProjectIdentifier &project, const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata)
 {
   const auto behavior = _behaviors.createSelectedVersionForMetadata;
   if (!behavior) {
     return None();
   }
 
-  std::unique_ptr<ArbiterSelectedVersion> version(behavior(this, metadata.data()));
+  std::unique_ptr<ArbiterSelectedVersion> version(behavior(this, &project, metadata.data()));
   if (version) {
     return makeOptional(std::move(*version));
   } else {
@@ -282,7 +282,7 @@ std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying
     requirement.visit(visitor);
 
     for (const auto &metadata : visitor._allMetadata) {
-      Optional<ArbiterSelectedVersion> version = fetchSelectedVersionForMetadata(metadata);
+      Optional<ArbiterSelectedVersion> version = fetchSelectedVersionForMetadata(project, metadata);
       if (version) {
         versions.emplace_back(std::move(*version));
       }
