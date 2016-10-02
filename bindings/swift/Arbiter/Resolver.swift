@@ -40,6 +40,10 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
     // `self` in order to create the ArbiterResolver pointer.
     self.init(nil, shouldCopy: false)
 
+    self.listDependencies = listDependencies
+    self.listAvailableVersions = listAvailableVersions
+    self.selectedVersionForMetadata = selectedVersionForMetadata
+
     let behaviors = ArbiterResolverBehaviors(
       createDependencyList: createDependencyListBehavior,
       createAvailableVersionsList: createAvailableVersionsListBehavior,
@@ -89,9 +93,9 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
     }
   }
 
-  private let listDependencies: ListDependencies! = nil
-  private let listAvailableVersions: ListAvailableVersions! = nil
-  private let selectedVersionForMetadata: SelectedVersionForMetadata? = nil
+  private var listDependencies: ListDependencies! = nil
+  private var listAvailableVersions: ListAvailableVersions! = nil
+  private var selectedVersionForMetadata: SelectedVersionForMetadata? = nil
 }
 
 private func createDependencyListBehavior (resolver: COpaquePointer, project: COpaquePointer, selectedVersion: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
