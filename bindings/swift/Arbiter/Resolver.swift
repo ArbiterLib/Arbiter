@@ -70,7 +70,7 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
   private override func createDependencyList (project: COpaquePointer, selectedVersion: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
   {
     do {
-      let deps = try listDependencies(self, ProjectIdentifier<ProjectValue>(project, shouldCopy: false), SelectedVersion<VersionMetadata>(selectedVersion, shouldCopy: false))
+      let deps = try listDependencies(self, ProjectIdentifier<ProjectValue>(project), SelectedVersion<VersionMetadata>(selectedVersion))
       return deps.takeOwnership()
     } catch let ex {
       String(ex).withCString { str in
@@ -84,7 +84,7 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
   private override func createAvailableVersionsList (project: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
   {
     do {
-      let versions = try listAvailableVersions(self, ProjectIdentifier<ProjectValue>(project, shouldCopy: false))
+      let versions = try listAvailableVersions(self, ProjectIdentifier<ProjectValue>(project))
       return versions.takeOwnership()
     } catch let ex {
       String(ex).withCString { str in
