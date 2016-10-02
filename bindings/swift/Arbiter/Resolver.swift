@@ -52,6 +52,21 @@ public final class Resolver<ProjectValue: ArbiterValue, VersionMetadata: Arbiter
     _pointer = ArbiterCreateResolver(behaviors, initialGraph?.pointer ?? nil, dependenciesToResolve.pointer, toUserContext(self))
   }
 
+  public func resolve () throws -> ResolvedDependencyGraph<ProjectValue, VersionMetadata>
+  {
+    var cStr: UnsafeMutablePointer<CChar> = nil
+
+    let graph = ArbiterResolverCreateResolvedDependencyGraph(pointer, &cStr)
+    if graph == nil {
+      let string = String(UTF8String: cStr)
+      free(cStr)
+
+      throw ArbiterError(message: string)
+    }
+
+    return ResolvedDependencyGraph(graph, shouldCopy: false)
+  }
+
   private override func createDependencyList (project: COpaquePointer, selectedVersion: COpaquePointer, error: UnsafeMutablePointer<UnsafeMutablePointer<CChar>>) -> COpaquePointer
   {
     do {
