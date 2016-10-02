@@ -95,7 +95,7 @@ ArbiterDependencyList *createTransitiveDependencyList (const ArbiterResolver *, 
   return new ArbiterDependencyList(std::move(dependencies));
 }
 
-ArbiterSelectedVersion *createSelectedVersionForMetadata (const ArbiterResolver *, const void *metadata)
+ArbiterSelectedVersion *createSelectedVersionForMetadata (const ArbiterResolver *, const ArbiterProjectIdentifier *, const void *metadata)
 {
   const auto &testValue = fromUserValue<StringTestValue>(metadata);
   return new ArbiterSelectedVersion(None(), makeSharedUserValue<ArbiterSelectedVersion, StringTestValue>(testValue._str));
