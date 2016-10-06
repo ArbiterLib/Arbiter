@@ -8,5 +8,5 @@ module Arbiter.Version where
 {#pointer *ArbiterSemanticVersion as SemanticVersionPtr
   foreign finalizer ArbiterFree as arbiterFree newtype#}
 
-{#fun pure ArbiterCreateSemanticVersion as ^
+{#fun pure ArbiterCreateSemanticVersion as createSemanticVersion
   { `Int', `Int', `Int', `String', `String' } -> `SemanticVersionPtr' #}
