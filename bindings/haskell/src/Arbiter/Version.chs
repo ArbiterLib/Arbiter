@@ -1,6 +1,8 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
-module Arbiter.Version where
+module Arbiter.Version
+  ( createSemanticVersion
+  ) where
 
 #include "arbiter/Types.h"
 #include "arbiter/Version.h"
