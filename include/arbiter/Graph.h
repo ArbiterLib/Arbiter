@@ -45,7 +45,7 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCreate (void);
 ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (const ArbiterResolvedDependencyGraph *baseGraph, const struct ArbiterProjectIdentifier * const *roots, size_t rootCount);
 
 /**
- * Attempts to add a root node into the dependency graph, without making it
+ * Attempts to add a node into the dependency graph, without making it
  * inconsistent.
  *
  * If the given dependency refers to a project which already exists in the
@@ -55,20 +55,20 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (
  * not NULL, it may be set to a string describing the error, which the caller is
  * responsible for freeing.
  */
-bool ArbiterResolvedDependencyGraphAddRoot (ArbiterResolvedDependencyGraph *graph, const struct ArbiterResolvedDependency *node, const struct ArbiterRequirement *requirement, char **error);
+bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const struct ArbiterResolvedDependency *node, const struct ArbiterRequirement *requirement, char **error);
 
 /**
- * Attempts to add an edge (dependency relationship) into the dependency graph,
- * from `dependent` to `dependency`, without making it inconsistent.
+ * Adds an edge (dependency relationship) into the dependency graph, from
+ * `dependent` to `dependency`.
  *
- * If `dependency` refers to a project which already exists in the graph, this
- * will attempt to intersect the version requirements of both.
+ * This must only be called after both projects have already been inserted into
+ * the graph with ArbiterResolvedDependencyGraphAddNode().
  *
  * Returns whether the addition succeeded. If `false` is returned and `error` is
  * not NULL, it may be set to a string describing the error, which the caller is
  * responsible for freeing.
  */
-bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const struct ArbiterProjectIdentifier *dependent, const struct ArbiterResolvedDependency *dependency, const struct ArbiterRequirement *requirement, char **error);
+bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const struct ArbiterProjectIdentifier *dependent, const struct ArbiterProjectIdentifier *dependency, char **error);
 
 /**
  * Returns the number of unique nodes in the given graph, for use with

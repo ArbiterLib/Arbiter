@@ -23,10 +23,10 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (
   return new ArbiterResolvedDependencyGraph(baseGraph->graphWithNewRoots(std::move(vec)));
 }
 
-bool ArbiterResolvedDependencyGraphAddRoot (ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency *node, const ArbiterRequirement *requirement, char **error)
+bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency *node, const ArbiterRequirement *requirement, char **error)
 {
   try {
-    graph->addNode(*node, *requirement, None());
+    graph->addNode(*node, *requirement);
     return true;
   } catch (const Exception::Base &ex) {
     if (error) {
@@ -37,10 +37,10 @@ bool ArbiterResolvedDependencyGraphAddRoot (ArbiterResolvedDependencyGraph *grap
   }
 }
 
-bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *dependent, const ArbiterResolvedDependency *dependency, const ArbiterRequirement *requirement, char **error)
+bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *dependent, const ArbiterProjectIdentifier *dependency, char **error)
 {
   try {
-    graph->addNode(*dependency, *requirement, makeOptional(*dependent));
+    graph->addEdge(*dependent, *dependency);
     return true;
   } catch (const Exception::Base &ex) {
     if (error) {
@@ -150,7 +150,7 @@ void ArbiterResolvedDependencyGraph::NodeValue::setRequirement (std::unique_ptr<
   _requirement = std::move(requirement);
 }
 
-void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<NodeKey> &dependent) noexcept(false)
+void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement) noexcept(false)
 {
   assert(initialRequirement.satisfiedBy(node._version));
 
@@ -173,10 +173,14 @@ void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, co
   } else {
     _nodes.emplace(std::make_pair(key, NodeValue(node._version, initialRequirement)));
   }
+}
 
-  if (dependent) {
-    _edges[*dependent].insert(key);
-  }
+void ArbiterResolvedDependencyGraph::addEdge (const ArbiterProjectIdentifier &dependent, ArbiterProjectIdentifier dependency)
+{
+  assert(_nodes.find(dependent) != _nodes.end());
+  assert(_nodes.find(dependency) != _nodes.end());
+
+  _edges[dependent].emplace(std::move(dependency));
 }
 
 ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph::graphWithNewRoots (const std::vector<NodeKey> &roots) const
@@ -192,7 +196,10 @@ ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph::graphWithNewRoots
 
 void ArbiterResolvedDependencyGraph::walkNodeAndCopyInto (ArbiterResolvedDependencyGraph &newGraph, const NodeKey &key, const Arbiter::Optional<NodeKey> &dependent) const
 {
-  newGraph.addNode(resolveNode(key), _nodes.at(key).requirement(), dependent);
+  newGraph.addNode(resolveNode(key), _nodes.at(key).requirement());
+  if (dependent) {
+    newGraph.addEdge(*dependent, key);
+  }
 
   const auto it = _edges.find(key);
   if (it == _edges.end()) {
@@ -300,10 +307,9 @@ std::ostream &ArbiterResolvedDependencyGraph::describe (std::ostream &os) const
     }
   }
 
-  os << "\n\nEdges";
+  os << "\n\nEdges:";
   for (const auto &pair : _edges) {
-    const NodeKey &key = pair.first;
-    os << "\n\t" << key << " ->";
+    os << "\n\t" << resolveNode(pair.first) << " ->";
 
     for (const NodeKey &dependency : pair.second) {
       os << "\n\t\t" << resolveNode(dependency);
