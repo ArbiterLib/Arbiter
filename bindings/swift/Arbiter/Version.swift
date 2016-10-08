@@ -71,15 +71,20 @@ public final class SelectedVersion<Metadata: ArbiterValue> : CObject
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (semanticVersion: SemanticVersion, metadata: Metadata)
+  public convenience init (semanticVersion: SemanticVersion?, metadata: Metadata)
   {
-    let ptr = ArbiterCreateSelectedVersion(semanticVersion.pointer, metadata.toUserValue())
+    let ptr = ArbiterCreateSelectedVersion(semanticVersion?.pointer ?? nil, metadata.toUserValue())
     self.init(ptr, shouldCopy: false)
   }
 
-  public var semanticVersion: SemanticVersion
+  public var semanticVersion: SemanticVersion?
   {
-    return SemanticVersion(ArbiterSelectedVersionSemanticVersion(pointer))
+    let versionPtr = ArbiterSelectedVersionSemanticVersion(pointer)
+    if versionPtr == nil {
+      return nil
+    } else {
+      return SemanticVersion(versionPtr)
+    }
   }
 
   public var metadata: Metadata
@@ -95,7 +100,7 @@ public final class SelectedVersionList<Metadata: ArbiterValue> : CObject
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (_ versions: [SelectedVersion<Metadata>])
+  public convenience init<S: SequenceType where S.Generator.Element == SelectedVersion<Metadata>> (_ versions: S)
   {
     var pointers: [COpaquePointer] = []
     for version in versions {

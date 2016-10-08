@@ -6,6 +6,8 @@
 
 #include <arbiter/Dependency.h>
 
+#include "Optional.h"
+#include "Requirement.h"
 #include "Types.h"
 #include "Value.h"
 #include "Version.h"
@@ -13,10 +15,10 @@
 #include <functional>
 #include <memory>
 #include <ostream>
+#include <set>
 #include <unordered_set>
+#include <unordered_map>
 #include <vector>
-
-struct ArbiterRequirement;
 
 struct ArbiterProjectIdentifier final : public Arbiter::Base
 {
@@ -109,28 +111,8 @@ struct ArbiterResolvedDependency final : public Arbiter::Base
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
-};
 
-struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
-{
-  public:
-    // TODO: Should this be ordered?
-    using DepthSet = std::unordered_set<ArbiterResolvedDependency>;
-
-    std::vector<DepthSet> _depths;
-
-    ArbiterResolvedDependencyGraph () = default;
-
-    size_t count () const;
-
-    size_t depth () const noexcept;
-    size_t countAtDepth (size_t depthIndex) const;
-
-    bool contains (const ArbiterResolvedDependency &node) const;
-
-    std::unique_ptr<Arbiter::Base> clone () const override;
-    std::ostream &describe (std::ostream &os) const override;
-    bool operator== (const Arbiter::Base &other) const override;
+    bool operator< (const ArbiterResolvedDependency &other) const;
 };
 
 namespace std {

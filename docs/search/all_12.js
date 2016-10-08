@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['value',['Value',['../struct_arbiter_project_identifier.html#a4c25c9af6da917d4e111d17115fd59f5',1,'ArbiterProjectIdentifier::Value()'],['../struct_arbiter_1_1_optional.html#ac7286ea9106e97c4960a2ab1bf0a30e4',1,'Arbiter::Optional::Value()'],['../struct_arbiter_1_1_optional.html#a67b927fa3eaddc25997dff085a0b43d1',1,'Arbiter::Optional::value() noexcept'],['../struct_arbiter_1_1_optional.html#ab0f363163225390d70f9edc0b86ca680',1,'Arbiter::Optional::value() const  noexcept']]],
-  ['value_2eh',['Value.h',['../src_2_value_8h.html',1,'']]],
-  ['value_2eh',['Value.h',['../include_2arbiter_2_value_8h.html',1,'']]],
-  ['version_2eh',['Version.h',['../include_2arbiter_2_version_8h.html',1,'']]],
-  ['version_2eh',['Version.h',['../src_2_version_8h.html',1,'']]]
+  ['unsatisfiableconstraints',['UnsatisfiableConstraints',['../struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html',1,'Arbiter::Exception']]],
+  ['unsatisfiableconstraints',['UnsatisfiableConstraints',['../struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html#a5350881d69f0c4523ca241c75366c819',1,'Arbiter::Exception::UnsatisfiableConstraints']]],
+  ['unversioned',['Unversioned',['../class_arbiter_1_1_requirement_1_1_unversioned.html#a6f93e30b74e49812510bc7287489a7c0',1,'Arbiter::Requirement::Unversioned']]],
+  ['unversioned',['Unversioned',['../class_arbiter_1_1_requirement_1_1_unversioned.html',1,'Arbiter::Requirement']]],
+  ['usererror',['UserError',['../struct_arbiter_1_1_exception_1_1_user_error.html',1,'Arbiter::Exception']]],
+  ['usererror',['UserError',['../struct_arbiter_1_1_exception_1_1_user_error.html#aa6f8bf174919c720eed120e296597317',1,'Arbiter::Exception::UserError::UserError()'],['../struct_arbiter_1_1_exception_1_1_user_error.html#a2c2f043158e7bcd1454d212bfb351e11',1,'Arbiter::Exception::UserError::UserError(const std::string &amp;string)']]]
 ];

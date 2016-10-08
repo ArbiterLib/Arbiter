@@ -1,0 +1,5 @@
+<map id="Arbiter::Requirement::Unversioned" name="Arbiter::Requirement::Unversioned">
+<area shape="rect" id="node2" href="$struct_arbiter_requirement.html" title="Represents a requirement for a specific version or set of versions. " alt="" coords="5,87,142,112"/>
+<area shape="rect" id="node3" href="$class_arbiter_1_1_base.html" title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. " alt="" coords="25,5,123,31"/>
+<area shape="rect" id="node4" href="$class_arbiter_1_1_shared_user_value.html" title="Arbiter::SharedUserValue\l\&lt; ArbiterSelectedVersion \&gt;" alt="" coords="167,80,346,119"/>
+</map>

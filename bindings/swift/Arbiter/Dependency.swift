@@ -48,7 +48,7 @@ public final class DependencyList<ProjectValue: ArbiterValue> : CObject
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (_ dependencies: [Dependency<ProjectValue>])
+  public convenience init<S: SequenceType where S.Generator.Element == Dependency<ProjectValue>> (_ dependencies: S)
   {
     var pointers: [COpaquePointer] = []
     for dependency in dependencies {
@@ -84,60 +84,5 @@ public final class ResolvedDependency<ProjectValue: ArbiterValue, VersionMetadat
   public var version: SelectedVersion<VersionMetadata>
   {
     return SelectedVersion<VersionMetadata>(ArbiterResolvedDependencyVersion(pointer))
-  }
-}
-
-public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMetadata: ArbiterValue> : CObject
-{
-  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
-  {
-    super.init(pointer, shouldCopy: shouldCopy)
-  }
-
-  public var allDependencies: OnDemandCollection<[ResolvedDependency<ProjectValue, VersionMetadata>]>
-  {
-    let count = ArbiterResolvedDependencyGraphCount(pointer)
-
-    return OnDemandCollection(startIndex: 0, endIndex: count) {
-      let buffer = UnsafeMutablePointer<COpaquePointer>.alloc(count)
-      ArbiterResolvedDependencyGraphGetAll(self.pointer, buffer)
-
-      let array = UnsafeBufferPointer(start: buffer, count: count).map { ptr in
-        return ResolvedDependency<ProjectValue, VersionMetadata>(ptr)
-      }
-
-      buffer.destroy(count)
-      buffer.dealloc(count)
-
-      return array
-    }
-  }
-
-  public var depthOrderedDependencies: [OnDemandCollection<[ResolvedDependency<ProjectValue, VersionMetadata>]>]
-  {
-    let depth = ArbiterResolvedDependencyGraphDepth(pointer)
-
-    var depths: [OnDemandCollection<[ResolvedDependency<ProjectValue, VersionMetadata>]>] = []
-    depths.reserveCapacity(depth)
-
-    for depthIndex in 0..<depth {
-      let count = ArbiterResolvedDependencyGraphCountAtDepth(pointer, depthIndex)
-
-      depths.append(OnDemandCollection(startIndex: 0, endIndex: count) {
-        let buffer = UnsafeMutablePointer<COpaquePointer>.alloc(count)
-        ArbiterResolvedDependencyGraphGetAllAtDepth(self.pointer, depthIndex, buffer)
-
-        let array = UnsafeBufferPointer(start: buffer, count: count).map { ptr in
-          return ResolvedDependency<ProjectValue, VersionMetadata>(ptr)
-        }
-
-        buffer.destroy(count)
-        buffer.dealloc(count)
-
-        return array
-      })
-    }
-
-    return depths
   }
 }

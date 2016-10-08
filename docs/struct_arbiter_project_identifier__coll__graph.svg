@@ -9,26 +9,26 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 98)">
 <title>ArbiterProjectIdentifier</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-98 227.711,-98 227.711,4 -4,4"/>
-<!-- Node1 -->
-<g id="node1" class="node"><title>Node1</title>
+<!-- Node0 -->
+<g id="node1" class="node"><title>Node0</title>
 <polygon fill="#bfbfbf" stroke="black" points="39.436,-0.5 39.436,-18.5 154.367,-18.5 154.367,-0.5 39.436,-0.5"/>
 <text text-anchor="middle" x="96.9014" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">ArbiterProjectIdentifier</text>
 </g>
-<!-- Node2 -->
-<g id="node2" class="node"><title>Node2</title>
+<!-- Node1 -->
+<g id="node2" class="node"><title>Node1</title>
 <g id="a_node2"><a xlink:href="class_arbiter_1_1_base.html" target="_top" xlink:title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. ">
 <polygon fill="white" stroke="black" points="0,-70.5 0,-88.5 73.8027,-88.5 73.8027,-70.5 0,-70.5"/>
 <text text-anchor="middle" x="36.9014" y="-76.5" font-family="Helvetica,sans-Serif" font-size="10.00">Arbiter::Base</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node1 -->
-<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
+<!-- Node1&#45;&gt;Node0 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M50.8477,-62.6941C63.0356,-48.8812 80.2344,-29.3893 89.7922,-18.557"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="48.0116,-60.6184 44.0198,-70.4325 53.2605,-65.2498 48.0116,-60.6184"/>
 </g>
-<!-- Node3 -->
-<g id="node3" class="node"><title>Node3</title>
+<!-- Node2 -->
+<g id="node3" class="node"><title>Node2</title>
 <g id="a_node3"><a xlink:href="class_arbiter_1_1_shared_user_value.html" target="_top" xlink:title="Arbiter::SharedUserValue\l\&lt; ArbiterProjectIdentifier \&gt;">
 <polygon fill="white" stroke="black" points="92.0913,-65.5 92.0913,-93.5 223.711,-93.5 223.711,-65.5 92.0913,-65.5"/>
 <text text-anchor="start" x="100.091" y="-81.5" font-family="Helvetica,sans-Serif" font-size="10.00">Arbiter::SharedUserValue</text>
@@ -36,8 +36,8 @@
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node1 -->
-<g id="edge2" class="edge"><title>Node3&#45;&gt;Node1</title>
+<!-- Node2&#45;&gt;Node0 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M139.271,-57.7322C127.54,-44.6544 113.032,-28.4819 104.396,-18.8552"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="136.857,-60.2822 146.14,-65.3889 142.068,-55.6079 136.857,-60.2822"/>
 <text text-anchor="middle" x="146.024" y="-39" font-family="Helvetica,sans-Serif" font-size="10.00"> _value</text>

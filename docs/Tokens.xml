@@ -79,61 +79,6 @@
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>ArbiterResolvedDependencyGraphCount</Name>
-      <APILanguage>c</APILanguage>
-      <Type>func</Type>
-    </TokenIdentifier>
-    <Path>include_2arbiter_2_dependency_8h.html</Path>
-    <Anchor>a4b570096c9694f0d6637b1dd84c0c0a5</Anchor>
-    <Abstract>Returns the number of unique nodes in the given graph, for use with ArbiterResolvedDependencyGraphGet...</Abstract>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>ArbiterResolvedDependencyGraphCountAtDepth</Name>
-      <APILanguage>c</APILanguage>
-      <Type>func</Type>
-    </TokenIdentifier>
-    <Path>include_2arbiter_2_dependency_8h.html</Path>
-    <Anchor>a110ef41e76d4c9dcbb716354e9ae6d17</Anchor>
-    <Abstract>Returns the number of projects which exist at the given zero-based &quot;depth index. </Abstract>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>ArbiterResolvedDependencyGraphDepth</Name>
-      <APILanguage>c</APILanguage>
-      <Type>func</Type>
-    </TokenIdentifier>
-    <Path>include_2arbiter_2_dependency_8h.html</Path>
-    <Anchor>ad883efe177417fcc485632fa1524d4c6</Anchor>
-    <Abstract>Returns the depth of the graph, for use with ArbiterResolvedDependencyGraphCountAtDepth() and Arbiter...</Abstract>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>ArbiterResolvedDependencyGraphGetAll</Name>
-      <APILanguage>c</APILanguage>
-      <Type>func</Type>
-    </TokenIdentifier>
-    <Path>include_2arbiter_2_dependency_8h.html</Path>
-    <Anchor>a1e68f3f23369b6b7e36c9b32b070880a</Anchor>
-    <Abstract>Copies pointers to all of the resolved dependencies in the given graph, into the C array buffer...</Abstract>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>ArbiterResolvedDependencyGraphGetAllAtDepth</Name>
-      <APILanguage>c</APILanguage>
-      <Type>func</Type>
-    </TokenIdentifier>
-    <Path>include_2arbiter_2_dependency_8h.html</Path>
-    <Anchor>ac27f992aa67e46275b9b421deacdf464</Anchor>
-    <Abstract>Copies pointers to the resolved dependencies which exist at the given zero-based &quot;depth index...</Abstract>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
       <Name>ArbiterResolvedDependencyProject</Name>
       <APILanguage>c</APILanguage>
       <Type>func</Type>
@@ -153,6 +98,149 @@
     <Anchor>a633409a35c08cb6fed6db83eed6bf50d</Anchor>
     <Abstract>Returns the version which was selected for this resolved dependency. </Abstract>
     <DeclaredIn>Dependency.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphAddEdge</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>aa579e0eb0a4a841e1375827127e22243</Anchor>
+    <Abstract>Attempts to add an edge (dependency relationship) into the dependency graph, from dependent to depend...</Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphAddRoot</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a83e961368c6598e4cfc8280a2ead2689</Anchor>
+    <Abstract>Attempts to add a root node into the dependency graph, without making it inconsistent. </Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphCopyAll</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>aa67b0f0fd90c079e4cfb8e875bb7beaa</Anchor>
+    <Abstract>Copies all of the resolved dependencies in the given graph into the C array buffer, which must have enough space to contain ArbiterResolvedDependencyGraphCount() elements. </Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphCount</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a4b570096c9694f0d6637b1dd84c0c0a5</Anchor>
+    <Abstract>Returns the number of unique nodes in the given graph, for use with ArbiterResolvedDependencyGraphGet...</Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphCountDependencies</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a2e9cbf5e95e945354bfb5ae4eaf29719</Anchor>
+    <Abstract>Returns the number of dependencies that the given project has in the graph, or 0 if the project does ...</Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphCreate</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a3e58322446603806666f8c118ea8973f</Anchor>
+    <Abstract>Creates an empty resolved dependency graph. </Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphGetAllDependencies</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a996f14a8de9d1a424c42ad3f15d62938</Anchor>
+    <Abstract>Copies pointers to the projects representing the given project&amp;#39;s dependencies into the C array buffer...</Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphProjectRequirement</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>ae6d202fc098ad5ede55f89f9b0a8a812</Anchor>
+    <Abstract>Returns the requirement which is attached to the given project in the dependency graph, or NULL if the project is not part of the graph. </Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraphProjectVersion</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>ac169ced36a2e18c27b0e866ef8fb9639</Anchor>
+    <Abstract>Returns the version which was selected for the given project in the dependency graph, or NULL if the project is not part of the graph. </Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyInstallerCountInPhase</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a173013d7ca5841428e4806d8518b430d</Anchor>
+    <Abstract>Returns the number of resolved dependencies that exist within the given zero-based installer phase...</Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyInstallerCreate</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a5f5598e1d453e374a087ca8c4d3bd99f</Anchor>
+    <Abstract>Creates an installer for the given resolved dependency graph. </Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyInstallerGetAllInPhase</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a5e6b9c54dee9562b9049f5131dc4c7ee</Anchor>
+    <Abstract>Copies pointers to the resolved dependencies which exist at the given zero-based installer phase into...</Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyInstallerPhaseCount</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_graph_8h.html</Path>
+    <Anchor>a481158be0c7fff62318b51f18bc76b96</Anchor>
+    <Abstract>Returns the number of phases that the installer has, for use with ArbiterResolvedDependencyInstallerC...</Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -216,7 +304,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>include_2arbiter_2_requirement_8h.html</Path>
-    <Anchor>af0cf9c0c5df81763d0c6249e7fe6a40d</Anchor>
+    <Anchor>ad19728efe46a55090e1e8733b84b7db2</Anchor>
     <Abstract>Creates a requirement which will evaluate a custom predicate whenever a specific version is checked a...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -229,6 +317,39 @@
     <Path>include_2arbiter_2_requirement_8h.html</Path>
     <Anchor>a567222f500e84283df815ec0ba4f1cfb</Anchor>
     <Abstract>Creates a requirement which will only match the specified version, including any prerelease version a...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterCreateRequirementPrioritized</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_requirement_8h.html</Path>
+    <Anchor>a2dd5cbbede07374a4e541fadc60a82b7</Anchor>
+    <Abstract>Creates a requirement with a custom priority, changing how the base requirement intersects with other...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterCreateRequirementUnversioned</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_requirement_8h.html</Path>
+    <Anchor>a79781075c540da8d1582b29041e23f93</Anchor>
+    <Abstract>Creates a requirement which only matches against ArbiterSelectedVersions that have metadata equal to ...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterRequirementPriority</Name>
+      <APILanguage>c</APILanguage>
+      <Type>func</Type>
+    </TokenIdentifier>
+    <Path>include_2arbiter_2_requirement_8h.html</Path>
+    <Anchor>aaf2c94bb2448113a18802f50b2e0e1fa</Anchor>
+    <Abstract>Returns the priority of the given requirement. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -271,7 +392,7 @@
       <Type>func</Type>
     </TokenIdentifier>
     <Path>include_2arbiter_2_resolver_8h.html</Path>
-    <Anchor>a20607e85a4aaa0838293dd764bf38cdf</Anchor>
+    <Anchor>a88abb61ee5d06edcff0af18e3595d797</Anchor>
     <Abstract>Creates a dependency resolver, implemented using the given behaviors, which will attempt to pick comp...</Abstract>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
@@ -359,6 +480,18 @@
     </TokenIdentifier>
     <Path>src_2_value_8h.html</Path>
     <Anchor>a0cbbba06d9a26b9b806a63c8ecb5bf0f</Anchor>
+    <DeclaredIn>Value.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>shareUserContext</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>Arbiter</Scope>
+    </TokenIdentifier>
+    <Path>namespace_arbiter.html</Path>
+    <Anchor>a4a5d973c859fb9b1232a39307f73ead7</Anchor>
+    <Abstract>Converts an ArbiterUserContext into a shared pointer, automatically invoking its destructor when the ...</Abstract>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -490,7 +623,7 @@
     </TokenIdentifier>
     <Path>include_2arbiter_2_version_8h.html</Path>
     <Anchor>a91dafaf64fb02b4f1f0c0e63b37d5a8f</Anchor>
-    <Abstract>Returns the semantic version which corresponds to the given selected version. </Abstract>
+    <Abstract>Returns the semantic version which corresponds to the given selected version, or NULL if there is no ...</Abstract>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -651,7 +784,7 @@
       <Name>md_CONTRIBUTING</Name>
       <APILanguage>markdown</APILanguage>
     </TokenIdentifier>
-    <Path>md_CONTRIBUTING.html</Path>
+    <Path>md__c_o_n_t_r_i_b_u_t_i_n_g.html</Path>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -662,7 +795,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_dependency.html</Path>
     <Abstract>Represents a dependency specification, which consists of a project identifier and a version requireme...</Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -694,7 +827,7 @@
       <Scope>ArbiterDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency.html</Path>
-    <Anchor>a1dc45488b33c44ba617ccdee75ee8573</Anchor>
+    <Anchor>a68c62965f0e2fc006050644a0f42f79e</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -705,7 +838,7 @@
       <Scope>ArbiterDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency.html</Path>
-    <Anchor>ad8b41b9bb8f0cfcb6a113615cc4b1d09</Anchor>
+    <Anchor>a4a3354b15b33019d9bde5f9168ec6ca2</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -716,7 +849,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -727,7 +860,7 @@
       <Scope>ArbiterDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency.html</Path>
-    <Anchor>ada15f6ccabbb37c903c5196eddd1df92</Anchor>
+    <Anchor>a2dd8196107d4e409de2e1b811b4b2d32</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -749,7 +882,7 @@
       <Scope>ArbiterDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency.html</Path>
-    <Anchor>aea159dc9ac4ca032e31175cc81ce3300</Anchor>
+    <Anchor>a75af4e0f72ce1dc1d6e198d996ee0dbd</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -760,7 +893,7 @@
       <Scope>ArbiterDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency.html</Path>
-    <Anchor>aee1b768080ebb2a3e8de8acee573fcf4</Anchor>
+    <Anchor>a65ae164d64fbd1d41a29e60c07b0d8ca</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -782,7 +915,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_dependency_list.html</Path>
     <Abstract>Represents a list of dependencies. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -836,7 +969,7 @@
       <Scope>ArbiterDependencyList</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency_list.html</Path>
-    <Anchor>afe4e5476d4a53e1705f939cf076a091a</Anchor>
+    <Anchor>ae05890286a32544e57471f5747e932f3</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -847,7 +980,7 @@
       <Scope>ArbiterDependencyList</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency_list.html</Path>
-    <Anchor>a6ffe91420c171d2dcc18dd616e8d4830</Anchor>
+    <Anchor>a8e4628fd50f6c8fce2fe8651495e280a</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -858,7 +991,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -891,7 +1024,7 @@
       <Scope>ArbiterDependencyList</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_dependency_list.html</Path>
-    <Anchor>aa69a234f28b189e229b86242d84a17db</Anchor>
+    <Anchor>a4b6195b147552a01f3e93931cc01f43f</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -913,7 +1046,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_project_identifier.html</Path>
     <Abstract>An opaque value which identifies a project participating in dependency resolution. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -955,7 +1088,7 @@
       <Scope>ArbiterProjectIdentifier</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_project_identifier.html</Path>
-    <Anchor>aaaac2a46d6259325bf3b7ba096d6032e</Anchor>
+    <Anchor>a5df9ee524c910c7e82fc1ed2a5138cbc</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -966,7 +1099,7 @@
       <Scope>ArbiterProjectIdentifier</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_project_identifier.html</Path>
-    <Anchor>aa2f1bb7f30002465c1a39e1553ed22dc</Anchor>
+    <Anchor>a4cb9217a1f9ebcf8903fd37f5d1574a5</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -977,7 +1110,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -988,7 +1121,7 @@
       <Scope>ArbiterProjectIdentifier</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_project_identifier.html</Path>
-    <Anchor>aa8338dd3768d5b5bf269eb954dd272c8</Anchor>
+    <Anchor>a11965c262553d66c54f82ee2d49b6ef7</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -999,7 +1132,7 @@
       <Scope>ArbiterProjectIdentifier</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_project_identifier.html</Path>
-    <Anchor>acac8eb2576226af678ef5804dad1334d</Anchor>
+    <Anchor>a30e5c8a42cfc2b1c22bf2dfacd3031bf</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -1021,7 +1154,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
     <Abstract>Represents a requirement for a specific version or set of versions. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1031,7 +1164,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a36499ee4dd9e6821f72b0af03b86b731</Anchor>
+    <Anchor>a41f182ec31bb4a00eb716a762037cb75</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1042,7 +1175,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -1053,7 +1186,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>adbc261eb40b20d3a185e0355049f60a4</Anchor>
+    <Anchor>a6d2d0b8164d1d0e9ac475de4a9fa0c03</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1064,7 +1197,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a5d9d40e896f8eccf73a8b33d4839b877</Anchor>
+    <Anchor>aee888ebe67d75d843ca47e5c81111eff</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -1075,7 +1208,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a154df9eef873c0cdb2c1470f8ac9eb8b</Anchor>
+    <Anchor>af648f56a3f2aab2338aae494c19c4654</Anchor>
     <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -1087,7 +1220,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1098,8 +1231,20 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a3dee918ed636c26db8c9367f4a504d96</Anchor>
+    <Anchor>a0ad7b4c9d4a16d93aac4886e09e67244</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ad36af6b864a09e36648d0e3049f1003c</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1109,8 +1254,20 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a28f4d9ff44f8e741b0665905fcba3db5</Anchor>
+    <Anchor>a1570b6256c354408053b5596c6403bca</Anchor>
     <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a019ef1e583c4d52fa240a579494b084a</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -1122,7 +1279,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency.html</Path>
     <Abstract>Represents a dependency which has been resolved to a specific version. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1143,7 +1300,7 @@
       <Scope>ArbiterResolvedDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency.html</Path>
-    <Anchor>a8ec3a664cf07b7f06c50d9a2cb233c01</Anchor>
+    <Anchor>a42825993668b6bf513b06da25f321f3a</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -1154,7 +1311,7 @@
       <Scope>ArbiterResolvedDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency.html</Path>
-    <Anchor>a0ca93b4d8aea63e44d9f09bc8826ea07</Anchor>
+    <Anchor>a541521d2c8856b5646437c77084ca331</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -1165,8 +1322,19 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator&lt;</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependency</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency.html</Path>
+    <Anchor>a16d5f060966d1fe92a43ad4ad6cbb73d</Anchor>
+    <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1176,7 +1344,7 @@
       <Scope>ArbiterResolvedDependency</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency.html</Path>
-    <Anchor>ae14fcc4d09e555d74759005f67d992bf</Anchor>
+    <Anchor>ad9bd999137009a0eb56a43508d6aec00</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -1207,29 +1375,50 @@
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Abstract>Represents a resolved dependency graph, preserving relationships between dependencies. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <Abstract>Represents a fully consistent, resolved dependency graph, preserving relationships between dependenci...</Abstract>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Graph.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>DepthSet</Name>
+      <Name>EdgeMap</Name>
       <APILanguage>cpp</APILanguage>
       <Type>tdef</Type>
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>acdb142d459a494e66449e1b57366a614</Anchor>
+    <Anchor>a4eab47c99b9241b63a76fa869ca8bc15</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>ArbiterResolvedDependencyGraph</Name>
+      <Name>NodeKey</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>ArbiterResolvedDependencyGraph</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+    <Anchor>a91d5eff951f680fa0cc48a983e2982eb</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>NodeMap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>ArbiterResolvedDependencyGraph</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+    <Anchor>a1865f689fc8a887fc3f0afed09cc2719</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>addNode</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>a8804467e485fe9e7266293c7fff456b1</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
+    <Anchor>ab7df485a3b86b0789734fdad14549569</Anchor>
+    <Abstract>Attempts to add the given node into the graph, as a dependency of dependent if specified. </Abstract>
+    <DeclaredIn>Graph.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1239,52 +1428,19 @@
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>a48e9f194b51f78f25ec7d699e533d3fc</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
+    <Anchor>ad84303825c641ffe0fee75624e169362</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>contains</Name>
+      <Name>createInstaller</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>a022bdc7fc66f3a3f03a0fcacd4f5e8e2</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>count</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>func</Type>
-      <Scope>ArbiterResolvedDependencyGraph</Scope>
-    </TokenIdentifier>
-    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>aef421d2bb05ad6d4668ca3bc314ee66b</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>countAtDepth</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>func</Type>
-      <Scope>ArbiterResolvedDependencyGraph</Scope>
-    </TokenIdentifier>
-    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>a8d3ca153338fbc0aac6f191b0cb69835</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
-  </Token>
-  <Token>
-    <TokenIdentifier>
-      <Name>depth</Name>
-      <APILanguage>cpp</APILanguage>
-      <Type>func</Type>
-      <Scope>ArbiterResolvedDependencyGraph</Scope>
-    </TokenIdentifier>
-    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>ade30737227051c1f0c71aea8da9a5efa</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
+    <Anchor>a0f99af5a5887915d8eb2e2777897e842</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1294,8 +1450,30 @@
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>a4a76e8cbee90995bb1ed284fc37cc958</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
+    <Anchor>ae349412578db2c6ef6050454510cc9a8</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>edges</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyGraph</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+    <Anchor>a0d7330956dd5fc22c0f953f5d8a315ab</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>nodes</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyGraph</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+    <Anchor>a5add25ff3d6c73937a7b00d858eb8949</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1305,7 +1483,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1316,18 +1494,211 @@
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>a7e3db4d797ad4e879197385917a9f514</Anchor>
-    <DeclaredIn>Dependency.h</DeclaredIn>
+    <Anchor>a25bfdd2a964b3df50668b510ac2af62d</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
-      <Name>_depths</Name>
+      <Name>resolveNode</Name>
       <APILanguage>cpp</APILanguage>
-      <Type>data</Type>
+      <Type>func</Type>
       <Scope>ArbiterResolvedDependencyGraph</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolved_dependency_graph.html</Path>
-    <Anchor>a29ea95e83612764507fa07247cfa6777</Anchor>
+    <Anchor>a348bb3c848f86a4474e28c33ca063308</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>resolveNode</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyGraph</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph.html</Path>
+    <Anchor>a33298ddefee4e0da871bfc48fdcb03f5</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyGraph::NodeValue</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>ArbiterResolvedDependencyGraph::NodeValue</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph_1_1_node_value.html</Path>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>NodeValue</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyGraph::NodeValue</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph_1_1_node_value.html</Path>
+    <Anchor>aab862e0f7710f666cc15d6b05fe14374</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyGraph::NodeValue</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph_1_1_node_value.html</Path>
+    <Anchor>a7aea7a1e5762aad325a61d7a6f63edaa</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>requirement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyGraph::NodeValue</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph_1_1_node_value.html</Path>
+    <Anchor>ac3241c4b107b411096c626014d08c28f</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>_version</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>ArbiterResolvedDependencyGraph::NodeValue</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_graph_1_1_node_value.html</Path>
+    <Anchor>ae9dd5c87245b0a66b34851537a1272f9</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyInstaller</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Abstract>Enumerates a resolved dependency graph in &quot;install order,&quot; where all projects listed within one phase...</Abstract>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>PhaseSet</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>a1d5e28adaa804142905105c66896ace8</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>SortedEdgesMap</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>a17fc38a8e42f3af34e4cd0a190cbfa6f</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>ArbiterResolvedDependencyInstaller</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>abf21904f1242f32b6c9b37e91b0a7ef0</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clone</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>aa3b3ab53fee0403a94763a47a80fb48c</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>contains</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>a286c0a4b8c8efe3877a91fd3dd796f1b</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>countInPhase</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>a55afd12e880aff6235f1899a8159ac35</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>describe</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>ab75fbff2629af537ebf41b0286796a32</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator!=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Base</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_base.html</Path>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
+    <DeclaredIn>Types.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>a53605586209b5c7c58e34e487fa54202</Anchor>
+    <DeclaredIn>Graph.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>_edges</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>a0d38dcc79f1cb37c82e7b0bfcae87d8b</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>_phases</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>ArbiterResolvedDependencyInstaller</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolved_dependency_installer.html</Path>
+    <Anchor>a83a8053165566bc575353223a7de587c</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1338,7 +1709,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
     <Abstract>A dependency resolver which contains context about how to evaluate the dependency graph...</Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Resolver.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Resolver.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1348,7 +1719,7 @@
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a4db20c7b8839314114cd980b963f212e</Anchor>
+    <Anchor>adcd7696effcaf3100d17cc0108119e99</Anchor>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
   <Token>
@@ -1382,7 +1753,7 @@
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a28e1d2d502abfbc8ecfe4a7881797339</Anchor>
+    <Anchor>a46567e82710eebee0d6e113cd1c9a8fb</Anchor>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
   <Token>
@@ -1393,7 +1764,7 @@
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a938812d347f4bb4a17166ba122e1176f</Anchor>
+    <Anchor>a7f140e9b3ffc3db12c1d820c59f4ca08</Anchor>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
   <Token>
@@ -1422,13 +1793,25 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>fetchSelectedVersionForMetadata</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterResolver</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolver.html</Path>
+    <Anchor>aaaa1e70927bda6afbb9922caf62c97ea</Anchor>
+    <Abstract>Fetches a selected version for the given metadata string. </Abstract>
+    <DeclaredIn>Resolver.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>operator!=</Name>
       <APILanguage>cpp</APILanguage>
       <Type>instm</Type>
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1450,7 +1833,7 @@
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a585e58622f45f1c72c3347e89d203a69</Anchor>
+    <Anchor>a9b7bd0cc614d2ea3c2a54be2f7f53246</Anchor>
     <DeclaredIn>Resolver.h</DeclaredIn>
   </Token>
   <Token>
@@ -1473,7 +1856,7 @@
       <Scope>ArbiterResolver</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_resolver.html</Path>
-    <Anchor>a7b2c6fdaa22e0223d5807275a9ebd87a</Anchor>
+    <Anchor>ae9ae0780bdbb0b7dae14a7b23cc454b0</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1510,6 +1893,17 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>createSelectedVersionForMetadata</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>ArbiterResolverBehaviors</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_resolver_behaviors.html</Path>
+    <Anchor>ab09cacf6772a92a7b1d7f1361ee656f6</Anchor>
+    <Abstract>Requests the selected version which corresponds to the given metadata. </Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterSelectedVersion</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
@@ -1517,7 +1911,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
     <Abstract>Represents a &quot;selected&quot; version, which is a concrete choice of a real project version. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Version.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Version.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1537,7 +1931,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>aa0419ae1103f4277236ab6e8ef1d85c7</Anchor>
+    <Anchor>aaab0852ad249f384e56db924a9a37c4e</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1548,7 +1942,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>a520f84d8692f89bcaaf5a63670742bbe</Anchor>
+    <Anchor>aab751e0d051bf058c010877c01dbef77</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1559,7 +1953,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>a7e40bd24c8bc966ce300af7f0309fa8b</Anchor>
+    <Anchor>a9b72afcedab55ac5296d035c25cbbf2a</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1570,7 +1964,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1581,7 +1975,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>aac7c8b36f437e2f21ffbf14aee84fa20</Anchor>
+    <Anchor>adb453cdfc69d41ef8746b74a2c020fb9</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1592,7 +1986,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>ad6efe700233437c71bfd4ac5efe8200e</Anchor>
+    <Anchor>a84e4b85b7f8502c3faedc919e66ade38</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1603,7 +1997,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>abbe9cfc456727ab300d49b2b375af4a5</Anchor>
+    <Anchor>a581132134845297b658ed775db4a92bf</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1614,7 +2008,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>ac411474bc6ac13cfdfcb8729c679afdf</Anchor>
+    <Anchor>a23dd39d969dcb263422b1307aeb6785e</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1625,7 +2019,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>a67b664cc3f9a0c6b5874a38bcb8f9f08</Anchor>
+    <Anchor>a69dd31f055cd297d69d8b08e394cdfe6</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1646,7 +2040,7 @@
       <Scope>ArbiterSelectedVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version.html</Path>
-    <Anchor>a7440b93a72fd6d0646c3df0709936ea8</Anchor>
+    <Anchor>a38ca96a36b6d198ecd3f55b7aae6e65c</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1657,7 +2051,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version_list.html</Path>
     <Abstract>Represents a list of selected versions. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Version.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Version.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1689,7 +2083,7 @@
       <Scope>ArbiterSelectedVersionList</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version_list.html</Path>
-    <Anchor>a596b9d2ca1fe33360151fdae331bd8ff</Anchor>
+    <Anchor>a909833ec8c01c30c35e2d27ad2efaaba</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1700,7 +2094,7 @@
       <Scope>ArbiterSelectedVersionList</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version_list.html</Path>
-    <Anchor>a366c03f9535d254b22afbbb0e10eb835</Anchor>
+    <Anchor>a578c1d905b65dc52881f178a4372cc7b</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1711,7 +2105,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1722,7 +2116,7 @@
       <Scope>ArbiterSelectedVersionList</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_selected_version_list.html</Path>
-    <Anchor>ad0c8093543d93c9198e2c1fa2a64305c</Anchor>
+    <Anchor>a3ae3c977b51300de27488643e590a25d</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1744,7 +2138,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
     <Abstract>Represents a semantic version, as defined by semver.org. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Version.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Version.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -1765,7 +2159,7 @@
       <Scope>ArbiterSemanticVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
-    <Anchor>acdd9d60b9c5ad1c969c42983687e88b1</Anchor>
+    <Anchor>ae24943a7ff517e9fbfa734fd20e77f9c</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1776,7 +2170,7 @@
       <Scope>ArbiterSemanticVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
-    <Anchor>a0865ba34bfce47255b2d70846690f612</Anchor>
+    <Anchor>afeef0a1d4fb3c88cdaa010bccde6bc7c</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1787,7 +2181,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -1798,7 +2192,7 @@
       <Scope>ArbiterSemanticVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
-    <Anchor>a66a46414be289f85e85a57d7e2a57b5e</Anchor>
+    <Anchor>ad4d8aa4fa5bd81696639261cae3ae71f</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1809,7 +2203,7 @@
       <Scope>ArbiterSemanticVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
-    <Anchor>a4658a1d84aaacc9c528405a609f2f441</Anchor>
+    <Anchor>ac101f9419095a6c6ac7b9356742777a3</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1820,7 +2214,7 @@
       <Scope>ArbiterSemanticVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
-    <Anchor>a028ad1c27160639ae0c2c346682c7adb</Anchor>
+    <Anchor>a19650855537586b806c8fa4714daaddb</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1831,7 +2225,7 @@
       <Scope>ArbiterSemanticVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
-    <Anchor>ad74a0b5391bd77aa4a5c32a8ad8dc7b8</Anchor>
+    <Anchor>a733f85fef98a58a7f6d7cdc5eed63cfa</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1842,7 +2236,7 @@
       <Scope>ArbiterSemanticVersion</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_semantic_version.html</Path>
-    <Anchor>a9ccfd9dcb2b667e58cc9fac55932acf9</Anchor>
+    <Anchor>a84171ed39f4687336287d9193a0763ed</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -1909,13 +2303,46 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>ArbiterUserContext</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>ArbiterUserContext</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_user_context.html</Path>
+    <Abstract>Represents opaque data that can be passed to Arbiter data types and functionality, then later retrieved. </Abstract>
+    <DeclaredIn>arbiter/Value.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>data</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>ArbiterUserContext</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_user_context.html</Path>
+    <Anchor>a97f275e4272b241b8281690c08b00b11</Anchor>
+    <Abstract>The underlying data pointer. </Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>destructor</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>ArbiterUserContext</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_user_context.html</Path>
+    <Anchor>a50842ef3533de13de68829492f069dd0</Anchor>
+    <Abstract>A cleanup function to call when the ArbiterUserContext is done being used. </Abstract>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>ArbiterUserValue</Name>
       <APILanguage>c</APILanguage>
       <Type>cl</Type>
       <Scope>ArbiterUserValue</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_user_value.html</Path>
-    <Abstract>Represents an arbitrary value that can be associated with Arbiter data types and functionality. </Abstract>
+    <Abstract>Represents an arbitrary value type that can be associated with Arbiter data types and functionality...</Abstract>
     <DeclaredIn>arbiter/Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2114,6 +2541,18 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>shareUserContext</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>Arbiter</Scope>
+    </TokenIdentifier>
+    <Path>namespace_arbiter.html</Path>
+    <Anchor>a4a5d973c859fb9b1232a39307f73ead7</Anchor>
+    <Abstract>Converts an ArbiterUserContext into a shared pointer, automatically invoking its destructor when the ...</Abstract>
+    <DeclaredIn>Value.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>toString</Name>
       <APILanguage>cpp</APILanguage>
       <Type>func</Type>
@@ -2145,7 +2584,7 @@
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
     <Abstract>Base class for public-facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Types.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Types.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2166,7 +2605,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a36499ee4dd9e6821f72b0af03b86b731</Anchor>
+    <Anchor>a41f182ec31bb4a00eb716a762037cb75</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -2177,7 +2616,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>adbc261eb40b20d3a185e0355049f60a4</Anchor>
+    <Anchor>a6d2d0b8164d1d0e9ac475de4a9fa0c03</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -2188,7 +2627,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -2199,7 +2638,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a3dee918ed636c26db8c9367f4a504d96</Anchor>
+    <Anchor>a0ad7b4c9d4a16d93aac4886e09e67244</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -2211,7 +2650,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_iterator_range.html</Path>
     <Abstract>Represents a pair of iterators bracketing the start and end of a range. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Iterator.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Iterator.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2253,7 +2692,7 @@
     </TokenIdentifier>
     <Path>class_arbiter_1_1_multipass_iterator.html</Path>
     <Abstract>Contains the state necessary to perform an algorithm over an iterator multiple times. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Iterator.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Iterator.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2307,7 +2746,7 @@
       <Scope>Arbiter::MultipassIterator</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_multipass_iterator.html</Path>
-    <Anchor>afb7abbf3b345d6e267ae3b59ebab263f</Anchor>
+    <Anchor>a6e8282133e23611f0032264e75ccca19</Anchor>
     <DeclaredIn>Iterator.h</DeclaredIn>
   </Token>
   <Token>
@@ -2318,7 +2757,7 @@
       <Scope>Arbiter::MultipassIterator</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_multipass_iterator.html</Path>
-    <Anchor>aa44ce193e69d4cd91d580313aca8f5b9</Anchor>
+    <Anchor>aaf54bc62da8c1649e085398a9026db32</Anchor>
     <DeclaredIn>Iterator.h</DeclaredIn>
   </Token>
   <Token>
@@ -2352,7 +2791,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
     <Abstract>Represents a value which may or may not exist. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Optional.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Optional.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2431,7 +2870,7 @@
       <Scope>Arbiter::Optional</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
-    <Anchor>ac3a225ecf6d8fd018878581504ac9d94</Anchor>
+    <Anchor>ac1835fbbab4382fbcc146f0985fac749</Anchor>
     <Abstract>Converts from another Optional containing a compatible type. </Abstract>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
@@ -2454,7 +2893,7 @@
       <Scope>Arbiter::Optional</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
-    <Anchor>a08266cbe814b6be9503158915e2facb0</Anchor>
+    <Anchor>a0aa251c8f2489ca700a0a2c949dcc991</Anchor>
     <Abstract>Converts from another Optional containing a compatible type. </Abstract>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
@@ -2477,7 +2916,7 @@
       <Scope>Arbiter::Optional</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
-    <Anchor>abcd003292c015ccde7218b4a8b2860d5</Anchor>
+    <Anchor>ac0cba62a0a3e59847cb7616284c4e14d</Anchor>
     <Abstract>Returns true if this Optional contains a value, or false if it is empty. </Abstract>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
@@ -2500,7 +2939,7 @@
       <Scope>Arbiter::Optional</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
-    <Anchor>ad0d7e1a2e103398b72284abc86eaeb84</Anchor>
+    <Anchor>a67874d7ed97a2b6396a5ac96c352d7e0</Anchor>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
   <Token>
@@ -2522,7 +2961,7 @@
       <Scope>Arbiter::Optional</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
-    <Anchor>a54ff087410fb993d90790e3876cf3f8d</Anchor>
+    <Anchor>aa87a3c5f5bbf44631950c3a8f5c19651</Anchor>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
   <Token>
@@ -2567,7 +3006,7 @@
       <Scope>Arbiter::Optional</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
-    <Anchor>a6c7bed08143902d064584a90686a12ae</Anchor>
+    <Anchor>a8cac888ce5f79faec4e1e0319db391c0</Anchor>
     <Abstract>Returns a pointer to the value in the Optional, or nullptr if empty. </Abstract>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
@@ -2591,8 +3030,20 @@
       <Scope>Arbiter::Optional</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_optional.html</Path>
-    <Anchor>ab0f363163225390d70f9edc0b86ca680</Anchor>
+    <Anchor>a9541a3b15317b4d08a20c3a4f8a00a61</Anchor>
     <Abstract>Accesses the value in the Optional. </Abstract>
+    <DeclaredIn>Optional.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>fromPointer</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>Arbiter::Optional</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_1_1_optional.html</Path>
+    <Anchor>a0431253af1dff49a6e553af0a2e149fa</Anchor>
+    <Abstract>Creates an Optional from a pointer which may or may not be null. </Abstract>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
   <Token>
@@ -2604,7 +3055,7 @@
     </TokenIdentifier>
     <Path>class_arbiter_1_1_permutation_iterator.html</Path>
     <Abstract>An iterator which generates every possible combination of the values of other iterators. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Iterator.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Iterator.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2638,7 +3089,7 @@
       <Scope>Arbiter::PermutationIterator</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_permutation_iterator.html</Path>
-    <Anchor>a8bdb37f88ea1ed9dc81f05988e21b8e7</Anchor>
+    <Anchor>a4803c51d4c512d36fc1f6ddb046deba0</Anchor>
     <Abstract>Returns whether the iterator is valid (i.e., dereferenceable). </Abstract>
     <DeclaredIn>Iterator.h</DeclaredIn>
   </Token>
@@ -2650,7 +3101,7 @@
       <Scope>Arbiter::PermutationIterator</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_permutation_iterator.html</Path>
-    <Anchor>a04cae7b97e6c09d63ffe7da78c07ca1d</Anchor>
+    <Anchor>a8831bc7941b063d22161e2033341980b</Anchor>
     <DeclaredIn>Iterator.h</DeclaredIn>
   </Token>
   <Token>
@@ -2661,7 +3112,7 @@
       <Scope>Arbiter::PermutationIterator</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_permutation_iterator.html</Path>
-    <Anchor>af99840af54fc68caae6b1058e1e19b0c</Anchor>
+    <Anchor>a7234858268be786584f5048ee05ecbba</Anchor>
     <DeclaredIn>Iterator.h</DeclaredIn>
   </Token>
   <Token>
@@ -2694,7 +3145,7 @@
       <Scope>Arbiter::PermutationIterator</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_permutation_iterator.html</Path>
-    <Anchor>afa3e56963bfca89f693bc4d0c519d5dc</Anchor>
+    <Anchor>a74f4997de7b3fab887acdc405d4775fe</Anchor>
     <DeclaredIn>Iterator.h</DeclaredIn>
   </Token>
   <Token>
@@ -2705,8 +3156,8 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Abstract>Expresses shared ownership of opaque user-provided data, which was originally described in an Arbiter...</Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Value.h</DeclaredIn>
+    <Abstract>Expresses shared ownership of an opaque user-provided value type, which was originally described in a...</Abstract>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Value.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2716,7 +3167,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a5be9212601a489641488e914aef1f5df</Anchor>
+    <Anchor>a67f6081caaa70e97d9f5fd76925914a7</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2749,7 +3200,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a4db7260742928ac4898de4fe520105f5</Anchor>
+    <Anchor>a1c1ea39cd324deb0c366a8eb8e632222</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2760,7 +3211,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a00f6ccc566bbebf60645a35126a4b4ea</Anchor>
+    <Anchor>a8dbad079913f79985b5fca3fbc9e3676</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2771,7 +3222,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a7c38e5dfc73c8752eb3a518d55df949c</Anchor>
+    <Anchor>ad0fa346041d02a9c51d1e1930e363e8f</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2782,7 +3233,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a66587d89a3eb3b90f2cd53418bb0a5c2</Anchor>
+    <Anchor>a7cefce6d4cc510bf7f4b35824bb247ac</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2793,7 +3244,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>accdfdbf00561a461039bc22a646aaaad</Anchor>
+    <Anchor>ab2b72e990cd47bdc14bcd2ab99c4dc05</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2804,7 +3255,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a233b1ddc23b26ed7d607e4fe0d926051</Anchor>
+    <Anchor>a57e111adda185f8c9a9ce46b18c508ce</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2815,7 +3266,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a68809201ace5637f3e6e76bf221d6275</Anchor>
+    <Anchor>a67d3d56fc94c4d5d6ba7689aa3245fb1</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2826,7 +3277,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a8e50dcc777757f9945050f0c47a97702</Anchor>
+    <Anchor>a3017d0f91733163e9b4815f697b2c5f5</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2837,7 +3288,7 @@
       <Scope>Arbiter::SharedUserValue</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_shared_user_value.html</Path>
-    <Anchor>a77ce5e722f734967f098e46d8742bd8a</Anchor>
+    <Anchor>a8d6115ada3fc80093ec0af8fa79135cb</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -2858,7 +3309,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_exception_1_1_base.html</Path>
     <Abstract>Base type for Arbiter exceptions. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Exception.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Exception.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2891,7 +3342,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_exception_1_1_mutually_exclusive_constraints.html</Path>
     <Abstract>Exception type indicating that there were mutually exclusive constraints in a proposed dependency gra...</Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Exception.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Exception.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2913,7 +3364,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_exception_1_1_unsatisfiable_constraints.html</Path>
     <Abstract>Exception type indicating that there were unsatisfiable constraints for the selected versions in a pr...</Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Exception.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Exception.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2935,7 +3386,7 @@
     </TokenIdentifier>
     <Path>struct_arbiter_1_1_exception_1_1_user_error.html</Path>
     <Abstract>Exception type representing an error that was returned from Arbiter client code. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Exception.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Exception.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2977,7 +3428,7 @@
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
     <Abstract>A requirement satisfied by any version. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -2987,7 +3438,7 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>a88d33ff811589099c94663410c2d662e</Anchor>
+    <Anchor>a342a825fc107da85c0d1031f6365ca03</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -2998,7 +3449,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3009,7 +3460,7 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>a48d99887052d9f43255729e13bb86382</Anchor>
+    <Anchor>af5c258eb369d5c75a86b2bc712bb465a</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3020,7 +3471,7 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>ab180a7e82a4e19ca9037214c3d9aa2b5</Anchor>
+    <Anchor>abeaa7af42cff6d51649e5f57907e27d2</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3031,7 +3482,7 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>a9ddcd37781e3ec05490e5fe5cc871b51</Anchor>
+    <Anchor>a5798578d8bf5889ab05bf5d1ad91ccb2</Anchor>
     <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3043,7 +3494,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -3054,7 +3505,19 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>ab5c7f4498e17f492c5847f48eedf98e2</Anchor>
+    <Anchor>ae55189e5b63f55af646680fb682b17af</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ad36af6b864a09e36648d0e3049f1003c</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3065,7 +3528,7 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>a89919e2e8d6126a4b3d163ff12b29ca3</Anchor>
+    <Anchor>a26b1ae2c0d13a2266ce8e3153ea9d2e1</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3076,8 +3539,20 @@
       <Scope>Arbiter::Requirement::Any</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_any.html</Path>
-    <Anchor>a8328430fa3dad5e3f872cc11b1788ee4</Anchor>
+    <Anchor>a4b31694dbc94ad27640f287bc13138b4</Anchor>
     <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a019ef1e583c4d52fa240a579494b084a</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3089,7 +3564,7 @@
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
     <Abstract>A requirement satisfied only by versions greater than or equal to the specified one. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3110,7 +3585,7 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>a4277b6fe9f280c157b19233c46ebea99</Anchor>
+    <Anchor>ad360526ef253ab7d24b83c7b5912b95f</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3121,7 +3596,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3132,7 +3607,7 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>afaca70c755039939a96663c89a9af3f6</Anchor>
+    <Anchor>ab4e79174fb32a507ff83713019e2f6e6</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3143,7 +3618,7 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>a38901907e9be6c1a5182c102f320928e</Anchor>
+    <Anchor>ab01fe6887cc1a30b7744f3105880b8f6</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3154,7 +3629,7 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>acfe14edebee6a90191ba05687cfab5ac</Anchor>
+    <Anchor>aebb7508a3265c5ca7be1429df382680f</Anchor>
     <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3166,7 +3641,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -3177,7 +3652,19 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>ac7f2616a73cdb489d590584158d0d803</Anchor>
+    <Anchor>a4f283d0f4abf891b8ba688558c7bd131</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ad36af6b864a09e36648d0e3049f1003c</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3188,7 +3675,7 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>ae550935a0343eec16282413de82a1f45</Anchor>
+    <Anchor>afeac4ce135d73402cacdd0e7bedc9391</Anchor>
     <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3200,7 +3687,19 @@
       <Scope>Arbiter::Requirement::AtLeast</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_at_least.html</Path>
-    <Anchor>a3973c2f64e0ce6acb8d8263861b81f1f</Anchor>
+    <Anchor>a0f35f98c6b26c93d73af2971aede4a81</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a019ef1e583c4d52fa240a579494b084a</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3222,7 +3721,7 @@
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
     <Abstract>A requirement satisfied only by versions which are &quot;compatible with&quot; the specified one...</Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3243,7 +3742,7 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>aea861e920ed44c5944d2e8b43cbc7aa5</Anchor>
+    <Anchor>a0f860ecfe9b7d4246ebfc3c3110b7f54</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3254,7 +3753,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3265,7 +3764,7 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>a0451138e83193de099bcbeb08fa8fbd0</Anchor>
+    <Anchor>a53ee282b972af333b1154badf33d0f35</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3276,7 +3775,7 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>ad78f28e06645072137e31c6f6ff87a10</Anchor>
+    <Anchor>a2433b4d02554bf658276e420b0303b97</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3287,7 +3786,7 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>a37dc0eb4e75a2af9d1048d55b51aabc1</Anchor>
+    <Anchor>a5b168eba5102ed5e24ce7900569aa94a</Anchor>
     <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3299,7 +3798,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -3310,7 +3809,19 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>ab14d8dd0731c30966efd10f6057991ce</Anchor>
+    <Anchor>a02bbddc585c9a44359b5e90fcf0a4c23</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ad36af6b864a09e36648d0e3049f1003c</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3321,7 +3832,7 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>a153927c3dde08508d8e62816dee8bf0f</Anchor>
+    <Anchor>a05de17d62e859292f4da8c9b27b34613</Anchor>
     <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3333,7 +3844,19 @@
       <Scope>Arbiter::Requirement::CompatibleWith</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compatible_with.html</Path>
-    <Anchor>af5e7b6058c7f3602379a95126066b5c7</Anchor>
+    <Anchor>a296a0bfe4220c9a5ffd28513ec8db287</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a019ef1e583c4d52fa240a579494b084a</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3364,7 +3887,7 @@
       <Scope>Arbiter::Requirement::Compound</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3385,7 +3908,7 @@
       <Scope>Arbiter::Requirement::Compound</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
-    <Anchor>ae568ecaebab12a5b78fbea9476a60000</Anchor>
+    <Anchor>a930fa84bc53a37c75c9b64b2c65f6e42</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3396,7 +3919,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3407,7 +3930,7 @@
       <Scope>Arbiter::Requirement::Compound</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
-    <Anchor>a87afe6c1adbf67c54c3bfd49a29c2d3b</Anchor>
+    <Anchor>aca28a1b1e04f27b646512cf4cb0a1098</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3418,7 +3941,7 @@
       <Scope>Arbiter::Requirement::Compound</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
-    <Anchor>a97d54d3bc88ac054a6c1147ec6293a5a</Anchor>
+    <Anchor>aa1d79502cd3bbfc57fd8b001a06e8c6f</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3429,7 +3952,7 @@
       <Scope>Arbiter::Requirement::Compound</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
-    <Anchor>a3ff5866b9c0dd8b0acc166c3f835bac2</Anchor>
+    <Anchor>a3d4d7bbd20c0ba3013b66d7e9b52b4a9</Anchor>
     <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3441,7 +3964,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -3452,7 +3975,19 @@
       <Scope>Arbiter::Requirement::Compound</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
-    <Anchor>a47ea96009174d1dd125b97311b381c1d</Anchor>
+    <Anchor>a66edef73ed2151eeb224a21cd81fe5c0</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>a8f645462356f56ed14202ed95d5a0d74</Anchor>
+    <Abstract>Returns the minimum priority index of all the requirements held by this compound requirement. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3463,8 +3998,20 @@
       <Scope>Arbiter::Requirement::Compound</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
-    <Anchor>a8b724f58419e45d7469a00c683af063f</Anchor>
+    <Anchor>aa04055696cfdcd6884daa53111d01a48</Anchor>
     <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Compound</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_compound.html</Path>
+    <Anchor>a0427d267603bbe87adf9bb8e477dc0bc</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3485,7 +4032,7 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3495,7 +4042,7 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <Anchor>a86495a3962b2f3d6aa3134b172a23823</Anchor>
+    <Anchor>ac703c34aee0e60564051b0d69d65b02e</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3506,7 +4053,7 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <Anchor>a578a93d94bb73c8ed3d9974ff09a91f4</Anchor>
+    <Anchor>a8ec24e3d0b243d1d20b447365baaf37c</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3517,7 +4064,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3528,7 +4075,7 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <Anchor>a1ec62b6b6e77d9527847474ec616715f</Anchor>
+    <Anchor>a09a9dbfbddb3336d14a2d2acf930c29f</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3539,7 +4086,7 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <Anchor>a6d6c98cf1f40e906cd9108f39d702a8c</Anchor>
+    <Anchor>a5d8ceec4fc7ddcca0b2e1c21c8444be1</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3550,7 +4097,7 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <Anchor>a7a4d4db633b995055403fbffbfedb946</Anchor>
+    <Anchor>a6980d22d2be9eef73d1f2c3f0cad5da4</Anchor>
     <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3562,7 +4109,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -3573,7 +4120,19 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <Anchor>a67aa9e0b735364f13fa7932bea78db76</Anchor>
+    <Anchor>ad3973438338e697d9ea7fc6a4529c49a</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ad36af6b864a09e36648d0e3049f1003c</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3584,8 +4143,20 @@
       <Scope>Arbiter::Requirement::Custom</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_custom.html</Path>
-    <Anchor>ab9ed988583b26f951969cdbadb3f7229</Anchor>
+    <Anchor>ade240bbd50f3221c244701b94c15fd75</Anchor>
     <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a019ef1e583c4d52fa240a579494b084a</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3597,7 +4168,7 @@
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
     <Abstract>A requirement satisfied only by one particular semantic version. </Abstract>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3618,7 +4189,7 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>acdf7cac9c211d738c9d1fdbfc6629bc0</Anchor>
+    <Anchor>ac5011dc0b68beaa35323c06a9ce27390</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3629,7 +4200,7 @@
       <Scope>ArbiterRequirement</Scope>
     </TokenIdentifier>
     <Path>struct_arbiter_requirement.html</Path>
-    <Anchor>a1231089736b96e5dab43d90a08bbfb2d</Anchor>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3640,7 +4211,7 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>a25ce37c745539db525ba7036f70dc858</Anchor>
+    <Anchor>a16c11564e043222ba8346f792a9e2c26</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3651,7 +4222,7 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>a12d85bdf24d9e39fe88a93014f3fefdf</Anchor>
+    <Anchor>a510e78c644df0f9c5258b3cdb59358da</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3662,7 +4233,7 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>aae1eb8b87778822f875f3682dc019ef3</Anchor>
+    <Anchor>ae1b1c39087a3cbb4cbfc52aaefa972b1</Anchor>
     <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3674,7 +4245,7 @@
       <Scope>Arbiter::Base</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_base.html</Path>
-    <Anchor>a531914803ab5722a848f51b36a866d23</Anchor>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
     <DeclaredIn>Types.h</DeclaredIn>
   </Token>
   <Token>
@@ -3685,7 +4256,19 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>a241cf2f8b67b8cf01aa057d5235e4b00</Anchor>
+    <Anchor>afc37dac873e9b627b3036c4cfd2894aa</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ad36af6b864a09e36648d0e3049f1003c</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3696,7 +4279,7 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>a14846d1058a6d5d01dc27fbc21a6f66e</Anchor>
+    <Anchor>ab89a5eacc646cbffb730dfd86ffe6fb5</Anchor>
     <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
@@ -3708,7 +4291,19 @@
       <Scope>Arbiter::Requirement::Exactly</Scope>
     </TokenIdentifier>
     <Path>class_arbiter_1_1_requirement_1_1_exactly.html</Path>
-    <Anchor>a6d62046d0fc031218ee055e85d84e135</Anchor>
+    <Anchor>a740525f67f9c4c0cb2f27262851e2273</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a019ef1e583c4d52fa240a579494b084a</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3723,13 +4318,346 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>Arbiter::Requirement::Prioritized</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Prioritized</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>a7aaf1599cd8fbf74949f204fca858f50</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clone</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>af71d2f25ccd86c8c4f2cf3a0a54edc8c</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>cloneRequirement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>describe</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>a542b5699e4053a275969c13a5ef913bf</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>hash</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>ad7d84c7c839072b059212716a3020ec9</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>intersect</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>a0105a30a6bf4ec45bee018436f9d819a</Anchor>
+    <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator!=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Base</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_base.html</Path>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
+    <DeclaredIn>Types.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>aaedbe79b70f780bdc8e4d8a05fa6fd70</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>a049c6c52a0e9cf00ec7b6940cfc90e9d</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>a41b16e7e3f243edce10091da34b502cf</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>a2d2bf7783fb7139fdf1d369b29948e87</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>_requirement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>Arbiter::Requirement::Prioritized</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_prioritized.html</Path>
+    <Anchor>aa5b51eaa30f97d645f55a69f18c0308c</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Arbiter::Requirement::Unversioned</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Metadata</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>tdef</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>a3778d81deb54f9a6888bfd5ec6d1298e</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Unversioned</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>a6f93e30b74e49812510bc7287489a7c0</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>clone</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>a22646a7813d6319a1d867627da5a2460</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>cloneRequirement</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ae7b4cdb283d63d7151bde527f19028e7</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>describe</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>a23be6af015e48697878f4bdb9c7d90e2</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>hash</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>a5761124e337e664750ade5ec1c73cc4c</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>intersect</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>a8fde9ddafb80f8432425e4ccb9732316</Anchor>
+    <Abstract>Attempts to create a requirement which expresses the intersection of this requirement and the given o...</Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator!=</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Base</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_base.html</Path>
+    <Anchor>a1702d5cf97be9fc082f4a7ecd436e74a</Anchor>
+    <DeclaredIn>Types.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator==</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>af8fa7d33a868f443500c4c1146173ef5</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>priority</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>ad36af6b864a09e36648d0e3049f1003c</Anchor>
+    <Abstract>Returns the priority of this requirement. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>satisfiedBy</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>a59936aa570339ac5ec27b0b6b464df95</Anchor>
+    <Abstract>Returns whether this requirement would be satisfied by using the given selected version. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>visit</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>func</Type>
+      <Scope>ArbiterRequirement</Scope>
+    </TokenIdentifier>
+    <Path>struct_arbiter_requirement.html</Path>
+    <Anchor>a019ef1e583c4d52fa240a579494b084a</Anchor>
+    <Abstract>Visits the requirement, then any child requirements. </Abstract>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>_metadata</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>data</Type>
+      <Scope>Arbiter::Requirement::Unversioned</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_unversioned.html</Path>
+    <Anchor>aabb3f9248784758b6fa46bfc1208a012</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>Arbiter::Requirement::Visitor</Name>
+      <APILanguage>c</APILanguage>
+      <Type>cl</Type>
+      <Scope>Arbiter::Requirement::Visitor</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_visitor.html</Path>
+    <Abstract>Base class for objects that want to visit requirements. </Abstract>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>~Visitor</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Visitor</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_visitor.html</Path>
+    <Anchor>ad74a5ca26444a076af42bb6daee6c87b</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>operator()</Name>
+      <APILanguage>cpp</APILanguage>
+      <Type>instm</Type>
+      <Scope>Arbiter::Requirement::Visitor</Scope>
+    </TokenIdentifier>
+    <Path>class_arbiter_1_1_requirement_1_1_visitor.html</Path>
+    <Anchor>a9efd8a558f790e45751ffcd0f4ab4646</Anchor>
+    <DeclaredIn>Requirement.h</DeclaredIn>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>std::hash&lt; Arbiter::Optional&lt; T &gt; &gt;</Name>
       <APILanguage>c</APILanguage>
       <Type>tmplt</Type>
       <Scope>std::hash&lt; Arbiter::Optional&lt; T &gt; &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_1_1_optional_3_01_t_01_4_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Optional.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Optional.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3739,7 +4667,7 @@
       <Scope>std::hash&lt; Arbiter::Optional&lt; T &gt; &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_1_1_optional_3_01_t_01_4_01_4.html</Path>
-    <Anchor>a52460037cf96a0590045fc00615ac0b8</Anchor>
+    <Anchor>a12a6e46c822d9d537dd97543ef7c7c0d</Anchor>
     <DeclaredIn>Optional.h</DeclaredIn>
   </Token>
   <Token>
@@ -3750,7 +4678,7 @@
       <Scope>std::hash&lt; Arbiter::SharedUserValue&lt; Owner &gt; &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Value.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Value.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3760,7 +4688,7 @@
       <Scope>std::hash&lt; Arbiter::SharedUserValue&lt; Owner &gt; &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_1_1_shared_user_value_3_01_owner_01_4_01_4.html</Path>
-    <Anchor>a7c49216475b8c7ce30b68c5743627182</Anchor>
+    <Anchor>a2977f0748de8ae564cf9cb7aeadc0967</Anchor>
     <DeclaredIn>Value.h</DeclaredIn>
   </Token>
   <Token>
@@ -3771,7 +4699,7 @@
       <Scope>std::hash&lt; ArbiterDependency &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_dependency_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3781,7 +4709,7 @@
       <Scope>std::hash&lt; ArbiterDependency &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_dependency_01_4.html</Path>
-    <Anchor>a008de161b013f3a8c3a3e04dd3fb3ee2</Anchor>
+    <Anchor>a8c2eed18eb43e7c75f34511aa5ee61c7</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -3792,7 +4720,7 @@
       <Scope>std::hash&lt; ArbiterProjectIdentifier &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_project_identifier_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3802,7 +4730,7 @@
       <Scope>std::hash&lt; ArbiterProjectIdentifier &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_project_identifier_01_4.html</Path>
-    <Anchor>a30677cd5340ce51b4d0547f0d8221c5b</Anchor>
+    <Anchor>a6d084d7894cfc135ee805cbefb9b973b</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -3813,7 +4741,7 @@
       <Scope>std::hash&lt; ArbiterRequirement &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_requirement_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Requirement.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3823,7 +4751,7 @@
       <Scope>std::hash&lt; ArbiterRequirement &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_requirement_01_4.html</Path>
-    <Anchor>a501993e1a96ab9e40ddbec9a98373ae6</Anchor>
+    <Anchor>ac6105352abeaf2d2e07f30d721eff110</Anchor>
     <DeclaredIn>Requirement.h</DeclaredIn>
   </Token>
   <Token>
@@ -3834,7 +4762,7 @@
       <Scope>std::hash&lt; ArbiterResolvedDependency &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Dependency.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3844,7 +4772,7 @@
       <Scope>std::hash&lt; ArbiterResolvedDependency &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_resolved_dependency_01_4.html</Path>
-    <Anchor>a84a5e582f8b330d9f63c06bd5d797423</Anchor>
+    <Anchor>ab6d05191b6b9d8e4b686b13c0967819c</Anchor>
     <DeclaredIn>Dependency.h</DeclaredIn>
   </Token>
   <Token>
@@ -3855,7 +4783,7 @@
       <Scope>std::hash&lt; ArbiterSelectedVersion &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_selected_version_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Version.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Version.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3865,7 +4793,7 @@
       <Scope>std::hash&lt; ArbiterSelectedVersion &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_selected_version_01_4.html</Path>
-    <Anchor>aed3d58d7862a302ca313f84e78205b28</Anchor>
+    <Anchor>a6744c141eb2a586ceebc96f48ffc5f2f</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
   <Token>
@@ -3876,7 +4804,7 @@
       <Scope>std::hash&lt; ArbiterSemanticVersion &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_semantic_version_01_4.html</Path>
-    <DeclaredIn>/Users/justin/GitHub/Arbiter/src/Version.h</DeclaredIn>
+    <DeclaredIn>/Users/jspahrsummers/GitHub/Arbiter/src/Version.h</DeclaredIn>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -3886,7 +4814,7 @@
       <Scope>std::hash&lt; ArbiterSemanticVersion &gt;</Scope>
     </TokenIdentifier>
     <Path>structstd_1_1hash_3_01_arbiter_semantic_version_01_4.html</Path>
-    <Anchor>a29e5dada823e852b3aae7808cddd6b8f</Anchor>
+    <Anchor>ab1bd00e42611309a39fced68de6bc8da</Anchor>
     <DeclaredIn>Version.h</DeclaredIn>
   </Token>
 </Tokens>

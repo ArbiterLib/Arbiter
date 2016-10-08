@@ -9,26 +9,26 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 118)">
 <title>ArbiterSemanticVersion</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-118 283.246,-118 283.246,4 -4,4"/>
-<!-- Node1 -->
-<g id="node1" class="node"><title>Node1</title>
+<!-- Node0 -->
+<g id="node1" class="node"><title>Node0</title>
 <polygon fill="#bfbfbf" stroke="black" points="78.6528,-0.5 78.6528,-18.5 199.15,-18.5 199.15,-0.5 78.6528,-0.5"/>
 <text text-anchor="middle" x="138.901" y="-6.5" font-family="Helvetica,sans-Serif" font-size="10.00">ArbiterSemanticVersion</text>
 </g>
-<!-- Node2 -->
-<g id="node2" class="node"><title>Node2</title>
+<!-- Node1 -->
+<g id="node2" class="node"><title>Node1</title>
 <g id="a_node2"><a xlink:href="class_arbiter_1_1_base.html" target="_top" xlink:title="Base class for public&#45;facing Arbiter types, such that they automatically get freeing, cloning, equality, and description functionality. ">
 <polygon fill="white" stroke="black" points="0,-90.5 0,-108.5 73.8027,-108.5 73.8027,-90.5 0,-90.5"/>
 <text text-anchor="middle" x="36.9014" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">Arbiter::Base</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node1 -->
-<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
+<!-- Node1&#45;&gt;Node0 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M54.0923,-83.6686C75.7986,-64.9416 112.374,-33.3864 129.511,-18.6015"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="51.5997,-81.1965 46.3145,-90.3789 56.1724,-86.4966 51.5997,-81.1965"/>
 </g>
-<!-- Node3 -->
-<g id="node3" class="node"><title>Node3</title>
+<!-- Node2 -->
+<g id="node3" class="node"><title>Node2</title>
 <g id="a_node3"><a xlink:href="struct_arbiter_1_1_optional.html" target="_top" xlink:title="Arbiter::Optional\&lt;\l std::string \&gt;">
 <polygon fill="white" stroke="black" points="91.8535,-85.5 91.8535,-113.5 185.949,-113.5 185.949,-85.5 91.8535,-85.5"/>
 <text text-anchor="start" x="99.8535" y="-101.5" font-family="Helvetica,sans-Serif" font-size="10.00">Arbiter::Optional&lt;</text>
@@ -36,20 +36,20 @@
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node1 -->
-<g id="edge2" class="edge"><title>Node3&#45;&gt;Node1</title>
+<!-- Node2&#45;&gt;Node0 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M138.901,-75.0341C138.901,-56.397 138.901,-31.4238 138.901,-18.6998"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="135.401,-75.1347 138.901,-85.1347 142.401,-75.1347 135.401,-75.1347"/>
 <text text-anchor="middle" x="183.376" y="-54" font-family="Helvetica,sans-Serif" font-size="10.00"> _prereleaseVersion</text>
 <text text-anchor="middle" x="183.376" y="-44" font-family="Helvetica,sans-Serif" font-size="10.00">_buildMetadata</text>
 </g>
-<!-- Node4 -->
-<g id="node4" class="node"><title>Node4</title>
+<!-- Node3 -->
+<g id="node4" class="node"><title>Node3</title>
 <polygon fill="white" stroke="#bfbfbf" points="222.606,-90.5 222.606,-108.5 279.197,-108.5 279.197,-90.5 222.606,-90.5"/>
 <text text-anchor="middle" x="250.901" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">unsigned</text>
 </g>
-<!-- Node4&#45;&gt;Node1 -->
-<g id="edge3" class="edge"><title>Node4&#45;&gt;Node1</title>
+<!-- Node3&#45;&gt;Node0 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node0</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M248.838,-80.2958C246.349,-66.5989 240.881,-48.3138 228.901,-37 219.783,-28.3887 208.008,-22.5602 195.999,-18.6195"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="245.414,-81.0705 250.306,-90.4683 252.342,-80.0709 245.414,-81.0705"/>
 <text text-anchor="middle" x="262.574" y="-59" font-family="Helvetica,sans-Serif" font-size="10.00"> _minor</text>

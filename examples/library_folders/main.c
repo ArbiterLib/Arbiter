@@ -1,5 +1,6 @@
 #include "dependencies.h"
 
+#include <arbiter/Graph.h>
 #include <arbiter/Types.h>
 
 #include <assert.h>
@@ -53,7 +54,7 @@ int main (int argc, const char **argv)
     .createAvailableVersionsList = &create_available_versions_list,
   };
 
-  ArbiterResolver *resolver = ArbiterCreateResolver(behaviors, dependencyList, NULL);
+  ArbiterResolver *resolver = ArbiterCreateResolver(behaviors, NULL, dependencyList, (ArbiterUserContext){ .data = NULL });
   ArbiterFree(dependencyList);
 
   ArbiterResolvedDependencyGraph *resolvedGraph = ArbiterResolverCreateResolvedDependencyGraph(resolver, &error);
@@ -62,13 +63,19 @@ int main (int argc, const char **argv)
     die(error);
   }
 
-  size_t depth = ArbiterResolvedDependencyGraphDepth(resolvedGraph);
+  ArbiterResolvedDependencyInstaller *installer = ArbiterResolvedDependencyInstallerCreate(resolvedGraph);
+  ArbiterFree(resolvedGraph);
+  if (!installer) {
+    die("Could not create dependency installer");
+  }
 
-  for (size_t depthIndex = 0; depthIndex < depth; depthIndex++) {
-    size_t count = ArbiterResolvedDependencyGraphCountAtDepth(resolvedGraph, depthIndex);
+  size_t phase = ArbiterResolvedDependencyInstallerPhaseCount(installer);
+
+  for (size_t phaseIndex = 0; phaseIndex < phase; phaseIndex++) {
+    size_t count = ArbiterResolvedDependencyInstallerCountInPhase(installer, phaseIndex);
 
     const ArbiterResolvedDependency *resolved[count];
-    ArbiterResolvedDependencyGraphGetAllAtDepth(resolvedGraph, depthIndex, resolved); 
+    ArbiterResolvedDependencyInstallerGetAllInPhase(installer, phaseIndex, resolved); 
 
     printf("{ ");
     for (size_t i = 0; i < count; i++) {
@@ -84,6 +91,6 @@ int main (int argc, const char **argv)
     printf(" }\n");
   }
 
-  ArbiterFree(resolvedGraph);
+  ArbiterFree(installer);
   return EXIT_SUCCESS;
 }

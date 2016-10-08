@@ -1,6 +1,8 @@
 # Contributing to Arbiter
 
-It’s awesome that you’re interested in contributing! Here are a few guidelines that may prevent wasted effort.
+First of all, consider that [package management is awful, and you should quit right now](https://medium.com/@sdboyer/so-you-want-to-write-a-package-manager-4ae9c17d9527#.bc6kkeux5).
+
+If you’ve made it past that post, great! It’s awesome that you’re interested in contributing! Here are a few guidelines that may prevent wasted effort.
 
 ### Consider existing tasks
 
