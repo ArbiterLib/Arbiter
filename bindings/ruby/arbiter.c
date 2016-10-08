@@ -34,6 +34,14 @@ static void value_free(void *data) {
   *ptr = Qnil;
 }
 
+static const ArbiterUserValue RUBY_USER_VALUE = {
+  .equalTo = value_equal,
+  .lessThan = value_less_than,
+  .hash = value_hash,
+  .createDescription = value_create_description,
+  .destructor = value_free,
+};
+
 typedef struct {
   VALUE user_value;
   ArbiterProjectIdentifier *project_identifier;
@@ -57,15 +65,11 @@ static VALUE project_identifier_initialize(VALUE self, VALUE value) {
   ProjectIdentifierData *data;
   Data_Get_Struct(self, ProjectIdentifierData, data);
 
+  ArbiterUserValue user_value = RUBY_USER_VALUE;
+  user_value.data = (void *)&data->user_value;
+
   data->user_value = value;
-  data->project_identifier = ArbiterCreateProjectIdentifier((ArbiterUserValue){
-    .data = (void *)&data->user_value,
-    .equalTo = value_equal,
-    .lessThan = value_less_than,
-    .hash = value_hash,
-    .createDescription = value_create_description,
-    .destructor = value_free,
-  });
+  data->project_identifier = ArbiterCreateProjectIdentifier(user_value);
 
   return self;
 }
@@ -121,6 +125,38 @@ static VALUE semantic_version_initialize(int argc, VALUE *argv, VALUE self) {
   return self;
 }
 
+typedef struct {
+  ArbiterSelectedVersion *selected_version;
+  VALUE metadata;
+} SelectedVersionData;
+
+static void selected_version_gc_mark(SelectedVersionData *data) {
+  rb_gc_mark(data->metadata);
+}
+
+static void selected_version_free(SelectedVersionData *data) {
+  ArbiterFree(data->selected_version);
+  data->metadata = Qnil;
+}
+
+static VALUE selected_version_allocate(VALUE klass) {
+  SelectedVersionData *data;
+  return Data_Make_Struct(klass, SelectedVersionData, selected_version_gc_mark, selected_version_free, data);
+}
+
+static VALUE selected_version_initialize(VALUE self, VALUE semantic_version, VALUE metadata) {
+  SelectedVersionData *data;
+  Data_Get_Struct(self, SelectedVersionData, data);
+
+  ArbiterUserValue user_value = RUBY_USER_VALUE;
+  user_value.data = (void *)&data->metadata;
+
+  data->metadata = metadata;
+  data->selected_version = ArbiterCreateSelectedVersion(DATA_PTR(semantic_version), user_value);
+
+  return self;
+}
+
 static VALUE requirement_any(VALUE klass) {
   ArbiterRequirement *requirement = ArbiterCreateRequirementAny();
   return Data_Wrap_Struct(klass, NULL, ArbiterFree, requirement);
@@ -155,6 +191,10 @@ void Init_arbiter() {
   VALUE cSemanticVersion = rb_define_class_under(mArbiter, "SemanticVersion", rb_cObject);
   rb_define_alloc_func(cSemanticVersion, semantic_version_allocate);
   rb_define_method(cSemanticVersion, "initialize", semantic_version_initialize, -1);
+
+  VALUE cSelectedVersion = rb_define_class_under(mArbiter, "SelectedVersion", rb_cObject);
+  rb_define_alloc_func(cSelectedVersion, selected_version_allocate);
+  rb_define_method(cSelectedVersion, "initialize", selected_version_initialize, 2);
 
   VALUE cRequirement = rb_define_class_under(mArbiter, "Requirement", rb_cObject);
   rb_define_singleton_method(cRequirement, "any", requirement_any, 0);
