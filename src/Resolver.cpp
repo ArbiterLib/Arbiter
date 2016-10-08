@@ -42,7 +42,7 @@ struct UniqueDependencyEqualTo final
  */
 using UniqueDependencySet = std::unordered_set<ArbiterDependency, UniqueDependencyHash, UniqueDependencyEqualTo>;
 
-ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, const ArbiterResolvedDependencyGraph &baseGraph, UniqueDependencySet dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
+ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, const ArbiterResolvedDependencyGraph &baseGraph, UniqueDependencySet dependencySet, const std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>> &dependentsByProject = {}) noexcept(false)
 {
   if (dependencySet.empty()) {
     return baseGraph;
@@ -116,21 +116,28 @@ ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, c
       // transitive dependencies.
       for (ArbiterResolvedDependency &dependency : choices) {
         const ArbiterRequirement &requirement = *requirementsByProject.at(dependency._project);
-        candidate.addNode(dependency, requirement, maybeAt(dependentsByProject, dependency._project));
+        candidate.addNode(dependency, requirement);
+
+        auto dependents = maybeAt(dependentsByProject, dependency._project);
+        if (dependents) {
+          for (const ArbiterProjectIdentifier &dependent : *dependents) {
+            candidate.addEdge(dependent, dependency._project);
+          }
+        }
       }
 
       // Collect immediate children for the next phase of dependency resolution,
       // so we can permute their versions as a group (for something
       // approximating breadth-first search).
       UniqueDependencySet collectedTransitives;
-      std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> dependentsByTransitive;
+      std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>> dependentsByTransitive;
 
       for (ArbiterResolvedDependency &dependency : choices) {
         std::vector<ArbiterDependency> transitives = resolver.fetchDependencies(dependency._project, dependency._version)._dependencies;
 
         dependentsByTransitive.reserve(dependentsByTransitive.size() + transitives.size());
         for (const ArbiterDependency &transitive : transitives) {
-          dependentsByTransitive[transitive._projectIdentifier] = dependency._project;
+          dependentsByTransitive[transitive._projectIdentifier].emplace_back(dependency._project);
         }
 
         collectedTransitives.insert(std::make_move_iterator(transitives.begin()), std::make_move_iterator(transitives.end()));
@@ -255,7 +262,7 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
   UniqueDependencySet dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
-  return resolveDependencies(*this, _initialGraph, std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
+  return resolveDependencies(*this, _initialGraph, std::move(dependencySet));
 }
 
 std::unique_ptr<Arbiter::Base> ArbiterResolver::clone () const

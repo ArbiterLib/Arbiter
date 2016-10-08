@@ -46,15 +46,22 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
     using EdgeMap = std::unordered_map<NodeKey, std::set<NodeKey>>;
 
     /**
-     * Attempts to add the given node into the graph, as a dependency of
-     * `dependent` if specified.
+     * Attempts to add the given node into the graph.
      *
      * If the given node refers to a project which already exists in the graph,
      * this method will attempt to intersect the version requirements of both.
      *
      * Throws an exception if this addition would make the graph inconsistent.
      */
-    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<NodeKey> &dependent) noexcept(false);
+    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement) noexcept(false);
+
+    /**
+     * Adds an edge from a dependent to its dependency.
+     *
+     * Both sides of the edge must have already been added to the graph with
+     * addNode().
+     */
+    void addEdge (const ArbiterProjectIdentifier &dependent, ArbiterProjectIdentifier dependency);
 
     const NodeMap &nodes () const
     {

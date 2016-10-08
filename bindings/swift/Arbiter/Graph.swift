@@ -43,11 +43,11 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
     return ResolvedDependencyGraph(ptr, shouldCopy: false)
   }
 
-  public func addRoot (node: ResolvedDependency<ProjectValue, VersionMetadata>, requirement: Requirement) throws
+  public func addNode (node: ResolvedDependency<ProjectValue, VersionMetadata>, requirement: Requirement) throws
   {
     var cStr: UnsafeMutablePointer<CChar> = nil
 
-    if (!ArbiterResolvedDependencyGraphAddRoot(pointer, node.pointer, requirement.pointer, &cStr)) {
+    if (!ArbiterResolvedDependencyGraphAddNode(pointer, node.pointer, requirement.pointer, &cStr)) {
       let string = String(UTF8String: cStr)
       free(cStr)
 
@@ -59,7 +59,7 @@ public final class ResolvedDependencyGraph<ProjectValue: ArbiterValue, VersionMe
   {
     var cStr: UnsafeMutablePointer<CChar> = nil
 
-    if (!ArbiterResolvedDependencyGraphAddEdge(pointer, dependent.pointer, dependency.pointer, requirement.pointer, &cStr)) {
+    if (!ArbiterResolvedDependencyGraphAddEdge(pointer, dependent.pointer, dependency.pointer, &cStr)) {
       let string = String(UTF8String: cStr)
       free(cStr)
 

@@ -223,7 +223,7 @@ TEST(ResolverTest, ResolvesIncrementallyFromInitialGraph)
   auto resolvedA = ArbiterResolvedDependency(makeProjectIdentifier("A"), ArbiterSelectedVersion(ArbiterSemanticVersion(2, 3, 4), makeSharedUserValue<ArbiterSelectedVersion, EmptyTestValue>()));
 
   ArbiterResolvedDependencyGraph initialGraph;
-  initialGraph.addNode(std::move(resolvedA), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 1)), None());
+  initialGraph.addNode(std::move(resolvedA), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 1)));
 
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(makeProjectIdentifier("B"), Requirement::CompatibleWith(ArbiterSemanticVersion(2, 0, 0), ArbiterRequirementStrictnessStrict));
