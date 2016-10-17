@@ -118,7 +118,7 @@ TEST(CarthageGraphTest, ResolvesCorrectly) {
     versions.emplace(std::make_pair(std::move(projectName), std::move(version)));
   }
 
-  EXPECT_EQ(versions.size(), 6);
+  EXPECT_GE(versions.size(), 6);
   EXPECT_EQ(versions.at("PrettyColors"), ArbiterSemanticVersion(4, 0, 0));
   EXPECT_EQ(versions.at("Result"), ArbiterSemanticVersion(2, 1, 3));
   EXPECT_EQ(versions.at("Commandant"), ArbiterSemanticVersion(0, 10, 1));
