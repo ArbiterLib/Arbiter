@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Combines the functionality of the record-carthage-checkouts and
+# record-cartfile-dependencies scripts, to generate a directory structure
+# similar to the carthage-graph text fixture.
+#
+# Usage:
+#   script/record-carthage-graph ~/path/to/Carthage test/fixtures/carthage-graph/
+
+set -e
+export SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+GIT_DIR="$1"
+OUTPUT_DIR="$2"
+
+"$SCRIPT_DIR/record-carthage-checkouts" "$GIT_DIR" "$OUTPUT_DIR"
+
+export ABSOLUTE_PATH=$(realpath "$OUTPUT_DIR")
+function recorddeps {
+  project=$(basename "$name")
+  "$SCRIPT_DIR/record-cartfile-dependencies" "$toplevel/$path" "$ABSOLUTE_PATH/$project.txt" "$ABSOLUTE_PATH/$project/"
+}
+
+export -f recorddeps
+git -C "$GIT_DIR" submodule foreach recorddeps
