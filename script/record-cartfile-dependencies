@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SCRIPT_DIR=$(dirname "$0")
+
+PROJECT_NAME="$1"
+GIT_DIR="$2"
+VERSION_LIST="$3"
+OUTPUT_DIR="$4"
+
+mkdir -p "$OUTPUT_DIR"
+
+cat "$VERSION_LIST" | while read line
+do
+  CARTFILE=$(git -C "$GIT_DIR" show "$line:Cartfile")
+  if [ "$?" -eq "0" ]
+  then
+    echo "$CARTFILE" | awk -f "$SCRIPT_DIR/record-cartfile-dependencies.awk" - > "$OUTPUT_DIR/$line.txt" || exit $?
+  fi
+done
