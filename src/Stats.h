@@ -5,6 +5,7 @@
 #endif
 
 #include <chrono>
+#include <ostream>
 
 #include "Optional.h"
 
@@ -32,5 +33,7 @@ struct Stats final
     Optional<Clock::time_point> _startTime;
     Optional<Clock::time_point> _endTime;
 };
+
+std::ostream &operator<< (std::ostream &os, const Stats &stats);
 
 } // namespace Arbiter
