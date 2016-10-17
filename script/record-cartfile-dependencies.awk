@@ -1,3 +1,12 @@
+# Used in script/record-cartfile-dependencies, this transforms Carthage's
+# Cartfile format:
+#
+#   github "Carthage/ReactiveTask" ~> 1.0
+#
+# into a format more easily parsed by our C++ tests:
+# 
+#   ReactiveTask ~> 1.0
+
 function remove_quotes(str) {
   return substr(str, 2, length(str) - 2)
 }
