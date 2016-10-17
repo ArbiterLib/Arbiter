@@ -13,7 +13,7 @@ namespace Exception {
 /**
  * Base type for Arbiter exceptions.
  */
-struct Base : std::runtime_error
+struct Base : public std::runtime_error
 {
   public:
     Base () = delete;
@@ -28,7 +28,7 @@ struct Base : std::runtime_error
  * Exception type representing an error that was returned from Arbiter client
  * code.
  */
-struct UserError final : Base
+struct UserError final : public Base
 {
   public:
     UserError ()
@@ -44,7 +44,7 @@ struct UserError final : Base
  * Exception type indicating that there were mutually exclusive constraints in
  * a proposed dependency graph.
  */
-struct MutuallyExclusiveConstraints final : Base
+struct MutuallyExclusiveConstraints final : public Base
 {
   public:
     explicit MutuallyExclusiveConstraints (const std::string &string)
@@ -56,7 +56,7 @@ struct MutuallyExclusiveConstraints final : Base
  * Exception type indicating that there were unsatisfiable constraints for the
  * selected versions in a proposed dependency graph.
  */
-struct UnsatisfiableConstraints final : Base
+struct UnsatisfiableConstraints final : public Base
 {
   public:
     explicit UnsatisfiableConstraints (const std::string &string)
