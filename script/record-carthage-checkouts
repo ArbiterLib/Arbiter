@@ -22,5 +22,9 @@ function cattags {
   git tag > "$ABSOLUTE_PATH/`basename $name`.txt"
 }
 
+pushd "$GIT_DIR"
+name=$(basename "$GIT_DIR") cattags
+popd
+
 export -f cattags
-git -C "$GIT_DIR" submodule foreach cattags
+git -C "$GIT_DIR" submodule --quiet foreach cattags

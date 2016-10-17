@@ -21,5 +21,7 @@ function recorddeps {
   "$SCRIPT_DIR/record-cartfile-dependencies" "$toplevel/$path" "$ABSOLUTE_PATH/$project.txt" "$ABSOLUTE_PATH/$project/"
 }
 
+name=$(basename "$GIT_DIR") toplevel="$GIT_DIR" path="" recorddeps
+
 export -f recorddeps
-git -C "$GIT_DIR" submodule foreach recorddeps
+git -C "$GIT_DIR" submodule --quiet foreach recorddeps
