@@ -31,7 +31,9 @@ namespace Arbiter {
 class Instantiation final
 {
   public:
+    // TODO: Enforce uniqueness upon project IDs in this set.
     using Dependencies = std::unordered_set<ArbiterDependency>;
+
     using Versions = std::set<ArbiterSelectedVersion, std::greater<ArbiterSelectedVersion>>;
 
     explicit Instantiation (Dependencies dependencies)

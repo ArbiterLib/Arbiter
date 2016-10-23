@@ -61,10 +61,10 @@ struct ArbiterResolver final : public Arbiter::Base
     Arbiter::Optional<ArbiterSelectedVersion> fetchSelectedVersionForMetadata (const ArbiterProjectIdentifier &project, const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata);
 
     /**
-     * Computes a list of available versions for the specified project which
-     * satisfy the given requirement.
+     * Returns the instantiation of the given project which best satisfies the
+     * given requirement, or null if none is found.
      */
-    std::vector<ArbiterSelectedVersion> availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) noexcept(false);
+    std::shared_ptr<Arbiter::Instantiation> bestProjectInstantiationSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement);
 
     /**
      * Attempts to resolve all dependencies.

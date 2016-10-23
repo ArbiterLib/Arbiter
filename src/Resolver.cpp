@@ -2,7 +2,6 @@
 
 #include "Algorithm.h"
 #include "Exception.h"
-#include "Iterator.h"
 #include "Optional.h"
 #include "Requirement.h"
 #include "Stats.h"
@@ -11,6 +10,8 @@
 #include <algorithm>
 #include <cassert>
 #include <exception>
+#include <functional>
+#include <iostream>
 #include <map>
 #include <set>
 #include <unordered_set>
@@ -19,155 +20,200 @@ using namespace Arbiter;
 
 namespace {
 
-struct UniqueDependencyHash final
+struct Node final
 {
   public:
-    size_t operator() (const ArbiterDependency &dependency) const
+    using Dependencies = std::unordered_set<ArbiterProjectIdentifier>;
+
+    Node (std::unique_ptr<ArbiterRequirement> requirement, std::shared_ptr<Arbiter::Instantiation> instantiation)
+      : _requirement(std::move(requirement))
+      , _instantiation(std::move(instantiation))
+    {}
+
+    Node (const Node &other)
+      : _requirement(other.requirement().cloneRequirement())
+      , _dependencies(other._dependencies)
+      , _instantiation(other._instantiation)
+    {}
+
+    Node &operator= (const Node &other)
     {
-      return hashOf(dependency._projectIdentifier);
+      if (this == &other) {
+        return *this;
+      }
+
+      _requirement = other.requirement().cloneRequirement();
+      _dependencies = other._dependencies;
+      _instantiation = other._instantiation;
+      return *this;
     }
+
+    const ArbiterRequirement &requirement () const
+    {
+      return *_requirement;
+    }
+
+    void setRequirement (std::unique_ptr<ArbiterRequirement> newRequirement)
+    {
+      assert(_instantiation->satisfies(*newRequirement));
+      _requirement = std::move(newRequirement);
+    }
+
+    const std::shared_ptr<Instantiation> &instantiation () const
+    {
+      return _instantiation;
+    }
+
+    void setInstantiation (std::shared_ptr<Instantiation> newInstantiation)
+    {
+      assert(newInstantiation->satisfies(*_requirement));
+      _instantiation = std::move(newInstantiation);
+    }
+
+    const Dependencies &dependencies () const
+    {
+      return _dependencies;
+    }
+
+    void addDependency (const ArbiterProjectIdentifier &projectIdentifier)
+    {
+      _dependencies.emplace(projectIdentifier);
+    }
+
+  private:
+    std::unique_ptr<ArbiterRequirement> _requirement;
+    Dependencies _dependencies;
+    std::shared_ptr<Instantiation> _instantiation;
 };
 
-struct UniqueDependencyEqualTo final
+struct Graph final
 {
   public:
-    bool operator() (const ArbiterDependency &lhs, const ArbiterDependency &rhs) const
+    using Nodes = std::unordered_map<ArbiterProjectIdentifier, Node>;
+
+    std::shared_ptr<Instantiation> addNode (ArbiterResolver &resolver, const ArbiterProjectIdentifier &projectIdentifier, const ArbiterRequirement &requirement) noexcept(false)
     {
-      return lhs._projectIdentifier == rhs._projectIdentifier;
+      auto it = _nodes.find(projectIdentifier);
+      if (it == _nodes.end()) {
+        std::shared_ptr<Instantiation> instantiation = resolver.bestProjectInstantiationSatisfying(projectIdentifier, requirement);
+        if (!instantiation) {
+          throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(projectIdentifier));
+        }
+
+        _nodes.emplace(std::make_pair(projectIdentifier, Node(requirement.cloneRequirement(), instantiation)));
+        return instantiation;
+      }
+
+      Node &node = it->second;
+      std::unique_ptr<ArbiterRequirement> intersection = node.requirement().intersect(requirement);
+      if (!intersection) {
+        // TODO: Track more information about where each requirement came from.
+        throw Exception::MutuallyExclusiveConstraints(toString(requirement) + " and " + toString(node.requirement()) + " are mutually exclusive");
+      }
+
+      if (!node.instantiation()->satisfies(*intersection)) {
+        // TODO: Exclude this instantiation in the most recent dependent's
+        // requirement for this project, to avoid trying it again if we
+        // backtrack.
+        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*intersection) + " with " + toString(node.instantiation()));
+
+        // TODO: Pick a new instantiation, then diff the dependencies of the two
+        // different instantiations? This would make success more likely along
+        // the current path, but it complicates backtracking (to where we could
+        // end up doing duplicate work if not careful).
+        #if 0
+        std::shared_ptr<Instantiation> newInstantiation = resolver.bestProjectInstantiationSatisfying(projectIdentifier, intersection);
+        if (!newInstantiation) {
+          throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*intersection) + " with " + toString(node.instantiation()));
+        }
+
+        // This should always succeed, even with the old requirement in place,
+        // because we're only about to make it stricter.
+        node.setInstantiation(std::move(newInstantiation));
+        #endif
+      }
+
+      node.setRequirement(std::move(intersection));
+      return node.instantiation();
     }
+
+    void addEdge (const ArbiterProjectIdentifier &dependent, const ArbiterProjectIdentifier &dependency)
+    {
+      _nodes.at(dependent).addDependency(dependency);
+    }
+
+    const Nodes &nodes () const
+    {
+      return _nodes;
+    }
+
+    ArbiterResolvedDependency resolveProject (const ArbiterProjectIdentifier &projectIdentifier) const
+    {
+      const Node &node = _nodes.at(projectIdentifier);
+
+      // TODO: Move into definition of Instantiation?
+      const auto &versions = node.instantiation()->_versions;
+      auto it = std::find_if(versions.begin(), versions.end(), [&](const ArbiterSelectedVersion &version) {
+        return node.requirement().satisfiedBy(version);
+      });
+
+      // We must find a version if the node's instantiation satisfied its
+      // requirement.
+      assert(it != versions.end());
+
+      return ArbiterResolvedDependency(projectIdentifier, *it);
+    }
+
+  private:
+    Nodes _nodes;
 };
 
-/**
- * Contains dependencies in a set where project identifier alone determines
- * uniqueness (i.e., any requirement is ignored).
- */
-using UniqueDependencySet = std::unordered_set<ArbiterDependency, UniqueDependencyHash, UniqueDependencyEqualTo>;
-
-ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, const ArbiterResolvedDependencyGraph &baseGraph, UniqueDependencySet dependencySet, const std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>> &dependentsByProject = {}) noexcept(false)
+std::ostream &operator<< (std::ostream &os, const Graph &graph)
 {
-  if (dependencySet.empty()) {
-    return baseGraph;
+  os << "Graph:";
+
+  for (const auto &pair : graph.nodes()) {
+    os << "\n" << pair.first << " " << *pair.second.instantiation() << " (constrained to " << pair.second.requirement() << ")";
   }
 
-  // This collection is reused when actually building the new dependency graph
-  // below.
-  std::unordered_map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
-  requirementsByProject.reserve(dependencySet.size());
-
-  for (const ArbiterDependency &dependency : dependencySet) {
-    requirementsByProject[dependency._projectIdentifier] = dependency.requirement().cloneRequirement();
-  }
-
-  assert(requirementsByProject.size() == dependencySet.size());
-
-  // Free the dependencySet, as it will no longer be used.
-  reset(dependencySet);
-
-  // This collection needs to exist for as long as the permuted iterators do below.
-  //
-  // It's important that this collection is ordered deterministically, since it
-  // affects which permutations we try first.
-  std::map<ArbiterProjectIdentifier, std::vector<ArbiterResolvedDependency>> possibilities;
-
-  for (const auto &pair : requirementsByProject) {
-    const ArbiterProjectIdentifier &project = pair.first;
-    const ArbiterRequirement &requirement = *pair.second;
-
-    std::vector<ArbiterSelectedVersion> versions = resolver.availableVersionsSatisfying(project, requirement);
-    if (versions.empty()) {
-      throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(project));
-    }
-
-    // Sort the version list with highest precedence first, so we try the newest
-    // possible versions first.
-    std::sort(versions.begin(), versions.end(), std::greater<ArbiterSelectedVersion>());
-
-    std::vector<ArbiterResolvedDependency> resolutions;
-    resolutions.reserve(versions.size());
-
-    for (ArbiterSelectedVersion &version : versions) {
-      resolutions.emplace_back(project, std::move(version));
-    }
-
-    possibilities[project] = std::move(resolutions);
-  }
-
-  assert(possibilities.size() == requirementsByProject.size());
-
-  using Iterator = std::vector<ArbiterResolvedDependency>::const_iterator;
-
-  std::vector<IteratorRange<Iterator>> ranges;
-  for (const auto &pair : possibilities) {
-    const std::vector<ArbiterResolvedDependency> &dependencies = pair.second;
-    ranges.emplace_back(dependencies.cbegin(), dependencies.cend());
-  }
-
-  assert(ranges.size() == possibilities.size());
-
-  std::exception_ptr lastException = std::make_exception_ptr(Exception::UnsatisfiableConstraints("No further combinations to attempt"));
-
-  for (PermutationIterator<Iterator> permuter(std::move(ranges)); permuter; ++permuter) {
-    try {
-      std::vector<ArbiterResolvedDependency> choices = *permuter;
-
-      ArbiterResolvedDependencyGraph candidate = baseGraph;
-
-      // Add everything to the graph first, to throw any exceptions that would
-      // occur before we perform the computation- and memory-expensive stuff for
-      // transitive dependencies.
-      for (ArbiterResolvedDependency &dependency : choices) {
-        const ArbiterRequirement &requirement = *requirementsByProject.at(dependency._project);
-        candidate.addNode(dependency, requirement);
-
-        auto dependents = maybeAt(dependentsByProject, dependency._project);
-        if (dependents) {
-          for (const ArbiterProjectIdentifier &dependent : *dependents) {
-            candidate.addEdge(dependent, dependency._project);
-          }
-        }
-      }
-
-      // Collect immediate children for the next phase of dependency resolution,
-      // so we can permute their versions as a group (for something
-      // approximating breadth-first search).
-      UniqueDependencySet collectedTransitives;
-      std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>> dependentsByTransitive;
-
-      for (ArbiterResolvedDependency &dependency : choices) {
-        const auto &transitives = resolver.fetchDependencies(dependency._project, dependency._version);
-
-        dependentsByTransitive.reserve(dependentsByTransitive.size() + transitives.size());
-        for (const ArbiterDependency &transitive : transitives) {
-          dependentsByTransitive[transitive._projectIdentifier].emplace_back(dependency._project);
-        }
-
-        collectedTransitives.insert(transitives.begin(), transitives.end());
-      }
-
-      reset(choices);
-
-      return resolveDependencies(resolver, candidate, std::move(collectedTransitives), std::move(dependentsByTransitive));
-    } catch (Arbiter::Exception::Base &ex) {
-      lastException = std::current_exception();
-      ++resolver._latestStats._deadEnds;
-    }
-  }
-
-  std::rethrow_exception(lastException);
+  return os;
 }
 
-class UnversionedRequirementVisitor final : public Requirement::Visitor
+Graph resolveDependencies (ArbiterResolver &resolver, const Graph &baseGraph, Optional<ArbiterProjectIdentifier> dependent, std::unordered_set<ArbiterDependency> dependencySet) noexcept(false)
 {
-  public:
-    std::vector<Requirement::Unversioned::Metadata> _allMetadata;
+  std::map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
+  for (const ArbiterDependency &dependency : dependencySet) {
+    requirementsByProject.emplace(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
+  }
 
-    void operator() (const ArbiterRequirement &requirement) override
-    {
-      if (const auto *ptr = dynamic_cast<const Requirement::Unversioned *>(&requirement)) {
-        _allMetadata.emplace_back(ptr->_metadata);
-      }
+  reset(dependencySet);
+
+  Graph graph = baseGraph;
+  for (auto it = requirementsByProject.begin(); it != requirementsByProject.end(); ) {
+    const ArbiterProjectIdentifier &projectIdentifier = it->first;
+
+    auto instantiation = graph.addNode(resolver, projectIdentifier, *it->second);
+    if (dependent) {
+      graph.addEdge(*dependent, projectIdentifier);
     }
-};
+
+    try {
+      Graph newGraph = resolveDependencies(resolver, graph, makeOptional(projectIdentifier), instantiation->dependencies());
+      graph = std::move(newGraph);
+    } catch (Exception::Base &) {
+      if (std::unique_ptr<ArbiterRequirement> intersection = Requirement::ExcludedInstantiation(instantiation).intersect(*it->second)) {
+        it->second = std::move(intersection);
+        continue;
+      }
+
+      throw;
+    }
+
+    ++it;
+  }
+
+  return graph;
+}
 
 } // namespace
 
@@ -272,14 +318,24 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
-  UniqueDependencySet dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
-
   startStats();
+  std::unordered_set<ArbiterDependency> dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
 
   try {
-    ArbiterResolvedDependencyGraph graph = resolveDependencies(*this, _initialGraph, std::move(dependencySet));
+    Graph result = resolveDependencies(*this, Graph(), None(), std::move(dependencySet));
+
+    // TODO: Pare down ArbiterResolvedDependencyGraph so this conversion is
+    // cheaper.
+    ArbiterResolvedDependencyGraph converted;
+    for (const auto &pair : result.nodes()) {
+      converted.addNode(result.resolveProject(pair.first), pair.second.requirement());
+      for (const ArbiterProjectIdentifier &dependency : pair.second.dependencies()) {
+        converted.addEdge(pair.first, dependency);
+      }
+    }
+
     endStats();
-    return graph;
+    return converted;
   } catch (...) {
     // TODO: Clean up with RAII?
     endStats();
@@ -302,31 +358,28 @@ bool ArbiterResolver::operator== (const Arbiter::Base &other) const
   return this == &other;
 }
 
-std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying (const ArbiterProjectIdentifier &project, const ArbiterRequirement &requirement) noexcept(false)
+std::shared_ptr<Arbiter::Instantiation> ArbiterResolver::bestProjectInstantiationSatisfying (const ArbiterProjectIdentifier &projectIdentifier, const ArbiterRequirement &requirement)
 {
-  std::vector<ArbiterSelectedVersion> versions;
-
-  if (_behaviors.createSelectedVersionForMetadata) {
-    UnversionedRequirementVisitor visitor;
-    requirement.visit(visitor);
-
-    for (const auto &metadata : visitor._allMetadata) {
-      Optional<ArbiterSelectedVersion> version = fetchSelectedVersionForMetadata(project, metadata);
-      if (version) {
-        versions.emplace_back(std::move(*version));
-      }
-    }
-  }
-
-  const auto &fetchedVersions = fetchAvailableVersions(project);
-  versions.insert(versions.end(), fetchedVersions.begin(), fetchedVersions.end());
-
-  auto removeStart = std::remove_if(versions.begin(), versions.end(), [&requirement](const ArbiterSelectedVersion &version) {
-    return !requirement.satisfiedBy(version);
+  const auto &availableVersions = fetchAvailableVersions(projectIdentifier);
+  const auto it = std::find_if(availableVersions.begin(), availableVersions.end(), [&](const ArbiterSelectedVersion &version) {
+    return requirement.satisfiedBy(version);
   });
 
-  versions.erase(removeStart, versions.end());
-  return versions;
+  if (it == availableVersions.end()) {
+    return nullptr;
+  }
+
+  const ArbiterSelectedVersion &bestVersion = *it;
+
+  // There should be an entry in _projects due to fetchAvailableVersions()
+  // above.
+  Project &project = _projects.at(projectIdentifier);
+
+  // FIXME: This is a hack to populate the instantiation we want.
+  fetchDependencies(projectIdentifier, bestVersion);
+  auto inst = project.instantiationForVersion(bestVersion);
+  assert(inst);
+  return inst;
 }
 
 void ArbiterResolver::startStats ()

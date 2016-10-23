@@ -178,7 +178,6 @@ void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, co
 void ArbiterResolvedDependencyGraph::addEdge (const ArbiterProjectIdentifier &dependent, ArbiterProjectIdentifier dependency)
 {
   assert(_nodes.find(dependent) != _nodes.end());
-  assert(_nodes.find(dependency) != _nodes.end());
 
   _edges[dependent].emplace(std::move(dependency));
 }
