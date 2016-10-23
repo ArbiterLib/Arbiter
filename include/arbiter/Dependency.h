@@ -75,7 +75,7 @@ ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const struct Arbiter
  * The returned pointer is only guaranteed to remain valid for the current
  * scope.
  */
-const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterResolvedDependency *dependency);
+const struct ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterResolvedDependency *dependency);
 
 /**
  * Returns the version which was selected for this resolved dependency.
