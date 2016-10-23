@@ -1,8 +1,10 @@
 #include "gtest/gtest.h"
 
 #include "Dependency.h"
+#include "Exception.h"
 #include "Requirement.h"
 #include "Resolver.h"
+#include "ToString.h"
 
 #include "TestValue.h"
 
@@ -67,19 +69,22 @@ ArbiterDependencyList loadDependencyList (const std::string &projectName, const 
   return ArbiterDependencyList(std::move(dependencies));
 }
 
-ArbiterDependencyList *createDependencyList (const ArbiterResolver *, const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *version, char **)
+ArbiterDependencyList *createDependencyList (const ArbiterResolver *, const ArbiterProjectIdentifier *project, const ArbiterSelectedVersion *version, char **error)
 {
-  return new ArbiterDependencyList(loadDependencyList(fromUserValue<StringTestValue>(project->_value.data())._str, fromUserValue<StringTestValue>(version->_metadata.data())._str));
+  try {
+    return new ArbiterDependencyList(loadDependencyList(fromUserValue<StringTestValue>(project->_value.data())._str, fromUserValue<StringTestValue>(version->_metadata.data())._str));
+  } catch (std::exception &ex) {
+    *error = copyCString(ex.what()).release();
+    return nullptr;
+  }
 }
 
-ArbiterSelectedVersionList *createAvailableVersionsList (const ArbiterResolver *, const ArbiterProjectIdentifier *project, char **error)
+ArbiterSelectedVersionList loadAvailableVersionsList (const std::string &projectName)
 {
-  std::string projectName = fromUserValue<StringTestValue>(project->_value.data())._str;
   std::ifstream fd(baseDirectory + projectName + ".txt");
 
   if (!fd) {
-    *error = strdup(std::string("No version list found for project: " + projectName).c_str());
-    return nullptr;
+    throw std::runtime_error("No version list found for project: " + projectName);
   }
 
   std::vector<ArbiterSelectedVersion> versions;
@@ -96,7 +101,17 @@ ArbiterSelectedVersionList *createAvailableVersionsList (const ArbiterResolver *
     versions.emplace_back(std::move(semanticVersion), makeSharedUserValue<ArbiterSelectedVersion, StringTestValue>(std::move(versionStr)));
   } while (fd);
 
-  return new ArbiterSelectedVersionList(std::move(versions));
+  return ArbiterSelectedVersionList(std::move(versions));
+}
+
+ArbiterSelectedVersionList *createAvailableVersionsList (const ArbiterResolver *, const ArbiterProjectIdentifier *project, char **error)
+{
+  try {
+    return new ArbiterSelectedVersionList(loadAvailableVersionsList(fromUserValue<StringTestValue>(project->_value.data())._str));
+  } catch (std::exception &ex) {
+    *error = copyCString(ex.what()).release();
+    return nullptr;
+  }
 }
 
 } // namespace
@@ -129,4 +144,34 @@ TEST(CarthageGraphTest, ResolvesCorrectly) {
   // TODO: Verify install-ordered graph
 
   std::cout << "*** Statistics ***\n" << stats << std::endl;
+}
+
+TEST(CarthageGraphTest, ResolvesAllVersions) {
+  ArbiterResolverBehaviors behaviors{&createDependencyList, &createAvailableVersionsList, nullptr};
+
+  std::unordered_set<std::string> brokenVersions = {
+    // Versions broken due to revoked dependencies.
+    "0.2.2",
+    "0.3",
+    // Tested above.
+    "0.18",
+  };
+
+  // TODO: Use a parameterized test instead
+  for (const ArbiterSelectedVersion &version : loadAvailableVersionsList("Carthage")._versions) {
+    std::string versionString = fromUserValue<StringTestValue>(version._metadata.data())._str;
+    if (brokenVersions.find(versionString) != brokenVersions.end()) {
+      continue;
+    }
+
+    ArbiterResolver resolver(behaviors, ArbiterResolvedDependencyGraph(), loadDependencyList("Carthage", versionString), nullptr);
+    try {
+      resolver.resolve();
+      std::cout << "Carthage " << versionString << ": ✓" << std::endl;
+    } catch (const Arbiter::Exception::UserError &ex) {
+      std::cout << "Carthage " << versionString << " skipped: " << ex.what() << std::endl;
+    } catch (const Arbiter::Exception::Base &ex) {
+      EXPECT_TRUE(false) << "Carthage " << versionString << ": " << ex.what();
+    }
+  }
 }
