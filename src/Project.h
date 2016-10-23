@@ -18,6 +18,7 @@
 #include <vector>
 
 struct ArbiterDependency;
+struct ArbiterDependencyList;
 
 namespace Arbiter {
 
@@ -75,7 +76,7 @@ class Project final
       return _instantiations;
     }
 
-    void addInstantiation (const std::shared_ptr<Instantiation> &instantiation);
+    std::shared_ptr<Instantiation> addInstantiation (const ArbiterSelectedVersion &version, const ArbiterDependencyList &dependencyList);
 
     std::shared_ptr<Instantiation> instantiationForVersion (const ArbiterSelectedVersion &version) const;
     std::shared_ptr<Instantiation> instantiationForDependencies (const std::unordered_set<ArbiterDependency> &dependencies) const;

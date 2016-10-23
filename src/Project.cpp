@@ -7,11 +7,18 @@
 
 namespace Arbiter {
 
-void Project::addInstantiation (const std::shared_ptr<Instantiation> &instantiation)
+std::shared_ptr<Instantiation> Project::addInstantiation (const ArbiterSelectedVersion &version, const ArbiterDependencyList &dependencyList)
 {
-  // TODO: Check for duplicates?
+  Instantiation::Dependencies dependencies(dependencyList._dependencies.begin(), dependencyList._dependencies.end());
 
-  _instantiations.emplace_back(instantiation);
+  std::shared_ptr<Instantiation> inst = instantiationForDependencies(dependencies);
+  if (!inst) {
+    inst = std::make_shared<Instantiation>(std::move(dependencies));
+    _instantiations.emplace_back(inst);
+  }
+
+  inst->_versions.emplace(version);
+  return inst;
 }
 
 std::shared_ptr<Instantiation> Project::instantiationForVersion (const ArbiterSelectedVersion &version) const

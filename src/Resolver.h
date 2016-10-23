@@ -8,6 +8,8 @@
 
 #include "Dependency.h"
 #include "Graph.h"
+#include "Instantiation.h"
+#include "Project.h"
 #include "Stats.h"
 #include "Types.h"
 #include "Version.h"
@@ -38,18 +40,18 @@ struct ArbiterResolver final : public Arbiter::Base
     ArbiterResolver &operator= (const ArbiterResolver &) = delete;
 
     /**
-     * Fetches the list of dependencies for the given project and version.
+     * Fetches the dependencies for the given project and version.
      *
-     * Returns the dependency list or throws an exception.
+     * Returns the dependencies or throws an exception.
      */
-    ArbiterDependencyList fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) noexcept(false);
+    const Arbiter::Instantiation::Dependencies &fetchDependencies (const ArbiterProjectIdentifier &projectIdentifier, const ArbiterSelectedVersion &version) noexcept(false);
 
     /**
-     * Fetches the list of available versions for the given project.
+     * Fetches the available versions for the given project.
      *
-     * Returns the version list or throws an exception.
+     * Returns the versions or throws an exception.
      */
-    ArbiterSelectedVersionList fetchAvailableVersions (const ArbiterProjectIdentifier &project) noexcept(false);
+    const Arbiter::Project::Domain &fetchAvailableVersions (const ArbiterProjectIdentifier &projectIdentifier) noexcept(false);
 
     /**
      * Fetches a selected version for the given metadata string.
@@ -78,8 +80,7 @@ struct ArbiterResolver final : public Arbiter::Base
     const ArbiterResolvedDependencyGraph _initialGraph;
     const ArbiterDependencyList _dependenciesToResolve;
 
-    std::unordered_map<ArbiterResolvedDependency, ArbiterDependencyList> _cachedDependencies;
-    std::unordered_map<ArbiterProjectIdentifier, ArbiterSelectedVersionList> _cachedAvailableVersions;
+    std::unordered_map<ArbiterProjectIdentifier, Arbiter::Project> _projects;
 
     void startStats ();
     void endStats ();
