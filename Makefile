@@ -6,6 +6,7 @@ CFLAGS += -std=c99 -pedantic -Wall -Wextra -Wno-unused-parameter -Iinclude/
 AR ?= ar
 RANLIB ?= ranlib
 XCODEBUILD ?= xcodebuild
+UNZIP ?= unzip
 
 SOURCES = $(shell find src -name '*.cpp')
 OBJECTS = $(SOURCES:.cpp=.o)
@@ -37,6 +38,7 @@ clean:
 	rm -f $(EXAMPLES)
 	rm -f $(LIBRARY) $(TEST_RUNNER)
 	rm -f $(OBJECTS)
+	rm -rf test/fixtures/carthage-graph/
 
 docs:
 	doxygen Doxyfile
@@ -50,7 +52,10 @@ $(LIBRARY): $(OBJECTS)
 	$(AR) rcs $@ $^
 	$(RANLIB) $@
 
-$(TEST_RUNNER): $(TEST_SOURCES) $(LIBRARY)
+fixtures: test/fixtures/carthage-graph.zip
+	$(UNZIP) -n -q $^ -d test/fixtures
+
+$(TEST_RUNNER): $(TEST_SOURCES) $(LIBRARY) fixtures
 	$(CXX) $(CXXFLAGS) $(TEST_SOURCES) $(LIBRARY) -pthread $(TEST_INCLUDES) -o $@
 
 .cpp.o:

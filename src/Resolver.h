@@ -8,6 +8,7 @@
 
 #include "Dependency.h"
 #include "Graph.h"
+#include "Stats.h"
 #include "Types.h"
 #include "Version.h"
 
@@ -19,6 +20,9 @@ struct ArbiterResolver final : public Arbiter::Base
 {
   public:
     std::shared_ptr<const void> _context;
+
+    // Statistics from the latest dependency resolution.
+    Arbiter::Stats _latestStats;
 
     ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterResolvedDependencyGraph initialGraph, ArbiterDependencyList dependenciesToResolve, std::shared_ptr<const void> context)
       : _context(std::move(context))
@@ -76,4 +80,7 @@ struct ArbiterResolver final : public Arbiter::Base
 
     std::unordered_map<ArbiterResolvedDependency, ArbiterDependencyList> _cachedDependencies;
     std::unordered_map<ArbiterProjectIdentifier, ArbiterSelectedVersionList> _cachedAvailableVersions;
+
+    void startStats ();
+    void endStats ();
 };

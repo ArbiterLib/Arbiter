@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Given a Carthage project folder with checked-out submodules, records the list
+# of available versions for each into a new text file with the name of the
+# project, written into the directory specified as the last argument.
+#
+# See the carthage-graph fixture for an example.
+#
+# Usage:
+#   script/record-carthage-checkouts ~/path/to/Carthage test/fixtures/carthage-graph/
+
+set -e
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+GIT_DIR="$1"
+OUTPUT_DIR="$2"
+
+mkdir -p "$OUTPUT_DIR"
+export ABSOLUTE_PATH=$(realpath "$OUTPUT_DIR")
+
+function cattags {
+  git tag > "$ABSOLUTE_PATH/`basename $name`.txt"
+}
+
+pushd "$GIT_DIR"
+name=$(basename "$GIT_DIR") cattags
+popd
+
+export -f cattags
+git -C "$GIT_DIR" submodule --quiet foreach cattags

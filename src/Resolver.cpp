@@ -5,6 +5,7 @@
 #include "Iterator.h"
 #include "Optional.h"
 #include "Requirement.h"
+#include "Stats.h"
 #include "ToString.h"
 
 #include <algorithm>
@@ -148,6 +149,7 @@ ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, c
       return resolveDependencies(resolver, candidate, std::move(collectedTransitives), std::move(dependentsByTransitive));
     } catch (Arbiter::Exception::Base &ex) {
       lastException = std::current_exception();
+      ++resolver._latestStats._deadEnds;
     }
   }
 
@@ -211,6 +213,8 @@ ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectId
   char *error = nullptr;
   std::unique_ptr<ArbiterDependencyList> dependencyList(_behaviors.createDependencyList(this, &project, &version, &error));
 
+  ++_latestStats._dependencyListFetches;
+
   if (dependencyList) {
     assert(!error);
 
@@ -231,6 +235,8 @@ ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const Arbite
 
   char *error = nullptr;
   std::unique_ptr<ArbiterSelectedVersionList> versionList(_behaviors.createAvailableVersionsList(this, &project, &error));
+
+  ++_latestStats._availableVersionFetches;
 
   if (versionList) {
     assert(!error);
@@ -262,7 +268,18 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
   UniqueDependencySet dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
-  return resolveDependencies(*this, _initialGraph, std::move(dependencySet));
+
+  startStats();
+
+  try {
+    ArbiterResolvedDependencyGraph graph = resolveDependencies(*this, _initialGraph, std::move(dependencySet));
+    endStats();
+    return graph;
+  } catch (...) {
+    // TODO: Clean up with RAII?
+    endStats();
+    throw;
+  }
 }
 
 std::unique_ptr<Arbiter::Base> ArbiterResolver::clone () const
@@ -305,4 +322,30 @@ std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying
 
   versions.erase(removeStart, versions.end());
   return versions;
+}
+
+void ArbiterResolver::startStats ()
+{
+  _latestStats = Stats(Stats::Clock::now());
+}
+
+void ArbiterResolver::endStats ()
+{
+  _latestStats._endTime = Stats::Clock::now();
+
+  size_t depsSize = 0;
+  for (const auto &pair : _cachedDependencies) {
+    depsSize += sizeof(ArbiterResolvedDependency);
+    depsSize += pair.second._dependencies.size() * sizeof(ArbiterDependency);
+  }
+
+  _latestStats._cachedDependenciesSizeEstimate = depsSize;
+
+  size_t versionsSize = 0;
+  for (const auto &pair : _cachedAvailableVersions) {
+    versionsSize += sizeof(ArbiterProjectIdentifier);
+    versionsSize += pair.second._versions.size() * sizeof(ArbiterSelectedVersion);
+  }
+
+  _latestStats._cachedAvailableVersionsSizeEstimate = versionsSize;
 }
