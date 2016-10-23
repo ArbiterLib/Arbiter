@@ -96,6 +96,7 @@ struct Graph final
       auto it = _nodes.find(projectIdentifier);
       if (it == _nodes.end()) {
         std::shared_ptr<Instantiation> instantiation = resolver.bestProjectInstantiationSatisfying(projectIdentifier, requirement);
+
         if (!instantiation) {
           throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(projectIdentifier));
         }
@@ -108,14 +109,14 @@ struct Graph final
       std::unique_ptr<ArbiterRequirement> intersection = node.requirement().intersect(requirement);
       if (!intersection) {
         // TODO: Track more information about where each requirement came from.
-        throw Exception::MutuallyExclusiveConstraints(toString(requirement) + " and " + toString(node.requirement()) + " are mutually exclusive");
+        throw Exception::MutuallyExclusiveConstraints(toString(requirement) + " and " + toString(node.requirement()) + " on " + toString(projectIdentifier) + " are mutually exclusive");
       }
 
       if (!node.instantiation()->satisfies(*intersection)) {
         // TODO: Exclude this instantiation in the most recent dependent's
         // requirement for this project, to avoid trying it again if we
         // backtrack.
-        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*intersection) + " with " + toString(*node.instantiation()));
+        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*intersection) + " on " + toString(projectIdentifier) + " with " + toString(*node.instantiation()));
 
         // TODO: Pick a new instantiation, then diff the dependencies of the two
         // different instantiations? This would make success more likely along
