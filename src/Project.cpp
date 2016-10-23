@@ -41,3 +41,38 @@ std::shared_ptr<Instantiation> Project::instantiationForDependencies (const std:
 }
 
 } // namespace Arbiter
+
+ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value)
+{
+  return new ArbiterProjectIdentifier(ArbiterProjectIdentifier::Value(value));
+}
+
+const void *ArbiterProjectIdentifierValue (const ArbiterProjectIdentifier *projectIdentifier)
+{
+  return projectIdentifier->_value.data();
+}
+
+std::unique_ptr<Arbiter::Base> ArbiterProjectIdentifier::clone () const
+{
+  return std::make_unique<ArbiterProjectIdentifier>(*this);
+}
+
+std::ostream &ArbiterProjectIdentifier::describe (std::ostream &os) const
+{
+  return os << "ArbiterProjectIdentifier(" << _value << ")";
+}
+
+bool ArbiterProjectIdentifier::operator== (const Arbiter::Base &other) const
+{
+  auto ptr = dynamic_cast<const ArbiterProjectIdentifier *>(&other);
+  if (!ptr) {
+    return false;
+  }
+
+  return _value == ptr->_value;
+}
+
+size_t std::hash<ArbiterProjectIdentifier>::operator() (const ArbiterProjectIdentifier &project) const
+{
+  return hashOf(project._value);
+}

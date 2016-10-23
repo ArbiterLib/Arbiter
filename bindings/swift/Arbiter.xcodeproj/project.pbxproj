@@ -11,6 +11,7 @@
 		351C4E5F1D96619F00905E1F /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C4E5E1D96619F00905E1F /* Graph.swift */; };
 		351C4E611D9662A300905E1F /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351C4E601D9662A300905E1F /* Errors.swift */; };
 		357FB07F1D75AF6A0040691B /* Resolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 357FB07E1D75AF6A0040691B /* Resolver.swift */; };
+		D042D2AC1DBD10E500E4A9E5 /* Project.h in Headers */ = {isa = PBXBuildFile; fileRef = D042D2AB1DBD10E500E4A9E5 /* Project.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D09B693A1D84600E00BDD4A4 /* OnDemandCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09B69391D84600E00BDD4A4 /* OnDemandCollection.swift */; };
 		D0DB8C061D74937A003657D3 /* Arbiter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0DB8C051D74937A003657D3 /* Arbiter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F65B341D7493E800DD582F /* Version.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F65B331D7493E800DD582F /* Version.swift */; };
@@ -42,6 +43,7 @@
 		351C4E5E1D96619F00905E1F /* Graph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		351C4E601D9662A300905E1F /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		357FB07E1D75AF6A0040691B /* Resolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Resolver.swift; sourceTree = "<group>"; };
+		D042D2AB1DBD10E500E4A9E5 /* Project.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Project.h; path = ../../../include/arbiter/Project.h; sourceTree = "<group>"; };
 		D09B69391D84600E00BDD4A4 /* OnDemandCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnDemandCollection.swift; sourceTree = "<group>"; };
 		D0DB8C021D74937A003657D3 /* Arbiter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Arbiter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0DB8C051D74937A003657D3 /* Arbiter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Arbiter.h; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				D0DB8C051D74937A003657D3 /* Arbiter.h */,
 				D0F65B441D7496AE00DD582F /* Dependency.h */,
 				351C4E5C1D96619600905E1F /* Graph.h */,
+				D042D2AB1DBD10E500E4A9E5 /* Project.h */,
 				D0F65B451D7496AE00DD582F /* Requirement.h */,
 				D0F65B461D7496AE00DD582F /* Resolver.h */,
 				D0F8619D1D74DFA1009BD4C6 /* Types.h */,
@@ -149,6 +152,7 @@
 				D0DB8C061D74937A003657D3 /* Arbiter.h in Headers */,
 				D0F65B491D7496AE00DD582F /* Dependency.h in Headers */,
 				D0F65B4A1D7496AE00DD582F /* Requirement.h in Headers */,
+				D042D2AC1DBD10E500E4A9E5 /* Project.h in Headers */,
 				D0F65B4B1D7496AE00DD582F /* Resolver.h in Headers */,
 				D0F8619E1D74DFA1009BD4C6 /* Types.h in Headers */,
 				D0F65B4C1D7496AE00DD582F /* Value.h in Headers */,

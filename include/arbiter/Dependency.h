@@ -5,34 +5,12 @@
 extern "C" {
 #endif
 
-#include <arbiter/Value.h>
-
 #include <stddef.h>
 
 // forward declarations
+struct ArbiterProjectIdentifier;
 struct ArbiterRequirement;
 struct ArbiterSelectedVersion;
-
-/**
- * An opaque value which identifies a project participating in dependency
- * resolution.
- */
-typedef struct ArbiterProjectIdentifier ArbiterProjectIdentifier;
-
-/**
- * Creates a project identifier from the given opaque data.
- *
- * The returned identifier must be freed with ArbiterFree().
- */
-ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value);
-
-/**
- * Returns the opaque data which was provided to ArbiterCreateProjectIdentifier().
- *
- * The returned pointer is only guaranteed to remain valid for the current
- * scope.
- */
-const void *ArbiterProjectIdentifierValue (const ArbiterProjectIdentifier *projectIdentifier);
 
 /**
  * Represents a dependency specification, which consists of a project identifier
@@ -46,7 +24,7 @@ typedef struct ArbiterDependency ArbiterDependency;
  *
  * The returned dependency must be freed with ArbiterFree().
  */
-ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *projectIdentifier, const struct ArbiterRequirement *requirement);
+ArbiterDependency *ArbiterCreateDependency (const struct ArbiterProjectIdentifier *projectIdentifier, const struct ArbiterRequirement *requirement);
 
 /**
  * Returns the project identified by this dependency. 
@@ -54,7 +32,7 @@ ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *proj
  * The returned pointer is only guaranteed to remain valid for the current
  * scope.
  */
-const ArbiterProjectIdentifier *ArbiterDependencyProject (const ArbiterDependency *dependency);
+const struct ArbiterProjectIdentifier *ArbiterDependencyProject (const ArbiterDependency *dependency);
 
 /**
  * Returns the version requirement of this dependency. 
@@ -89,7 +67,7 @@ typedef struct ArbiterResolvedDependency ArbiterResolvedDependency;
  *
  * The returned dependency must be freed with ArbiterFree().
  */
-ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const ArbiterProjectIdentifier *project, const struct ArbiterSelectedVersion *version);
+ArbiterResolvedDependency *ArbiterCreateResolvedDependency (const struct ArbiterProjectIdentifier *project, const struct ArbiterSelectedVersion *version);
 
 /**
  * Returns the project this resolved dependency refers to.
