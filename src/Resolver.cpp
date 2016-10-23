@@ -115,7 +115,7 @@ struct Graph final
         // TODO: Exclude this instantiation in the most recent dependent's
         // requirement for this project, to avoid trying it again if we
         // backtrack.
-        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*intersection) + " with " + toString(node.instantiation()));
+        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*intersection) + " with " + toString(*node.instantiation()));
 
         // TODO: Pick a new instantiation, then diff the dependencies of the two
         // different instantiations? This would make success more likely along
