@@ -7,6 +7,7 @@
 #include <arbiter/Dependency.h>
 
 #include "Optional.h"
+#include "Project.h"
 #include "Requirement.h"
 #include "Types.h"
 #include "Value.h"
@@ -19,30 +20,6 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <vector>
-
-struct ArbiterProjectIdentifier final : public Arbiter::Base
-{
-  public:
-    using Value = Arbiter::SharedUserValue<ArbiterProjectIdentifier>;
-
-    Value _value;
-
-    ArbiterProjectIdentifier ()
-    {}
-
-    explicit ArbiterProjectIdentifier (Value value)
-      : _value(std::move(value))
-    {}
-
-    std::unique_ptr<Arbiter::Base> clone () const override;
-    std::ostream &describe (std::ostream &os) const override;
-    bool operator== (const Arbiter::Base &other) const override;
-
-    bool operator< (const ArbiterProjectIdentifier &other) const
-    {
-      return _value < other._value;
-    }
-};
 
 struct ArbiterDependency final : public Arbiter::Base
 {

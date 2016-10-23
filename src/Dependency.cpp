@@ -7,16 +7,6 @@
 
 using namespace Arbiter;
 
-ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value)
-{
-  return new ArbiterProjectIdentifier(ArbiterProjectIdentifier::Value(value));
-}
-
-const void *ArbiterProjectIdentifierValue (const ArbiterProjectIdentifier *projectIdentifier)
-{
-  return projectIdentifier->_value.data();
-}
-
 ArbiterDependency *ArbiterCreateDependency (const ArbiterProjectIdentifier *projectIdentifier, const ArbiterRequirement *requirement)
 {
   return new ArbiterDependency(*projectIdentifier, *requirement);
@@ -57,26 +47,6 @@ const ArbiterProjectIdentifier *ArbiterResolvedDependencyProject (const ArbiterR
 const ArbiterSelectedVersion *ArbiterResolvedDependencyVersion (const ArbiterResolvedDependency *dependency)
 {
   return &dependency->_version;
-}
-
-std::unique_ptr<Base> ArbiterProjectIdentifier::clone () const
-{
-  return std::make_unique<ArbiterProjectIdentifier>(*this);
-}
-
-std::ostream &ArbiterProjectIdentifier::describe (std::ostream &os) const
-{
-  return os << "ArbiterProjectIdentifier(" << _value << ")";
-}
-
-bool ArbiterProjectIdentifier::operator== (const Arbiter::Base &other) const
-{
-  auto ptr = dynamic_cast<const ArbiterProjectIdentifier *>(&other);
-  if (!ptr) {
-    return false;
-  }
-
-  return _value == ptr->_value;
 }
 
 ArbiterDependency::ArbiterDependency (ArbiterProjectIdentifier projectIdentifier, const ArbiterRequirement &requirement)
@@ -164,11 +134,6 @@ bool ArbiterResolvedDependency::operator== (const Arbiter::Base &other) const
 bool ArbiterResolvedDependency::operator< (const ArbiterResolvedDependency &other) const
 {
   return _project < other._project;
-}
-
-size_t std::hash<ArbiterProjectIdentifier>::operator() (const ArbiterProjectIdentifier &project) const
-{
-  return hashOf(project._value);
 }
 
 size_t std::hash<ArbiterDependency>::operator() (const ArbiterDependency &dependency) const
