@@ -21,6 +21,12 @@ class Visitor;
 } // namespace Requirement
 } // namespace Arbiter
 
+namespace Arbiter {
+
+class Instantiation;
+
+} // namespace Arbiter
+
 struct ArbiterRequirement : public Arbiter::Base
 {
   public:
@@ -326,6 +332,27 @@ class Prioritized final : public ArbiterRequirement
 
   private:
     int _priority;
+};
+
+class ExcludedInstantiation final : public ArbiterRequirement
+{
+  public:
+    std::shared_ptr<Instantiation> _excludedInstantiation;
+
+    explicit ExcludedInstantiation (std::shared_ptr<Instantiation> excludedInstantiation)
+      : _excludedInstantiation(std::move(excludedInstantiation))
+    {}
+
+    std::unique_ptr<Base> clone () const override
+    {
+      return std::make_unique<ExcludedInstantiation>(*this);
+    }
+
+    bool satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const override;
+    std::unique_ptr<ArbiterRequirement> intersect (const ArbiterRequirement &rhs) const override;
+    std::ostream &describe (std::ostream &os) const override;
+    bool operator== (const Arbiter::Base &other) const override;
+    size_t hash () const noexcept override;
 };
 
 } // namespace Requirement
