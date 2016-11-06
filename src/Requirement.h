@@ -280,6 +280,8 @@ class Compound final : public ArbiterRequirement
   public:
     std::vector<std::shared_ptr<ArbiterRequirement>> _requirements;
 
+    Compound () = default;
+
     explicit Compound (std::vector<std::shared_ptr<ArbiterRequirement>> requirements)
       : _requirements(std::move(requirements))
     {}
