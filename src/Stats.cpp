@@ -4,7 +4,12 @@ namespace Arbiter {
 
 std::ostream &operator<< (std::ostream &os, const Stats &stats)
 {
-  auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(*stats._endTime - *stats._startTime);
+  std::chrono::milliseconds ms;
+  if (stats._startTime && stats._endTime) {
+    ms = std::chrono::duration_cast<std::chrono::milliseconds>(*stats._endTime - *stats._startTime);
+  } else {
+    ms = std::chrono::milliseconds(0);
+  }
 
   return os
     << "Duration: " << ms.count() << "ms\n"
