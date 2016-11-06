@@ -165,6 +165,21 @@ struct Graph final
       return ArbiterResolvedDependency(projectIdentifier, *it);
     }
 
+    explicit operator ArbiterResolvedDependencyGraph () const
+    {
+      // TODO: Pare down ArbiterResolvedDependencyGraph so this conversion is
+      // cheaper.
+      ArbiterResolvedDependencyGraph converted;
+      for (const auto &pair : nodes()) {
+        converted.addNode(resolveProject(pair.first), pair.second.requirement());
+        for (const ArbiterProjectIdentifier &dependency : pair.second.dependencies()) {
+          converted.addEdge(pair.first, dependency);
+        }
+      }
+      
+      return converted;
+    }
+
   private:
     Nodes _nodes;
 };
@@ -189,6 +204,7 @@ Graph resolveDependencies (ArbiterResolver &resolver, const Graph &baseGraph, Op
 
   reset(dependencySet);
 
+retry:
   Graph graph = baseGraph;
   for (auto it = requirementsByProject.begin(); it != requirementsByProject.end(); ) {
     const ArbiterProjectIdentifier &projectIdentifier = it->first;
@@ -204,7 +220,7 @@ Graph resolveDependencies (ArbiterResolver &resolver, const Graph &baseGraph, Op
     } catch (Exception::Base &) {
       if (std::unique_ptr<ArbiterRequirement> intersection = Requirement::ExcludedInstantiation(instantiation).intersect(*it->second)) {
         it->second = std::move(intersection);
-        continue;
+        goto retry;
       }
 
       throw;
@@ -319,21 +335,38 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
+  std::stack<ArbiterDependency> unevaluatedDependencies;
+  for (auto it = _dependenciesToResolve._dependencies.end(); it != _dependenciesToResolve._dependencies.begin(); --it) {
+    unevaluatedDependencies.emplace(*it);
+  }
+
+  Graph graph;
+  while (!unevaluatedDependencies.empty()) {
+    const ArbiterDependency &dependency = unevaluatedDependencies.top();
+  
+    auto it = graph._nodes.find(dependency._projectIdentifier);
+    if (it == graph._nodes.end()) {
+      std::shared_ptr<Instantiation> instantiation = bestProjectInstantiationSatisfying(dependency._projectIdentifier, dependency.requirement());
+
+      if (!instantiation) {
+        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(projectIdentifier));
+      }
+    }
+  }
+
+
+
+
+
+
+
+
   startStats();
   std::unordered_set<ArbiterDependency> dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
 
   try {
     Graph result = resolveDependencies(*this, Graph(), None(), std::move(dependencySet));
-
-    // TODO: Pare down ArbiterResolvedDependencyGraph so this conversion is
-    // cheaper.
-    ArbiterResolvedDependencyGraph converted;
-    for (const auto &pair : result.nodes()) {
-      converted.addNode(result.resolveProject(pair.first), pair.second.requirement());
-      for (const ArbiterProjectIdentifier &dependency : pair.second.dependencies()) {
-        converted.addEdge(pair.first, dependency);
-      }
-    }
+    ArbiterResolvedDependencyGraph converted = static_cast<ArbiterResolvedDependencyGraph>(result);
 
     endStats();
     return converted;
