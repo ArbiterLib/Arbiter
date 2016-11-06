@@ -416,17 +416,13 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
     const auto &variable = variables.at(i);
     const Instantiation &value = *values.at(i);
 
-    // TODO: Move into definition of Instantiation?
-    const auto &versions = value._versions;
-    auto it = std::find_if(versions.begin(), versions.end(), [&](const ArbiterSelectedVersion &version) {
-      return variable.second->satisfiedBy(version);
-    });
+    Optional<ArbiterSelectedVersion> selectedVersion = value.bestVersionSatisfying(*variable.second);
 
     // We must find a version if the node's instantiation satisfied its
     // requirement.
-    assert(it != versions.end());
+    assert(selectedVersion);
 
-    graph.addNode(ArbiterResolvedDependency(variable.first, *it), *variable.second);
+    graph.addNode(ArbiterResolvedDependency(variable.first, std::move(*selectedVersion)), *variable.second);
     for (const ArbiterDependency &dependency : value.dependencies()) {
       graph.addEdge(variable.first, dependency._projectIdentifier);
     }

@@ -7,6 +7,19 @@
 
 namespace Arbiter {
 
+Optional<ArbiterSelectedVersion> Instantiation::bestVersionSatisfying (const ArbiterRequirement &requirement) const
+{
+  auto it = std::find_if(_versions.begin(), _versions.end(), [&](const ArbiterSelectedVersion &version) {
+    return requirement.satisfiedBy(version);
+  });
+
+  if (it == _versions.end()) {
+    return None();
+  } else {
+    return makeOptional(*it);
+  }
+}
+
 bool Instantiation::satisfies (const ArbiterRequirement &requirement) const
 {
   return std::all_of(_versions.begin(), _versions.end(), [&](const ArbiterSelectedVersion &version) {
