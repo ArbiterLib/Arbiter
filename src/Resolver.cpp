@@ -196,43 +196,6 @@ std::ostream &operator<< (std::ostream &os, const Graph &graph)
   return os;
 }
 
-Graph resolveDependencies (ArbiterResolver &resolver, const Graph &baseGraph, Optional<ArbiterProjectIdentifier> dependent, std::unordered_set<ArbiterDependency> dependencySet) noexcept(false)
-{
-  std::map<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>> requirementsByProject;
-  for (const ArbiterDependency &dependency : dependencySet) {
-    requirementsByProject.emplace(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
-  }
-
-  reset(dependencySet);
-
-retry:
-  Graph graph = baseGraph;
-  for (auto it = requirementsByProject.begin(); it != requirementsByProject.end(); ) {
-    const ArbiterProjectIdentifier &projectIdentifier = it->first;
-
-    auto instantiation = graph.addNode(resolver, projectIdentifier, *it->second);
-    if (dependent) {
-      graph.addEdge(*dependent, projectIdentifier);
-    }
-
-    try {
-      Graph newGraph = resolveDependencies(resolver, graph, makeOptional(projectIdentifier), instantiation->dependencies());
-      graph = std::move(newGraph);
-    } catch (Exception::Base &) {
-      if (std::unique_ptr<ArbiterRequirement> intersection = Requirement::ExcludedInstantiation(instantiation).intersect(*it->second)) {
-        it->second = std::move(intersection);
-        goto retry;
-      }
-
-      throw;
-    }
-
-    ++it;
-  }
-
-  return graph;
-}
-
 } // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context)
