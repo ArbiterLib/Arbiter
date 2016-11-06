@@ -224,6 +224,8 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
   std::deque<Variable> variables;
   std::deque<std::shared_ptr<Arbiter::Instantiation>> values;
 
+  startStats();
+
   for (const ArbiterDependency &dependency : _dependenciesToResolve._dependencies) {
     variables.emplace_back(dependency._projectIdentifier, dependency.requirement().cloneRequirement(), None());
   }
@@ -265,6 +267,8 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
     } catch (Arbiter::Exception::UserError &) {
       throw;
     } catch (Arbiter::Exception::Base &ex) {
+      ++_latestStats._deadEnds;
+
       if (values.size() == 0) {
         // Nothing further to try.
         throw;
@@ -329,7 +333,8 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
     }
   }
 
-  // TODO: Stats collection
+  endStats();
+
   return graph;
 }
 
