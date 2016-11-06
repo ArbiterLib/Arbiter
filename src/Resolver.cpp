@@ -407,6 +407,8 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 
         it->addRequirement(dependency.requirement().cloneRequirement(), makeOptional(projectIdentifier));
       }
+    } catch (Arbiter::Exception::UserError &) {
+      throw;
     } catch (Arbiter::Exception::Base &ex) {
       if (values.size() == 0) {
         // Nothing further to try.
