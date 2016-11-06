@@ -163,28 +163,7 @@ class Network final
       _values.pop_back();
 
       ArbiterProjectIdentifier culprit = _variables.at(index).projectIdentifier();
-
-      for (auto it = _variables.begin(); it != _variables.end();) {
-        if (it->projectIdentifier() != culprit) {
-          if (it->removeRequirementsFrom(culprit) == 0) {
-            size_t index = it - _variables.begin();
-
-            it = _variables.erase(it);
-
-            // TODO: Recursively remove this value's requirements.
-            assert(index >= _values.size());
-            /*
-            if (index < _values.size()) {
-              _values.erase(_values.begin() + index);
-            }
-            */
-
-            continue;
-          }
-        }
-
-        ++it;
-      }
+      removeRequirementsFrom(culprit);
 
       // FIXME: Yet another O(n) enumeration
       auto it = std::find_if(_variables.begin(), _variables.end(), [&](const Variable &variable) {
@@ -263,6 +242,31 @@ class Network final
   private:
     std::deque<Variable> _variables;
     std::deque<std::shared_ptr<Arbiter::Instantiation>> _values;
+
+    void removeRequirementsFrom (const ArbiterProjectIdentifier &culprit)
+    {
+      for (auto it = _variables.begin(); it != _variables.end();) {
+        if (it->projectIdentifier() != culprit) {
+          if (it->removeRequirementsFrom(culprit) == 0) {
+            size_t index = it - _variables.begin();
+
+            it = _variables.erase(it);
+
+            // TODO: Recursively remove this value's requirements.
+            assert(index >= _values.size());
+            /*
+            if (index < _values.size()) {
+              _values.erase(_values.begin() + index);
+            }
+            */
+
+            continue;
+          }
+        }
+
+        ++it;
+      }
+    }
 };
 
 } // namespace
