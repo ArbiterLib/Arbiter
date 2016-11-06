@@ -213,6 +213,9 @@ bool ArbiterSelectedVersion::operator< (const ArbiterSelectedVersion &other) con
     if (other._semanticVersion) {
       if (*_semanticVersion < *other._semanticVersion) {
         return true;
+      } else if (*_semanticVersion != *other._semanticVersion) {
+        // Must be greater.
+        return false;
       }
     } else {
       // Versions with a semantic version component should have higher
