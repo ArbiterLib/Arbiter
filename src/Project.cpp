@@ -47,6 +47,27 @@ std::shared_ptr<Instantiation> Project::instantiationForDependencies (const std:
   }
 }
 
+std::ostream &operator<< (std::ostream &os, const Project &project)
+{
+  os << "Project domain {";
+
+  for (auto it = project.domain().begin(); it != project.domain().end(); ++it) {
+    if (it != project.domain().begin()) {
+      os << ", ";
+    }
+
+    os << *it;
+  }
+
+  os << "}, instantiations {\n";
+
+  for (const auto &instantiation : project.instantiations()) {
+    os << "\t" << *instantiation << "\n";
+  }
+  
+  return os << "}";
+}
+
 } // namespace Arbiter
 
 ArbiterProjectIdentifier *ArbiterCreateProjectIdentifier (ArbiterUserValue value)

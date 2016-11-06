@@ -94,4 +94,6 @@ class Project final
     Instantiations _instantiations;
 };
 
+std::ostream &operator<< (std::ostream &os, const Project &project);
+
 } // namespace Arbiter
