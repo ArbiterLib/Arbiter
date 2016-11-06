@@ -14,6 +14,7 @@
 #include <iostream>
 #include <map>
 #include <set>
+#include <stack>
 #include <unordered_set>
 
 using namespace Arbiter;
@@ -335,46 +336,80 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
-  std::stack<ArbiterDependency> unevaluatedDependencies;
-  for (auto it = _dependenciesToResolve._dependencies.end(); it != _dependenciesToResolve._dependencies.begin(); --it) {
-    unevaluatedDependencies.emplace(*it);
+  std::deque<std::pair<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>>> variables;
+  std::deque<std::shared_ptr<Arbiter::Instantiation>> values;
+
+  for (const ArbiterDependency &dependency : _dependenciesToResolve._dependencies) {
+    variables.emplace_back(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
   }
 
-  Graph graph;
-  while (!unevaluatedDependencies.empty()) {
-    const ArbiterDependency &dependency = unevaluatedDependencies.top();
-  
-    auto it = graph._nodes.find(dependency._projectIdentifier);
-    if (it == graph._nodes.end()) {
-      std::shared_ptr<Instantiation> instantiation = bestProjectInstantiationSatisfying(dependency._projectIdentifier, dependency.requirement());
+  while (values.size() < variables.size()) {
+    const auto &variable = variables.at(values.size());
+    const ArbiterProjectIdentifier &projectIdentifier = variable.first;
+    const ArbiterRequirement &requirement = *variable.second;
 
-      if (!instantiation) {
-        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(projectIdentifier));
+    std::shared_ptr<Instantiation> instantiationPtr = bestProjectInstantiationSatisfying(projectIdentifier, requirement);
+    if (!instantiationPtr) {
+      // TODO: Backtrack
+      throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(projectIdentifier));
+    }
+
+    const Instantiation &instantiation = *instantiationPtr;
+    values.emplace_back(std::move(instantiationPtr));
+
+    for (const ArbiterDependency &dependency : instantiation.dependencies()) {
+      auto it = std::find_if(variables.begin(), variables.end(), [&](const auto &pair) {
+        return pair.first == dependency._projectIdentifier;
+      });
+
+      if (it == variables.end()) {
+        variables.emplace_back(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
+        continue;
+      }
+
+      std::unique_ptr<ArbiterRequirement> intersection = it->second->intersect(dependency.requirement());
+      if (!intersection) {
+        // TODO: Backtrack
+        throw Exception::MutuallyExclusiveConstraints(toString(dependency.requirement()) + " and " + toString(*it->second) + " on " + toString(dependency._projectIdentifier) + " are mutually exclusive");
+      }
+
+      const ArbiterRequirement &newRequirement = *intersection;
+      it->second = std::move(intersection);
+
+      size_t index = it - variables.begin();
+      if (index < values.size()) {
+        const Instantiation &instantiation = *values.at(index);
+        if (!instantiation.satisfies(newRequirement)) {
+          // TODO: Backtrack
+          throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(newRequirement) + " on " + toString(dependency._projectIdentifier) + " with " + toString(instantiation));
+        }
       }
     }
   }
 
+  ArbiterResolvedDependencyGraph graph;
+  for (size_t i = 0; i < variables.size(); ++i) {
+    const auto &variable = variables.at(i);
+    const Instantiation &value = *values.at(i);
 
+    // TODO: Move into definition of Instantiation?
+    const auto &versions = value._versions;
+    auto it = std::find_if(versions.begin(), versions.end(), [&](const ArbiterSelectedVersion &version) {
+      return variable.second->satisfiedBy(version);
+    });
 
+    // We must find a version if the node's instantiation satisfied its
+    // requirement.
+    assert(it != versions.end());
 
-
-
-
-
-  startStats();
-  std::unordered_set<ArbiterDependency> dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
-
-  try {
-    Graph result = resolveDependencies(*this, Graph(), None(), std::move(dependencySet));
-    ArbiterResolvedDependencyGraph converted = static_cast<ArbiterResolvedDependencyGraph>(result);
-
-    endStats();
-    return converted;
-  } catch (...) {
-    // TODO: Clean up with RAII?
-    endStats();
-    throw;
+    graph.addNode(ArbiterResolvedDependency(variable.first, *it), *variable.second);
+    for (const ArbiterDependency &dependency : value.dependencies()) {
+      graph.addEdge(variable.first, dependency._projectIdentifier);
+    }
   }
+
+  // TODO: Stats collection
+  return graph;
 }
 
 std::unique_ptr<Arbiter::Base> ArbiterResolver::clone () const
