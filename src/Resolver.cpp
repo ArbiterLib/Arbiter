@@ -11,6 +11,7 @@
 #include <cassert>
 #include <exception>
 #include <functional>
+#include <list>
 #include <iostream>
 #include <map>
 #include <set>
@@ -21,23 +22,39 @@ using namespace Arbiter;
 
 namespace {
 
+struct Constraint final
+{
+  public:
+    Constraint (std::shared_ptr<ArbiterRequirement> requirement, Optional<ArbiterProjectIdentifier> applicator)
+      : _requirement(std::move(requirement))
+      , _applicator(std::move(applicator))
+    {}
+
+    std::shared_ptr<ArbiterRequirement> _requirement;
+    Optional<ArbiterProjectIdentifier> _applicator;
+};
+
 struct Variable final
 {
   public:
     Variable (ArbiterProjectIdentifier projectIdentifier, std::shared_ptr<ArbiterRequirement> startingRequirement, Optional<ArbiterProjectIdentifier> dependent)
       : _projectIdentifier(std::move(projectIdentifier))
     {
-      _requirementsByApplicator.emplace(std::move(dependent), std::move(startingRequirement));
+      assert(startingRequirement);
+
+      _constraints.emplace_back(std::move(startingRequirement), std::move(dependent));
     }
 
-    ArbiterProjectIdentifier _projectIdentifier;
-    std::unordered_multimap<Optional<ArbiterProjectIdentifier>, std::shared_ptr<ArbiterRequirement>> _requirementsByApplicator;
+    const ArbiterProjectIdentifier &projectIdentifier () const
+    {
+      return _projectIdentifier;
+    }
 
     Requirement::Compound requirement () const
     {
       Requirement::Compound compound;
-      for (const auto &pair : _requirementsByApplicator) {
-        compound._requirements.emplace_back(pair.second);
+      for (const Constraint &constraint : _constraints) {
+        compound._requirements.emplace_back(constraint._requirement);
       }
 
       return compound;
@@ -45,47 +62,60 @@ struct Variable final
 
     void addRequirement (std::shared_ptr<ArbiterRequirement> requirement, Optional<ArbiterProjectIdentifier> dependent) noexcept(false)
     {
-      bool exclusive = std::any_of(_requirementsByApplicator.begin(), _requirementsByApplicator.end(), [&](const auto &pair) {
-        // TODO: We shouldn't need to allocate a new requirement to do this
-        // check.
-        return !requirement->intersect(*pair.second);
-      });
-
-      if (exclusive) {
+      // TODO: We shouldn't need to allocate a new requirement to do this
+      // check.
+      if (!requirement->intersect(this->requirement())) {
         throw Exception::MutuallyExclusiveConstraints(toString(*requirement) + " and " + toString(this->requirement()) + " on " + toString(_projectIdentifier) + " are mutually exclusive");
       }
 
-      _requirementsByApplicator.emplace(std::move(dependent), std::move(requirement));
+      _constraints.emplace_back(std::move(requirement), std::move(dependent));
     }
 
+    /**
+     * Adds a requirement to this variable that disallows the given
+     * instantiation.
+     *
+     * This method may only be used when there is at least one constraint on the
+     * variable already. (Otherwise, there would be guidance for selecting
+     * a version in the first place.)
+     */
     void excludeInstantiation (std::shared_ptr<Instantiation> instantiation)
     {
-      assert(_requirementsByApplicator.size() > 0);
+      assert(_constraints.size() > 0);
 
       // Attribute the excluded instantiation to the last project which added
       // a requirement here, because trying a new instantiation of _that_
-      // project should reset the exclusions added afterward.
-      // 
-      // TODO: Figure out a better algorithm/data structure for this.
-      auto next = _requirementsByApplicator.begin();
-      Optional<ArbiterProjectIdentifier> applicator;
+      // project should invalidate any exclusions on _this_ project which were
+      // added afterward.
+      const Constraint &lastConstraint = _constraints.back();
 
-      while (true) {
-        auto it = next++;
-        if (next == _requirementsByApplicator.end()) {
-          applicator = it->first;
-          break;
-        }
-      };
-
-      _requirementsByApplicator.emplace(std::move(applicator), std::make_shared<Requirement::ExcludedInstantiation>(std::move(instantiation)));
+      std::shared_ptr<ArbiterRequirement> requirement = std::make_shared<Requirement::ExcludedInstantiation>(std::move(instantiation));
+      _constraints.emplace_back(std::move(requirement), lastConstraint._applicator);
     }
 
+    /**
+     * Removes requirements on this variable which originated from the given
+     * project.
+     *
+     * Returns the remaining number of requirements on the variable. If zero, it
+     * should be removed from the current list of variables.
+     */
     size_t removeRequirementsFrom (const ArbiterProjectIdentifier &applicator)
     {
-      _requirementsByApplicator.erase(makeOptional(applicator));
-      return _requirementsByApplicator.size();
+      for (auto it = _constraints.begin(); it != _constraints.end();) {
+        if (it->_applicator == makeOptional(applicator)) {
+          it = _constraints.erase(it);
+        } else {
+          ++it;
+        }
+      }
+
+      return _constraints.size();
     }
+
+  private:
+    ArbiterProjectIdentifier _projectIdentifier;
+    std::list<const Constraint> _constraints;
 };
 
 } // namespace
@@ -201,7 +231,7 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
   while (values.size() < variables.size()) {
     try {
       const Variable &variable = variables.at(values.size());
-      const ArbiterProjectIdentifier &projectIdentifier = variable._projectIdentifier;
+      const ArbiterProjectIdentifier &projectIdentifier = variable.projectIdentifier();
       const auto requirement = variable.requirement();
 
       std::shared_ptr<Instantiation> instantiationPtr = bestProjectInstantiationSatisfying(projectIdentifier, requirement);
@@ -214,7 +244,7 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 
       for (const ArbiterDependency &dependency : instantiation.dependencies()) {
         auto it = std::find_if(variables.begin(), variables.end(), [&](const Variable &variable) {
-          return variable._projectIdentifier == dependency._projectIdentifier;
+          return variable.projectIdentifier() == dependency._projectIdentifier;
         });
 
         if (it == variables.end()) {
@@ -245,10 +275,10 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
       std::shared_ptr<Arbiter::Instantiation> instantiation = values.at(index);
       values.pop_back();
 
-      ArbiterProjectIdentifier culprit = variables.at(index)._projectIdentifier;
+      ArbiterProjectIdentifier culprit = variables.at(index).projectIdentifier();
 
       for (auto it = variables.begin(); it != variables.end();) {
-        if (it->_projectIdentifier != culprit) {
+        if (it->projectIdentifier() != culprit) {
           if (it->removeRequirementsFrom(culprit) == 0) {
             size_t index = it - variables.begin();
 
@@ -271,7 +301,7 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 
       // FIXME: Yet another O(n) enumeration
       auto it = std::find_if(variables.begin(), variables.end(), [&](const Variable &variable) {
-        return variable._projectIdentifier == culprit;
+        return variable.projectIdentifier() == culprit;
       });
 
       assert(it != variables.end());
@@ -293,9 +323,9 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
     // requirement.
     assert(selectedVersion);
 
-    graph.addNode(ArbiterResolvedDependency(variable._projectIdentifier, std::move(*selectedVersion)), requirement);
+    graph.addNode(ArbiterResolvedDependency(variable.projectIdentifier(), std::move(*selectedVersion)), requirement);
     for (const ArbiterDependency &dependency : value.dependencies()) {
-      graph.addEdge(variable._projectIdentifier, dependency._projectIdentifier);
+      graph.addEdge(variable.projectIdentifier(), dependency._projectIdentifier);
     }
   }
 
