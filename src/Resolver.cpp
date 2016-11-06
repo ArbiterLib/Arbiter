@@ -22,6 +22,10 @@ using namespace Arbiter;
 
 namespace {
 
+/**
+ * Represents a constraint in a network, with information about where it
+ * originated.
+ */
 struct Constraint final
 {
   public:
@@ -34,6 +38,9 @@ struct Constraint final
     Optional<ArbiterProjectIdentifier> _applicator;
 };
 
+/**
+ * Represents a variable in partially-solved constraint network.
+ */
 struct Variable final
 {
   public:
