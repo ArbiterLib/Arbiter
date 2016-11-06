@@ -118,6 +118,146 @@ struct Variable final
     std::list<const Constraint> _constraints;
 };
 
+/**
+ * Represents a constraint network that is being solved.
+ */
+class Network final
+{
+  public:
+    bool solved () const
+    {
+      return _values.size() == _variables.size();
+    }
+
+    const Variable &nextUnsolvedVariable () const
+    {
+      assert(!solved());
+
+      return _variables.at(_values.size());
+    }
+
+    /**
+     * Attempts to backtrack, un-solving one or more variables.
+     *
+     * Returns false if unable to backtrack any further.
+     */
+    bool backtrack ()
+    {
+      assert(!_variables.empty());
+
+      if (_values.size() == 0) {
+        // Nothing further to try.
+        return false;
+      }
+
+      size_t index = _values.size() - 1;
+
+      std::shared_ptr<Arbiter::Instantiation> instantiation = _values.at(index);
+      _values.pop_back();
+
+      ArbiterProjectIdentifier culprit = _variables.at(index).projectIdentifier();
+
+      for (auto it = _variables.begin(); it != _variables.end();) {
+        if (it->projectIdentifier() != culprit) {
+          if (it->removeRequirementsFrom(culprit) == 0) {
+            size_t index = it - _variables.begin();
+
+            it = _variables.erase(it);
+
+            // TODO: Recursively remove this value's requirements.
+            assert(index >= _values.size());
+            /*
+            if (index < _values.size()) {
+              _values.erase(_values.begin() + index);
+            }
+            */
+
+            continue;
+          }
+        }
+
+        ++it;
+      }
+
+      // FIXME: Yet another O(n) enumeration
+      auto it = std::find_if(_variables.begin(), _variables.end(), [&](const Variable &variable) {
+        return variable.projectIdentifier() == culprit;
+      });
+
+      assert(it != _variables.end());
+      it->excludeInstantiation(std::move(instantiation));
+
+      return true;
+    }
+
+    void solveNextVariable (std::shared_ptr<Instantiation> value)
+    {
+      assert(!solved());
+
+      _values.emplace_back(std::move(value));
+    }
+
+    /**
+     * Attempts to add the given dependency into the constraint network, as an
+     * unsolved variable.
+     *
+     * If the dependency already exists in the network with an assigned value,
+     * the respective requirements are intersected. If the assigned value does
+     * not satisfy the intersection, an exception is thrown, and no change to
+     * the network occurs.
+     */
+    void enqueueDependency (const ArbiterDependency &dependency, Optional<ArbiterProjectIdentifier> dependent) noexcept(false)
+    {
+      auto it = std::find_if(_variables.begin(), _variables.end(), [&](const Variable &variable) {
+        return variable.projectIdentifier() == dependency._projectIdentifier;
+      });
+
+      if (it == _variables.end()) {
+        _variables.emplace_back(dependency._projectIdentifier, dependency.requirement().cloneRequirement(), std::move(dependent));
+        return;
+      }
+
+      size_t index = it - _variables.begin();
+      if (index < _values.size()) {
+        const Instantiation &instantiation = *_values.at(index);
+        if (!instantiation.satisfies(dependency.requirement())) {
+          throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(dependency.requirement()) + " on " + toString(dependency._projectIdentifier) + " with " + toString(instantiation));
+        }
+      }
+
+      it->addRequirement(dependency.requirement().cloneRequirement(), std::move(dependent));
+    }
+
+    operator ArbiterResolvedDependencyGraph () const
+    {
+      assert(solved());
+
+      ArbiterResolvedDependencyGraph graph;
+      for (size_t i = 0; i < _variables.size(); ++i) {
+        const Variable &variable = _variables.at(i);
+        const Instantiation &value = *_values.at(i);
+
+        const auto requirement = variable.requirement();
+        Optional<ArbiterSelectedVersion> selectedVersion = value.bestVersionSatisfying(requirement);
+
+        // We must find a version if the node's instantiation satisfied its
+        // requirement.
+        assert(selectedVersion);
+
+        graph.addNode(ArbiterResolvedDependency(variable.projectIdentifier(), std::move(*selectedVersion)), requirement);
+        for (const ArbiterDependency &dependency : value.dependencies()) {
+          graph.addEdge(variable.projectIdentifier(), dependency._projectIdentifier);
+        }
+      }
+
+      return graph;
+    }
+
+  private:
+    std::deque<Variable> _variables;
+    std::deque<std::shared_ptr<Arbiter::Instantiation>> _values;
+};
+
 } // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context)
@@ -221,18 +361,16 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
-  std::deque<Variable> variables;
-  std::deque<std::shared_ptr<Arbiter::Instantiation>> values;
-
   startStats();
 
+  Network network;
   for (const ArbiterDependency &dependency : _dependenciesToResolve._dependencies) {
-    variables.emplace_back(dependency._projectIdentifier, dependency.requirement().cloneRequirement(), None());
+    network.enqueueDependency(dependency, None());
   }
 
-  while (values.size() < variables.size()) {
+  while (!network.solved()) {
     try {
-      const Variable &variable = variables.at(values.size());
+      const Variable &variable = network.nextUnsolvedVariable();
       const ArbiterProjectIdentifier &projectIdentifier = variable.projectIdentifier();
       const auto requirement = variable.requirement();
 
@@ -242,97 +380,24 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
       }
 
       const Instantiation &instantiation = *instantiationPtr;
-      values.emplace_back(std::move(instantiationPtr));
+      network.solveNextVariable(std::move(instantiationPtr));
 
       for (const ArbiterDependency &dependency : instantiation.dependencies()) {
-        auto it = std::find_if(variables.begin(), variables.end(), [&](const Variable &variable) {
-          return variable.projectIdentifier() == dependency._projectIdentifier;
-        });
-
-        if (it == variables.end()) {
-          variables.emplace_back(dependency._projectIdentifier, dependency.requirement().cloneRequirement(), makeOptional(projectIdentifier));
-          continue;
-        }
-
-        size_t index = it - variables.begin();
-        if (index < values.size()) {
-          const Instantiation &instantiation = *values.at(index);
-          if (!instantiation.satisfies(dependency.requirement())) {
-            throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(dependency.requirement()) + " on " + toString(dependency._projectIdentifier) + " with " + toString(instantiation));
-          }
-        }
-
-        it->addRequirement(dependency.requirement().cloneRequirement(), makeOptional(projectIdentifier));
+        network.enqueueDependency(dependency, makeOptional(projectIdentifier));
       }
     } catch (Arbiter::Exception::UserError &) {
+      // Always consider errors in user-provided callbacks to be fatal.
       throw;
-    } catch (Arbiter::Exception::Base &ex) {
+    } catch (Arbiter::Exception::Base &) {
       ++_latestStats._deadEnds;
 
-      if (values.size() == 0) {
-        // Nothing further to try.
+      if (!network.backtrack()) {
         throw;
       }
-
-      size_t index = values.size() - 1;
-
-      std::shared_ptr<Arbiter::Instantiation> instantiation = values.at(index);
-      values.pop_back();
-
-      ArbiterProjectIdentifier culprit = variables.at(index).projectIdentifier();
-
-      for (auto it = variables.begin(); it != variables.end();) {
-        if (it->projectIdentifier() != culprit) {
-          if (it->removeRequirementsFrom(culprit) == 0) {
-            size_t index = it - variables.begin();
-
-            it = variables.erase(it);
-
-            // TODO: Recursively remove this value's requirements.
-            assert(index >= values.size());
-            /*
-            if (index < _values.size()) {
-              _values.erase(_values.begin() + index);
-            }
-            */
-
-            continue;
-          }
-        }
-
-        ++it;
-      }
-
-      // FIXME: Yet another O(n) enumeration
-      auto it = std::find_if(variables.begin(), variables.end(), [&](const Variable &variable) {
-        return variable.projectIdentifier() == culprit;
-      });
-
-      assert(it != variables.end());
-
-      // TODO: If this leads to an unsatisfiable requirement, backtrack further.
-      it->excludeInstantiation(std::move(instantiation));
     }
   }
 
-  ArbiterResolvedDependencyGraph graph;
-  for (size_t i = 0; i < variables.size(); ++i) {
-    const Variable &variable = variables.at(i);
-    const Instantiation &value = *values.at(i);
-
-    const auto requirement = variable.requirement();
-    Optional<ArbiterSelectedVersion> selectedVersion = value.bestVersionSatisfying(requirement);
-
-    // We must find a version if the node's instantiation satisfied its
-    // requirement.
-    assert(selectedVersion);
-
-    graph.addNode(ArbiterResolvedDependency(variable.projectIdentifier(), std::move(*selectedVersion)), requirement);
-    for (const ArbiterDependency &dependency : value.dependencies()) {
-      graph.addEdge(variable.projectIdentifier(), dependency._projectIdentifier);
-    }
-  }
-
+  auto graph = static_cast<ArbiterResolvedDependencyGraph>(std::move(network));
   endStats();
 
   return graph;
