@@ -334,20 +334,87 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
   }
 }
 
+struct Variable final
+{
+  public:
+    Variable (ArbiterProjectIdentifier projectIdentifier, std::shared_ptr<ArbiterRequirement> startingRequirement, Optional<ArbiterProjectIdentifier> dependent)
+      : _projectIdentifier(std::move(projectIdentifier))
+    {
+      _requirementsByApplicator.emplace(std::move(dependent), std::move(startingRequirement));
+    }
+
+    ArbiterProjectIdentifier _projectIdentifier;
+    std::unordered_multimap<Optional<ArbiterProjectIdentifier>, std::shared_ptr<ArbiterRequirement>> _requirementsByApplicator;
+
+    Requirement::Compound requirement () const
+    {
+      Requirement::Compound compound;
+      for (const auto &pair : _requirementsByApplicator) {
+        compound._requirements.emplace_back(pair.second);
+      }
+
+      return compound;
+    }
+
+    void addRequirement (std::shared_ptr<ArbiterRequirement> requirement, Optional<ArbiterProjectIdentifier> dependent) noexcept(false)
+    {
+      bool exclusive = std::any_of(_requirementsByApplicator.begin(), _requirementsByApplicator.end(), [&](const auto &pair) {
+        // TODO: We shouldn't need to allocate a new requirement to do this
+        // check.
+        return !requirement->intersect(*pair.second);
+      });
+
+      if (exclusive) {
+        throw Exception::MutuallyExclusiveConstraints(toString(*requirement) + " and " + toString(this->requirement()) + " on " + toString(_projectIdentifier) + " are mutually exclusive");
+      }
+
+      _requirementsByApplicator.emplace(std::move(dependent), std::move(requirement));
+    }
+
+    void excludeInstantiation (std::shared_ptr<Instantiation> instantiation)
+    {
+      assert(_requirementsByApplicator.size() > 0);
+
+      // Attribute the excluded instantiation to the last project which added
+      // a requirement here, because trying a new instantiation of _that_
+      // project should reset the exclusions added afterward.
+      // 
+      // TODO: Figure out a better algorithm/data structure for this.
+      auto next = _requirementsByApplicator.begin();
+      Optional<ArbiterProjectIdentifier> applicator;
+
+      while (true) {
+        auto it = next++;
+        if (next == _requirementsByApplicator.end()) {
+          applicator = it->first;
+          break;
+        }
+      };
+
+      _requirementsByApplicator.emplace(std::move(applicator), std::make_shared<Requirement::ExcludedInstantiation>(std::move(instantiation)));
+    }
+
+    size_t removeRequirementsFrom (const ArbiterProjectIdentifier &applicator)
+    {
+      _requirementsByApplicator.erase(makeOptional(applicator));
+      return _requirementsByApplicator.size();
+    }
+};
+
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
-  std::deque<std::pair<ArbiterProjectIdentifier, std::unique_ptr<ArbiterRequirement>>> variables;
+  std::deque<Variable> variables;
   std::deque<std::shared_ptr<Arbiter::Instantiation>> values;
 
   for (const ArbiterDependency &dependency : _dependenciesToResolve._dependencies) {
-    variables.emplace_back(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
+    variables.emplace_back(dependency._projectIdentifier, dependency.requirement().cloneRequirement(), None());
   }
 
   while (values.size() < variables.size()) {
     try {
-      const auto &variable = variables.at(values.size());
-      const ArbiterProjectIdentifier &projectIdentifier = variable.first;
-      const ArbiterRequirement &requirement = *variable.second;
+      const Variable &variable = variables.at(values.size());
+      const ArbiterProjectIdentifier &projectIdentifier = variable._projectIdentifier;
+      const auto requirement = variable.requirement();
 
       std::shared_ptr<Instantiation> instantiationPtr = bestProjectInstantiationSatisfying(projectIdentifier, requirement);
       if (!instantiationPtr) {
@@ -358,34 +425,24 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
       values.emplace_back(std::move(instantiationPtr));
 
       for (const ArbiterDependency &dependency : instantiation.dependencies()) {
-        auto it = std::find_if(variables.begin(), variables.end(), [&](const auto &pair) {
-          return pair.first == dependency._projectIdentifier;
+        auto it = std::find_if(variables.begin(), variables.end(), [&](const Variable &variable) {
+          return variable._projectIdentifier == dependency._projectIdentifier;
         });
 
         if (it == variables.end()) {
-          variables.emplace_back(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
+          variables.emplace_back(dependency._projectIdentifier, dependency.requirement().cloneRequirement(), makeOptional(projectIdentifier));
           continue;
         }
-
-        std::unique_ptr<ArbiterRequirement> intersection = it->second->intersect(dependency.requirement());
-        if (!intersection) {
-          throw Exception::MutuallyExclusiveConstraints(toString(dependency.requirement()) + " and " + toString(*it->second) + " on " + toString(dependency._projectIdentifier) + " are mutually exclusive");
-        }
-
-        const ArbiterRequirement &newRequirement = *intersection;
-
-        // TODO: Don't replace with intersection, instead add this dependency as
-        // a new variable, or do something else that permits us to remove this
-        // requirement when backtracking
-        it->second = std::move(intersection);
 
         size_t index = it - variables.begin();
         if (index < values.size()) {
           const Instantiation &instantiation = *values.at(index);
-          if (!instantiation.satisfies(newRequirement)) {
-            throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(newRequirement) + " on " + toString(dependency._projectIdentifier) + " with " + toString(instantiation));
+          if (!instantiation.satisfies(dependency.requirement())) {
+            throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(dependency.requirement()) + " on " + toString(dependency._projectIdentifier) + " with " + toString(instantiation));
           }
         }
+
+        it->addRequirement(dependency.requirement().cloneRequirement(), makeOptional(projectIdentifier));
       }
     } catch (Arbiter::Exception::Base &ex) {
       if (values.size() == 0) {
@@ -398,33 +455,57 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
       std::shared_ptr<Arbiter::Instantiation> instantiation = values.at(index);
       values.pop_back();
 
-      Requirement::ExcludedInstantiation newRequirement(std::move(instantiation));
-      auto &variable = variables.at(index);
+      ArbiterProjectIdentifier culprit = variables.at(index)._projectIdentifier;
 
-      std::unique_ptr<ArbiterRequirement> intersection = variable.second->intersect(newRequirement);
-      assert(intersection);
+      for (auto it = variables.begin(); it != variables.end();) {
+        if (it->_projectIdentifier != culprit) {
+          if (it->removeRequirementsFrom(culprit) == 0) {
+            size_t index = it - variables.begin();
 
-      // TODO: Don't replace with intersection, instead add this dependency as
-      // a new variable, or do something else that permits us to remove this
-      // requirement when backtracking
-      variable.second = std::move(intersection);
+            it = variables.erase(it);
+
+            // TODO: Recursively remove this value's requirements.
+            assert(index >= values.size());
+            /*
+            if (index < _values.size()) {
+              _values.erase(_values.begin() + index);
+            }
+            */
+
+            continue;
+          }
+        }
+
+        ++it;
+      }
+
+      // FIXME: Yet another O(n) enumeration
+      auto it = std::find_if(variables.begin(), variables.end(), [&](const Variable &variable) {
+        return variable._projectIdentifier == culprit;
+      });
+
+      assert(it != variables.end());
+
+      // TODO: If this leads to an unsatisfiable requirement, backtrack further.
+      it->excludeInstantiation(std::move(instantiation));
     }
   }
 
   ArbiterResolvedDependencyGraph graph;
   for (size_t i = 0; i < variables.size(); ++i) {
-    const auto &variable = variables.at(i);
+    const Variable &variable = variables.at(i);
     const Instantiation &value = *values.at(i);
 
-    Optional<ArbiterSelectedVersion> selectedVersion = value.bestVersionSatisfying(*variable.second);
+    const auto requirement = variable.requirement();
+    Optional<ArbiterSelectedVersion> selectedVersion = value.bestVersionSatisfying(requirement);
 
     // We must find a version if the node's instantiation satisfied its
     // requirement.
     assert(selectedVersion);
 
-    graph.addNode(ArbiterResolvedDependency(variable.first, std::move(*selectedVersion)), *variable.second);
+    graph.addNode(ArbiterResolvedDependency(variable._projectIdentifier, std::move(*selectedVersion)), requirement);
     for (const ArbiterDependency &dependency : value.dependencies()) {
-      graph.addEdge(variable.first, dependency._projectIdentifier);
+      graph.addEdge(variable._projectIdentifier, dependency._projectIdentifier);
     }
   }
 
