@@ -21,6 +21,73 @@ using namespace Arbiter;
 
 namespace {
 
+struct Variable final
+{
+  public:
+    Variable (ArbiterProjectIdentifier projectIdentifier, std::shared_ptr<ArbiterRequirement> startingRequirement, Optional<ArbiterProjectIdentifier> dependent)
+      : _projectIdentifier(std::move(projectIdentifier))
+    {
+      _requirementsByApplicator.emplace(std::move(dependent), std::move(startingRequirement));
+    }
+
+    ArbiterProjectIdentifier _projectIdentifier;
+    std::unordered_multimap<Optional<ArbiterProjectIdentifier>, std::shared_ptr<ArbiterRequirement>> _requirementsByApplicator;
+
+    Requirement::Compound requirement () const
+    {
+      Requirement::Compound compound;
+      for (const auto &pair : _requirementsByApplicator) {
+        compound._requirements.emplace_back(pair.second);
+      }
+
+      return compound;
+    }
+
+    void addRequirement (std::shared_ptr<ArbiterRequirement> requirement, Optional<ArbiterProjectIdentifier> dependent) noexcept(false)
+    {
+      bool exclusive = std::any_of(_requirementsByApplicator.begin(), _requirementsByApplicator.end(), [&](const auto &pair) {
+        // TODO: We shouldn't need to allocate a new requirement to do this
+        // check.
+        return !requirement->intersect(*pair.second);
+      });
+
+      if (exclusive) {
+        throw Exception::MutuallyExclusiveConstraints(toString(*requirement) + " and " + toString(this->requirement()) + " on " + toString(_projectIdentifier) + " are mutually exclusive");
+      }
+
+      _requirementsByApplicator.emplace(std::move(dependent), std::move(requirement));
+    }
+
+    void excludeInstantiation (std::shared_ptr<Instantiation> instantiation)
+    {
+      assert(_requirementsByApplicator.size() > 0);
+
+      // Attribute the excluded instantiation to the last project which added
+      // a requirement here, because trying a new instantiation of _that_
+      // project should reset the exclusions added afterward.
+      // 
+      // TODO: Figure out a better algorithm/data structure for this.
+      auto next = _requirementsByApplicator.begin();
+      Optional<ArbiterProjectIdentifier> applicator;
+
+      while (true) {
+        auto it = next++;
+        if (next == _requirementsByApplicator.end()) {
+          applicator = it->first;
+          break;
+        }
+      };
+
+      _requirementsByApplicator.emplace(std::move(applicator), std::make_shared<Requirement::ExcludedInstantiation>(std::move(instantiation)));
+    }
+
+    size_t removeRequirementsFrom (const ArbiterProjectIdentifier &applicator)
+    {
+      _requirementsByApplicator.erase(makeOptional(applicator));
+      return _requirementsByApplicator.size();
+    }
+};
+
 } // namespace
 
 ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context)
@@ -121,73 +188,6 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
     return None();
   }
 }
-
-struct Variable final
-{
-  public:
-    Variable (ArbiterProjectIdentifier projectIdentifier, std::shared_ptr<ArbiterRequirement> startingRequirement, Optional<ArbiterProjectIdentifier> dependent)
-      : _projectIdentifier(std::move(projectIdentifier))
-    {
-      _requirementsByApplicator.emplace(std::move(dependent), std::move(startingRequirement));
-    }
-
-    ArbiterProjectIdentifier _projectIdentifier;
-    std::unordered_multimap<Optional<ArbiterProjectIdentifier>, std::shared_ptr<ArbiterRequirement>> _requirementsByApplicator;
-
-    Requirement::Compound requirement () const
-    {
-      Requirement::Compound compound;
-      for (const auto &pair : _requirementsByApplicator) {
-        compound._requirements.emplace_back(pair.second);
-      }
-
-      return compound;
-    }
-
-    void addRequirement (std::shared_ptr<ArbiterRequirement> requirement, Optional<ArbiterProjectIdentifier> dependent) noexcept(false)
-    {
-      bool exclusive = std::any_of(_requirementsByApplicator.begin(), _requirementsByApplicator.end(), [&](const auto &pair) {
-        // TODO: We shouldn't need to allocate a new requirement to do this
-        // check.
-        return !requirement->intersect(*pair.second);
-      });
-
-      if (exclusive) {
-        throw Exception::MutuallyExclusiveConstraints(toString(*requirement) + " and " + toString(this->requirement()) + " on " + toString(_projectIdentifier) + " are mutually exclusive");
-      }
-
-      _requirementsByApplicator.emplace(std::move(dependent), std::move(requirement));
-    }
-
-    void excludeInstantiation (std::shared_ptr<Instantiation> instantiation)
-    {
-      assert(_requirementsByApplicator.size() > 0);
-
-      // Attribute the excluded instantiation to the last project which added
-      // a requirement here, because trying a new instantiation of _that_
-      // project should reset the exclusions added afterward.
-      // 
-      // TODO: Figure out a better algorithm/data structure for this.
-      auto next = _requirementsByApplicator.begin();
-      Optional<ArbiterProjectIdentifier> applicator;
-
-      while (true) {
-        auto it = next++;
-        if (next == _requirementsByApplicator.end()) {
-          applicator = it->first;
-          break;
-        }
-      };
-
-      _requirementsByApplicator.emplace(std::move(applicator), std::make_shared<Requirement::ExcludedInstantiation>(std::move(instantiation)));
-    }
-
-    size_t removeRequirementsFrom (const ArbiterProjectIdentifier &applicator)
-    {
-      _requirementsByApplicator.erase(makeOptional(applicator));
-      return _requirementsByApplicator.size();
-    }
-};
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
