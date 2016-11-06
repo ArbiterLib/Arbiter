@@ -344,46 +344,70 @@ ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
   }
 
   while (values.size() < variables.size()) {
-    const auto &variable = variables.at(values.size());
-    const ArbiterProjectIdentifier &projectIdentifier = variable.first;
-    const ArbiterRequirement &requirement = *variable.second;
+    try {
+      const auto &variable = variables.at(values.size());
+      const ArbiterProjectIdentifier &projectIdentifier = variable.first;
+      const ArbiterRequirement &requirement = *variable.second;
 
-    std::shared_ptr<Instantiation> instantiationPtr = bestProjectInstantiationSatisfying(projectIdentifier, requirement);
-    if (!instantiationPtr) {
-      // TODO: Backtrack
-      throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(projectIdentifier));
-    }
-
-    const Instantiation &instantiation = *instantiationPtr;
-    values.emplace_back(std::move(instantiationPtr));
-
-    for (const ArbiterDependency &dependency : instantiation.dependencies()) {
-      auto it = std::find_if(variables.begin(), variables.end(), [&](const auto &pair) {
-        return pair.first == dependency._projectIdentifier;
-      });
-
-      if (it == variables.end()) {
-        variables.emplace_back(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
-        continue;
+      std::shared_ptr<Instantiation> instantiationPtr = bestProjectInstantiationSatisfying(projectIdentifier, requirement);
+      if (!instantiationPtr) {
+        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(requirement) + " from available versions of " + toString(projectIdentifier));
       }
 
-      std::unique_ptr<ArbiterRequirement> intersection = it->second->intersect(dependency.requirement());
-      if (!intersection) {
-        // TODO: Backtrack
-        throw Exception::MutuallyExclusiveConstraints(toString(dependency.requirement()) + " and " + toString(*it->second) + " on " + toString(dependency._projectIdentifier) + " are mutually exclusive");
-      }
+      const Instantiation &instantiation = *instantiationPtr;
+      values.emplace_back(std::move(instantiationPtr));
 
-      const ArbiterRequirement &newRequirement = *intersection;
-      it->second = std::move(intersection);
+      for (const ArbiterDependency &dependency : instantiation.dependencies()) {
+        auto it = std::find_if(variables.begin(), variables.end(), [&](const auto &pair) {
+          return pair.first == dependency._projectIdentifier;
+        });
 
-      size_t index = it - variables.begin();
-      if (index < values.size()) {
-        const Instantiation &instantiation = *values.at(index);
-        if (!instantiation.satisfies(newRequirement)) {
-          // TODO: Backtrack
-          throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(newRequirement) + " on " + toString(dependency._projectIdentifier) + " with " + toString(instantiation));
+        if (it == variables.end()) {
+          variables.emplace_back(std::make_pair(dependency._projectIdentifier, dependency.requirement().cloneRequirement()));
+          continue;
+        }
+
+        std::unique_ptr<ArbiterRequirement> intersection = it->second->intersect(dependency.requirement());
+        if (!intersection) {
+          throw Exception::MutuallyExclusiveConstraints(toString(dependency.requirement()) + " and " + toString(*it->second) + " on " + toString(dependency._projectIdentifier) + " are mutually exclusive");
+        }
+
+        const ArbiterRequirement &newRequirement = *intersection;
+
+        // TODO: Don't replace with intersection, instead add this dependency as
+        // a new variable, or do something else that permits us to remove this
+        // requirement when backtracking
+        it->second = std::move(intersection);
+
+        size_t index = it - variables.begin();
+        if (index < values.size()) {
+          const Instantiation &instantiation = *values.at(index);
+          if (!instantiation.satisfies(newRequirement)) {
+            throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(newRequirement) + " on " + toString(dependency._projectIdentifier) + " with " + toString(instantiation));
+          }
         }
       }
+    } catch (Arbiter::Exception::Base &ex) {
+      if (values.size() == 0) {
+        // Nothing further to try.
+        throw;
+      }
+
+      size_t index = values.size() - 1;
+
+      std::shared_ptr<Arbiter::Instantiation> instantiation = values.at(index);
+      values.pop_back();
+
+      Requirement::ExcludedInstantiation newRequirement(std::move(instantiation));
+      auto &variable = variables.at(index);
+
+      std::unique_ptr<ArbiterRequirement> intersection = variable.second->intersect(newRequirement);
+      assert(intersection);
+
+      // TODO: Don't replace with intersection, instead add this dependency as
+      // a new variable, or do something else that permits us to remove this
+      // requirement when backtracking
+      variable.second = std::move(intersection);
     }
   }
 
