@@ -230,7 +230,7 @@ class Network final
         // requirement.
         assert(selectedVersion);
 
-        graph.addNode(ArbiterResolvedDependency(variable.projectIdentifier(), std::move(*selectedVersion)), requirement);
+        graph.addNode(ArbiterResolvedDependency(variable.projectIdentifier(), std::move(*selectedVersion)));
         for (const ArbiterDependency &dependency : value.dependencies()) {
           graph.addEdge(variable.projectIdentifier(), dependency._projectIdentifier);
         }

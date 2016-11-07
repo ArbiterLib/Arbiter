@@ -10,7 +10,6 @@ extern "C" {
 
 // forward declarations
 struct ArbiterProjectIdentifier;
-struct ArbiterRequirement;
 struct ArbiterResolvedDependency;
 struct ArbiterSelectedVersion;
 
@@ -45,17 +44,16 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCreate (void);
 ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (const ArbiterResolvedDependencyGraph *baseGraph, const struct ArbiterProjectIdentifier * const *roots, size_t rootCount);
 
 /**
- * Attempts to add a node into the dependency graph, without making it
- * inconsistent.
+ * Adds a node into the dependency graph.
  *
- * If the given dependency refers to a project which already exists in the
- * graph, this will attempt to intersect the version requirements of both.
+ * If the project being added already exists in the graph, but the versions do
+ * not match, an error will be returned.
  *
  * Returns whether the addition succeeded. If `false` is returned and `error` is
  * not NULL, it may be set to a string describing the error, which the caller is
  * responsible for freeing.
  */
-bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const struct ArbiterResolvedDependency *node, const struct ArbiterRequirement *requirement, char **error);
+bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const struct ArbiterResolvedDependency *node, char **error);
 
 /**
  * Adds an edge (dependency relationship) into the dependency graph, from
@@ -97,15 +95,6 @@ void ArbiterResolvedDependencyGraphCopyAll (const ArbiterResolvedDependencyGraph
  * ArbiterResolvedDependencyGraph it was obtained from is modified or freed.
  */
 const struct ArbiterSelectedVersion *ArbiterResolvedDependencyGraphProjectVersion (const ArbiterResolvedDependencyGraph *graph, const struct ArbiterProjectIdentifier *project);
-
-/**
- * Returns the requirement which is attached to the given project in the
- * dependency graph, or NULL if the project is not part of the graph.
- *
- * The returned pointer is guaranteed to remain valid until the
- * ArbiterResolvedDependencyGraph it was obtained from is modified or freed.
- */
-const struct ArbiterRequirement *ArbiterResolvedDependencyGraphProjectRequirement (const ArbiterResolvedDependencyGraph *graph, const struct ArbiterProjectIdentifier *project);
 
 /**
  * Returns the number of dependencies that the given project has in the graph,
