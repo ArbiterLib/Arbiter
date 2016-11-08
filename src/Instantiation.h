@@ -5,6 +5,7 @@
 #endif
 
 #include "Dependency.h"
+#include "Optional.h"
 #include "Version.h"
 
 #include <functional>
@@ -31,7 +32,9 @@ namespace Arbiter {
 class Instantiation final
 {
   public:
+    // TODO: Enforce uniqueness upon project IDs in this set.
     using Dependencies = std::unordered_set<ArbiterDependency>;
+
     using Versions = std::set<ArbiterSelectedVersion, std::greater<ArbiterSelectedVersion>>;
 
     explicit Instantiation (Dependencies dependencies)
@@ -47,6 +50,12 @@ class Instantiation final
      * The versions which correspond to this instantiation.
      */
     Versions _versions;
+
+    /**
+     * Returns the "best" version from this instantiation which satisfies the
+     * given requirement.
+     */
+    Optional<ArbiterSelectedVersion> bestVersionSatisfying (const ArbiterRequirement &requirement) const;
 
     /**
      * Determines whether any version within this instantiation can satisfy the

@@ -64,6 +64,19 @@ struct UnsatisfiableConstraints final : public Base
     {}
 };
 
+/**
+ * Exception type indicating that an attempt was made to add a node to an
+ * ArbiterResolvedDependencyGraph which already existed, but with a conflicting
+ * version.
+ */
+struct ConflictingNode final : public Base
+{
+  public:
+    explicit ConflictingNode (const std::string &string)
+      : Base(string)
+    {}
+};
+
 }
 } // namespace Arbiter
 

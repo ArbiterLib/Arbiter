@@ -125,7 +125,7 @@ TEST(CarthageGraphTest, ResolvesCorrectly) {
 
   std::unordered_map<std::string, ArbiterSemanticVersion> versions;
   for (const auto &pair : resolved.nodes()) {
-    ArbiterResolvedDependency dep = ArbiterResolvedDependencyGraph::resolveNode(pair);
+    ArbiterResolvedDependency dep = resolved.resolveNode(pair.first);
 
     std::string projectName = fromUserValue<StringTestValue>(dep._project._value.data())._str;
     ArbiterSemanticVersion version = *dep._version._semanticVersion;

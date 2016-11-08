@@ -143,7 +143,7 @@ TEST(ResolverTest, ResolvesOneDependency) {
   EXPECT_EQ(resolved.nodes().size(), 1);
 
   ArbiterResolvedDependencyInstaller installer = resolved.createInstaller();
-  EXPECT_EQ(installer._phases.size(), 1);
+  ASSERT_EQ(installer._phases.size(), 1);
   EXPECT_EQ(installer._phases.front().begin()->_project, emptyProjectIdentifier());
   EXPECT_EQ(installer._phases.front().begin()->_version._semanticVersion, makeOptional(ArbiterSemanticVersion(3, 0, 0)));
 }
@@ -223,7 +223,7 @@ TEST(ResolverTest, ResolvesIncrementallyFromInitialGraph)
   auto resolvedA = ArbiterResolvedDependency(makeProjectIdentifier("A"), ArbiterSelectedVersion(ArbiterSemanticVersion(2, 3, 4), makeSharedUserValue<ArbiterSelectedVersion, EmptyTestValue>()));
 
   ArbiterResolvedDependencyGraph initialGraph;
-  initialGraph.addNode(std::move(resolvedA), Requirement::AtLeast(ArbiterSemanticVersion(2, 0, 1)));
+  initialGraph.addNode(std::move(resolvedA));
 
   std::vector<ArbiterDependency> dependencies;
   dependencies.emplace_back(makeProjectIdentifier("B"), Requirement::CompatibleWith(ArbiterSemanticVersion(2, 0, 0), ArbiterRequirementStrictnessStrict));

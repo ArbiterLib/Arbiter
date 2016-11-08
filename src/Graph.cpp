@@ -23,10 +23,10 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (
   return new ArbiterResolvedDependencyGraph(baseGraph->graphWithNewRoots(std::move(vec)));
 }
 
-bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency *node, const ArbiterRequirement *requirement, char **error)
+bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency *node, char **error)
 {
   try {
-    graph->addNode(*node, *requirement);
+    graph->addNode(*node);
     return true;
   } catch (const Exception::Base &ex) {
     if (error) {
@@ -59,7 +59,7 @@ size_t ArbiterResolvedDependencyGraphCount (const ArbiterResolvedDependencyGraph
 void ArbiterResolvedDependencyGraphCopyAll (const ArbiterResolvedDependencyGraph *graph, ArbiterResolvedDependency **buffer)
 {
   for (const auto &pair : graph->nodes()) {
-    *(buffer++) = new ArbiterResolvedDependency(ArbiterResolvedDependencyGraph::resolveNode(pair));
+    *(buffer++) = new ArbiterResolvedDependency(pair.first, pair.second.version());
   }
 }
 
@@ -70,37 +70,27 @@ const ArbiterSelectedVersion *ArbiterResolvedDependencyGraphProjectVersion (cons
     return nullptr;
   }
 
-  return &it->second._version;
-}
-
-const ArbiterRequirement *ArbiterResolvedDependencyGraphProjectRequirement (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project)
-{
-  auto it = graph->nodes().find(*project);
-  if (it == graph->nodes().end()) {
-    return nullptr;
-  }
-
-  return &it->second.requirement();
+  return &it->second.version();
 }
 
 size_t ArbiterResolvedDependencyGraphCountDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project)
 {
-  auto it = graph->edges().find(*project);
-  if (it == graph->edges().end()) {
+  auto it = graph->nodes().find(*project);
+  if (it == graph->nodes().end()) {
     return 0;
   }
 
-  return it->second.size();
+  return it->second._dependencies.size();
 }
 
 void ArbiterResolvedDependencyGraphGetAllDependencies (const ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *project, const ArbiterProjectIdentifier **buffer)
 {
-  auto it = graph->edges().find(*project);
-  if (it == graph->edges().end()) {
+  auto it = graph->nodes().find(*project);
+  if (it == graph->nodes().end()) {
     return;
   }
 
-  for (const ArbiterProjectIdentifier &dependency : it->second) {
+  for (const ArbiterProjectIdentifier &dependency : it->second._dependencies) {
     *(buffer++) = &dependency;
   }
 }
@@ -128,144 +118,103 @@ void ArbiterResolvedDependencyInstallerGetAllInPhase (const ArbiterResolvedDepen
   }
 }
 
-ArbiterResolvedDependencyGraph::NodeValue::NodeValue (ArbiterSelectedVersion version, const ArbiterRequirement &requirement)
-  : _version(std::move(version))
+bool ArbiterResolvedDependencyGraph::Node::operator== (const Node &other) const
 {
-  setRequirement(requirement);
+  return _version == other._version && _dependencies == other._dependencies;
 }
 
-bool ArbiterResolvedDependencyGraph::NodeValue::operator== (const NodeValue &other) const
+void ArbiterResolvedDependencyGraph::addNode (const ArbiterResolvedDependency &node) noexcept(false)
 {
-  return _version == other._version && requirement() == other.requirement();
-}
-
-void ArbiterResolvedDependencyGraph::NodeValue::setRequirement (const ArbiterRequirement &requirement)
-{
-  setRequirement(requirement.cloneRequirement());
-}
-
-void ArbiterResolvedDependencyGraph::NodeValue::setRequirement (std::unique_ptr<ArbiterRequirement> requirement)
-{
-  assert(requirement->satisfiedBy(_version));
-  _requirement = std::move(requirement);
-}
-
-void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement) noexcept(false)
-{
-  assert(initialRequirement.satisfiedBy(node._version));
-
-  const NodeKey &key = node._project;
-
-  const auto it = _nodes.find(key);
-  if (it != _nodes.end()) {
-    NodeValue &value = it->second;
-
-    // We need to unify our input with what was already there.
-    if (auto newRequirement = initialRequirement.intersect(value.requirement())) {
-      if (!newRequirement->satisfiedBy(value._version)) {
-        throw Exception::UnsatisfiableConstraints("Cannot satisfy " + toString(*newRequirement) + " with " + toString(value._version));
-      }
-
-      value.setRequirement(std::move(newRequirement));
-    } else {
-      throw Exception::MutuallyExclusiveConstraints(toString(value.requirement()) + " and " + toString(initialRequirement) + " are mutually exclusive");
-    }
+  const auto it = _nodes.find(node._project);
+  if (it == _nodes.end()) {
+    _nodes.emplace(std::make_pair(node._project, Node(node._version)));
   } else {
-    _nodes.emplace(std::make_pair(key, NodeValue(node._version, initialRequirement)));
+    const ArbiterSelectedVersion &existingVersion = it->second.version();
+    if (existingVersion != node._version) {
+      throw Exception::ConflictingNode("Project " + toString(node._project) + " already exists in graph with version " + toString(existingVersion) + ", cannot add version " + toString(node._version));
+    }
   }
 }
 
 void ArbiterResolvedDependencyGraph::addEdge (const ArbiterProjectIdentifier &dependent, ArbiterProjectIdentifier dependency)
 {
-  assert(_nodes.find(dependent) != _nodes.end());
-  assert(_nodes.find(dependency) != _nodes.end());
-
-  _edges[dependent].emplace(std::move(dependency));
+  _nodes.at(dependent)._dependencies.emplace(std::move(dependency));
 }
 
-ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph::graphWithNewRoots (const std::vector<NodeKey> &roots) const
+ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph::graphWithNewRoots (const std::vector<ArbiterProjectIdentifier> &roots) const
 {
   ArbiterResolvedDependencyGraph graph;
 
-  for (const NodeKey &root : roots) {
+  for (const ArbiterProjectIdentifier &root : roots) {
     walkNodeAndCopyInto(graph, root, None());
   }
 
   return graph;
 }
 
-void ArbiterResolvedDependencyGraph::walkNodeAndCopyInto (ArbiterResolvedDependencyGraph &newGraph, const NodeKey &key, const Arbiter::Optional<NodeKey> &dependent) const
+void ArbiterResolvedDependencyGraph::walkNodeAndCopyInto (ArbiterResolvedDependencyGraph &newGraph, const ArbiterProjectIdentifier &key, const Arbiter::Optional<ArbiterProjectIdentifier> &dependent) const
 {
-  newGraph.addNode(resolveNode(key), _nodes.at(key).requirement());
+  const Node &node = _nodes.at(key);
+
+  newGraph.addNode(ArbiterResolvedDependency(key, node.version()));
   if (dependent) {
     newGraph.addEdge(*dependent, key);
   }
 
-  const auto it = _edges.find(key);
-  if (it == _edges.end()) {
-    return;
-  }
-
-  const auto &dependencies = it->second;
-  for (const NodeKey &dependency : dependencies) {
+  for (const ArbiterProjectIdentifier &dependency : node._dependencies) {
     walkNodeAndCopyInto(newGraph, dependency, makeOptional(key));
   }
 }
 
-ArbiterResolvedDependency ArbiterResolvedDependencyGraph::resolveNode (const NodeMap::value_type &node)
+ArbiterResolvedDependency ArbiterResolvedDependencyGraph::resolveNode (const ArbiterProjectIdentifier &projectIdentifier) const
 {
-  return ArbiterResolvedDependency(node.first, node.second._version);
-}
-
-ArbiterResolvedDependency ArbiterResolvedDependencyGraph::resolveNode (const NodeMap::key_type &key) const
-{
-  return resolveNode(std::make_pair(key, _nodes.at(key)));
+  return ArbiterResolvedDependency(projectIdentifier, _nodes.at(projectIdentifier).version());
 }
 
 ArbiterResolvedDependencyInstaller ArbiterResolvedDependencyGraph::createInstaller () const
 {
   ArbiterResolvedDependencyInstaller installer;
+
   if (_nodes.empty()) {
     return installer;
   }
 
   // Contains edges which still need to be added to the resolved graph.
-  EdgeMap remainingEdges;
-  remainingEdges.reserve(_edges.size());
+  std::map<ArbiterProjectIdentifier, std::set<ArbiterProjectIdentifier>> remainingEdges;
 
   // Contains dependencies without any dependencies themselves.
   ArbiterResolvedDependencyInstaller::PhaseSet leaves;
 
   for (const auto &pair : _nodes) {
-    const NodeKey &key = pair.first;
-    const auto it = _edges.find(key);
+    const ArbiterProjectIdentifier &key = pair.first;
+    const Node &node = pair.second;
 
-    if (it == _edges.end()) {
-      leaves.emplace(resolveNode(key));
-    } else {
-      const auto &dependencySet = it->second;
-
-      remainingEdges[key] = dependencySet;
-
-      std::vector<NodeKey> dependencyList(dependencySet.begin(), dependencySet.end());
-      std::sort(dependencyList.begin(), dependencyList.end());
-
-      installer._edges.emplace(std::make_pair(key, std::move(dependencyList)));
+    const auto &dependencySet = node._dependencies;
+    if (dependencySet.empty()) {
+      leaves.emplace(ArbiterResolvedDependency(key, node.version()));
+      continue;
     }
+
+    remainingEdges[key] = dependencySet;
+
+    std::vector<ArbiterProjectIdentifier> dependencyList(dependencySet.begin(), dependencySet.end());
+    assert(std::is_sorted(dependencyList.begin(), dependencyList.end()));
+
+    installer._edges.emplace(std::make_pair(key, std::move(dependencyList)));
   }
 
-  assert(installer._edges.size() == _edges.size());
+  assert(installer._edges.size() + leaves.size() == _nodes.size());
   installer._phases.emplace_back(std::move(leaves));
 
   while (!remainingEdges.empty()) {
     ArbiterResolvedDependencyInstaller::PhaseSet thisPhase;
 
     for (auto edgeIt = remainingEdges.begin(); edgeIt != remainingEdges.end(); ) {
-      const NodeKey &dependent = edgeIt->first;
+      const ArbiterProjectIdentifier &dependent = edgeIt->first;
       auto &dependencies = edgeIt->second;
 
       for (auto depIt = dependencies.begin(); depIt != dependencies.end(); ) {
-        const NodeKey &dependency = *depIt;
+        const ArbiterProjectIdentifier &dependency = *depIt;
 
         // If this dependency is in the graph already, it can be removed
         // from the list of remaining edges.
@@ -299,19 +248,11 @@ std::unique_ptr<Arbiter::Base> ArbiterResolvedDependencyGraph::clone () const
 
 std::ostream &ArbiterResolvedDependencyGraph::describe (std::ostream &os) const
 {
-  os << "Roots:";
+  os << "Nodes:";
   for (const auto &pair : _nodes) {
-    const NodeKey &key = pair.first;
-    if (_edges.find(key) == _edges.end()) {
-      os << "\n\t" << resolveNode(pair);
-    }
-  }
-
-  os << "\n\nEdges:";
-  for (const auto &pair : _edges) {
     os << "\n\t" << resolveNode(pair.first) << " ->";
 
-    for (const NodeKey &dependency : pair.second) {
+    for (const ArbiterProjectIdentifier &dependency : pair.second._dependencies) {
       os << "\n\t\t" << resolveNode(dependency);
     }
   }
@@ -326,7 +267,7 @@ bool ArbiterResolvedDependencyGraph::operator== (const Arbiter::Base &other) con
     return false;
   }
   
-  return _nodes == ptr->_nodes && _edges == ptr->_edges;
+  return _nodes == ptr->_nodes;
 }
 
 size_t ArbiterResolvedDependencyInstaller::countInPhase (size_t phaseIndex) const

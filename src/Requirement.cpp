@@ -453,11 +453,12 @@ std::ostream &Compound::describe (std::ostream &os) const
   os << "{ ";
 
   for (auto it = _requirements.begin(); it != _requirements.end(); ++it) {
-    if (it == _requirements.begin()) {
+    if (it != _requirements.begin()) {
       os << " && ";
     }
 
-    os << it->get();
+    const ArbiterRequirement &requirement = **it;
+    os << requirement;
   }
 
   return os << " }";

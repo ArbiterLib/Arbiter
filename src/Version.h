@@ -86,7 +86,7 @@ struct ArbiterSelectedVersion final : public Arbiter::Base
 
     bool operator<= (const ArbiterSelectedVersion &other) const
     {
-      return !(other < *this);
+      return !(*this > other);
     }
 
     bool operator>= (const ArbiterSelectedVersion &other) const

@@ -18,7 +18,7 @@ namespace Arbiter {
 class Base
 {
   public:
-    virtual ~Base () noexcept(false)
+    virtual ~Base ()
     {}
 
     virtual std::unique_ptr<Base> clone () const = 0;
