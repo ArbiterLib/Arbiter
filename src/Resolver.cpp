@@ -165,13 +165,11 @@ class Network final
       ArbiterProjectIdentifier culprit = _variables.at(index).projectIdentifier();
       removeRequirementsFrom(culprit);
 
-      // FIXME: Yet another O(n) enumeration
-      auto it = std::find_if(_variables.begin(), _variables.end(), [&](const Variable &variable) {
-        return variable.projectIdentifier() == culprit;
-      });
+      // Variables before the culprit variable should not have moved at all.
+      Variable &variable = _variables.at(index);
+      assert(variable.projectIdentifier() == culprit);
 
-      assert(it != _variables.end());
-      it->excludeInstantiation(std::move(instantiation));
+      variable.excludeInstantiation(std::move(instantiation));
 
       return true;
     }
@@ -240,31 +238,33 @@ class Network final
     }
 
   private:
-    std::deque<Variable> _variables;
-    std::deque<std::shared_ptr<Arbiter::Instantiation>> _values;
+    std::vector<Variable> _variables;
+    std::vector<std::shared_ptr<Arbiter::Instantiation>> _values;
 
     void removeRequirementsFrom (const ArbiterProjectIdentifier &culprit)
     {
-      for (auto it = _variables.begin(); it != _variables.end();) {
-        if (it->projectIdentifier() != culprit) {
-          if (it->removeRequirementsFrom(culprit) == 0) {
-            size_t index = it - _variables.begin();
+      size_t valueCount = _values.size();
 
-            it = _variables.erase(it);
+      auto it = _variables.begin();
+      for (; it != _variables.begin() + valueCount; ++it) {
+        Variable &variable = *it;
+        assert(variable.projectIdentifier() != culprit);
 
-            // TODO: Recursively remove this value's requirements.
-            assert(index >= _values.size());
-            /*
-            if (index < _values.size()) {
-              _values.erase(_values.begin() + index);
-            }
-            */
+        // This variable should still have other requirements applied to it,
+        // because the culprit variable should have been added _after_ this
+        // variable was already present.
+        size_t remaining __attribute__((unused)) = variable.removeRequirementsFrom(culprit);
+        assert(remaining > 0);
+      }
 
-            continue;
-          }
+      assert(it == _variables.begin() + valueCount);
+      while (it != _variables.end()) {
+        Variable &variable = *it;
+        if (variable.projectIdentifier() == culprit || variable.removeRequirementsFrom(culprit) > 0) {
+          ++it;
+        } else {
+          it = _variables.erase(it);
         }
-
-        ++it;
       }
     }
 };
