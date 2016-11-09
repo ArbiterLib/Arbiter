@@ -3,7 +3,7 @@ CMAKE := cmake
 UNZIP ?= unzip
 
 all: cmake
-	$(CMAKE) --build $(BUILD)
+	$(CMAKE) --build $(BUILD) -- -j
 
 cmake:
 	mkdir -p $(BUILD)
