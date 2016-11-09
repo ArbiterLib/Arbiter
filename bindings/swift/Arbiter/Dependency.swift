@@ -1,22 +1,3 @@
-public final class ProjectIdentifier<Value: ArbiterValue> : CObject
-{
-  public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
-  {
-    super.init(pointer, shouldCopy: shouldCopy)
-  }
-
-  public convenience init (value: Value)
-  {
-    let ptr = ArbiterCreateProjectIdentifier(value.toUserValue())
-    self.init(ptr, shouldCopy: false)
-  }
-
-  public var value: Value
-  {
-    return Value.fromUserValue(ArbiterProjectIdentifierValue(pointer))
-  }
-}
-
 public final class Dependency<ProjectValue: ArbiterValue> : CObject
 {
   public override init (_ pointer: COpaquePointer, shouldCopy: Bool = true)
@@ -48,7 +29,7 @@ public final class DependencyList<ProjectValue: ArbiterValue> : CObject
     super.init(pointer, shouldCopy: shouldCopy)
   }
 
-  public convenience init (_ dependencies: [Dependency<ProjectValue>])
+  public convenience init<S: SequenceType where S.Generator.Element == Dependency<ProjectValue>> (_ dependencies: S)
   {
     var pointers: [COpaquePointer] = []
     for dependency in dependencies {

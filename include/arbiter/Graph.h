@@ -23,12 +23,29 @@ typedef struct ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph;
 /**
  * Creates an empty resolved dependency graph.
  *
- * The returned identifier must be freed with ArbiterFree().
+ * The returned graph must be freed with ArbiterFree().
  */
 ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCreate (void);
 
 /**
- * Attempts to add a root node into the dependency graph, without making it
+ * Creates a resolved dependency graph based upon `baseGraph`, but excluding any
+ * nodes and edges which are not reachable from `roots`.
+ *
+ * In other words, this creates a new sub-graph which is rooted at `roots`. The
+ * new roots do not necessarily have to be siblings in `baseGraph`.
+ *
+ * This operation is mostly useful to create a filtered graph which can then be
+ * passed as the `initialGraph` to ArbiterCreateResolver(). For example, if an
+ * end user only wants to upgrade a specific set of projects, this function
+ * could be used to filter out those projects from an existing graph, and
+ * then resolve only those specific projects from scratch.
+ *
+ * The returned graph must be freed with ArbiterFree().
+ */
+ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (const ArbiterResolvedDependencyGraph *baseGraph, const struct ArbiterProjectIdentifier * const *roots, size_t rootCount);
+
+/**
+ * Attempts to add a node into the dependency graph, without making it
  * inconsistent.
  *
  * If the given dependency refers to a project which already exists in the
@@ -38,20 +55,20 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCreate (void);
  * not NULL, it may be set to a string describing the error, which the caller is
  * responsible for freeing.
  */
-bool ArbiterResolvedDependencyGraphAddRoot (ArbiterResolvedDependencyGraph *graph, const struct ArbiterResolvedDependency *node, const struct ArbiterRequirement *requirement, char **error);
+bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const struct ArbiterResolvedDependency *node, const struct ArbiterRequirement *requirement, char **error);
 
 /**
- * Attempts to add an edge (dependency relationship) into the dependency graph,
- * from `dependent` to `dependency`, without making it inconsistent.
+ * Adds an edge (dependency relationship) into the dependency graph, from
+ * `dependent` to `dependency`.
  *
- * If `dependency` refers to a project which already exists in the graph, this
- * will attempt to intersect the version requirements of both.
+ * This must only be called after both projects have already been inserted into
+ * the graph with ArbiterResolvedDependencyGraphAddNode().
  *
  * Returns whether the addition succeeded. If `false` is returned and `error` is
  * not NULL, it may be set to a string describing the error, which the caller is
  * responsible for freeing.
  */
-bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const struct ArbiterProjectIdentifier *dependent, const struct ArbiterResolvedDependency *dependency, const struct ArbiterRequirement *requirement, char **error);
+bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const struct ArbiterProjectIdentifier *dependent, const struct ArbiterProjectIdentifier *dependency, char **error);
 
 /**
  * Returns the number of unique nodes in the given graph, for use with

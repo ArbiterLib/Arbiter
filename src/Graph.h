@@ -46,15 +46,22 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
     using EdgeMap = std::unordered_map<NodeKey, std::set<NodeKey>>;
 
     /**
-     * Attempts to add the given node into the graph, as a dependency of
-     * `dependent` if specified.
+     * Attempts to add the given node into the graph.
      *
      * If the given node refers to a project which already exists in the graph,
      * this method will attempt to intersect the version requirements of both.
      *
      * Throws an exception if this addition would make the graph inconsistent.
      */
-    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<ArbiterProjectIdentifier> &dependent) noexcept(false);
+    void addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement) noexcept(false);
+
+    /**
+     * Adds an edge from a dependent to its dependency.
+     *
+     * Both sides of the edge must have already been added to the graph with
+     * addNode().
+     */
+    void addEdge (const ArbiterProjectIdentifier &dependent, ArbiterProjectIdentifier dependency);
 
     const NodeMap &nodes () const
     {
@@ -71,6 +78,14 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
 
     ArbiterResolvedDependencyInstaller createInstaller () const;
 
+    /**
+     * Creates a new dependency graph that contains only nodes and edges which
+     * are reachable from the nodes referenced by `roots`.
+     *
+     * It is an error to include a node here which doesn't appear in the graph.
+     */
+    ArbiterResolvedDependencyGraph graphWithNewRoots (const std::vector<NodeKey> &roots) const;
+
     std::unique_ptr<Arbiter::Base> clone () const override;
     std::ostream &describe (std::ostream &os) const override;
     bool operator== (const Arbiter::Base &other) const override;
@@ -78,6 +93,8 @@ struct ArbiterResolvedDependencyGraph final : public Arbiter::Base
   private:
     EdgeMap _edges;
     NodeMap _nodes;
+
+    void walkNodeAndCopyInto (ArbiterResolvedDependencyGraph &newGraph, const NodeKey &key, const Arbiter::Optional<NodeKey> &dependent) const;
 };
 
 struct ArbiterResolvedDependencyInstaller final : public Arbiter::Base

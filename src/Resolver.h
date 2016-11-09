@@ -8,6 +8,9 @@
 
 #include "Dependency.h"
 #include "Graph.h"
+#include "Instantiation.h"
+#include "Project.h"
+#include "Stats.h"
 #include "Types.h"
 #include "Version.h"
 
@@ -20,10 +23,14 @@ struct ArbiterResolver final : public Arbiter::Base
   public:
     std::shared_ptr<const void> _context;
 
-    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterDependencyList dependencyList, std::shared_ptr<const void> context)
+    // Statistics from the latest dependency resolution.
+    Arbiter::Stats _latestStats;
+
+    ArbiterResolver (ArbiterResolverBehaviors behaviors, ArbiterResolvedDependencyGraph initialGraph, ArbiterDependencyList dependenciesToResolve, std::shared_ptr<const void> context)
       : _context(std::move(context))
       , _behaviors(std::move(behaviors))
-      , _dependencyList(std::move(dependencyList))
+      , _initialGraph(std::move(initialGraph))
+      , _dependenciesToResolve(std::move(dependenciesToResolve))
     {
       assert(_behaviors.createDependencyList);
       assert(_behaviors.createAvailableVersionsList);
@@ -33,25 +40,25 @@ struct ArbiterResolver final : public Arbiter::Base
     ArbiterResolver &operator= (const ArbiterResolver &) = delete;
 
     /**
-     * Fetches the list of dependencies for the given project and version.
+     * Fetches the dependencies for the given project and version.
      *
-     * Returns the dependency list or throws an exception.
+     * Returns the dependencies or throws an exception.
      */
-    ArbiterDependencyList fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) noexcept(false);
+    const Arbiter::Instantiation::Dependencies &fetchDependencies (const ArbiterProjectIdentifier &projectIdentifier, const ArbiterSelectedVersion &version) noexcept(false);
 
     /**
-     * Fetches the list of available versions for the given project.
+     * Fetches the available versions for the given project.
      *
-     * Returns the version list or throws an exception.
+     * Returns the versions or throws an exception.
      */
-    ArbiterSelectedVersionList fetchAvailableVersions (const ArbiterProjectIdentifier &project) noexcept(false);
+    const Arbiter::Project::Domain &fetchAvailableVersions (const ArbiterProjectIdentifier &projectIdentifier) noexcept(false);
 
     /**
      * Fetches a selected version for the given metadata string.
      *
      * Returns the selected version if found, or else None.
      */
-    Arbiter::Optional<ArbiterSelectedVersion> fetchSelectedVersionForMetadata (const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata);
+    Arbiter::Optional<ArbiterSelectedVersion> fetchSelectedVersionForMetadata (const ArbiterProjectIdentifier &project, const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata);
 
     /**
      * Computes a list of available versions for the specified project which
@@ -70,8 +77,11 @@ struct ArbiterResolver final : public Arbiter::Base
 
   private:
     const ArbiterResolverBehaviors _behaviors;
-    const ArbiterDependencyList _dependencyList;
+    const ArbiterResolvedDependencyGraph _initialGraph;
+    const ArbiterDependencyList _dependenciesToResolve;
 
-    std::unordered_map<ArbiterResolvedDependency, ArbiterDependencyList> _cachedDependencies;
-    std::unordered_map<ArbiterProjectIdentifier, ArbiterSelectedVersionList> _cachedAvailableVersions;
+    std::unordered_map<ArbiterProjectIdentifier, Arbiter::Project> _projects;
+
+    void startStats ();
+    void endStats ();
 };

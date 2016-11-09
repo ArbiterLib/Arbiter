@@ -1,4 +1,4 @@
-# Arbiter [![Build Status](https://travis-ci.org/jspahrsummers/Arbiter.svg?branch=master)](https://travis-ci.org/jspahrsummers/Arbiter)
+# Arbiter [![Build Status](https://travis-ci.org/ArbiterLib/Arbiter.svg?branch=master)](https://travis-ci.org/ArbiterLib/Arbiter)
 
 Arbiter is a cross-platform C library<sup>1</sup> which implements the baseline functionality that should be expected of any dependency manager or package manager, without being coupled to any particular use case, so that many more specific tools can be built on top.
 
@@ -44,11 +44,11 @@ Specifically, Arbiter understands when one package must be installed before anot
 
 ### … and more to come
 
-For a full list of planned features, check out our [backlog](https://github.com/jspahrsummers/Arbiter/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement+sort%3Acreated-desc). If you’d be interested in making any of these a reality, please consider [contributing](CONTRIBUTING.md)!
+For a full list of planned features, check out our [backlog](https://github.com/ArbiterLib/Arbiter/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement+sort%3Acreated-desc). If you’d be interested in making any of these a reality, please consider [contributing](CONTRIBUTING.md)!
 
 ## Documentation
 
-The Arbiter API is extensively documented in header comments, from which we periodically generate [Doxygen pages](http://jspahrsummers.com/Arbiter/). For the public C API, look at headers under [`include/arbiter/`](include/arbiter/) in the [file list of the documentation](http://jspahrsummers.com/Arbiter/files.html).
+The Arbiter API is extensively documented in header comments, from which we periodically generate [Doxygen pages](http://arbiterlib.github.io/Arbiter/). For the public C API, look at headers under [`include/arbiter/`](include/arbiter/) in the [file list of the documentation](http://arbiterlib.github.io/Arbiter/files.html).
 
 ## Examples
 
@@ -64,7 +64,7 @@ Because the functionality of Arbiter is exposed in a C interface, it’s easy to
 
 To compile all included bindings, run `make bindings`.
 
-If you’d like to implement your own bindings, please let us know about them [in a GitHub issue](https://github.com/jspahrsummers/Arbiter/issues/new), and we can include a link here in the README.
+If you’d like to implement your own bindings, please let us know about them [in a GitHub issue](https://github.com/ArbiterLib/Arbiter/issues/new), and we can include a link here in the README.
 
 ## License
 

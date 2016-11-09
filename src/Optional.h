@@ -8,6 +8,7 @@
 
 #include <cassert>
 #include <functional>
+#include <ostream>
 #include <type_traits>
 
 namespace Arbiter {
@@ -266,5 +267,15 @@ struct hash<Arbiter::Optional<T>> final
       }
     }
 };
+
+template<typename T>
+std::ostream &operator<< (std::ostream &os, const Arbiter::Optional<T> &optional)
+{
+  if (optional) {
+    return os << "Optional(" << *optional << ")";
+  } else {
+    return os << "None";
+  }
+}
 
 } // namespace std

@@ -1,6 +1,7 @@
 #include "Requirement.h"
 
 #include "Hash.h"
+#include "Instantiation.h"
 #include "ToString.h"
 
 #include <algorithm>
@@ -225,6 +226,22 @@ struct Intersect<Prioritized, Other> final
   }
 };
 
+template<typename Other>
+struct Intersect<ExcludedInstantiation, Other> final
+{
+  using Result = std::unique_ptr<ArbiterRequirement>;
+
+  Result operator() (const ExcludedInstantiation &req, const Other &other) const
+  {
+    std::vector<std::shared_ptr<ArbiterRequirement>> requirements = {
+      std::shared_ptr<ArbiterRequirement>(req.cloneRequirement()),
+      std::shared_ptr<ArbiterRequirement>(other.cloneRequirement())
+    };
+
+    return std::make_unique<Compound>(std::move(requirements));
+  }
+};
+
 const std::type_info &any = typeid(Any);
 const std::type_info &atLeast = typeid(AtLeast);
 const std::type_info &compatibleWith = typeid(CompatibleWith);
@@ -233,6 +250,7 @@ const std::type_info &unversioned = typeid(Unversioned);
 const std::type_info &custom = typeid(Custom);
 const std::type_info &compound = typeid(Compound);
 const std::type_info &prioritized = typeid(Prioritized);
+const std::type_info &excludedInstantiation = typeid(ExcludedInstantiation);
 
 template<typename Left>
 std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const ArbiterRequirement &rhs)
@@ -253,6 +271,8 @@ std::unique_ptr<ArbiterRequirement> intersectRight(const Left &lhs, const Arbite
     return Intersect<Left, Compound>()(lhs, dynamic_cast<const Compound &>(rhs));
   } else if (typeid(rhs) == prioritized) {
     return Intersect<Left, Prioritized>()(lhs, dynamic_cast<const Prioritized &>(rhs));
+  } else if (typeid(rhs) == excludedInstantiation) {
+    return Intersect<Left, ExcludedInstantiation>()(lhs, dynamic_cast<const ExcludedInstantiation &>(rhs));
   } else {
     throw std::invalid_argument("Unrecognized type for requirement: " + toString(rhs));
   }
@@ -513,6 +533,42 @@ void Prioritized::visit (Visitor &visitor) const
   _requirement->visit(visitor);
 }
 
+bool ExcludedInstantiation::satisfiedBy (const ArbiterSelectedVersion &selectedVersion) const
+{
+  const Instantiation::Versions &versions = _excludedInstantiation->_versions;
+  return versions.find(selectedVersion) == versions.end();
+}
+
+std::ostream &ExcludedInstantiation::describe (std::ostream &os) const
+{
+  os << "!(";
+
+  const Instantiation::Versions &versions = _excludedInstantiation->_versions;
+  for (auto it = versions.begin(); it != versions.end(); ++it) {
+    if (it != versions.begin()) {
+      os << ", ";
+    }
+
+    os << *it;
+  }
+
+  return os << ")";
+}
+
+bool ExcludedInstantiation::operator== (const Arbiter::Base &other) const
+{
+  if (auto *ptr = dynamic_cast<const ExcludedInstantiation *>(&other)) {
+    return *_excludedInstantiation == *ptr->_excludedInstantiation;
+  } else {
+    return false;
+  }
+}
+
+size_t ExcludedInstantiation::hash () const noexcept
+{
+  return hashOf(*_excludedInstantiation);
+}
+
 std::unique_ptr<ArbiterRequirement> Any::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Any>(*this, rhs);
@@ -551,6 +607,11 @@ std::unique_ptr<ArbiterRequirement> Compound::intersect (const ArbiterRequiremen
 std::unique_ptr<ArbiterRequirement> Prioritized::intersect (const ArbiterRequirement &rhs) const
 {
   return intersectRight<Prioritized>(*this, rhs);
+}
+
+std::unique_ptr<ArbiterRequirement> ExcludedInstantiation::intersect (const ArbiterRequirement &rhs) const
+{
+  return intersectRight<ExcludedInstantiation>(*this, rhs);
 }
 
 } // namespace Requirement

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <arbiter/Dependency.h>
+#include <arbiter/Project.h>
 #include <arbiter/Resolver.h>
 #include <arbiter/Version.h>
 

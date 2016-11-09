@@ -1,5 +1,6 @@
 BUILD := build
 CMAKE := cmake
+UNZIP ?= unzip
 
 all: cmake
 	$(CMAKE) --build $(BUILD)
@@ -22,6 +23,10 @@ docs:
 examples: cmake
 	$(CMAKE) --build $(BUILD) --target library_folders
 
+fixtures: test/fixtures/carthage-graph.zip
+	$(UNZIP) -n -q $^ -d test/fixtures
+
 clean:
 	rm -rf $(BUILD)
+	rm -rf test/fixtures/carthage-graph/
 

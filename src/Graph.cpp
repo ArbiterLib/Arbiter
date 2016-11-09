@@ -11,10 +11,22 @@ ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCreate (void)
   return new ArbiterResolvedDependencyGraph;
 }
 
-bool ArbiterResolvedDependencyGraphAddRoot (ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency *node, const ArbiterRequirement *requirement, char **error)
+ArbiterResolvedDependencyGraph *ArbiterResolvedDependencyGraphCopyWithNewRoots (const ArbiterResolvedDependencyGraph *baseGraph, const struct ArbiterProjectIdentifier * const *roots, size_t rootCount)
+{
+  std::vector<ArbiterProjectIdentifier> vec;
+  vec.reserve(rootCount);
+
+  for (size_t i = 0; i < rootCount; i++) {
+    vec.emplace_back(*roots[i]);
+  }
+
+  return new ArbiterResolvedDependencyGraph(baseGraph->graphWithNewRoots(std::move(vec)));
+}
+
+bool ArbiterResolvedDependencyGraphAddNode (ArbiterResolvedDependencyGraph *graph, const ArbiterResolvedDependency *node, const ArbiterRequirement *requirement, char **error)
 {
   try {
-    graph->addNode(*node, *requirement, None());
+    graph->addNode(*node, *requirement);
     return true;
   } catch (const Exception::Base &ex) {
     if (error) {
@@ -25,10 +37,10 @@ bool ArbiterResolvedDependencyGraphAddRoot (ArbiterResolvedDependencyGraph *grap
   }
 }
 
-bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *dependent, const ArbiterResolvedDependency *dependency, const ArbiterRequirement *requirement, char **error)
+bool ArbiterResolvedDependencyGraphAddEdge (ArbiterResolvedDependencyGraph *graph, const ArbiterProjectIdentifier *dependent, const ArbiterProjectIdentifier *dependency, char **error)
 {
   try {
-    graph->addNode(*dependency, *requirement, makeOptional(*dependent));
+    graph->addEdge(*dependent, *dependency);
     return true;
   } catch (const Exception::Base &ex) {
     if (error) {
@@ -138,7 +150,7 @@ void ArbiterResolvedDependencyGraph::NodeValue::setRequirement (std::unique_ptr<
   _requirement = std::move(requirement);
 }
 
-void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement, const Arbiter::Optional<ArbiterProjectIdentifier> &dependent) noexcept(false)
+void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, const ArbiterRequirement &initialRequirement) noexcept(false)
 {
   assert(initialRequirement.satisfiedBy(node._version));
 
@@ -161,9 +173,42 @@ void ArbiterResolvedDependencyGraph::addNode (ArbiterResolvedDependency node, co
   } else {
     _nodes.emplace(std::make_pair(key, NodeValue(node._version, initialRequirement)));
   }
+}
 
+void ArbiterResolvedDependencyGraph::addEdge (const ArbiterProjectIdentifier &dependent, ArbiterProjectIdentifier dependency)
+{
+  assert(_nodes.find(dependent) != _nodes.end());
+  assert(_nodes.find(dependency) != _nodes.end());
+
+  _edges[dependent].emplace(std::move(dependency));
+}
+
+ArbiterResolvedDependencyGraph ArbiterResolvedDependencyGraph::graphWithNewRoots (const std::vector<NodeKey> &roots) const
+{
+  ArbiterResolvedDependencyGraph graph;
+
+  for (const NodeKey &root : roots) {
+    walkNodeAndCopyInto(graph, root, None());
+  }
+
+  return graph;
+}
+
+void ArbiterResolvedDependencyGraph::walkNodeAndCopyInto (ArbiterResolvedDependencyGraph &newGraph, const NodeKey &key, const Arbiter::Optional<NodeKey> &dependent) const
+{
+  newGraph.addNode(resolveNode(key), _nodes.at(key).requirement());
   if (dependent) {
-    _edges[*dependent].insert(key);
+    newGraph.addEdge(*dependent, key);
+  }
+
+  const auto it = _edges.find(key);
+  if (it == _edges.end()) {
+    return;
+  }
+
+  const auto &dependencies = it->second;
+  for (const NodeKey &dependency : dependencies) {
+    walkNodeAndCopyInto(newGraph, dependency, makeOptional(key));
   }
 }
 
@@ -262,10 +307,9 @@ std::ostream &ArbiterResolvedDependencyGraph::describe (std::ostream &os) const
     }
   }
 
-  os << "\n\nEdges";
+  os << "\n\nEdges:";
   for (const auto &pair : _edges) {
-    const NodeKey &key = pair.first;
-    os << "\n\t" << key << " ->";
+    os << "\n\t" << resolveNode(pair.first) << " ->";
 
     for (const NodeKey &dependency : pair.second) {
       os << "\n\t\t" << resolveNode(dependency);

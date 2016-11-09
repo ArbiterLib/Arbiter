@@ -1,0 +1,25 @@
+#!/bin/bash
+#
+# Given a Git repository and a list of versions, records the `Cartfile` contents
+# at each version into a new text file with the name of the version, written
+# into the directory specified as the last argument.
+#
+# See the carthage-graph fixture for an example.
+#
+# Usage:
+#   script/record-cartfile-dependencies ~/path/to/ReactiveTask test/fixtures/carthage-graph/ReactiveTask.txt test/fixtures/carthage-graph/ReactiveTask/
+
+set -e
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+GIT_DIR="$1"
+VERSION_LIST="$2"
+OUTPUT_DIR="$3"
+
+mkdir -p "$OUTPUT_DIR"
+
+cat "$VERSION_LIST" | while read line
+do
+  CARTFILE=$(git -C "$GIT_DIR" show "$line:Cartfile" || echo)
+  echo "$CARTFILE" | awk -f "$SCRIPT_DIR/record-cartfile-dependencies.awk" - > "$OUTPUT_DIR/$line.txt"
+done

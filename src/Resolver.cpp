@@ -5,6 +5,7 @@
 #include "Iterator.h"
 #include "Optional.h"
 #include "Requirement.h"
+#include "Stats.h"
 #include "ToString.h"
 
 #include <algorithm>
@@ -42,7 +43,7 @@ struct UniqueDependencyEqualTo final
  */
 using UniqueDependencySet = std::unordered_set<ArbiterDependency, UniqueDependencyHash, UniqueDependencyEqualTo>;
 
-ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, const ArbiterResolvedDependencyGraph &baseGraph, UniqueDependencySet dependencySet, const std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> &dependentsByProject) noexcept(false)
+ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, const ArbiterResolvedDependencyGraph &baseGraph, UniqueDependencySet dependencySet, const std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>> &dependentsByProject = {}) noexcept(false)
 {
   if (dependencySet.empty()) {
     return baseGraph;
@@ -116,24 +117,31 @@ ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, c
       // transitive dependencies.
       for (ArbiterResolvedDependency &dependency : choices) {
         const ArbiterRequirement &requirement = *requirementsByProject.at(dependency._project);
-        candidate.addNode(dependency, requirement, maybeAt(dependentsByProject, dependency._project));
+        candidate.addNode(dependency, requirement);
+
+        auto dependents = maybeAt(dependentsByProject, dependency._project);
+        if (dependents) {
+          for (const ArbiterProjectIdentifier &dependent : *dependents) {
+            candidate.addEdge(dependent, dependency._project);
+          }
+        }
       }
 
       // Collect immediate children for the next phase of dependency resolution,
       // so we can permute their versions as a group (for something
       // approximating breadth-first search).
       UniqueDependencySet collectedTransitives;
-      std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier> dependentsByTransitive;
+      std::unordered_map<ArbiterProjectIdentifier, std::vector<ArbiterProjectIdentifier>> dependentsByTransitive;
 
       for (ArbiterResolvedDependency &dependency : choices) {
-        std::vector<ArbiterDependency> transitives = resolver.fetchDependencies(dependency._project, dependency._version)._dependencies;
+        const auto &transitives = resolver.fetchDependencies(dependency._project, dependency._version);
 
         dependentsByTransitive.reserve(dependentsByTransitive.size() + transitives.size());
         for (const ArbiterDependency &transitive : transitives) {
-          dependentsByTransitive[transitive._projectIdentifier] = dependency._project;
+          dependentsByTransitive[transitive._projectIdentifier].emplace_back(dependency._project);
         }
 
-        collectedTransitives.insert(std::make_move_iterator(transitives.begin()), std::make_move_iterator(transitives.end()));
+        collectedTransitives.insert(transitives.begin(), transitives.end());
       }
 
       reset(choices);
@@ -141,6 +149,7 @@ ArbiterResolvedDependencyGraph resolveDependencies (ArbiterResolver &resolver, c
       return resolveDependencies(resolver, candidate, std::move(collectedTransitives), std::move(dependentsByTransitive));
     } catch (Arbiter::Exception::Base &ex) {
       lastException = std::current_exception();
+      ++resolver._latestStats._deadEnds;
     }
   }
 
@@ -162,9 +171,9 @@ class UnversionedRequirementVisitor final : public Requirement::Visitor
 
 } // namespace
 
-ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const ArbiterDependencyList *dependencyList, ArbiterUserContext context)
+ArbiterResolver *ArbiterCreateResolver (ArbiterResolverBehaviors behaviors, const struct ArbiterResolvedDependencyGraph *initialGraph, const struct ArbiterDependencyList *dependenciesToResolve, ArbiterUserContext context)
 {
-  return new ArbiterResolver(std::move(behaviors), *dependencyList, shareUserContext(context));
+  return new ArbiterResolver(std::move(behaviors), (initialGraph ? *initialGraph : ArbiterResolvedDependencyGraph()), *dependenciesToResolve, shareUserContext(context));
 }
 
 const void *ArbiterResolverContext (const ArbiterResolver *resolver)
@@ -194,21 +203,25 @@ void ArbiterFreeResolver (ArbiterResolver *resolver)
   delete resolver;
 }
 
-ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectIdentifier &project, const ArbiterSelectedVersion &version) noexcept(false)
+const Arbiter::Instantiation::Dependencies &ArbiterResolver::fetchDependencies (const ArbiterProjectIdentifier &projectIdentifier, const ArbiterSelectedVersion &version) noexcept(false)
 {
-  ArbiterResolvedDependency resolved(project, version);
-  if (auto list = maybeAt(_cachedDependencies, resolved)) {
-    return *list;
+  // This project should already be present, as its domain must have been known
+  // to obtain `version`.
+  Project &project = _projects.at(projectIdentifier);
+
+  if (auto inst = project.instantiationForVersion(version)) {
+    return inst->dependencies();
   }
 
   char *error = nullptr;
-  std::unique_ptr<ArbiterDependencyList> dependencyList(_behaviors.createDependencyList(this, &project, &version, &error));
+  std::unique_ptr<ArbiterDependencyList> dependencyList(_behaviors.createDependencyList(this, &projectIdentifier, &version, &error));
+
+  ++_latestStats._dependencyListFetches;
 
   if (dependencyList) {
     assert(!error);
 
-    _cachedDependencies[resolved] = *dependencyList;
-    return std::move(*dependencyList);
+    return project.addInstantiation(version, std::move(*dependencyList))->dependencies();
   } else if (error) {
     throw Exception::UserError(copyAcquireCString(error));
   } else {
@@ -216,35 +229,40 @@ ArbiterDependencyList ArbiterResolver::fetchDependencies (const ArbiterProjectId
   }
 }
 
-ArbiterSelectedVersionList ArbiterResolver::fetchAvailableVersions (const ArbiterProjectIdentifier &project) noexcept(false)
+const Arbiter::Project::Domain &ArbiterResolver::fetchAvailableVersions (const ArbiterProjectIdentifier &projectIdentifier) noexcept(false)
 {
-  if (auto list = maybeAt(_cachedAvailableVersions, project)) {
-    return *list;
-  }
+  auto it = _projects.find(projectIdentifier);
+  if (it == _projects.end()) {
+    char *error = nullptr;
+    std::unique_ptr<ArbiterSelectedVersionList> versionList(_behaviors.createAvailableVersionsList(this, &projectIdentifier, &error));
 
-  char *error = nullptr;
-  std::unique_ptr<ArbiterSelectedVersionList> versionList(_behaviors.createAvailableVersionsList(this, &project, &error));
+    ++_latestStats._availableVersionFetches;
 
-  if (versionList) {
+    if (!versionList) {
+      if (error) {
+        throw Exception::UserError(copyAcquireCString(error));
+      } else {
+        throw Exception::UserError();
+      }
+    }
+
     assert(!error);
 
-    _cachedAvailableVersions[project] = *versionList;
-    return std::move(*versionList);
-  } else if (error) {
-    throw Exception::UserError(copyAcquireCString(error));
-  } else {
-    throw Exception::UserError();
+    Project::Domain domain(std::make_move_iterator(versionList->_versions.begin()), std::make_move_iterator(versionList->_versions.end()));
+    it = _projects.emplace(std::make_pair(projectIdentifier, Project(std::move(domain)))).first;
   }
+
+  return it->second.domain();
 }
 
-Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadata (const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata)
+Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadata (const ArbiterProjectIdentifier &project, const Arbiter::SharedUserValue<ArbiterSelectedVersion> &metadata)
 {
   const auto behavior = _behaviors.createSelectedVersionForMetadata;
   if (!behavior) {
     return None();
   }
 
-  std::unique_ptr<ArbiterSelectedVersion> version(behavior(this, metadata.data()));
+  std::unique_ptr<ArbiterSelectedVersion> version(behavior(this, &project, metadata.data()));
   if (version) {
     return makeOptional(std::move(*version));
   } else {
@@ -254,18 +272,29 @@ Optional<ArbiterSelectedVersion> ArbiterResolver::fetchSelectedVersionForMetadat
 
 ArbiterResolvedDependencyGraph ArbiterResolver::resolve () noexcept(false)
 {
-  UniqueDependencySet dependencySet(_dependencyList._dependencies.begin(), _dependencyList._dependencies.end());
-  return resolveDependencies(*this, ArbiterResolvedDependencyGraph(), std::move(dependencySet), std::unordered_map<ArbiterProjectIdentifier, ArbiterProjectIdentifier>());
+  UniqueDependencySet dependencySet(_dependenciesToResolve._dependencies.begin(), _dependenciesToResolve._dependencies.end());
+
+  startStats();
+
+  try {
+    ArbiterResolvedDependencyGraph graph = resolveDependencies(*this, _initialGraph, std::move(dependencySet));
+    endStats();
+    return graph;
+  } catch (...) {
+    // TODO: Clean up with RAII?
+    endStats();
+    throw;
+  }
 }
 
 std::unique_ptr<Arbiter::Base> ArbiterResolver::clone () const
 {
-  return std::make_unique<ArbiterResolver>(_behaviors, _dependencyList, _context);
+  return std::make_unique<ArbiterResolver>(_behaviors, _initialGraph, _dependenciesToResolve, _context);
 }
 
 std::ostream &ArbiterResolver::describe (std::ostream &os) const
 {
-  return os << "ArbiterResolver: " << _dependencyList;
+  return os << "ArbiterResolver: " << _dependenciesToResolve;
 }
 
 bool ArbiterResolver::operator== (const Arbiter::Base &other) const
@@ -282,15 +311,15 @@ std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying
     requirement.visit(visitor);
 
     for (const auto &metadata : visitor._allMetadata) {
-      Optional<ArbiterSelectedVersion> version = fetchSelectedVersionForMetadata(metadata);
+      Optional<ArbiterSelectedVersion> version = fetchSelectedVersionForMetadata(project, metadata);
       if (version) {
         versions.emplace_back(std::move(*version));
       }
     }
   }
 
-  std::vector<ArbiterSelectedVersion> fetchedVersions = fetchAvailableVersions(project)._versions;
-  versions.insert(versions.end(), std::make_move_iterator(fetchedVersions.begin()), std::make_move_iterator(fetchedVersions.end()));
+  const auto &fetchedVersions = fetchAvailableVersions(project);
+  versions.insert(versions.end(), fetchedVersions.begin(), fetchedVersions.end());
 
   auto removeStart = std::remove_if(versions.begin(), versions.end(), [&requirement](const ArbiterSelectedVersion &version) {
     return !requirement.satisfiedBy(version);
@@ -298,4 +327,33 @@ std::vector<ArbiterSelectedVersion> ArbiterResolver::availableVersionsSatisfying
 
   versions.erase(removeStart, versions.end());
   return versions;
+}
+
+void ArbiterResolver::startStats ()
+{
+  _latestStats = Stats(Stats::Clock::now());
+}
+
+void ArbiterResolver::endStats ()
+{
+  _latestStats._endTime = Stats::Clock::now();
+
+  size_t depsSize = 0;
+  size_t versionsSize = _projects.size() * sizeof(decltype(_projects)::key_type);
+
+  // These size estimates are a holdover from a previous representation, where
+  // we cached simple maps of project identifiers to versions and dependency
+  // sets. Do our best to maintain compatibility with those measurements.
+  for (const auto &pair : _projects) {
+    const Project &project = pair.second;
+    versionsSize += project.domain().size() * sizeof(Project::Domain::value_type);
+
+    for (const std::shared_ptr<Instantiation> &instantiation : project.instantiations()) {
+      depsSize += instantiation->dependencies().size() * sizeof(Instantiation::Dependencies::value_type);
+      depsSize += instantiation->_versions.size() * sizeof(Instantiation::Versions::value_type);
+    }
+  }
+
+  _latestStats._cachedDependenciesSizeEstimate = depsSize;
+  _latestStats._cachedAvailableVersionsSizeEstimate = versionsSize;
 }
