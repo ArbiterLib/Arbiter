@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+build_dir=$1
+if [[ -z "$build_dir" ]]; then
+  echo "Usage: $0 <built-tests-directory>"
+  exit 1
+fi
+
+# Run each test. This script assumes tests end with "Test" and are executable.
+for test in `find $build_dir -name "*Test" -type f -perm +111`; do
+  echo
+  echo "$test"
+  exec $test
+done
+

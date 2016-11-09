@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -e
+
+wget https://cmake.org/files/v3.6/cmake-3.6.2.tar.gz
+tar xf cmake-3.6.2.tar.gz
+cd cmake-3.6.2
+./configure
+make
+make install
+cd -
+
