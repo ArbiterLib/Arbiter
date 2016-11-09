@@ -13,8 +13,11 @@ function(add_googletest test_source)
   add_test("${test_name}" "${test_name}" COMMAND "${test_name}")
 endfunction()
 
-file(GLOB test_sources *.cpp)
-list(REMOVE_ITEM test_sources TestValue.cpp)
+set(test_sources
+  CarthageGraphTest.cpp
+  RequirementTest.cpp
+  ResolverTest.cpp
+  VersionTest.cpp)
 foreach(test_source ${test_sources})
   add_googletest("${test_source}")
 endforeach()
